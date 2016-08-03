@@ -1,0 +1,28 @@
+package net.yet.ui.widget.recycler
+
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.widget.ImageView
+import net.yet.ext.size
+import net.yet.theme.Dim
+import net.yet.ui.ext.*
+import net.yet.util.app.App
+
+/**
+ * Created by yet on 2015/10/28.
+ */
+class ImageItemAction(context: Context) : ImageView(context) {
+	init {
+		adjustViewBounds = true
+		scaleType = ImageView.ScaleType.CENTER_INSIDE
+		this.minimumHeight = App.dp2px(40)
+		this.minimumWidth = App.dp2px(40)
+		padding(8, 8, 8, 8)
+		linearParam().width_(50).height_(40).gravityCenter().set(this)
+	}
+
+	fun icon(d: Drawable): ImageItemAction {
+		setImageDrawable(d.size(Dim.iconSizeMid))
+		return this
+	}
+}
