@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.yangentao'
+group = 'com.github.yangentao'
 //version = '1.0'
 
 android {
@@ -45,12 +45,13 @@ dependencies {
 }
 
 buildscript {
+    ext.kotlin_version = '1.0.3'
     repositories {
         mavenCentral()
     }
     dependencies {
-//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
-//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
     }
 }
 repositories {

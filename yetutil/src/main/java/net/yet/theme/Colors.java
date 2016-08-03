@@ -36,7 +36,8 @@ public class Colors {
 	public static int TextColorMid = 0xFF555555;
 	public static int TextColorMinor = 0xFF777777;
 	public static int TextColor = TextColorMajor;
-	public static int EditBorder = 0xFF53A5CA;
+
+	public static int EditFocus = 0xFF38C4B0;
 
 
 

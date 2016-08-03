@@ -146,7 +146,7 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 	}
 
 	fun addVerifyCode(timeDownKey: String, phoneEditKey: String, marginTop: Int, block: (String) -> Unit) {
-		val llDraw = RectDrawable(Colors.TRANS).corner(InputSize.EditCorner).stroke(1, Colors.EditBorder).value
+		val llDraw = RectDrawable(Colors.TRANS).corner(InputSize.EditCorner).stroke(1, Colors.EditFocus).value
 		val editDraw = RectDrawable(Colors.WHITE).corners(InputSize.EditCorner, 0, 0, InputSize.EditCorner).value
 		val btnNormalDraw = RectDrawable(Colors.Theme).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
 		val btnPressDraw = RectDrawable(Colors.Fade).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value

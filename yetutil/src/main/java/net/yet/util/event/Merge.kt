@@ -11,20 +11,12 @@ private class MergeItem(val block: (String) -> Unit) {
 	val nano: Long = System.nanoTime()
 }
 
-private val mergeMap = HashMap<String, MergeItem>()
+private val mergeMap = Hashtable<String, MergeItem>()
 
 fun mergeAction(key: String, ms: Long = 300, block: (String) -> Unit) {
-	val item = MergeItem(block)
-	synchronized(mergeMap) {
-		mergeMap[key] = item
-	}
+	mergeMap[key] = MergeItem(block)
 	foreDelay(ms) {
-		synchronized(mergeMap) {
-			val item2 = mergeMap[key]
-			if (item2 === item) {
-				mergeMap.remove(key)
-				item.block.invoke(key)
-			}
-		}
+		val item = mergeMap.remove(key)
+		item?.block?.invoke(key)
 	}
 }

@@ -32,7 +32,7 @@ object ResConst {
 
 	fun input(): Drawable {
 		val normal = RectDrawable(Colors.WHITE).corner(InputSize.EditCorner).stroke(1, Colors.GRAY).value
-		val focused = RectDrawable(Colors.WHITE).corner(InputSize.EditCorner).stroke(2, Colors.Theme).value
+		val focused = RectDrawable(Colors.WHITE).corner(InputSize.EditCorner).stroke(2, Colors.EditFocus).value
 		return StateImage(normal).focused(focused, true).get()
 	}
 
