@@ -1,2 +1,2 @@
-include :yetlib'
+include ':yetlib'
 rootProject.name = 'yetlib'
