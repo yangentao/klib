@@ -22,32 +22,37 @@ import net.yet.util.app.App
 
 fun <T : TextView> T.gravity(n: Int): T {
 	this.gravity = n
-	return this;
+	return this
 }
 
 fun <T : TextView> T.gravityCenterVertical(): T {
 	this.gravity = Gravity.CENTER_VERTICAL
-	return this;
+	return this
 }
 
 fun <T : TextView> T.gravityCenterHorizontal(): T {
 	this.gravity = Gravity.CENTER_HORIZONTAL
-	return this;
+	return this
 }
 
 fun <T : TextView> T.gravityLeftCenter(): T {
 	this.gravity = Gravity.LEFT or Gravity.CENTER
-	return this;
+	return this
 }
 
 fun <T : TextView> T.gravityRightCenter(): T {
 	this.gravity = Gravity.RIGHT or Gravity.CENTER
-	return this;
+	return this
 }
 
 fun <T : TextView> T.gravityCenter(): T {
 	this.gravity = Gravity.CENTER
-	return this;
+	return this
+}
+
+fun <T : TextView> T.gravityTopLeft(): T {
+	this.gravity = Gravity.TOP or Gravity.LEFT
+	return this
 }
 
 fun <T : TextView> T.miniWidthDp(widthDp: Int): T {
@@ -64,6 +69,7 @@ fun <T : TextView> T.inputTypePassword(): T {
 	this.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 	return this
 }
+
 fun <T : TextView> T.inputTypePasswordNumber(): T {
 	this.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
 	return this
@@ -87,7 +93,7 @@ fun <T : TextView> T.inputTypeNumber(): T {
 
 fun <T : TextView> T.textSizeSp(sp: Int): T {
 	this.setTextSize(TypedValue.COMPLEX_UNIT_SP, sp.toFloat())
-	return this;
+	return this
 }
 
 fun <T : TextView> T.textSizeA(): T {
@@ -127,13 +133,13 @@ fun <T : TextView> T.maxLines(maxLines: Int): T {
 
 fun <T : TextView> T.textColor(color: Int): T {
 	this.setTextColor(color)
-	return this;
+	return this
 }
 
 
 fun <T : TextView> T.textColor(color: Int, pressed: Int): T {
 	this.setTextColor(ColorList(color, pressed))
-	return this;
+	return this
 }
 
 fun <T : TextView> T.textColor(ls: ColorStateList): T {
@@ -143,27 +149,27 @@ fun <T : TextView> T.textColor(ls: ColorStateList): T {
 
 fun <T : TextView> T.textColorWhite(): T {
 	this.setTextColor(Colors.WHITE)
-	return this;
+	return this
 }
 
 fun <T : TextView> T.textColorMajor(): T {
 	this.setTextColor(Colors.TextColorMajor)
-	return this;
+	return this
 }
 
 fun <T : TextView> T.textColorMinor(): T {
 	this.setTextColor(Colors.TextColorMinor)
-	return this;
+	return this
 }
 
 fun <T : TextView> T.textColorMid(): T {
 	this.setTextColor(Colors.TextColorMid)
-	return this;
+	return this
 }
 
 fun <T : TextView> T.textColorSafe(): T {
 	this.setTextColor(Colors.Safe)
-	return this;
+	return this
 }
 
 
@@ -174,7 +180,7 @@ fun <T : TextView> T.textColorMajorFade(): T {
 
 fun <T : TextView> T.singleLine(): T {
 	this.setSingleLine(true)
-	return this;
+	return this
 }
 
 fun <T : TextView> T.ellipsizeStart(): T {
