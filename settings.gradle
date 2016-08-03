@@ -1,2 +1,2 @@
 include ':app', ':yetutil'
-rootProject.name = 'yetlib'
+rootProject.name = 'klib'
