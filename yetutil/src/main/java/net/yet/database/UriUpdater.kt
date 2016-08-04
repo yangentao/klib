@@ -19,19 +19,35 @@ object UriUpdater {
 		return insert(uri, values.contentValues())
 	}
 
-	@JvmStatic fun update(uri: Uri, values: ContentValues, w: WhereNode? = null): Int {
+	@JvmStatic fun update(uri: Uri, values: ContentValues): Int {
+		return update(uri, values, null)
+	}
+
+	@JvmStatic fun update(uri: Uri, values: ContentValues, w: WhereNode?): Int {
 		return App.getContentResolver().update(uri, values, w?.toString(), w?.toArgArray)
 	}
 
-	@JvmStatic fun update(uri: Uri, values: Values, w: WhereNode? = null): Int {
+	@JvmStatic fun update(uri: Uri, values: Values): Int {
+		return update(uri, values, null)
+	}
+
+	@JvmStatic fun update(uri: Uri, values: Values, w: WhereNode?): Int {
 		return update(uri, values.contentValues(), w)
 	}
 
-	@JvmStatic fun update(uri: Uri, values: Map<String, Any>, w: WhereNode? = null): Int {
+	@JvmStatic fun update(uri: Uri, values: Map<String, Any>): Int {
+		return update(uri, values, null)
+	}
+
+	@JvmStatic fun update(uri: Uri, values: Map<String, Any>, w: WhereNode?): Int {
 		return update(uri, Values(values), w)
 	}
 
-	@JvmStatic fun update(uri: Uri, key: String, value: Any, w: WhereNode? = null): Int {
+	@JvmStatic fun update(uri: Uri, key: String, value: Any): Int {
+		return update(uri, key, value, null)
+	}
+
+	@JvmStatic fun update(uri: Uri, key: String, value: Any, w: WhereNode?): Int {
 		return update(uri, Values(key to value), w)
 	}
 

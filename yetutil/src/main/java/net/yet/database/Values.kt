@@ -9,8 +9,10 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import net.yet.ext.*
-import net.yet.util.*
+import net.yet.util.Util
 import net.yet.util.app.OS
+import net.yet.util.loge
+import net.yet.util.xlog
 import java.io.Serializable
 
 /**
@@ -316,6 +318,10 @@ class Values(n: Int = 8) {
 			}
 		}
 		return null
+	}
+
+	fun getString(key: String, fallback: String?): String? {
+		return getString(key) ?: fallback
 	}
 
 
