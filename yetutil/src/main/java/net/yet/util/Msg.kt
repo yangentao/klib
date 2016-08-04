@@ -73,44 +73,44 @@ interface MsgListener {
 
 
 object MsgCenter {
-	val map = MultiMap<String, MsgListener>()
+	private val map = MultiMap<String, MsgListener>()
 
-	fun listen(listener: MsgListener, vararg msgs: String) {
+	@JvmStatic fun listen(listener: MsgListener, vararg msgs: String) {
 		for (m in msgs) {
 			listen(m, listener)
 		}
 	}
 
-	fun listen(listener: MsgListener, vararg msgs: Class<*>) {
+	@JvmStatic fun listen(listener: MsgListener, vararg msgs: Class<*>) {
 		for (m in msgs) {
 			listen(m, listener)
 		}
 	}
 
-	fun listen(msg: String, listener: MsgListener) {
+	@JvmStatic fun listen(msg: String, listener: MsgListener) {
 		sync(this) {
 			map[msg] = listener
 		}
 	}
 
-	fun listen(cls: Class<*>, listener: MsgListener) {
+	@JvmStatic fun listen(cls: Class<*>, listener: MsgListener) {
 		listen(cls.name, listener)
 	}
 
 
-	fun remove(listener: MsgListener) {
+	@JvmStatic fun remove(listener: MsgListener) {
 		sync(this) {
 			map.removeValue(listener)
 		}
 	}
 
-	fun remove(msg: String, listener: MsgListener) {
+	@JvmStatic fun remove(msg: String, listener: MsgListener) {
 		sync(this) {
 			map.removeValue(msg, listener)
 		}
 	}
 
-	fun fireCurrent(msg: Msg) {
+	@JvmStatic fun fireCurrent(msg: Msg) {
 		log("fireMsg:", msg.msg)
 		var ls2 = ArrayList<MsgListener>()
 		sync(this) {
@@ -124,21 +124,21 @@ object MsgCenter {
 		}
 	}
 
-	fun fire(msg: Msg) {
+	@JvmStatic fun fire(msg: Msg) {
 		fore {
 			fireCurrent(msg)
 		}
 	}
 
-	fun fire(msg: String) {
+	@JvmStatic fun fire(msg: String) {
 		fire(Msg(msg))
 	}
 
-	fun fire(cls: Class<*>) {
+	@JvmStatic fun fire(cls: Class<*>) {
 		fire(Msg(cls))
 	}
 
-	fun fireMerge(msg: Msg, delay: Long = 200) {
+	@JvmStatic fun fireMerge(msg: Msg, delay: Long = 200) {
 		mergeAction("MsgCenter.mergeAction" + msg.msg, delay) {
 			fire(msg)
 		}
