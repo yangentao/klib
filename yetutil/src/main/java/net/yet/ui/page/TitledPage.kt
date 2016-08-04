@@ -22,34 +22,29 @@ import net.yet.util.fore
 
 
 open class TitledPage : BaseFragment() {
-	protected var _rootView: LinearLayout? = null
+	protected lateinit var relativeLayout: RelativeLayout
+	lateinit var contentView: LinearLayout
 		private set
-	protected var relativeLayout: RelativeLayout? = null
-	var _contentView: LinearLayout? = null
+	lateinit var titleBar: TitleBar
 		private set
-	var _titleBar: TitleBar? = null
+	lateinit var bottomBar: BottomBar
 		protected set
-	var _bottomBar: BottomBar? = null
+	lateinit var topProgressBar: MyProgressBar
 		protected set
-	var _topProgressBar: MyProgressBar? = null
-		protected set
+	lateinit var rootView: LinearLayout
+		private set
 
-	val contentView: LinearLayout get() = _contentView!!
-	val titleBar: TitleBar get() = _titleBar!!
-	val rootView: LinearLayout get() = _rootView!!
-	val bottomBar: BottomBar get() = _bottomBar!!
-	val topProgressBar: MyProgressBar get() = _topProgressBar!!
 
-	protected var snack: Snack? = null
+	protected lateinit var snack: Snack
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		super.onCreateView(inflater, container, savedInstanceState)
-		_rootView = linearVer().apply {
+		rootView = linearVer().apply {
 			backColorWhite()
 		}
 		linearParam().fill().set(rootView)
 
-		_titleBar = TitleBar(activity)
+		titleBar = TitleBar(activity)
 		titleBar.onAction = {
 			b, a ->
 			this@TitledPage.onTitleBarAction(b, a)
@@ -64,17 +59,17 @@ open class TitledPage : BaseFragment() {
 		snack = Snack(activity).gone()
 		rootView.addView(snack)
 
-		_topProgressBar = MyProgressBar(activity).gone()
+		topProgressBar = MyProgressBar(activity).gone()
 		topProgressBar.setBackDrawable(MyProgressBar.makeDrawable(0, Color.WHITE))
 		topProgressBar.setForeDrawable(MyProgressBar.makeDrawable(0, Colors.Progress))
 		rootView.addViewParam(topProgressBar) { widthFill().heightDp(6) };
 
-		_contentView = linearVer()
+		contentView = linearVer()
 		relativeLayout = relativeLayout()
-		relativeLayout?.addViewParam(contentView) { this.fill() }
-		rootView.addViewParam(relativeLayout!!) { widthFill().heightDp(0).weight(1f) }
+		relativeLayout.addViewParam(contentView) { this.fill() }
+		rootView.addViewParam(relativeLayout) { widthFill().heightDp(0).weight(1f) }
 
-		_bottomBar = BottomBar(this.activity)
+		bottomBar = BottomBar(this.activity)
 		rootView.addView(bottomBar)
 		bottomBar.hide()
 		bottomBar.onAction = {

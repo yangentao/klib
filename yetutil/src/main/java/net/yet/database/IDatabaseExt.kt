@@ -96,11 +96,11 @@ interface IDatabaseExt {
 	}
 
 	fun delete(table: String, w: WhereNode): Int {
-		return delete(table, w.s, *w.argsArray)
+		return delete(table, w.s, *w.toArgArray)
 	}
 
 	fun update(table: String, values: ContentValues, w: WhereNode): Int {
-		return update(table, values, w.toString(), *w.argsArray)
+		return update(table, values, w.toString(), *w.toArgArray)
 	}
 
 	fun update(table: String, values: Values, w: WhereNode): Int {

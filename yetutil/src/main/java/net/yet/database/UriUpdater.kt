@@ -20,7 +20,7 @@ object UriUpdater {
 	}
 
 	fun update(uri: Uri, values: ContentValues, w: WhereNode? = null): Int {
-		return App.getContentResolver().update(uri, values, w?.toString(), w?.argsArray)
+		return App.getContentResolver().update(uri, values, w?.toString(), w?.toArgArray)
 	}
 
 	fun update(uri: Uri, values: Values, w: WhereNode? = null): Int {
@@ -48,7 +48,7 @@ object UriUpdater {
 	}
 
 	fun delete(uri: Uri, w: WhereNode): Int {
-		return App.getContentResolver().delete(uri, w.toString(), w.argsArray)
+		return App.getContentResolver().delete(uri, w.toString(), w.toArgArray)
 	}
 
 	fun delete(uri: Uri, id: Long): Int {

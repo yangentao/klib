@@ -5,10 +5,27 @@ import java.util.*
 
 class WhereNode(val s: String) {
 	val args = ArrayList<String>()
-	val argsArray: Array<String> get() = Array<String>(args.size) { args[it] }
+	val toArgArray: Array<String> get() = Array<String>(args.size) { args[it] }
+
+	fun addArg(s: String): WhereNode {
+		args.add(s)
+		return this
+	}
+
+	fun addArg(n: Long): WhereNode {
+		args.add("" + n)
+		return this
+	}
+
 	override fun toString(): String {
 		return s
 	}
+}
+
+infix fun String.LIKE(value: String): WhereNode {
+	val n = WhereNode("$this LIKE $value")
+	n.args.add(value)
+	return n
 }
 
 infix fun String.EQ(value: String?): WhereNode {

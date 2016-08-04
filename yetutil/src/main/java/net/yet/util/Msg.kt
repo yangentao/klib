@@ -9,8 +9,8 @@ import java.util.*
 
 class Msg(val msg: String) {
 	var result = ArrayList<Any>()
-	var n1: Int = 0
-	var n2: Int = 0
+	var n1: Long = 0
+	var n2: Long = 0
 	var s1: String = ""
 	var s2: String = ""
 	var b1: Boolean = false
@@ -33,7 +33,7 @@ class Msg(val msg: String) {
 		return this
 	}
 
-	fun argN(n1: Int, n2: Int = 0): Msg {
+	fun argN(n1: Long, n2: Long = 0): Msg {
 		this.n1 = n1
 		this.n2 = n2
 		return this

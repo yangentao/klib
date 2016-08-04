@@ -7,7 +7,8 @@ import net.yet.ext.putDouble
 import net.yet.ext.putLong
 import net.yet.ext.putNull
 import net.yet.ext.putString
-import net.yet.util.*
+import net.yet.util.Util
+import net.yet.util.xlog
 import java.util.*
 
 /**
@@ -66,6 +67,12 @@ class CursorResult(cursor: Cursor?) {
 
 	fun close() {
 		c.close()
+	}
+
+	fun countAndClose(): Int {
+		val n = c.count
+		close()
+		return n
 	}
 
 

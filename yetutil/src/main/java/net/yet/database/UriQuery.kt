@@ -143,4 +143,14 @@ class UriQuery(val uri: Uri) {
 		return resultOne().longValue(fallback)
 	}
 
+	fun resultCount(): Int {
+		return result().countAndClose()
+	}
+
+	companion object {
+		@JvmStatic fun select(uri: Uri, vararg cols: String): UriQuery {
+			return UriQuery(uri).colunms(*cols)
+		}
+	}
+
 }
