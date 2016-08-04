@@ -394,28 +394,28 @@ class NotifyUtil(val id: Int) {
 
 		private val callbackMap = SparseArray<NotifyCallback>()
 
-		private val ID_KEY = "notify.id"
+		private const val ID_KEY = "notify.id"
 
 		private var smallIcon = 0
 		private var largeIcon = 0
 
-		fun registerCallback(id: Int, callback: NotifyCallback) {
+		@JvmStatic fun registerCallback(id: Int, callback: NotifyCallback) {
 			callbackMap.put(id, callback)
 		}
 
-		fun removeCallback(id: Int) {
+		@JvmStatic fun removeCallback(id: Int) {
 			callbackMap.remove(id)
 		}
 
-		fun setDefaultIconSmall(res: Int) {
+		@JvmStatic fun setDefaultIconSmall(res: Int) {
 			smallIcon = res
 		}
 
-		fun setDefaultIconLarge(res: Int) {
+		@JvmStatic fun setDefaultIconLarge(res: Int) {
 			largeIcon = res
 		}
 
-		fun processNotifyIntent(intent: Intent): Boolean {
+		@JvmStatic fun processNotifyIntent(intent: Intent): Boolean {
 			val id = getId(intent)
 			if (id > 0) {
 				val c = callbackMap.get(id)
@@ -432,15 +432,15 @@ class NotifyUtil(val id: Int) {
 
 		 * @return 没有返回0
 		 */
-		fun getId(intent: Intent): Int {
+		@JvmStatic fun getId(intent: Intent): Int {
 			return intent.getIntExtra(ID_KEY, 0)
 		}
 
-		fun id(id: Int): NotifyUtil {
+		@JvmStatic fun id(id: Int): NotifyUtil {
 			return NotifyUtil(id)
 		}
 
-		fun cancel(id: Int) {
+		@JvmStatic fun cancel(id: Int) {
 			val nm = Util.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 			nm.cancel(id)
 		}

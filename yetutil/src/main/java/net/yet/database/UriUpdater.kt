@@ -19,6 +19,22 @@ object UriUpdater {
 		return insert(uri, values.contentValues())
 	}
 
+	@JvmStatic fun insert(uri: Uri, key: String, value: String): Uri {
+		return insert(uri, key to value)
+	}
+
+	@JvmStatic fun insert(uri: Uri, key: String, value: Long): Uri {
+		return insert(uri, key to value)
+	}
+
+	@JvmStatic fun insert(uri: Uri, key: String, value: String, key2: String, value2: String): Uri {
+		return insert(uri, key to value, key2 to value2)
+	}
+
+	@JvmStatic fun insert(uri: Uri, key: String, value: String, key2: String, value2: Long): Uri {
+		return insert(uri, key to value, key2 to value2)
+	}
+
 	@JvmStatic fun update(uri: Uri, values: ContentValues): Int {
 		return update(uri, values, null)
 	}
