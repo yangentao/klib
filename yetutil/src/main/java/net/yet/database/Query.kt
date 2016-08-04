@@ -44,6 +44,14 @@ class Query(val db: SQLiteDatabase, vararg columns: String) {
 		return this
 	}
 
+	fun whereEq(key: String, value: String): Query {
+		return where(key EQ value)
+	}
+
+	fun whereEq(key: String, value: Long): Query {
+		return where(key EQ value)
+	}
+
 
 	fun limit(limit: Int): Query {
 		if (limit > 0) {
@@ -111,6 +119,18 @@ class Query(val db: SQLiteDatabase, vararg columns: String) {
 
 	fun resultAll(): CursorResult {
 		return CursorResult(query())
+	}
+
+	fun resultString(): String? {
+		return resultOne().strValue()
+	}
+
+	fun resultLong(failVal: Long): Long {
+		return resultOne().longValue(failVal)
+	}
+
+	fun resultLong(failVal: Int): Int {
+		return resultOne().intValue(failVal)
 	}
 
 	fun buildSql(): String {
