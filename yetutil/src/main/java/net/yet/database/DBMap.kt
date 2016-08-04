@@ -90,5 +90,8 @@ class DBMap(val table: String) : MapLike<String> {
 
 	companion object {
 		private var liteBase: LiteBase = LiteBase("dbmap.db")
+		@JvmStatic fun tab(name: String): DBMap {
+			return DBMap(name)
+		}
 	}
 }
