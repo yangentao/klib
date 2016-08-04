@@ -14,7 +14,7 @@ import java.util.*
 
  * @author yangentao@gmail.com
  */
-class EventMerge {
+class EventMerge(delay: Int = 200) {
 	// 要激发的新消息
 	private val msgFireSet = HashSet<String>()
 	private var backRun: Runnable? = null
@@ -56,7 +56,7 @@ class EventMerge {
 
 	private val amCallback = Runnable { TaskUtil.backFore(invoker) }
 
-	private val am = ActionMerger(0, amCallback)
+	private val am = ActionMerger(delay, amCallback)
 
 	private val msgListener = object : MsgListener {
 
@@ -164,10 +164,8 @@ class EventMerge {
 		 * *
 		 * @return
 		 */
-		@JvmOverloads fun delay(millSeconds: Int = 100): EventMerge {
-			val inst = EventMerge()
-			inst.am.setDelay(millSeconds)
-			return inst
+		@JvmStatic fun delay(delay: Int): EventMerge {
+			return EventMerge(delay)
 		}
 	}
 
