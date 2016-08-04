@@ -55,6 +55,14 @@ object UriUpdater {
 		return update(uri, Values(*keyValues), _ID EQ id)
 	}
 
+	@JvmStatic fun update(uri: Uri, id: Long, name: String, value: Long): Int {
+		return update(uri, id, name to value)
+	}
+
+	@JvmStatic fun update(uri: Uri, id: Long, name: String, value: String): Int {
+		return update(uri, id, name to value)
+	}
+
 	@JvmStatic fun update(uri: Uri, id: Long, values: Values): Int {
 		return update(uri, values, _ID EQ id)
 	}
