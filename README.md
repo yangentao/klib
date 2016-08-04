@@ -1,1 +1,1 @@
-# yetlib
+# yetlib kotlin utils on Android
