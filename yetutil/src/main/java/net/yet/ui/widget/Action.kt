@@ -33,6 +33,8 @@ import java.util.*
  * Created by yet on 2015/10/12.
  */
 class Action(val tag: String) {
+
+	var group: String = ""
 	/**
 	 * 作为菜单时有效
 	 */
@@ -122,6 +124,26 @@ class Action(val tag: String) {
 		}
 	}
 
+	fun argS(s: String): Action {
+		this.argS = s
+		return this
+	}
+
+	fun argN(n: Long): Action {
+		this.argN = n
+		return this
+	}
+
+	fun argB(b: Boolean): Action {
+		this.argB = b
+		return this
+	}
+
+	fun argObj(obj: Any): Action {
+		this.argObj = obj
+		return this
+	}
+
 	fun switchCheck(on: Boolean): Action {
 		isSwitch = true
 		checked = on
@@ -155,6 +177,11 @@ class Action(val tag: String) {
 		fore {
 			onUpdate(this@Action)
 		}
+	}
+
+	fun group(group: String): Action {
+		this.group = group
+		return this
 	}
 
 	fun selected(selected: Boolean): Action {
