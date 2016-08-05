@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
 import net.yet.R
+import net.yet.ui.dialogs.OKDialog
 import net.yet.util.*
 import net.yet.util.app.App
 import net.yet.util.event.EventMerge
@@ -40,6 +41,14 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 
 	override fun onMsg(msg: Msg) {
 		xlog.d("Message:", msg)
+	}
+	fun alert(title:String, msg:String) {
+		val dlg = OKDialog()
+		dlg.show(this, title, msg)
+	}
+	fun alert(title:String) {
+		val dlg = OKDialog()
+		dlg.show(this, title, null)
 	}
 
 

@@ -130,7 +130,7 @@ open class ViewContent(val activity: Activity, val arguments: Map<String, Any>) 
 	fun onSaveInstanceState(outState: Bundle) {
 	}
 
-	fun onViewStateRestored(savedInstanceState: Bundle) {
+	fun onViewStateRestored(savedInstanceState: Bundle?) {
 	}
 
 	fun onActivityReenter(resultCode: Int, data: Intent) {

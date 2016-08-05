@@ -20,6 +20,11 @@ import net.yet.util.app.App
  */
 
 
+fun <T : TextView> T.clickable(b: Boolean = true): T {
+	this.isClickable = b
+	return this
+}
+
 fun <T : TextView> T.gravity(n: Int): T {
 	this.gravity = n
 	return this
@@ -96,6 +101,10 @@ fun <T : TextView> T.textSizeSp(sp: Int): T {
 	return this
 }
 
+fun <T : TextView> T.textSize_(n: Int): T {
+	return this.textSizeSp(n)
+}
+
 fun <T : TextView> T.textSizeA(): T {
 	return this.textSizeSp(Dim.textSizeA)
 }
@@ -132,6 +141,11 @@ fun <T : TextView> T.maxLines(maxLines: Int): T {
 }
 
 fun <T : TextView> T.textColor(color: Int): T {
+	this.setTextColor(color)
+	return this
+}
+
+fun <T : TextView> T.textColor_(color: Int): T {
 	this.setTextColor(color)
 	return this
 }
@@ -204,6 +218,11 @@ fun <T : TextView> T.ellipsizeMarquee(): T {
 }
 
 fun <T : TextView> T.text(text: String?): T {
+	setText(text)
+	return this
+}
+
+fun <T : TextView> T.text_(text: String?): T {
 	setText(text)
 	return this
 }

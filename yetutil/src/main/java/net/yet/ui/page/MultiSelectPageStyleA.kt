@@ -23,7 +23,6 @@ abstract class MultiSelectPageStyleA<T> : CheckListPage<T>() {
 		setMultiChoiceMode(true)
 
 		titleBar.addActions(CANCLE, DONE)
-		titleBar.commit()
 
 	}
 

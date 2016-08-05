@@ -8,13 +8,13 @@ import java.util.*
  */
 
 class Msg(val msg: String) {
-	var result = ArrayList<Any>()
-	var n1: Long = 0
-	var n2: Long = 0
-	var s1: String = ""
-	var s2: String = ""
-	var b1: Boolean = false
-	var b2: Boolean = false
+	@JvmField var result = ArrayList<Any>()
+	@JvmField var n1: Long = 0
+	@JvmField var n2: Long = 0
+	@JvmField var s1: String = ""
+	@JvmField var s2: String = ""
+	@JvmField var b1: Boolean = false
+	@JvmField var b2: Boolean = false
 
 	constructor(cls: Class<*>) : this(cls.name) {
 	}
@@ -46,6 +46,11 @@ class Msg(val msg: String) {
 	}
 
 	fun addResult(value: Any): Msg {
+		this.result.add(value)
+		return this
+	}
+
+	fun ret(value: Any): Msg {
 		this.result.add(value)
 		return this
 	}
@@ -108,6 +113,10 @@ object MsgCenter {
 		sync(this) {
 			map.removeValue(msg, listener)
 		}
+	}
+
+	@JvmStatic fun remove(cls: Class<*>, listener: MsgListener) {
+		remove(cls.name, listener)
 	}
 
 	@JvmStatic fun fireCurrent(msg: Msg) {

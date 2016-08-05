@@ -37,7 +37,6 @@ class WebPage : TitledPage() {
 		super.onCreateContent(context, contentView)
 		titleBar.showBack()
 		titleBar.title = title ?: ""
-		titleBar.commit()
 		webView = WebView(context).genId()
 		contentView.addView(webView, linearParam().widthFill().heightDp(0).weight_(1))
 

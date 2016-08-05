@@ -30,7 +30,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	private var navBack: Action? = null
 	private var showInputBack = false
 
-	var titleAlignCenter = true
+	var titleAlignCenter = titleCenter
 	var navLargeIcon = false
 
 	private var switchItems: List<String> = emptyList()
@@ -176,7 +176,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 			icon?.size(IMAGE_BOUNDS)
 			val iv = context.createImageView()
 			iv.padding(PAD_HOR, PAD_VER, PAD_HOR, PAD_VER)
-			if(navLargeIcon && isNavAction(action)) {
+			if (navLargeIcon && isNavAction(action)) {
 				iv.padding(4)
 			}
 			iv.setImageDrawable(icon)
@@ -333,9 +333,10 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 
 
 	companion object {
+		var titleCenter = false
 		var TEXT_COLOR = Colors.Title
 		var BG_COLOR = Colors.Theme
-		var BG_PRESSED = Color.rgb(220, 100, 100)//Color.LTGRAY; // C.fadeColor;
+		var BG_PRESSED = Colors.Fade
 
 		val HEIGHT = 50// dp
 		val IMAGE_BOUNDS = 24// dp

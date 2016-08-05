@@ -17,31 +17,27 @@ import net.yet.theme.Dim;
 import net.yet.ui.res.Img;
 import net.yet.util.app.App;
 
-import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 // 没有特定标注的单位, 一般是dp, 字体是sp
 public class ViewWrap {
-	public WeakReference<View> v;
+	public  View v;
 
 	public ViewWrap() {
 	}
 
 	public ViewWrap(View view) {
-		v = new WeakReference<View>(view);
+		v = view;
 	}
 
 	public TextView asText() {
-		return (TextView) v.get();
+		return (TextView) v;
 	}
 
 	public ImageView asImage() {
-		return (ImageView) v.get();
+		return (ImageView) v;
 	}
 
 	public LinearLayout asLinear() {
-		return (LinearLayout) v.get();
+		return (LinearLayout) v;
 	}
 
 	public ViewWrap miniWidthTV(int widthDp) {
@@ -55,7 +51,7 @@ public class ViewWrap {
 	}
 
 	public ViewWrap tag(Object obj) {
-		v.get().setTag(obj);
+		v.setTag(obj);
 		return this;
 	}
 
@@ -75,7 +71,7 @@ public class ViewWrap {
 	}
 
 	public ViewWrap clickable() {
-		v.get().setClickable(true);
+		v.setClickable(true);
 		return this;
 	}
 
@@ -171,18 +167,15 @@ public class ViewWrap {
 	}
 
 	public ViewWrap gravity(int gravity) {
-		try {
-			Method m = v.getClass().getMethod("setGravity", int.class);
-			m.invoke(v, gravity);
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-			throw new IllegalAccessError("no method setGravity to invoke!");
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+		View view = v;
+		if (view instanceof TextView) {
+			TextView textView = (TextView) view;
+			textView.setGravity(gravity);
+		} else if (view instanceof LinearLayout) {
+			LinearLayout ll = (LinearLayout) view;
+			ll.setGravity(gravity);
+		} else {
+			throw new IllegalArgumentException("不识别的Gravity");
 		}
 		return this;
 	}
@@ -303,62 +296,62 @@ public class ViewWrap {
 	}
 
 	public ViewWrap backColorTansparent() {
-		v.get().setBackgroundColor(Color.TRANSPARENT);
+		v.setBackgroundColor(Color.TRANSPARENT);
 		return this;
 	}
 
 	public ViewWrap backColorPage() {
-		v.get().setBackgroundColor(Colors.PageGray);
+		v.setBackgroundColor(Colors.PageGray);
 		return this;
 	}
 
 	public ViewWrap backColorFade() {
-		v.get().setBackgroundColor(Colors.Fade);
+		v.setBackgroundColor(Colors.Fade);
 		return this;
 	}
 
 	public ViewWrap backColorWhite() {
-		v.get().setBackgroundColor(Color.WHITE);
+		v.setBackgroundColor(Color.WHITE);
 		return this;
 	}
 
 	public ViewWrap backColorTransFade() {
-		v.get().setBackgroundDrawable(Img.INSTANCE.colorStates(Colors.TRANS, Colors.Fade));
+		v.setBackgroundDrawable(Img.INSTANCE.colorStates(Colors.TRANS, Colors.Fade));
 		return this;
 	}
 
 	public ViewWrap backColorRisk() {
-		v.get().setBackgroundDrawable(Img.INSTANCE.colorStates(Colors.RedMajor, Colors.Fade));
+		v.setBackgroundDrawable(Img.INSTANCE.colorStates(Colors.RedMajor, Colors.Fade));
 		return this;
 	}
 
 	public ViewWrap backColorWhiteFade() {
-		v.get().setBackgroundDrawable(Img.INSTANCE.colorStates(Colors.WHITE, Colors.Fade));
+		v.setBackgroundDrawable(Img.INSTANCE.colorStates(Colors.WHITE, Colors.Fade));
 		return this;
 	}
 
 	public ViewWrap backColor(int normalColor, int pressedColor) {
-		v.get().setBackgroundDrawable(Img.INSTANCE.colorStates(normalColor, pressedColor));
+		v.setBackgroundDrawable(Img.INSTANCE.colorStates(normalColor, pressedColor));
 		return this;
 	}
 
 	public ViewWrap backColor(int color) {
-		v.get().setBackgroundColor(color);
+		v.setBackgroundColor(color);
 		return this;
 	}
 
 	public ViewWrap backDrawable(Drawable d) {
-		v.get().setBackgroundDrawable(d);
+		v.setBackgroundDrawable(d);
 		return this;
 	}
 
 	public ViewWrap backDrawable(Drawable normal, Drawable pressed) {
-		v.get().setBackgroundDrawable(Img.INSTANCE.normalPressed(normal, pressed));
+		v.setBackgroundDrawable(Img.INSTANCE.normalPressed(normal, pressed));
 		return this;
 	}
 
 	public ViewWrap backDrawable(String name) {
-		v.get().setBackgroundDrawable(Img.INSTANCE.namedStates(name, true));
+		v.setBackgroundDrawable(Img.INSTANCE.namedStates(name, true));
 		return this;
 	}
 
@@ -367,7 +360,7 @@ public class ViewWrap {
 	}
 
 	public ViewWrap padding(int left, int top, int right, int bottom) {
-		v.get().setPadding(App.dp2px(left), App.dp2px(top), App.dp2px(right), App.dp2px(bottom));
+		v.setPadding(App.dp2px(left), App.dp2px(top), App.dp2px(right), App.dp2px(bottom));
 		return this;
 	}
 
@@ -376,22 +369,22 @@ public class ViewWrap {
 	}
 
 	public ViewWrap paddingPx(int left, int top, int right, int bottom) {
-		v.get().setPadding(left, top, right, bottom);
+		v.setPadding(left, top, right, bottom);
 		return this;
 	}
 
 	public ViewWrap gone() {
-		v.get().setVisibility(View.GONE);
+		v.setVisibility(View.GONE);
 		return this;
 	}
 
 	public ViewWrap visiable() {
-		v.get().setVisibility(View.VISIBLE);
+		v.setVisibility(View.VISIBLE);
 		return this;
 	}
 
 	public ViewWrap invisiable() {
-		v.get().setVisibility(View.INVISIBLE);
+		v.setVisibility(View.INVISIBLE);
 		return this;
 	}
 }

@@ -58,6 +58,9 @@ fun JsonObject.putArray(key: String, value: JsonArray) {
 }
 
 
+fun JsonObject.optString(key: String, failVal:String): String {
+	return optString(key) ?: failVal
+}
 fun JsonObject.optString(key: String): String? {
 	val je = this.get(key)
 	if (je != null) {

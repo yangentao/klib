@@ -15,17 +15,18 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import net.yet.file.SdAppFile
 import net.yet.theme.Str
 import net.yet.ui.activities.AnimConf
 import net.yet.ui.activities.PageUtil
 import net.yet.ui.activities.TabBarContainerActivity
 import net.yet.ui.dialogs.HorProgressDlg
+import net.yet.ui.dialogs.OKDialog
 import net.yet.ui.dialogs.SpinProgressDlg
 import net.yet.ui.dialogs.StringSelectDialog
 import net.yet.ui.widget.TabBar
 import net.yet.util.*
 import net.yet.util.app.App
-import net.yet.file.SdAppFile
 import net.yet.util.database.Values
 import net.yet.util.event.EventMerge
 import java.io.File
@@ -69,6 +70,15 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+	}
+
+	fun alert(title:String, msg:String) {
+		val dlg = OKDialog()
+		dlg.show(activity, title, msg)
+	}
+	fun alert(title:String) {
+		val dlg = OKDialog()
+		dlg.show(activity, title, null)
 	}
 
 	fun showMenuSelect(vararg items: String, block: (String) -> Unit) {

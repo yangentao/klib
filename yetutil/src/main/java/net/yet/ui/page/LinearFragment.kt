@@ -13,11 +13,11 @@ import net.yet.ui.ext.linearParam
 import net.yet.ui.ext.set
 
 // vertical
-class LinearFragment : BaseFragment() {
+open class LinearFragment : BaseFragment() {
 	private var _rootView: LinearLayout? = null
 	val rootView: LinearLayout get() = _rootView!!
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle): View? {
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		_rootView = this.createLinearVertical()
 		linearParam().fill().set(rootView)
 		rootBackColorWhite()

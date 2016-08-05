@@ -214,7 +214,7 @@ class Action(val tag: String) {
 		return this
 	}
 
-	fun subLabel(newSubLabel: String): Action {
+	fun subLabel(newSubLabel: String?): Action {
 		this.subLabel = newSubLabel
 		return this
 	}
@@ -228,7 +228,7 @@ class Action(val tag: String) {
 		return subIcon(Img.res(res))
 	}
 
-	fun subIcon(subIcon: Drawable): Action {
+	fun subIcon(subIcon: Drawable?): Action {
 		this.subIcon = subIcon
 		return this
 	}

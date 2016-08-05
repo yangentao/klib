@@ -16,8 +16,7 @@ import java.util.*
 @SuppressLint("UseSparseArrays")
 abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
 	private val searchList = LinkedList<String>()
-	private var _indexBar: ListIndexBar<T>? = null
-	val indexBar: ListIndexBar<T> get() = _indexBar!!
+	protected lateinit var indexBar: ListIndexBar<T>
 	private var allItems: List<T>? = null
 
 	protected abstract fun onSelected(selList: List<T>)
@@ -37,7 +36,7 @@ abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
 				search(text)
 			}
 		})
-		_indexBar = object : ListIndexBar<T>(context, listViewParent, listView) {
+		indexBar = object : ListIndexBar<T>(context, listViewParent, listView) {
 
 			override fun makeTagItem(tag: Char): T {
 				return this@FilterIndexMultiSelectPage.makeTagItem(tag)
@@ -54,7 +53,6 @@ abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
 
 		titleBar.addAction(CANCEL)
 		titleBar.addAction(DONE)
-		titleBar.commit()
 
 	}
 
@@ -93,7 +91,7 @@ abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
 		done()
 	}
 
-	protected fun onCustomFilter(items: List<T>): List<T> {
+	protected open fun onCustomFilter(items: List<T>): List<T> {
 		return items
 	}
 
@@ -108,20 +106,20 @@ abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
 		return processIndexBarItems(ls)
 	}
 
-	protected val indexBarLimit: Int
+	open protected val indexBarLimit: Int
 		get() = 0
 
 	protected fun processIndexBarItems(ls: List<T>): List<T> {
 		return indexBar.processItems(ls, indexBarLimit, itemComparator)
 	}
 
-	protected val itemComparator: Comparator<T>?
+	open protected val itemComparator: Comparator<T>?
 		get() = null
 
 	companion object {
 		private val CANCEL = "取消"
 		private val DONE = "完成"
-		protected val NAVBAR_WIDTH = 40
+		const val NAVBAR_WIDTH = 40
 	}
 
 }

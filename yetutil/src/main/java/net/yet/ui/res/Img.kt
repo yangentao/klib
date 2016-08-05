@@ -61,6 +61,10 @@ object Img {
 		return namedStates(name, withStates).size(size, size)
 	}
 
+	@JvmStatic fun colorDrawable(color:Int,  pressed:Int) :Drawable {
+		return normalPressed(ColorDrawable(color), ColorDrawable(pressed))
+	}
+
 	@JvmStatic fun color(color: Int): Drawable {
 		return ColorDrawable(color)
 	}

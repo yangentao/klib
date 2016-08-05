@@ -42,7 +42,7 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
         this.addViewParam(verLayout) { widthFill().heightWrap() }
     }
 
-    fun setValues(name: String, date: String, msg: String, status: String): TitleDateMsgStatusItemView {
+    fun setValues(name: String, date: String, msg: String, status: String?): TitleDateMsgStatusItemView {
         titleView.text = name
         dateView.text = date
         msgView.text = msg
@@ -50,7 +50,7 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
         return this
     }
 
-    fun setValues(name: String, date: Long, msg: String, status: String): TitleDateMsgStatusItemView {
+    fun setValues(name: String, date: Long, msg: String, status: String?): TitleDateMsgStatusItemView {
         val s = if (date == 0L) "" else DateUtil.shortString(date)
         return setValues(name, s, msg, status)
     }

@@ -105,15 +105,15 @@ abstract class SwipeListPageX<T> : ListPage<T>() {
 		}
 	}
 
-	protected fun onSwipeActionAdapter(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
+	open protected fun onSwipeActionAdapter(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
 		xlog.d(position, action.tag)
 	}
 
-	protected fun onSwipeActionHeader(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
+	open protected fun onSwipeActionHeader(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
 
 	}
 
-	protected fun onSwipeActionFooter(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
+	open protected fun onSwipeActionFooter(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
 
 	}
 }

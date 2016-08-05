@@ -15,7 +15,7 @@ import java.util.*
  * 分割线的颜色就是TablePanel的背景色, 可以使用padding属性来设置边框
  * 例子
  */
-class TableFair(context: Context) : TableLayout(context) {
+open class TableFair(context: Context) : TableLayout(context) {
 	var columns = 2
 
 	var horSpace = 1

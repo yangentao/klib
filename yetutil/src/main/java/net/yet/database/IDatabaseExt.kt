@@ -111,6 +111,10 @@ interface IDatabaseExt {
 		return update(table, Values(values), w)
 	}
 
+	fun update(table: String, key: String, value: Any): Int {
+		return update(table, Values(key to value), WhereNode(""))
+	}
+
 	fun update(table: String, key: String, value: Any, w: WhereNode): Int {
 		return update(table, Values(key to value), w)
 	}

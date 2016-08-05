@@ -24,11 +24,9 @@ class DirSelectPage : ListPage<File>() {
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
-		val titleBar = titleBar
 		titleBar.showBack()
 		titleBar.title = file!!.absolutePath + "/"
 		titleBar.addAction(SELECT).icon(SELECT)
-		titleBar.commit()
 		requestItems()
 
 	}

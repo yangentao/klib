@@ -37,7 +37,10 @@ abstract class InputDialog {
 		this.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
 	}
 
-	fun show(context: Context, title: String, defalutValue: String? = null) {
+	fun show(context: Context, title: String) {
+		show(context, title, null)
+	}
+	fun show(context: Context, title: String, defalutValue: String?) {
 		create(context, title, defalutValue).show()
 	}
 

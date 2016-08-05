@@ -14,6 +14,9 @@ import net.yet.ui.res.ResConst
  */
 
 //--------------Fragment----------------
+fun Fragment.createImageButton():ImageButton {
+	return ImageButton(this.activity).genId()
+}
 fun Fragment.createView(): View {
 	return View(this.activity).genId()
 }
@@ -89,7 +92,9 @@ fun Fragment.createCheckbox(): CheckBox {
 }
 
 //--------------View--------------------
-
+fun View.createImageButton():ImageButton {
+	return ImageButton(this.context).genId()
+}
 fun View.createView(): View {
 	return View(this.context).genId()
 }
@@ -166,7 +171,9 @@ fun View.createCheckbox(): CheckBox {
 
 //----------------Context-------------
 
-
+fun Context.createImageButton():ImageButton {
+	return ImageButton(this).genId()
+}
 fun Context.createView(): View {
 	return View(this).genId()
 }

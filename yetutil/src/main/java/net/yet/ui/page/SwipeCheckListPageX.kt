@@ -58,7 +58,7 @@ abstract class SwipeCheckListPageX<T> : CheckListPage<T>() {
 	 * *
 	 * @param item
 	 */
-	protected abstract fun onAddSwipeAction(swipeView: XSwipeItemView, position: Int, item: T)
+	abstract fun onAddSwipeAction(swipeView: XSwipeItemView, position: Int, item: T)
 
 	/**
 	 * 在这里更新Action
@@ -69,7 +69,7 @@ abstract class SwipeCheckListPageX<T> : CheckListPage<T>() {
 	 * *
 	 * @param item
 	 */
-	protected fun onUpdateSwipeView(swipeView: XSwipeItemView, position: Int, item: T) {
+	open fun onUpdateSwipeView(swipeView: XSwipeItemView, position: Int, item: T) {
 	}
 
 	override fun beforeEnterChoiceMode() {
@@ -87,11 +87,11 @@ abstract class SwipeCheckListPageX<T> : CheckListPage<T>() {
 	 * *
 	 * @return
 	 */
-	protected fun needSwipe(position: Int): Boolean {
+	open fun needSwipe(position: Int): Boolean {
 		return true
 	}
 
-	protected fun canSwipe(): Boolean {
+	open fun canSwipe(): Boolean {
 		return true
 	}
 
@@ -112,15 +112,15 @@ abstract class SwipeCheckListPageX<T> : CheckListPage<T>() {
 		}
 	}
 
-	protected fun onSwipeActionAdapter(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action, item: T) {
+	open fun onSwipeActionAdapter(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action, item: T) {
 		xlog.d(position, action.tag)
 	}
 
-	protected fun onSwipeActionHeader(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
+	open fun onSwipeActionHeader(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
 
 	}
 
-	protected fun onSwipeActionFooter(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
+	open fun onSwipeActionFooter(swipeItemView: XSwipeItemView, actionView: View, position: Int, action: Action) {
 
 	}
 }

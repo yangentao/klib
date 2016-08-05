@@ -96,7 +96,7 @@ abstract class CheckListPage<T> : ListPage<T>() {
 		}
 	}
 
-	protected fun isItemCheckable(position: Int): Boolean {
+	open fun isItemCheckable(position: Int): Boolean {
 		return true
 	}
 
@@ -150,7 +150,6 @@ abstract class CheckListPage<T> : ListPage<T>() {
 				bbar.show()
 			}
 
-			val titleBar = titleBar
 			titleBar.pushMode(MODE_SELECT)
 			titleBar.cleanActions()
 			titleBar.showBack()
@@ -180,14 +179,14 @@ abstract class CheckListPage<T> : ListPage<T>() {
 		listView.invalidateViews()
 	}
 
-	protected fun selectAll() {
+	fun selectAll() {
 		for (i in 0..adapter.count - 1) {
 			setItemChecked(i, true, false)
 		}
 		onCheckChanged()
 	}
 
-	protected fun unselectAll() {
+	fun unselectAll() {
 		listView.clearChoices()
 		listView.invalidateViews()
 		for (i in 0..adapter.count - 1) {
@@ -271,33 +270,33 @@ abstract class CheckListPage<T> : ListPage<T>() {
 
 	 * @param bar
 	 */
-	protected open fun onBottomBarCheckModeEnter(bar: BottomBar) {
+	open fun onBottomBarCheckModeEnter(bar: BottomBar) {
 
 	}
 
-	open protected fun onBottomBarCheckModelActionResult(bar: BottomBar, action: Action, items: List<T>) {
+	open fun onBottomBarCheckModelActionResult(bar: BottomBar, action: Action, items: List<T>) {
 
 	}
 
-	protected open fun onBottomBarCheckModelActionEmpty(bar: BottomBar, action: Action) {
+	open fun onBottomBarCheckModelActionEmpty(bar: BottomBar, action: Action) {
 
 	}
 
-	open protected fun beforeEnterChoiceMode() {
+	open fun beforeEnterChoiceMode() {
 	}
 
 	/**
 	 */
-	open protected fun beforeLeaveChoiceMode() {
+	open fun beforeLeaveChoiceMode() {
 	}
 
-	open protected fun afterEnterChoiceMode() {
+	open fun afterEnterChoiceMode() {
 	}
 
 	/**
 	 * 此时, listview的状态已经改成了CHOICE_MODE_NONE.
 	 */
-	open protected fun afterLeaveChoiceMode(items: List<T>) {
+	open fun afterLeaveChoiceMode(items: List<T>) {
 	}
 
 	val isMultiChoiceModel: Boolean
@@ -313,7 +312,7 @@ abstract class CheckListPage<T> : ListPage<T>() {
 	}
 
 	companion object {
-		protected val MODE_SELECT = "select"
+		protected const val MODE_SELECT = "select"
 	}
 
 }

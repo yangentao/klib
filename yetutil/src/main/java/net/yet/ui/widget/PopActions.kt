@@ -33,7 +33,7 @@ class PopActions(private val context: Context) {
 		if (d == null) {
 			d = Img.color(Color.TRANSPARENT)
 		}
-		d = d?.size(TitleBar.IMAGE_BOUNDS)
+		d = d.size(TitleBar.IMAGE_BOUNDS)
 		tv.compoundDrawablePadding = App.dp2px(10)
 		tv.setCompoundDrawables(d, null, null, null)
 		return tv

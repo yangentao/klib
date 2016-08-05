@@ -9,3 +9,4 @@ import android.widget.AbsListView
 fun listParam() :AbsListView.LayoutParams{
 	return AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT)
 }
+//fun AbsListView.LayoutParams.

@@ -95,7 +95,7 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 		emptyView!!.text = text
 	}
 
-	protected fun onAddListView(context: Context, parent: RelativeLayout, listView: ListView) {
+	open protected fun onAddListView(context: Context, parent: RelativeLayout, listView: ListView) {
 		parent.addView(listView, relativeParam().fill())
 	}
 
@@ -147,7 +147,7 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	protected open fun onCreateListViewHeaderFooter(context: Context, listView: ListView) {
 	}
 
-	protected fun onAdapterDataChanged() {
+	protected open fun onAdapterDataChanged() {
 	}
 
 	/**
@@ -236,11 +236,11 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	 */
 	abstract fun bindView(position: Int, itemView: View, parent: ViewGroup, item: T)
 
-	fun getItemViewType(position: Int): Int {
+	open fun getItemViewType(position: Int): Int {
 		return 0
 	}
 
-	val viewTypeCount: Int
+	open val viewTypeCount: Int
 		get() = 1
 
 	/**

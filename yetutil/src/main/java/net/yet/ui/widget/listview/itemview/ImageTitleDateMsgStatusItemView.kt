@@ -54,7 +54,7 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
     }
 
 
-    fun setValues(icon: Drawable, title: String, date: String, msg: String, status: String): ImageTitleDateMsgStatusItemView {
+    fun setValues(icon: Drawable?, title: String, date: String, msg: String, status: String): ImageTitleDateMsgStatusItemView {
         iconView.setImageDrawable(icon)
         titleView.text = title
         dateView.text = date
@@ -63,7 +63,7 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
         return this
     }
 
-    fun setValues(icon: Drawable, title: String, date: Long, msg: String, status: String): ImageTitleDateMsgStatusItemView {
+    fun setValues(icon: Drawable?, title: String, date: Long, msg: String, status: String): ImageTitleDateMsgStatusItemView {
         val s = if (date == 0L) "" else DateUtil.shortString(date)
         return setValues(icon, title, s, msg, status)
     }

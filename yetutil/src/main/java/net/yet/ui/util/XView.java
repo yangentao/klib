@@ -9,7 +9,6 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.atomic.AtomicInteger;
 
 // view 扩展
@@ -90,11 +89,9 @@ public class XView {
 	}
 
 
-	private static ViewWrap viewWrap = new ViewWrap();
 
 	public static ViewWrap view(View v) {
-		viewWrap.v = new WeakReference<View>(v);
-		return viewWrap;
+		return new ViewWrap(v);
 	}
 
 	private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);

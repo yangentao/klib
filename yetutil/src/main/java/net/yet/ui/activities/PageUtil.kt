@@ -10,15 +10,15 @@ import net.yet.util.xlog
  */
 
 object PageUtil {
-	fun open(context: Context, fragment: BaseFragment) {
+	@JvmStatic fun open(context: Context, fragment: BaseFragment) {
 		OpenActivity.openFragment(context, fragment)
 	}
 
-	fun open(context: Context, cls: Class<out BaseFragment>) {
+	@JvmStatic fun open(context: Context, cls: Class<out BaseFragment>) {
 		open(context, cls, null)
 	}
 
-	fun open(context: Context, cls: Class<out BaseFragment>, args: Values?) {
+	@JvmStatic fun open(context: Context, cls: Class<out BaseFragment>, args: Values?) {
 		try {
 			val f = cls.newInstance()
 			f.args.addAll(args)
