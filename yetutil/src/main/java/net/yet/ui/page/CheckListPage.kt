@@ -25,12 +25,15 @@ import java.util.*
  */
 abstract class CheckListPage<T> : ListPage<T>() {
 	private var autoEnterCheckModel = false
-	protected val selSet = HashSet<T>(64)
+	protected val selMap = HashMap<String, T>()
 	private var checkItemPaddingRight = 0
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
 	}
+
+	//用于选择
+	abstract fun itemKey(item: T): String
 
 	//TODO 调用父类的pack/unpack方法
 	override fun packNewView(context: Context, view: View, position: Int, parent: ViewGroup): View {
@@ -56,8 +59,9 @@ abstract class CheckListPage<T> : ListPage<T>() {
 		if (isMultiChoiceModel) {
 			if (!isItemCheckable(adapterPosition)) {
 				setItemChecked(adapterPosition, false, false)
+			} else {
+				onListViewCheckStateChanged(adapterPosition, isListViewItemChecked(adapterPosition), true)
 			}
-			onListViewCheckStateChanged(adapterPosition, isListViewItemChecked(adapterPosition), true)
 			return true
 		}
 		return super.onInterceptItemClick(parent, view, adapterPosition, id)
@@ -79,10 +83,12 @@ abstract class CheckListPage<T> : ListPage<T>() {
 	}
 
 	private fun onListViewCheckStateChanged(adapterPosition: Int, checked: Boolean, fire: Boolean) {
+		val item = adapter.getItem(adapterPosition)
+		val key = itemKey(item)
 		if (checked) {
-			selSet.add(adapter.getItem(adapterPosition))
+			selMap.put(key, item)
 		} else {
-			selSet.remove(adapter.getItem(adapterPosition))
+			selMap.remove(key)
 		}
 		if (fire) {
 			onCheckChanged()
@@ -101,16 +107,16 @@ abstract class CheckListPage<T> : ListPage<T>() {
 	}
 
 	val checkedCount: Int
-		get() = selSet.size
+		get() = selMap.size
 
 	/**
 	 * @return 选中的项目
 	 */
 	val checkedItems: List<T>
-		get() = Util.asList(selSet)
+		get() = Util.asList(selMap.values)
 
 	fun clearCheckedItems() {
-		selSet.clear()
+		selMap.clear()
 	}
 
 	val listViewCheckedCount: Int
@@ -127,9 +133,7 @@ abstract class CheckListPage<T> : ListPage<T>() {
 
 	fun setCheckItemPaddingRight(dp: Int) {
 		this.checkItemPaddingRight = dp
-		if (listView != null) {
-			listView.invalidateViews()
-		}
+		listView.invalidateViews()
 	}
 
 	fun setMultiChoiceMode(choice: Boolean) {
@@ -137,7 +141,7 @@ abstract class CheckListPage<T> : ListPage<T>() {
 			return
 		}
 		if (choice) {
-			selSet.clear()
+			selMap.clear()
 			listView.clearChoices()
 			listView.invalidateViews()
 			val bbar = bottomBar
@@ -173,7 +177,7 @@ abstract class CheckListPage<T> : ListPage<T>() {
 		if (choice) {
 			afterEnterChoiceMode()
 		} else {
-			selSet.clear()
+			selMap.clear()
 			afterLeaveChoiceMode(items ?: emptyList())
 		}
 		listView.invalidateViews()
@@ -200,7 +204,8 @@ abstract class CheckListPage<T> : ListPage<T>() {
 		listView.clearChoices()
 		for (i in 0..adapter.count - 1) {
 			val item = adapter.getItem(i)
-			if (selSet.contains(item)) {
+			val key = itemKey(item)
+			if (selMap.containsKey(key)) {
 				listView.setItemChecked(i + headerCount(), true)
 			}
 		}
@@ -242,7 +247,7 @@ abstract class CheckListPage<T> : ListPage<T>() {
 		if (isMultiChoiceModel) {
 			val bar = titleBar
 			if (bar.isMode(MODE_SELECT)) {
-				val count = selSet.size
+				val count = selMap.size
 				if (count > 0) {
 					bar.title = "选择了($count)个"
 				} else {

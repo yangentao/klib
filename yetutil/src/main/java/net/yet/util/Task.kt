@@ -5,6 +5,7 @@ package net.yet.util
 
 import android.os.Handler
 import android.os.Looper
+import net.yet.util.app.App
 import java.util.*
 import java.util.concurrent.Executors
 
@@ -51,6 +52,14 @@ fun backDelay(delay: Long, callback: () -> Unit) {
 
 fun inMainThread(): Boolean {
 	return Thread.currentThread() == ContextHelper.mainThread
+}
+
+fun debugMustInMainThread(msg:String = "必须在主线程调用") {
+	if(App.debug) {
+		if(!inMainThread()) {
+			debugThrow(msg)
+		}
+	}
 }
 
 inline fun <R> sync(lock: Any, block: () -> R): R {

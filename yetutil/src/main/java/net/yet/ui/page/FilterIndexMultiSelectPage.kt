@@ -3,29 +3,29 @@ package net.yet.ui.page
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.LinearLayout
+import net.yet.R
 import net.yet.theme.InputSize
 import net.yet.ui.ext.*
 import net.yet.ui.util.XTextWatcher
 import net.yet.ui.widget.Action
-import net.yet.ui.widget.IIndexable
 import net.yet.ui.widget.ListIndexBar
 import net.yet.ui.widget.TitleBar
-import net.yet.util.Util
+import net.yet.util.app.App
 import java.util.*
 
 @SuppressLint("UseSparseArrays")
-abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
-	private val searchList = LinkedList<String>()
+abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
+	var DONE = "完成"
 	protected lateinit var indexBar: ListIndexBar<T>
-	private var allItems: List<T>? = null
 
-	protected abstract fun onSelected(selList: List<T>)
-
-	protected abstract val items: List<T>
-
-	protected abstract fun onFilter(items: List<T>, text: String): List<T>
-
-	protected abstract fun makeTagItem(tag: Char): T
+	abstract fun onSelected(selList: List<T>)
+	abstract fun onFilter(items: T, text: String): Boolean
+	abstract fun makeTagItem(tag: Char): T
+	abstract fun itemTag(item: T): Char
+	abstract val itemComparator: Comparator<T>
+	open var tagComparator: Comparator<Char>? = null
+	open protected val indexBarLimit: Int
+		get() = 0
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
@@ -37,6 +37,15 @@ abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
 			}
 		})
 		indexBar = object : ListIndexBar<T>(context, listViewParent, listView) {
+			override val tagComparator: Comparator<Char>?
+				get() = this@FilterIndexMultiSelectPage.tagComparator
+
+			override val itemComparator: Comparator<T>
+				get() = this@FilterIndexMultiSelectPage.itemComparator
+
+			override fun itemTag(item: T): Char {
+				return this@FilterIndexMultiSelectPage.itemTag(item)
+			}
 
 			override fun makeTagItem(tag: Char): T {
 				return this@FilterIndexMultiSelectPage.makeTagItem(tag)
@@ -47,28 +56,30 @@ abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
 		setAutoEnterCheckModelOnLongClick(false)
 		setCheckItemPaddingRight(NAVBAR_WIDTH)
 
-		allItems = items
 		requestItems()
 		setMultiChoiceMode(true)
 
-		titleBar.addAction(CANCEL)
+		DONE = App.S(R.string.done)
 		titleBar.addAction(DONE)
 
 	}
 
 	private fun search(s: String) {
-		synchronized (searchList) {
-			searchList.add(s)
+		if (s.trim().length > 0) {
+			adapter.setFilter {
+				onFilter(it, s.trim())
+			}
+		} else {
+			adapter.resetFilter()
 		}
-		requestItems()
 	}
 
-	override fun onTitleBarAction(bar: TitleBar, action: Action) {
-		if (action.isTag(CANCEL)) {
-			finish()
-			return
-		}
+	override fun onOrderItems(items: ArrayList<T>): ArrayList<T> {
+		return indexBar.processItems(items, indexBarLimit)
+	}
 
+
+	override fun onTitleBarAction(bar: TitleBar, action: Action) {
 		if (action.isTag(DONE)) {
 			done()
 			return
@@ -82,43 +93,7 @@ abstract class FilterIndexMultiSelectPage<T : IIndexable> : CheckListPage<T>() {
 		onSelected(ls)
 	}
 
-	override fun onBackPressed(): Boolean {
-		done()
-		return true
-	}
-
-	override fun onTitleBarActionNav(bar: TitleBar, action: Action) {
-		done()
-	}
-
-	protected open fun onCustomFilter(items: List<T>): List<T> {
-		return items
-	}
-
-	override fun onRequestItems(): List<T> {
-		var st: String? = null
-		synchronized (searchList) {
-			st = searchList.pollLast()
-			searchList.clear()
-		}
-		var ls = if (Util.empty(st)) allItems else onFilter(allItems ?: emptyList(), st ?: "")
-		ls = onCustomFilter(ls ?: emptyList())
-		return processIndexBarItems(ls)
-	}
-
-	open protected val indexBarLimit: Int
-		get() = 0
-
-	protected fun processIndexBarItems(ls: List<T>): List<T> {
-		return indexBar.processItems(ls, indexBarLimit, itemComparator)
-	}
-
-	open protected val itemComparator: Comparator<T>?
-		get() = null
-
 	companion object {
-		private val CANCEL = "取消"
-		private val DONE = "完成"
 		const val NAVBAR_WIDTH = 40
 	}
 

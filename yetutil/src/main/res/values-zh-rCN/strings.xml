@@ -12,4 +12,5 @@
     <string name="code_input">请输入验证码</string>
     <string name="code_request">验证</string>
     <string name="phone_input_err">手机号错误</string>
+    <string name="done">完成</string>
 </resources>

@@ -18,11 +18,10 @@ import java.util.*
 /**
  * Created by yet on 2015/10/29.
  */
-abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView: RelativeLayout, private val listView: ListView) : LinearLayout(context) {
+abstract class ListIndexBar<T>(context: Context, feedbackParentView: RelativeLayout, private val listView: ListView) : LinearLayout(context) {
 
 	private var selectView: View? = null
 	private val selectDrawable = bgDraw()
-	private var tagComparator: Comparator<Char>? = null
 	private var tagList: ArrayList<Char>? = null
 	private val darkColor = Util.argb("#ccc")
 	private val normalColor = Color.TRANSPARENT
@@ -30,13 +29,7 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 	private val tagPosMap = HashMap<Char, Int>(30)
 
 	private val hideFeedbackRun = Runnable { XView.view(feedbackView).gone() }
-	private val defComp = Comparator<T> { lhs, rhs ->
-		val n = if (lhs is Comparable<*>) {
-			val L = lhs as Comparable<T>
-			L.compareTo(rhs)
-		} else 0
-		n
-	}
+
 	private val touchListener = View.OnTouchListener { v, event ->
 		val action = event.actionMasked
 		val y = event.y.toInt()
@@ -79,7 +72,15 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 		})
 	}
 
-	protected abstract fun makeTagItem(tag: Char): T
+	open val tagComparator: Comparator<Char>? get() = null
+	abstract val itemComparator: Comparator<T>
+	abstract fun makeTagItem(tag: Char): T
+	abstract fun itemTag(item: T): Char
+
+	fun onIndexBarVisiblityChanged(visiblity: Int) {
+
+	}
+
 
 	private fun onIndexChanged(newTag: Char, adapterPosition: Int) {
 		if (adapterPosition == 0) {
@@ -105,7 +106,9 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 	}
 
 	fun select(tag: Char) {
-		select(tag, false)
+		fore {
+			select(tag, false)
+		}
 	}
 
 	private fun select(tag: Char, feedback: Boolean) {
@@ -118,9 +121,9 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 			selectView!!.setBackgroundDrawable(selectDrawable)
 
 			val str = (selectView as TextView).text.toString()
-			XView.view(feedbackView).text(str)
-			if (feedbackView != null && feedback) {
-				XView.view(feedbackView).visiable()
+			feedbackView.text(str)
+			if (feedback) {
+				feedbackView.visiable()
 				LazyTask.schedule("tag.feedback", 650, hideFeedbackRun)
 			}
 		}
@@ -133,10 +136,10 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 	 * *
 	 * @return
 	 */
-	fun processItems(items: List<T>, autoHidenSize: Int, itemComparator: Comparator<T>?): List<T> {
+	fun processItems(items: List<T>, autoHidenSize: Int): ArrayList<T> {
 		val multiMap = MultiHashMapArray<Char, T>(30, 50)
 		for (item in items) {
-			val tag = item.indexTag
+			val tag = itemTag(item)
 			multiMap.put(tag, item)
 		}
 		val tagSet = multiMap.keySet()
@@ -152,17 +155,7 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 		for (tag in tagList) {
 			tagPosMap.put(tag, newItems.size)
 			val ls = multiMap.get(tag)//不会出现ls是空的情况!
-			if (itemComparator != null) {
-				Collections.sort(ls, itemComparator)
-			} else {
-				if (ls.size > 0) {//一定>0
-					val item = ls[0]
-					if (item is Comparable<*>) {
-						Collections.sort(ls, defComp)
-					}
-				}
-
-			}
+			Collections.sort(ls, itemComparator)
 			val tagItem = makeTagItem(tag)
 			newItems.add(tagItem)
 			for (item in ls) {
@@ -170,12 +163,12 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 			}
 		}
 
-		TaskUtil.fore(Runnable {
+		fore {
 			if (autoHidenSize > 0) {
 				visibility = if (items.size >= autoHidenSize) View.VISIBLE else View.GONE
 			}
 			buildTagViews(tagList)
-		})
+		}
 		return newItems
 	}
 
@@ -192,9 +185,6 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 		}
 	}
 
-	fun setTagComparator(tagComparator: Comparator<Char>) {
-		this.tagComparator = tagComparator
-	}
 
 	private fun bgDraw(): Drawable {
 		val gd = GradientDrawable()
@@ -210,19 +200,7 @@ abstract class ListIndexBar<T : IIndexable>(context: Context, feedbackParentView
 
 	override fun setVisibility(visibility: Int) {
 		super.setVisibility(visibility)
-		if (visibleChangeListener != null) {
-			visibleChangeListener!!.onIndexBarVisiblityChanged(visibility)
-		}
-	}
-
-	interface IndexBarVisibleChangeListener {
-		fun onIndexBarVisiblityChanged(visiblity: Int)
-	}
-
-	private var visibleChangeListener: IndexBarVisibleChangeListener? = null
-
-	fun setVisibleChangeListener(listener: IndexBarVisibleChangeListener) {
-		this.visibleChangeListener = listener
+		onIndexBarVisiblityChanged(visibility)
 	}
 
 	fun postHide() {

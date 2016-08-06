@@ -11,11 +11,13 @@ import net.yet.ui.widget.listview.ListViewLongClickListener
 import net.yet.ui.widget.listview.ListViewUtil
 import net.yet.ui.widget.listview.TypedAdapter
 import net.yet.util.TaskUtil
+import java.util.*
 
 /**
  * @param
  */
 abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongClickListener {
+
 	val adapter: TypedAdapter<T> = object : TypedAdapter<T>() {
 
 		override fun bindView(position: Int, itemView: View, parent: ViewGroup, item: T, viewType: Int) {
@@ -43,56 +45,54 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 		override fun onItemsRefreshed() {
 			this@ListPage.onItemsRefreshed()
 		}
+
+		override fun onOrderItems(items: ArrayList<T>):ArrayList<T> {
+			return this@ListPage.onOrderItems(items)
+		}
 	}
+
 	/**
 	 * @return listView的上级View
 	 */
-	private var _listViewParent: RelativeLayout? = null
-	private var _listView: ListView? = null
-	val listViewParent: RelativeLayout get() = _listViewParent!!
-	val listView: ListView get() = _listView!!
-
-	var emptyView: TextView? = null
+	lateinit var listViewParent: RelativeLayout
 		private set
+	lateinit var listView: ListView
+		private set
+	lateinit var emptyView: TextView
+		private set
+
+	fun setFilter(block: (T) -> Boolean) {
+		adapter.setFilter(block)
+	}
+
+	fun resetFilter() {
+		adapter.resetFilter()
+	}
+
+	fun refilter() {
+		adapter.refilter()
+	}
+
+	open fun onOrderItems(items: ArrayList<T>):ArrayList<T> {
+		return items
+	}
 
 	protected open fun onItemsRefreshed() {
 
 	}
 
-	/**
-	 * @param context
-	 * *
-	 * @param view
-	 * *
-	 * @param position adapter的位置
-	 * *
-	 * @param parent
-	 * *
-	 * @return
-	 */
 
 	protected open fun packNewView(context: Context, view: View, position: Int, parent: ViewGroup): View {
 		return view
 	}
 
-	/**
-	 * @param position adapter位置
-	 * *
-	 * @param itemView
-	 * *
-	 * @param parent
-	 * *
-	 * @param item
-	 * *
-	 * @return
-	 */
 
 	protected open fun unpackBindView(position: Int, itemView: View, parent: ViewGroup, item: T): View {
 		return itemView
 	}
 
 	fun setEmptyText(text: String) {
-		emptyView!!.text = text
+		emptyView.text = text
 	}
 
 	open protected fun onAddListView(context: Context, parent: RelativeLayout, listView: ListView) {
@@ -101,9 +101,9 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
-		_listViewParent = createRelativeLayout()
+		listViewParent = createRelativeLayout()
 		contentView.addView(listViewParent, linearParam().widthFill().height(0).weight(1f))
-		_listView = context.createListView()
+		listView = context.createListView()
 		onAddListView(context, listViewParent, listView)
 		createEmptyView(context)//listView添加进去之后再调用createEmptyView, 用到了getParent方法
 		onCreateListViewHeaderFooter(context, listView)
@@ -138,8 +138,8 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 
 	private fun createEmptyView(context: Context) {
 		emptyView = TextView(context)
-		layoutParam().fill().set(emptyView!!)
-		emptyView!!.gravityCenter().textSizeB().gone()
+		layoutParam().fill().set(emptyView)
+		emptyView.gravityCenter().textSizeB().gone()
 		(listView.parent as ViewGroup).addView(emptyView)
 		listView.emptyView = emptyView
 	}
@@ -150,43 +150,14 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	protected open fun onAdapterDataChanged() {
 	}
 
-	/**
-	 * @param parent
-	 * *
-	 * @param view
-	 * *
-	 * @param adapterPosition 是在adapter中的position
-	 * *
-	 * @param id
-	 * *
-	 * @return
-	 */
 	protected open fun onInterceptItemClick(parent: AdapterView<*>, view: View, adapterPosition: Int, id: Long): Boolean {
 		return false
 	}
 
-	/**
-	 * @param parent
-	 * *
-	 * @param view
-	 * *
-	 * @param adapterPosition 是在adapter中的position
-	 * *
-	 * @param id
-	 * *
-	 * @return
-	 */
 	protected open fun onInterceptItemLongClick(parent: AdapterView<*>, view: View, adapterPosition: Int, id: Long): Boolean {
 		return false
 	}
 
-	/**
-	 * 返回listview中的position,  包含header
-
-	 * @param adapterPos adapter的position
-	 * *
-	 * @return
-	 */
 	protected fun listPos(adapterPos: Int): Int {
 		return adapterPos + headerCount()
 	}
@@ -210,30 +181,10 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	val itemCount: Int
 		get() = adapter.count
 
-	/**
-	 * 创建listview的itemview
 
-	 * @param context
-	 * *
-	 * @param position
-	 * *
-	 * @param parent
-	 * *
-	 * @return
-	 */
 	abstract fun newView(context: Context, position: Int, parent: ViewGroup, item: T): View
 
-	/**
-	 * 绑定itemview数据
 
-	 * @param position
-	 * *
-	 * @param itemView
-	 * *
-	 * @param parent
-	 * *
-	 * @param item
-	 */
 	abstract fun bindView(position: Int, itemView: View, parent: ViewGroup, item: T)
 
 	open fun getItemViewType(position: Int): Int {

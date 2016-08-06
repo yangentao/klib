@@ -12,4 +12,5 @@
     <string name="code_input">Verification code</string>
     <string name="code_request">Verify</string>
     <string name="phone_input_err">Phone number error</string>
+    <string name="done">OK</string>
 </resources>

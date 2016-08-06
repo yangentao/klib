@@ -275,6 +275,10 @@ public class App {
 		return getResources().getString(res);
 	}
 
+	public static String S(int res) {
+		return getResources().getString(res);
+	}
+
 	public static InputStream openStream(Uri uri) throws FileNotFoundException {
 		return getContentResolver().openInputStream(uri);
 	}
