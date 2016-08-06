@@ -2,61 +2,59 @@ package net.yet.ui.page
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import net.yet.R
 import net.yet.theme.Colors
 import net.yet.theme.InputSize
-import net.yet.theme.Str
 import net.yet.ui.ext.*
 import net.yet.ui.util.XTextWatcher
-import net.yet.ui.widget.Action
 import net.yet.ui.widget.ListIndexBar
-import net.yet.ui.widget.TitleBar
-import net.yet.util.app.App
 import java.util.*
 
 @SuppressLint("UseSparseArrays")
-abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
-	var DONE = Str.DONE
+abstract class IndexMultiCheckPage<T> : CheckListPage<T>() {
 	protected lateinit var indexBar: ListIndexBar<T>
 
 	abstract fun onSelected(selList: List<T>)
 	abstract fun onFilter(item: T, text: String): Boolean
 	abstract fun makeTagItem(tag: Char): T
 	abstract fun itemTag(item: T): Char
-	abstract  fun isTagItem(item: T): Boolean
+	abstract fun isTagItem(item: T): Boolean
 	abstract val itemComparator: Comparator<T>
 	open var tagComparator: Comparator<Char>? = null
 	open protected val indexBarLimit: Int
 		get() = 0
 
+	lateinit var searchEdit: EditText
+
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
-		val searchEdit = context.createEditTextX()
+		searchEdit = context.createEditText()
 		contentView.addView(searchEdit, 0, linearParam().widthFill().heightDp(InputSize.EditHeight - 5).margins(10, 2, 10, 2))
 		searchEdit.addTextChangedListener(object : XTextWatcher() {
 			override fun afterTextChanged(text: String) {
 				search(text)
 			}
 		})
+		searchEdit.gone()
 		indexBar = object : ListIndexBar<T>(context, listViewParent, listView) {
 			override fun isTagItem(item: T): Boolean {
-				return this@FilterIndexMultiSelectPage.isTagItem(item)
+				 return this@IndexMultiCheckPage.isTagItem(item)
 			}
 
 			override val tagComparator: Comparator<Char>?
-				get() = this@FilterIndexMultiSelectPage.tagComparator
+				get() = this@IndexMultiCheckPage.tagComparator
 
 			override val itemComparator: Comparator<T>
-				get() = this@FilterIndexMultiSelectPage.itemComparator
+				get() = this@IndexMultiCheckPage.itemComparator
 
 			override fun itemTag(item: T): Char {
-				return this@FilterIndexMultiSelectPage.itemTag(item)
+				return this@IndexMultiCheckPage.itemTag(item)
 			}
 
 			override fun makeTagItem(tag: Char): T {
-				return this@FilterIndexMultiSelectPage.makeTagItem(tag)
+				return this@IndexMultiCheckPage.makeTagItem(tag)
 			}
 		}
 		listViewParent.addView(indexBar, relativeParam().width(NAVBAR_WIDTH).heightFill().parentRight())
@@ -65,16 +63,16 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 		setCheckItemPaddingRight(NAVBAR_WIDTH)
 
 		requestItems()
-		setMultiChoiceMode(true)
 
-		DONE = App.S(R.string.done)
-		titleBar.addAction(DONE)
 
 	}
 
-	override fun onBackPressed(): Boolean {
-		finish()
-		return true
+	override fun beforeEnterChoiceMode() {
+		searchEdit.visiable()
+	}
+
+	override fun beforeLeaveChoiceMode() {
+		searchEdit.gone()
 	}
 
 	private fun search(s: String) {
@@ -92,15 +90,7 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 	}
 
 
-	override fun onTitleBarAction(bar: TitleBar, action: Action) {
-		if (action.isTag(DONE)) {
-			done()
-			return
-		}
-		super.onTitleBarAction(bar, action)
-	}
-
-	private fun done() {
+	fun done() {
 		val ls = checkedItems
 		finish()
 		onSelected(ls)

@@ -28,6 +28,7 @@ interface IActionModeSupport : IActionPanel {
 		}
 		onBackupDefault()
 		onCleanData()
+		modeName = name
 		commit()
 	}
 

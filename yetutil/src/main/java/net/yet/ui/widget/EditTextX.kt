@@ -7,15 +7,16 @@ import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
-import net.yet.ui.res.Img
-import net.yet.util.TaskUtil
+import net.yet.ui.ext.genId
+import net.yet.ui.res.ResConst
 import net.yet.util.Util
+import net.yet.util.fore
 
 class EditTextX(context: Context) : EditText(context) {
-	private val x: Drawable
+	private var x: Drawable = ResConst.editClear()
 
 	init {
-		x = Img.namedStatesSize("delete_red", false, IMAGE_WIDTH)
+		genId()
 		this.setOnTouchListener(View.OnTouchListener { v, event ->
 			if (this@EditTextX.compoundDrawables[2] == null) {
 				return@OnTouchListener false
@@ -27,7 +28,7 @@ class EditTextX(context: Context) : EditText(context) {
 					- IMAGE_WIDTH) {
 				this@EditTextX.setText("")
 				this@EditTextX.setCompoundDrawables(null, null, null, null)
-				TaskUtil.fore(Runnable { Util.hideInputMethod(this@EditTextX) })
+				fore{Util.hideInputMethod(this@EditTextX) }
 			}
 			false
 		})
@@ -51,6 +52,6 @@ class EditTextX(context: Context) : EditText(context) {
 	}
 
 	companion object {
-		private val IMAGE_WIDTH = 25
+		val IMAGE_WIDTH = 25
 	}
 }

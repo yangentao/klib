@@ -28,6 +28,9 @@ abstract class CheckListPage<T> : ListPage<T>() {
 	protected val selMap = HashMap<String, T>()
 	private var checkItemPaddingRight = 0
 
+	open var SELECT_TITLE:String = Str.SELECT
+
+
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
 	}
@@ -157,10 +160,10 @@ abstract class CheckListPage<T> : ListPage<T>() {
 			titleBar.pushMode(MODE_SELECT)
 			titleBar.cleanActions()
 			titleBar.showBack()
-			titleBar.title = "选择"
+			titleBar.title = SELECT_TITLE
 			titleBar.addAction(Str.SEL_ALL)
-			titleBar.commit()
 			beforeEnterChoiceMode()
+			titleBar.commit()
 		} else {
 			beforeLeaveChoiceMode()
 			bottomBar.popMode()
@@ -249,9 +252,9 @@ abstract class CheckListPage<T> : ListPage<T>() {
 			if (bar.isMode(MODE_SELECT)) {
 				val count = selMap.size
 				if (count > 0) {
-					bar.title = "选择了($count)个"
+					bar.title = SELECT_TITLE + "($count)"
 				} else {
-					bar.title = "选择"
+					bar.title = SELECT_TITLE
 				}
 				bar.commit()
 			}

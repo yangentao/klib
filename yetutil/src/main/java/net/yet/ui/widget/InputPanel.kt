@@ -8,7 +8,7 @@ import net.yet.theme.Colors
 import net.yet.theme.InputSize
 import net.yet.ui.ext.*
 import net.yet.ui.page.BaseFragment
-import net.yet.ui.res.Img
+import net.yet.ui.res.ResConst
 import net.yet.ui.res.ResStr
 import net.yet.ui.util.RectDrawable
 import net.yet.ui.util.StateImage
@@ -181,7 +181,7 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 	fun addCheckbox(key: String, title: String, marginTop: Int = inputMarginTop) {
 		val cb = context.createCheckbox()
 		cb.text = title
-		val d = Img.namedStates("checkbox", true)
+		val d = ResConst.checkbox()
 		cb.buttonDrawable = d
 		cb.padding(20, 5, 5, 5)
 		this.addView(cb, linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0))

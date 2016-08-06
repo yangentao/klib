@@ -2,28 +2,37 @@ package net.yet.ui.res
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import net.yet.R
+import net.yet.ext.size
 import net.yet.theme.Colors
 import net.yet.theme.Dim
 import net.yet.theme.InputSize
 import net.yet.ui.util.RectDrawable
 import net.yet.ui.util.ShapeUtil
 import net.yet.ui.util.StateImage
+import net.yet.ui.widget.EditTextX
+import net.yet.util.app.App
 
 /**
  * Created by yet on 2015/10/16.
  */
 object ResConst {
 
+	fun editClear(): Drawable {
+		return App.drawable(R.drawable.edit_clear).size(EditTextX.IMAGE_WIDTH)
+	}
+
 	fun back(): Drawable {
-		return Img.namedStatesSize("back", false, Dim.iconSize)
+		return App.drawable(R.drawable.back).size(Dim.iconSize)
 	}
 
 	fun arrowRight(): Drawable {
-		return Img.namedStatesSize("arrow_right", false, Dim.iconSizeMin)
+		return App.drawable(R.drawable.arrow_right).size(Dim.iconSizeMin)
 	}
 
 	fun checkbox(): Drawable {
-		return Img.namedStates("checkbox", true)
+		return StateImage(App.drawable(R.drawable.checkbox)).checked(App.drawable(R.drawable.checkbox_checked)).value.size(15)
+//		return Img.namedStates("checkbox", true)
 	}
 
 	fun redPoint(): Drawable {
@@ -36,15 +45,15 @@ object ResConst {
 		return StateImage(normal).focused(focused, true).get()
 	}
 
-	fun greenButton(corner: Int =  InputSize.ButtonCorner): Drawable {
+	fun greenButton(corner: Int = InputSize.ButtonCorner): Drawable {
 		return colorButton(Colors.Safe, corner)
 	}
 
-	fun redButton(corner: Int =  InputSize.ButtonCorner): Drawable {
+	fun redButton(corner: Int = InputSize.ButtonCorner): Drawable {
 		return colorButton(Colors.RedMajor, corner)
 	}
 
-	fun whiteButton(corner: Int =  InputSize.ButtonCorner): Drawable {
+	fun whiteButton(corner: Int = InputSize.ButtonCorner): Drawable {
 		return colorButton(Colors.WHITE, corner)
 	}
 

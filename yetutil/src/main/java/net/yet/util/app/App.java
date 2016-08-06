@@ -14,6 +14,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -277,6 +278,10 @@ public class App {
 
 	public static String S(int res) {
 		return getResources().getString(res);
+	}
+
+	public static Drawable drawable(int res) {
+		return getResources().getDrawable(res);
 	}
 
 	public static InputStream openStream(Uri uri) throws FileNotFoundException {

@@ -62,10 +62,11 @@ abstract class ListIndexBar<T>(context: Context, feedbackParentView: RelativeLay
 			override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
 				if (visibleItemCount > 0) {
 					val obj = this@ListIndexBar.listView.adapter.getItem(firstVisibleItem)
-					if (obj is IIndexable) {
-						select(obj.indexTag)
+					val item = obj as? T ?: return
+					if (isTagItem(item)) {
+
 					} else {
-						xlog.e("TagIndexBar ! ", firstVisibleItem, obj, " is not IIndexable ", if (obj == null) "null" else obj.javaClass)
+						select(itemTag(item))
 					}
 				}
 			}
@@ -76,6 +77,7 @@ abstract class ListIndexBar<T>(context: Context, feedbackParentView: RelativeLay
 	abstract val itemComparator: Comparator<T>
 	abstract fun makeTagItem(tag: Char): T
 	abstract fun itemTag(item: T): Char
+	abstract fun isTagItem(item: T): Boolean
 
 	fun onIndexBarVisiblityChanged(visiblity: Int) {
 
@@ -136,7 +138,8 @@ abstract class ListIndexBar<T>(context: Context, feedbackParentView: RelativeLay
 	 * *
 	 * @return
 	 */
-	fun processItems(items: List<T>, autoHidenSize: Int): ArrayList<T> {
+	fun processItems(itemsOld: List<T>, autoHidenSize: Int): ArrayList<T> {
+		val items = itemsOld.filter { !isTagItem(it) }
 		val multiMap = MultiHashMapArray<Char, T>(30, 50)
 		for (item in items) {
 			val tag = itemTag(item)

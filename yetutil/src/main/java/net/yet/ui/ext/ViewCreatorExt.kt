@@ -8,6 +8,7 @@ import android.widget.*
 import net.yet.theme.Colors
 import net.yet.ui.res.Img
 import net.yet.ui.res.ResConst
+import net.yet.ui.widget.EditTextX
 
 /**
  * Created by entaoyang@163.com on 2016-07-22.
@@ -227,7 +228,11 @@ fun Context.createImageView(): ImageView {
 	b.scaleType = ImageView.ScaleType.CENTER_INSIDE
 	return b
 }
-
+fun Context.createEditTextX(): EditTextX {
+	val ed = EditTextX(this).genId()
+	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)
+	return ed
+}
 fun Context.createEditText(): EditText {
 	val ed = EditText(this).genId()
 	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)

@@ -3,6 +3,7 @@ package net.yet.ui.activities
 import android.os.Bundle
 import android.widget.LinearLayout
 import net.yet.ui.ext.createLinearVertical
+import net.yet.ui.widget.Action
 import net.yet.ui.widget.TitleBar
 
 /**
@@ -10,20 +11,34 @@ import net.yet.ui.widget.TitleBar
  */
 
 abstract class TitledActivity() : BaseActivity() {
-	private var _rootView: LinearLayout? = null
-	private var _titleBar: TitleBar? = null
-
-	val rootView: LinearLayout get() = _rootView!!
-	val titleBar: TitleBar get() = _titleBar!!
+	lateinit var rootView: LinearLayout
+	lateinit var titleBar: TitleBar
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		_rootView = this.createLinearVertical()
-		setContentView(_rootView)
-		_titleBar = TitleBar(this)
+		rootView = this.createLinearVertical()
+		setContentView(rootView)
+		titleBar = TitleBar(this)
 		rootView.addView(titleBar)
+		titleBar.onAction = { bar, a ->
+			onTitleBarAction(a)
+		}
+		titleBar.onActionNav = { bar, a ->
+			onTitleBarActionNav(a)
+		}
 		onCreateContent(rootView)
+		titleBar.commit()
 	}
 
-	abstract fun onCreateContent(contentView: LinearLayout);
+	open fun onTitleBarAction(action: Action) {
+
+	}
+
+	open fun onTitleBarActionNav(action: Action) {
+
+	}
+
+	open fun onCreateContent(contentView: LinearLayout) {
+
+	}
 }

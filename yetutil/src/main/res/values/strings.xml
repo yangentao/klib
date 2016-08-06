@@ -13,4 +13,10 @@
     <string name="code_request">Verify</string>
     <string name="phone_input_err">Phone number error</string>
     <string name="done">OK</string>
+    <string name="op_success">Success</string>
+    <string name="op_failed">Failed</string>
+    <string name="sel_all">Select All</string>
+    <string name="sel_none">Select None</string>
+    <string name="contact_select">Select Contact</string>
+    <string name="select">Select</string>
 </resources>

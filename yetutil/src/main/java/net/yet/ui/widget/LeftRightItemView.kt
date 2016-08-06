@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.ImageView.ScaleType
 import android.widget.LinearLayout
 import android.widget.TextView
-
-import net.yet.ui.res.Img
+import net.yet.ext.size
+import net.yet.ui.res.ResConst
 import net.yet.ui.util.XView
 
 /**
@@ -89,7 +89,7 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
 
 	fun addCheckBoxRight(marginLeft: Int): CheckBox {
 		val cb = XView.createCheckbox(context)
-		val d = Img.namedStatesSize("checkbox", true, 15)
+		val d = ResConst.checkbox()
 		cb.buttonDrawable = d
 		XView.linearParam().size(20).gravityRightCenter().margins(marginLeft, 0, 0, 0).set(cb)
 		this.addView(cb)

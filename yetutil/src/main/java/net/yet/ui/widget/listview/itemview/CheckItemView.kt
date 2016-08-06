@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.CheckedTextView
 import net.yet.ui.ext.*
-import net.yet.ui.res.Img
+import net.yet.ui.res.ResConst
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -22,7 +22,7 @@ open class CheckItemView @JvmOverloads constructor(context: Context, val itemVie
         addViewParam(itemView, 0) { widthDp(0).weight(1f).heightWrap() }
 
         checkView = CheckedTextView(context).genId().gone()
-        checkView.checkMarkDrawable = Img.namedStates("checkbox", true)
+        checkView.checkMarkDrawable = ResConst.checkbox()
         addViewParam(checkView) { wrap().gravityRightCenter().margins(10, 0, 10, 0) }
 
         if (this.listener == null && itemView is CheckStatusListener) {

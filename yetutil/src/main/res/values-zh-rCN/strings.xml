@@ -13,4 +13,10 @@
     <string name="code_request">验证</string>
     <string name="phone_input_err">手机号错误</string>
     <string name="done">完成</string>
+    <string name="op_success">操作成功</string>
+    <string name="op_failed">操作失败</string>
+    <string name="sel_all">全选</string>
+    <string name="sel_none">全不选</string>
+    <string name="contact_select">选择联系人</string>
+    <string name="select">选择</string>
 </resources>
