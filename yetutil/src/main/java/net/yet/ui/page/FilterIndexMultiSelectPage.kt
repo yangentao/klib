@@ -3,7 +3,9 @@ package net.yet.ui.page
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.LinearLayout
+import android.widget.TextView
 import net.yet.R
+import net.yet.theme.Colors
 import net.yet.theme.InputSize
 import net.yet.ui.ext.*
 import net.yet.ui.util.XTextWatcher
@@ -19,7 +21,7 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 	protected lateinit var indexBar: ListIndexBar<T>
 
 	abstract fun onSelected(selList: List<T>)
-	abstract fun onFilter(items: T, text: String): Boolean
+	abstract fun onFilter(item: T, text: String): Boolean
 	abstract fun makeTagItem(tag: Char): T
 	abstract fun itemTag(item: T): Char
 	abstract val itemComparator: Comparator<T>
@@ -91,6 +93,13 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 		val ls = checkedItems
 		finish()
 		onSelected(ls)
+	}
+
+	fun makeTagView(): TextView {
+		val alphaView = createTextView()
+		alphaView.textSizeB().textColorMajor().padding(20, 0, 20, 0).backColor(Colors.color("#eee"))
+		listParam().widthFill().height_(20).set(alphaView)
+		return alphaView
 	}
 
 	companion object {
