@@ -55,11 +55,11 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	 * @return listView的上级View
 	 */
 	lateinit var listViewParent: RelativeLayout
-		private set
+//		private set
 	lateinit var listView: ListView
-		private set
+//		private set
 	lateinit var emptyView: TextView
-		private set
+//		private set
 
 	fun setFilter(block: (T) -> Boolean) {
 		adapter.setFilter(block)
