@@ -30,7 +30,10 @@ abstract class IndexMultiCheckPage<T> : CheckListPage<T>() {
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
-		searchEdit = context.createEditText()
+		searchEdit = context.createEditText().singleLine().imeDone {
+			it.hideInputMethod()
+		}
+
 		contentView.addView(searchEdit, 0, linearParam().widthFill().heightDp(InputSize.EditHeight - 5).margins(10, 2, 10, 2))
 		searchEdit.addTextChangedListener(object : XTextWatcher() {
 			override fun afterTextChanged(text: String) {
@@ -40,7 +43,7 @@ abstract class IndexMultiCheckPage<T> : CheckListPage<T>() {
 		searchEdit.gone()
 		indexBar = object : ListIndexBar<T>(context, listViewParent, listView) {
 			override fun isTagItem(item: T): Boolean {
-				 return this@IndexMultiCheckPage.isTagItem(item)
+				return this@IndexMultiCheckPage.isTagItem(item)
 			}
 
 			override val tagComparator: Comparator<Char>?

@@ -25,7 +25,7 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 	abstract fun onFilter(item: T, text: String): Boolean
 	abstract fun makeTagItem(tag: Char): T
 	abstract fun itemTag(item: T): Char
-	abstract  fun isTagItem(item: T): Boolean
+	abstract fun isTagItem(item: T): Boolean
 	abstract val itemComparator: Comparator<T>
 	open var tagComparator: Comparator<Char>? = null
 	open protected val indexBarLimit: Int
@@ -33,7 +33,10 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
-		val searchEdit = context.createEditTextX()
+		val searchEdit = context.createEditTextX().singleLine().imeDone{
+			it.hideInputMethod()
+		}
+
 		contentView.addView(searchEdit, 0, linearParam().widthFill().heightDp(InputSize.EditHeight - 5).margins(10, 2, 10, 2))
 		searchEdit.addTextChangedListener(object : XTextWatcher() {
 			override fun afterTextChanged(text: String) {

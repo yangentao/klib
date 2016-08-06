@@ -19,7 +19,6 @@ import android.text.ClipboardManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -758,7 +757,7 @@ public class Util {
 		return set;
 	}
 
-	public static void hideInputMethod(EditText ed) {
+	public static void hideInputMethod(TextView ed) {
 		InputMethodManager imm = (InputMethodManager) ed.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		if (imm.isActive() && ed.isFocused()) {
 			imm.hideSoftInputFromWindow(ed.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);

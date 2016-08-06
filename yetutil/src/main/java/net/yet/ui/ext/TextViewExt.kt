@@ -8,17 +8,69 @@ import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import net.yet.ext.ColorList
 import net.yet.theme.Colors
 import net.yet.theme.Dim
 import net.yet.ui.res.Img
+import net.yet.util.Util
 import net.yet.util.app.App
 
 /**
  * Created by entaoyang@163.com on 16/3/12.
  */
+fun <T : TextView> T.hideInputMethod(): T {
+	Util.hideInputMethod(this)
+	return this
+}
 
+fun <T : TextView> T.imeAction(action: Int, block: (TextView) -> Unit): T {
+	this.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+		override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+			if (actionId == action) {
+				if (v != null) {
+					block(v)
+				}
+				return true
+			}
+			return false
+		}
+
+	})
+	return this
+}
+
+fun <T : TextView> T.imeDone(block: (TextView) -> Unit): T {
+	this.imeOptions = EditorInfo.IME_ACTION_DONE
+	this.imeAction(EditorInfo.IME_ACTION_DONE, block)
+	return this
+}
+
+fun <T : TextView> T.imeGo(block: (TextView) -> Unit): T {
+	this.imeOptions = EditorInfo.IME_ACTION_GO
+	this.imeAction(EditorInfo.IME_ACTION_GO, block)
+	return this
+}
+
+fun <T : TextView> T.imeNext(block: (TextView) -> Unit): T {
+	this.imeOptions = EditorInfo.IME_ACTION_NEXT
+	this.imeAction(EditorInfo.IME_ACTION_NEXT, block)
+	return this
+}
+
+fun <T : TextView> T.imeSearch(block: (TextView) -> Unit): T {
+	this.imeOptions = EditorInfo.IME_ACTION_SEARCH
+	this.imeAction(EditorInfo.IME_ACTION_SEARCH, block)
+	return this
+}
+
+fun <T : TextView> T.imeSend(block: (TextView) -> Unit): T {
+	this.imeOptions = EditorInfo.IME_ACTION_SEND
+	this.imeAction(EditorInfo.IME_ACTION_SEND, block)
+	return this
+}
 
 fun <T : TextView> T.clickable(b: Boolean = true): T {
 	this.isClickable = b

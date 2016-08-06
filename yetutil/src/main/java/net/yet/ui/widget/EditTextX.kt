@@ -28,7 +28,9 @@ class EditTextX(context: Context) : EditText(context) {
 					- IMAGE_WIDTH) {
 				this@EditTextX.setText("")
 				this@EditTextX.setCompoundDrawables(null, null, null, null)
-				fore{Util.hideInputMethod(this@EditTextX) }
+				fore{
+					Util.hideInputMethod(this@EditTextX)
+				}
 			}
 			false
 		})
