@@ -48,20 +48,30 @@ abstract class AdapterListView<T>(context: Context) : ListView(context), ListVie
 		selector = Img.colorStates(Color.TRANSPARENT, Colors.Fade)
 		onCreateHeaderFooter(context)
 		setAdapter(adapter)
-		ListViewUtil.addClick(this, this)
-		ListViewUtil.addLongClick(this, this)
-		onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-			if (onInterceptItemClick(parent, view, position, id)) {
-				return@OnItemClickListener
-			}
-			ListViewUtil.click(this@AdapterListView, view, position, this@AdapterListView)
-		}
-		onItemLongClickListener = AdapterView.OnItemLongClickListener { parent, view, position, id ->
-			if (onInterceptItemLongClick(parent, view, position, id)) {
-				return@OnItemLongClickListener true
-			}
-			ListViewUtil.longClick(this@AdapterListView, view, position, this@AdapterListView)
-		}
+//		ListViewUtil.addClick(this, this)
+//		ListViewUtil.addLongClick(this, this)
+//
+//		onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+//			toast("click")
+//			if (onInterceptItemClick(parent, view, position, id)) {
+//				return@OnItemClickListener
+//			}
+//			ListViewUtil.click(this@AdapterListView, view, position, this@AdapterListView)
+//		}
+//		onItemLongClickListener = AdapterView.OnItemLongClickListener { parent, view, position, id ->
+//			if (onInterceptItemLongClick(parent, view, position, id)) {
+//				return@OnItemLongClickListener true
+//			}
+//			ListViewUtil.longClick(this@AdapterListView, view, position, this@AdapterListView)
+//		}
+	}
+
+	fun setItems(items: List<T>) {
+		adapter.setItems(items)
+	}
+
+	fun getItem(position: Int): T {
+		return adapter.getItem(position)
 	}
 
 	protected fun onInterceptItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long): Boolean {
@@ -88,17 +98,19 @@ abstract class AdapterListView<T>(context: Context) : ListView(context), ListVie
 		adapter.requestItems()
 	}
 
-	protected abstract fun onRequestItems(): List<T>
+	open protected fun onRequestItems(): List<T> {
+		return emptyList()
+	}
 
 	abstract fun newView(context: Context, position: Int, parent: ViewGroup): View
 
 	abstract fun bindView(position: Int, itemView: View, parent: ViewGroup, item: T)
 
-	fun getItemViewType(position: Int): Int {
+	open fun getItemViewType(position: Int): Int {
 		return 0
 	}
 
-	val viewTypeCount: Int
+	open val viewTypeCount: Int
 		get() = 1
 
 	override fun onItemClickAdapter(listView: ListView, view: View, position: Int) {

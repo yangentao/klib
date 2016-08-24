@@ -1,8 +1,10 @@
 package net.yet.util
 
 
+import android.net.Uri
 import android.os.NetworkOnMainThreadException
 import android.util.Base64
+import net.yet.util.app.App
 import java.io.*
 import java.net.*
 import java.util.*
@@ -30,7 +32,7 @@ class Http(val url: String) {
 
 	private val headerMap = HashMap<String, String>()
 	private val argMap = HashMap<String, String>()
-	private val fileMap = HashMap<String, File>()
+	private val fileMap = HashMap<String, Uri>()
 	private val progressMap = HashMap<String, Progress>()
 
 	private var timeoutConnect = 10000
@@ -138,11 +140,17 @@ class Http(val url: String) {
 	}
 
 	fun file(key: String, file: File): Http {
+		return file(key, Uri.fromFile(file))
+	}
+	fun file(key: String, file: Uri): Http {
 		fileMap.put(key, file)
 		return this
 	}
 
 	fun file(key: String, file: File, progress: Progress): Http {
+		return file(key, Uri.fromFile(file), progress)
+	}
+	fun file(key: String, file: Uri, progress: Progress): Http {
 		progressMap.put(key, progress)
 		return file(key, file)
 	}
@@ -212,12 +220,12 @@ class Http(val url: String) {
 			for (e in fileMap.entries) {
 				val file = e.value
 				write(os, BOUNDARY_START)
-				write(os, "Content-Disposition:form-data;name=\"", e.key, "\";filename=\"", file.name, "\"\r\n")
+				write(os, "Content-Disposition:form-data;name=\"", e.key, "\";filename=\"", file.lastPathSegment, "\"\r\n")
 				write(os, "Content-Type:application/octet-stream\r\n")
 				write(os, "Content-Transfer-Encoding: binary\r\n")
 				write(os, "\r\n")
 				val progress = progressMap[e.key]
-				val fis = FileInputStream(file)
+				val fis = App.getContentResolver().openInputStream(file)
 				val total = fis.available()
 				if (os is SizeStream) {
 					os.incSize(total)
