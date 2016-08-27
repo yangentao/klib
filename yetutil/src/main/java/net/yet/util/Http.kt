@@ -147,11 +147,13 @@ class Http(val url: String) {
 		return this
 	}
 
-	fun file(key: String, file: File, progress: Progress): Http {
+	fun file(key: String, file: File, progress: Progress? ): Http {
 		return file(key, Uri.fromFile(file), progress)
 	}
-	fun file(key: String, file: Uri, progress: Progress): Http {
-		progressMap.put(key, progress)
+	fun file(key: String, file: Uri, progress: Progress? ): Http {
+		if(progress != null) {
+			progressMap.put(key, progress)
+		}
 		return file(key, file)
 	}
 
