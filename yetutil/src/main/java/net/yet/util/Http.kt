@@ -33,6 +33,7 @@ class Http(val url: String) {
 	private val headerMap = HashMap<String, String>()
 	private val argMap = HashMap<String, String>()
 	private val fileMap = HashMap<String, Uri>()
+	private val filenameMap = HashMap<String, String>()
 	private val progressMap = HashMap<String, Progress>()
 
 	private var timeoutConnect = 10000
@@ -156,6 +157,10 @@ class Http(val url: String) {
 		}
 		return file(key, file)
 	}
+	fun filename(key:String, filename:String): Http {
+		filenameMap[key] = filename
+		return this
+	}
 
 	/**
 	 * [from, to]
@@ -221,8 +226,12 @@ class Http(val url: String) {
 		if (fileMap.size > 0) {
 			for (e in fileMap.entries) {
 				val file = e.value
+				var filename = filenameMap[e.key]
+				if(filename == null) {
+					filename = file.lastPathSegment
+				}
 				write(os, BOUNDARY_START)
-				write(os, "Content-Disposition:form-data;name=\"", e.key, "\";filename=\"", file.lastPathSegment, "\"\r\n")
+				write(os, "Content-Disposition:form-data;name=\"", e.key, "\";filename=\"", filename!!, "\"\r\n")
 				write(os, "Content-Type:application/octet-stream\r\n")
 				write(os, "Content-Transfer-Encoding: binary\r\n")
 				write(os, "\r\n")
