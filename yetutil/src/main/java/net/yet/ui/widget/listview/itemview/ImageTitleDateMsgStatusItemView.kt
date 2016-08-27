@@ -28,14 +28,13 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 	var dateView: TextView = createTextViewC().singleLine()
 	var msgView: TextView = createTextViewC().singleLine().ellipsizeEnd()
 	var statusView: TextView = createTextViewC().singleLine()
-	private var iconSize = Dim.iconSizeMid
 
 	private var topView = createLinearHorizontal().gravityCenterVertical()
 	private var bottomView = createLinearHorizontal().gravityCenterVertical()
 
 	init {
 		padding(10, 0, 10, 0)
-		addViewParam(iconView) { size(iconSize).gravityCenter().margins(0, 0, 5, 0) }
+		addViewParam(iconView) { size(Dim.iconSizeMid).gravityCenter().margins(0, 0, 5, 0) }
 
 		val ll = createLinearVertical().apply {
 			val top = topView.apply {
@@ -49,7 +48,7 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 			}
 			addViewParam(bottom) { widthFill().heightWrap() }
 		}
-		addViewParam(ll) { widthDp(0).weight(1f).heightWrap().margins(5, 10, 5, 5) }
+		addViewParam(ll) { widthDp(0).weight(1f).heightWrap().margins(5, 10, 5, 5).gravityCenterVertical() }
 	}
 
 	fun setSepratorSize(dp: Int) {
@@ -59,7 +58,9 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 	}
 
 	fun setIconSize(dp: Int): ImageTitleDateMsgStatusItemView {
-		this.iconSize = dp
+		val p = iconView.layoutParams as LinearLayout.LayoutParams
+		p.size(dp)
+		iconView.layoutParams = p
 		return this
 	}
 
