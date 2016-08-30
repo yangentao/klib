@@ -80,11 +80,29 @@ open class BaseFragment : Fragment(), MsgListener {
 		val dlg = OKDialog()
 		dlg.show(activity, title, null)
 	}
+	fun itemSelectN(items:Collection<String> , block:(Int)->Unit) {
+		val dlg = object:StringSelectDialog() {
+			override fun onSelect(index: Int, s: String) {
+				block(index)
+			}
+		}
+		dlg.addItems(items)
+		dlg.show(activity)
+	}
+	fun itemSelect(items:Collection<String> , block:(String)->Unit) {
+		val dlg = object:StringSelectDialog() {
+			override fun onSelect(index: Int, s: String) {
+				block(s)
+			}
+		}
+		dlg.addItems(items)
+		dlg.show(activity)
+	}
 
 	fun showMenuSelect(vararg items: String, block: (String) -> Unit) {
 		val dlg = object : StringSelectDialog() {
-			override fun onSelect(index: Int, s: String?) {
-				block(s!!)
+			override fun onSelect(index: Int, s: String) {
+				block(s)
 			}
 		}
 		dlg.addItems(*items)

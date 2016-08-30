@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -53,5 +55,5 @@ public abstract class StringSelectDialog {
         return dlg;
     }
 
-    abstract protected void onSelect(int index, String s);
+    abstract protected void onSelect(int index, @NotNull String s);
 }
