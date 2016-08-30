@@ -78,6 +78,22 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 		buttonMap[key]?.isEnabled = enable
 	}
 
+	fun setButtonText(key: String, text: String) {
+		buttonMap[key]?.text = text
+	}
+
+	fun getButtonText(key: String): String? {
+		return buttonMap[key]?.text?.toString()
+	}
+
+	fun button(key: String): Button {
+		return buttonMap[key]!!
+	}
+
+	fun edit(key: String): EditText {
+		return editMap[key]!!
+	}
+
 
 	private fun makeEdit(hint: String, marginTop: Int): EditText {
 		val ed = context.createEditText().hint(hint)

@@ -73,7 +73,7 @@ fun Fragment.createImageView(): ImageView {
 }
 
 fun Fragment.createEditText(): EditText {
-	val ed = EditText(this.activity).genId()
+	val ed = EditText(this.activity).genId().singleLine()
 	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(5, 2, 5, 2)
 	return ed
 }
@@ -151,7 +151,7 @@ fun View.createImageView(): ImageView {
 }
 
 fun View.createEditText(): EditText {
-	val ed = EditText(this.context).genId()
+	val ed = EditText(this.context).genId().singleLine()
 	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(5, 2, 5, 2)
 	return ed
 }
@@ -229,12 +229,12 @@ fun Context.createImageView(): ImageView {
 	return b
 }
 fun Context.createEditTextX(): EditTextX {
-	val ed = EditTextX(this).genId()
+	val ed = EditTextX(this).genId().singleLine()
 	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)
 	return ed
 }
 fun Context.createEditText(): EditText {
-	val ed = EditText(this).genId()
+	val ed = EditText(this).genId().singleLine()
 	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)
 	return ed
 }
