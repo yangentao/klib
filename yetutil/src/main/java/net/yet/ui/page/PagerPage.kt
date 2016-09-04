@@ -31,7 +31,7 @@ open class PagerPage : TitledPage() {
 			}
 		}
 		switchView.setItems(items)
-		contentView.addViewParam(switchView) { widthFill().heightDp(45) }
+		contentView.addViewParam(switchView) { widthFill().heightDp(45).gravityCenter() }
 
 		viewPager = object : AbstractViewPager<String>(context) {
 

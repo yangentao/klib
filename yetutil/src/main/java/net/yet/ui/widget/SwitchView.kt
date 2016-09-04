@@ -2,7 +2,6 @@ package net.yet.ui.widget
 
 import android.content.Context
 import android.widget.LinearLayout
-import android.widget.TextView
 import net.yet.ui.ext.*
 import net.yet.util.fore
 import java.util.*
@@ -47,8 +46,8 @@ open class SwitchView(context: Context): LinearLayout(context) {
 
 		val itemView = SwitchItemView(context)
 		itemView.text = itemName
-		onConfigItem(itemView, itemView.textView, itemView.textView.layoutParams as LinearLayout.LayoutParams)
-		addViewParam(itemView) { width(0).weight(1f).heightWrap() }
+		onConfigItem(itemView)
+		addViewParam(itemView) { width(0).weight(1f).heightFill() }
 		itemView.onClick { v->
 			val s = v.text
 			fore {
@@ -71,7 +70,7 @@ open class SwitchView(context: Context): LinearLayout(context) {
 	open fun onSelectChanged(index: Int, itemName: String) {
 
 	}
-	open fun onConfigItem(itemView: SwitchItemView, textView: TextView, param: LinearLayout.LayoutParams) {
+	open fun onConfigItem(itemView: SwitchItemView) {
 
 	}
 
