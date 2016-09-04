@@ -3,7 +3,6 @@ package net.yet.ui.page
 import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import net.yet.ui.ext.*
 import net.yet.ui.widget.AbstractViewPager
 import net.yet.ui.widget.SwitchItemView
@@ -26,8 +25,8 @@ open class PagerPage : TitledPage() {
 				viewPager.setCurrentItem(index, true)
 			}
 
-			override fun onConfigItem(itemView: SwitchItemView, textView: TextView, param: LayoutParams) {
-				this@PagerPage.onConfigItem(itemView, textView, param)
+			override fun onConfigItem(itemView: SwitchItemView) {
+				this@PagerPage.onConfigItem(itemView)
 			}
 		}
 		switchView.setItems(items)
@@ -47,7 +46,7 @@ open class PagerPage : TitledPage() {
 		viewPager.setItems(items)
 	}
 
-	open fun onConfigItem(itemView: SwitchItemView, textView: TextView, param: LinearLayout.LayoutParams) {
+	open fun onConfigItem(itemView: SwitchItemView) {
 
 	}
 
