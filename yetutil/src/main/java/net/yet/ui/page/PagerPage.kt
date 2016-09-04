@@ -46,6 +46,14 @@ open class PagerPage : TitledPage() {
 		viewPager.setItems(items)
 	}
 
+	fun select(key: String) {
+		switchView.select(key, true)
+	}
+
+	fun select(index: Int) {
+		switchView.select(items[index], true)
+	}
+
 	open fun onConfigItem(itemView: SwitchItemView) {
 
 	}
