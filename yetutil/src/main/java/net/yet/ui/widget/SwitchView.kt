@@ -49,15 +49,13 @@ open class SwitchView(context: Context): LinearLayout(context) {
 		itemView.text = itemName
 		onConfigItem(itemView, itemView.textView, itemView.textView.layoutParams as LinearLayout.LayoutParams)
 		addViewParam(itemView) { width(0).weight(1f).heightWrap() }
-		itemView.setOnClickListener(clickListener)
-		viewMap.put(itemName, itemView)
-	}
-
-	private val clickListener = OnClickListener { v ->
-		val s = (v as SwitchItemView).text
-		fore {
-			select(s, true)
+		itemView.onClick { v->
+			val s = v.text
+			fore {
+				select(s, true)
+			}
 		}
+		viewMap.put(itemName, itemView)
 	}
 
 	fun select(name: String, fire: Boolean = true) {
