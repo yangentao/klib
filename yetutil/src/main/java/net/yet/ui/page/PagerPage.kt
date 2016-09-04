@@ -13,11 +13,11 @@ import java.util.*
 /**
  * Created by yangentao on 16/4/10.
  */
-open class ViewPagerPage : TitledPage() {
+open class PagerPage : TitledPage() {
 	lateinit var viewPager: AbstractViewPager<String>
 	lateinit var switchView: SwitchView
-	private var items: MutableList<String> = ArrayList()
-	private var views: MutableList<View> = ArrayList()
+	var items: ArrayList<String> = ArrayList()
+	var views: ArrayList<View> = ArrayList()
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
@@ -27,7 +27,7 @@ open class ViewPagerPage : TitledPage() {
 			}
 
 			override fun onConfigItem(itemView: SwitchItemView, textView: TextView, param: LayoutParams) {
-				this@ViewPagerPage.onConfigItem(itemView, textView, param)
+				this@PagerPage.onConfigItem(itemView, textView, param)
 			}
 		}
 		switchView.setItems(items)
@@ -64,9 +64,11 @@ open class ViewPagerPage : TitledPage() {
 		viewPager.setItems(items)
 	}
 
-	fun setItems(labels: MutableList<String>, views: MutableList<View>) {
-		this.items = labels
-		this.views = views
+	fun setItems(labels: List<String>, views: List<View>) {
+		this.items.clear()
+		this.items.addAll(labels)
+		this.views.clear()
+		this.views.addAll(views)
 		switchView.setItems(items)
 		viewPager.setItems(items)
 	}
