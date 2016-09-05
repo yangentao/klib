@@ -72,16 +72,18 @@ open class BaseFragment : Fragment(), MsgListener {
 		super.onViewCreated(view, savedInstanceState)
 	}
 
-	fun alert(title:String, msg:String) {
+	fun alert(title: String, msg: String) {
 		val dlg = OKDialog()
 		dlg.show(activity, title, msg)
 	}
-	fun alert(title:String) {
+
+	fun alert(title: String) {
 		val dlg = OKDialog()
 		dlg.show(activity, title, null)
 	}
-	fun itemSelectN(items:Collection<String> , block:(Int)->Unit) {
-		val dlg = object:StringSelectDialog() {
+
+	fun itemSelectN(items: Collection<String>, block: (Int) -> Unit) {
+		val dlg = object : StringSelectDialog() {
 			override fun onSelect(index: Int, s: String) {
 				block(index)
 			}
@@ -89,13 +91,24 @@ open class BaseFragment : Fragment(), MsgListener {
 		dlg.addItems(items)
 		dlg.show(activity)
 	}
-	fun itemSelect(items:Collection<String> , block:(String)->Unit) {
-		val dlg = object:StringSelectDialog() {
+
+	fun itemSelect(items: Collection<String>, block: (String) -> Unit) {
+		val dlg = object : StringSelectDialog() {
 			override fun onSelect(index: Int, s: String) {
 				block(s)
 			}
 		}
 		dlg.addItems(items)
+		dlg.show(activity)
+	}
+
+	fun itemSelect(vararg items: String, block: (String) -> Unit) {
+		val dlg = object : StringSelectDialog() {
+			override fun onSelect(index: Int, s: String) {
+				block(s)
+			}
+		}
+		dlg.addItems(*items)
 		dlg.show(activity)
 	}
 
@@ -157,84 +170,67 @@ open class BaseFragment : Fragment(), MsgListener {
 	val isVisiableToUser: Boolean
 		get() = this.isResumed && isVisible && !Util.getKeyguardManager().inKeyguardRestrictedInputMode()
 
-	fun takeViedo(sizeM: Int, block: (Uri?) -> Unit) {
+	fun takeViedo(sizeM: Int, block: (Uri) -> Unit) {
 		val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
 		intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, sizeM * 1024 * 1024)
 		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
 			if (resultCode == Activity.RESULT_OK) {
-				block(data.data)
-			} else {
-				block(null)
+				if (data != null && data.data != null) {
+					block.invoke(data.data)
+				}
 			}
 			true
 		}
 		startActivityForResult(TAKE_VIDEO, intent, onResult)
 	}
 
-	fun pickVideo(block: (Uri?) -> Unit) {
+	fun pickVideo(block: (Uri) -> Unit) {
 		val i = Intent(Intent.ACTION_PICK)
 		i.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, "video/*")
-		val onResult = android.preference.PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
+		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
 			if (resultCode == Activity.RESULT_OK) {
-				block.invoke(data.data)
-			} else {
-				block.invoke(null)
+				if (data != null && data.data != null) {
+					block.invoke(data.data)
+				}
 			}
 			true
 		}
 		startActivityForResult(PICK_PHOTO, i, onResult)
 	}
 
-	fun pickPhoto(block: (Uri?) -> Unit) {
+	fun pickPhoto(block: (Uri) -> Unit) {
 		val i = Intent(Intent.ACTION_PICK)
 		i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-		val onResult = android.preference.PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
+		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
 			if (resultCode == Activity.RESULT_OK) {
-				block.invoke(data.data)
-			} else {
-				block.invoke(null)
+				if (data != null && data.data != null) {
+					block.invoke(data.data)
+				}
 			}
 			true
 		}
 		startActivityForResult(PICK_PHOTO, i, onResult)
 	}
 
-	fun takePhotoJpg(result: OnResult<File>) {
-		takePhoto(null, "JPEG", result)
+	fun takePhotoPng(block: (File) -> Unit) {
+		takePhoto("PNG", block)
 	}
 
-	fun takePhotoPng(result: OnResult<File>) {
-		takePhoto(null, "PNG", result)
+	fun takePhotoJpg(block: (File) -> Unit) {
+		takePhoto("JPEG", block)
 	}
 
-	/**
-	 * @param file
-	 * *
-	 * @param format JPEG or PNG
-	 * *
-	 * @param result
-	 */
-	fun takePhoto(file1: File?, format: String, result: OnResult<File>) {
-		var file = file1
-		if (file == null) {
-			file = SdAppFile.temp("" + System.currentTimeMillis() + "." + format)
-		}
-		val outputFile = file
-
+	fun takePhoto(format: String, block: (File) -> Unit) {
+		val outputFile = SdAppFile.temp("" + System.currentTimeMillis() + "." + format)
 		val intent = Intent("android.media.action.IMAGE_CAPTURE")
 		intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0)
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputFile))
 		intent.putExtra("outputFormat", format)
-		val onResult = object : PreferenceManager.OnActivityResultListener {
-
-			public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
-				if (resultCode == Activity.RESULT_OK) {
-					result.onResult(true, resultCode, null, outputFile)
-				} else {
-					result.onResult(false, resultCode, null, outputFile)
-				}
-				return true
+		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
+			if (resultCode == Activity.RESULT_OK && outputFile.exists()) {
+				block(outputFile)
 			}
+			true
 		}
 		startActivityForResult(TAKE_PHOTO, intent, onResult)
 	}
@@ -316,9 +312,9 @@ open class BaseFragment : Fragment(), MsgListener {
 	fun toast(vararg texts: Any) {
 		val s = StrBuilder.build(*texts)
 		fore {
-			if(activity != null) {
+			if (activity != null) {
 				Toast.makeText(activity, s, Toast.LENGTH_LONG).show()
-			}else {
+			} else {
 				Toast.makeText(App.get(), s, Toast.LENGTH_LONG).show()
 			}
 		}
@@ -330,9 +326,9 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	fun toastShort(text: String) {
 		fore {
-			if(activity != null) {
+			if (activity != null) {
 				Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
-			}else {
+			} else {
 				Toast.makeText(App.get(), text, Toast.LENGTH_SHORT).show()
 			}
 		}
@@ -365,7 +361,7 @@ open class BaseFragment : Fragment(), MsgListener {
 		return em
 	}
 
-	public override fun onDestroy() {
+	override fun onDestroy() {
 		MsgCenter.remove(this)
 		super.onDestroy()
 		for (m in eventMerges) {
