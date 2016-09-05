@@ -273,7 +273,7 @@ open class BaseFragment : Fragment(), MsgListener {
 		startActivityForResult(intent, requestCode)
 	}
 
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		val rl = resultListeners.get(requestCode)
 		if (rl != null) {
 			resultListeners.remove(requestCode)
@@ -316,7 +316,11 @@ open class BaseFragment : Fragment(), MsgListener {
 	fun toast(vararg texts: Any) {
 		val s = StrBuilder.build(*texts)
 		fore {
-			Toast.makeText(activity, s, Toast.LENGTH_LONG).show()
+			if(activity != null) {
+				Toast.makeText(activity, s, Toast.LENGTH_LONG).show()
+			}else {
+				Toast.makeText(App.get(), s, Toast.LENGTH_LONG).show()
+			}
 		}
 	}
 
@@ -326,7 +330,11 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	fun toastShort(text: String) {
 		fore {
-			Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
+			if(activity != null) {
+				Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
+			}else {
+				Toast.makeText(App.get(), text, Toast.LENGTH_SHORT).show()
+			}
 		}
 	}
 
