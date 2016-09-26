@@ -1,7 +1,9 @@
 package net.yet.ui.page
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.app.Fragment
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -14,6 +16,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import net.yet.file.SdAppFile
 import net.yet.theme.Str
@@ -360,6 +364,36 @@ open class BaseFragment : Fragment(), MsgListener {
 		eventMerges.add(em)
 		return em
 	}
+
+
+	fun pickDate(initDate: Long, block: (Long) -> Unit) {
+		pickDate(MyDate(initDate), block)
+	}
+
+	fun pickDate(date: MyDate, block: (Long) -> Unit) {
+		val dlg = DatePickerDialog(activity, object : DatePickerDialog.OnDateSetListener {
+			override fun onDateSet(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+				block(MyDate.makeDate(year, monthOfYear, dayOfMonth))
+			}
+
+		}, date.year, date.month, date.day)
+		dlg.show()
+	}
+
+	fun pickTime(time: Long, block: (Long) -> Unit) {
+		pickTime(MyDate(time), block)
+	}
+
+	fun pickTime(time: MyDate, block: (Long) -> Unit) {
+		val dlg = TimePickerDialog(activity, object : TimePickerDialog.OnTimeSetListener {
+			override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+				block(MyDate.makeTime(hourOfDay, minute))
+			}
+
+		}, time.hour, time.minute, true)
+		dlg.show()
+	}
+
 
 	override fun onDestroy() {
 		MsgCenter.remove(this)

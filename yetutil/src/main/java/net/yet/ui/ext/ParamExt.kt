@@ -4,6 +4,7 @@ package net.yet.ui.ext
 
 import android.view.View
 import android.view.ViewGroup
+import net.yet.theme.InputSize
 
 /**
  * Created by yangentao on 2015/11/21.
@@ -23,6 +24,7 @@ fun layoutParam(): ViewGroup.LayoutParams {
 fun <T : ViewGroup.LayoutParams> T.size(s: Int): T {
 	return widthDp(s).heightDp(s)
 }
+
 fun <T : ViewGroup.LayoutParams> T.width_(w: Int): T {
 	this.width = dp(w)
 	return this
@@ -58,10 +60,12 @@ fun <T : ViewGroup.LayoutParams> T.height(h: Int): T {
 	this.height = dp(h)
 	return this
 }
+
 fun <T : ViewGroup.LayoutParams> T.height_(h: Int): T {
 	this.height = dp(h)
 	return this
 }
+
 fun <T : ViewGroup.LayoutParams> T.heightDp(h: Int): T {
 	this.height = dp(h)
 	return this
@@ -110,3 +114,18 @@ fun <T : ViewGroup.MarginLayoutParams> T.margins(m: Int): T {
 	return this
 }
 
+
+fun <T : ViewGroup.LayoutParams> T.heightButton(): T {
+	return heightDp(InputSize.ButtonHeight)
+}
+
+fun <T : ViewGroup.LayoutParams> T.heightButtonSmall(): T {
+	return heightDp(InputSize.ButtonHeightSmall)
+}
+fun <T : ViewGroup.LayoutParams> T.heightEdit(): T {
+	return heightDp(InputSize.EditHeight)
+}
+
+fun <T : ViewGroup.LayoutParams> T.heightEditSmall(): T {
+	return heightDp(InputSize.EditHeightSmall)
+}
