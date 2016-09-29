@@ -50,6 +50,14 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
 			calendar.set(Calendar.DAY_OF_MONTH, value)
 		}
 
+	var dayOfYear: Int
+		get() {
+			return calendar.get(Calendar.DAY_OF_YEAR)
+		}
+		set(value) {
+			calendar.set(Calendar.DAY_OF_YEAR, value)
+		}
+
 	//[0-23]
 	var hour: Int
 		get() {
@@ -166,6 +174,31 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
 		return Companion.format(time, pattern)
 	}
 
+	fun formatShort(): String {
+		val now = MyDate()
+		if (now.year != year) {
+			return formatDate()
+		}
+		if (now.dayOfYear != dayOfYear) {
+			return format("M-d")
+		}
+		return format("H:mm")
+	}
+
+	fun formatDuration(seconds: Long): String {
+		if (seconds < 60) {
+			return "${seconds}秒"
+		}
+		if (seconds < 60 * 60) {
+			return "${seconds / 60}分${seconds % 60}秒"
+		}
+		return "${seconds / 3600}时${seconds % 3600 / 60}分${seconds % 60}秒"
+	}
+
+	fun formatTemp(): String {
+		return format("yyyyMMdd_HHmmss_SSS")
+	}
+
 	companion object {
 		val FORMAT_DATE = "yyyy-MM-dd"
 		val FORMAT_TIME = "HH:mm:ss"
@@ -189,6 +222,20 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
 			val c = Calendar.getInstance(Locale.getDefault())
 			c.set(0, 0, 0, hour, minute, second)
 			return c.timeInMillis
+		}
+
+		fun parse(format: String, dateStr: String): MyDate? {
+			val ff = SimpleDateFormat(format, Locale.getDefault())
+			try {
+				val d = ff.parse(dateStr)
+				if (d != null) {
+					return MyDate(d.time)
+				}
+			} catch (ex: Exception) {
+				ex.printStackTrace()
+				xlog.e(ex)
+			}
+			return null
 		}
 	}
 }
