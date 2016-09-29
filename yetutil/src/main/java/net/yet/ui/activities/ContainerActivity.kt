@@ -14,8 +14,8 @@ import net.yet.ui.page.BaseFragment
 
 
 open class ContainerActivity : BaseActivity() {
-	var rootView: LinearLayout? = null
-	private var fragmentContainerView: FrameLayout? = null
+	lateinit  var rootView: LinearLayout
+	lateinit var fragmentContainerView: FrameLayout
 	var currentFragment: BaseFragment? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ open class ContainerActivity : BaseActivity() {
 		this.setContentView(rootView)
 
 		fragmentContainerView = this.createFrameLayout()
-		rootView!!.addViewParam(fragmentContainerView!!) {
+		rootView.addViewParam(fragmentContainerView) {
 			widthFill().heightDp(0).weight(1f)
 		}
 
@@ -45,9 +45,11 @@ open class ContainerActivity : BaseActivity() {
 	override fun finish() {
 		super.finish()
 		val ac = currentFragment?.activityAnim
+
 		if (ac != null) {
 			this.overridePendingTransition(ac.finishEnter, ac.finishExit)
 		}
+
 	}
 
 	override fun onBackPressed() {
@@ -62,7 +64,7 @@ open class ContainerActivity : BaseActivity() {
 
 	fun replaceFragment(fragment: BaseFragment) {
 		this.currentFragment = fragment
-		fragmentManager.beginTransaction().replace(fragmentContainerId, fragment).commit()
+		fragmentManager.beginTransaction().replace(fragmentContainerId, fragment).commitAllowingStateLoss()
 	}
 
 	override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
