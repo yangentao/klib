@@ -24,7 +24,9 @@ public class OS {
 	public static final int V50 = 21;
 	public static final int V51 = 22;
 	public static final int V60 = 23;
+	public static final int V70 = 24;
 
+	public static final boolean GE40 = API >= V40;
 	public static final boolean GE44 = API >= V44;
 	public static final boolean GE50 = API >= V50;
 	public static final boolean GE60 = API >= V60;
