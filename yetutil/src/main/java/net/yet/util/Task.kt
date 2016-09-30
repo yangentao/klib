@@ -54,9 +54,9 @@ fun inMainThread(): Boolean {
 	return Thread.currentThread() == ContextHelper.mainThread
 }
 
-fun debugMustInMainThread(msg:String = "必须在主线程调用") {
-	if(App.debug) {
-		if(!inMainThread()) {
+fun debugMustInMainThread(msg: String = "必须在主线程调用") {
+	if (App.debug) {
+		if (!inMainThread()) {
 			debugThrow(msg)
 		}
 	}
@@ -67,6 +67,11 @@ inline fun <R> sync(lock: Any, block: () -> R): R {
 }
 
 private val onceSet = HashSet<String>()
+
+fun resetRunOnce(key: String) {
+	onceSet.remove(key)
+}
+
 //进程内只执行一次
 fun runOnce(key: String, block: () -> Unit) {
 	sync(onceSet) {
@@ -76,6 +81,18 @@ fun runOnce(key: String, block: () -> Unit) {
 		onceSet.add(key)
 	}
 	block.invoke()
+}
+
+fun backOnce(key: String, block: () -> Unit) {
+	back {
+		runOnce(key, block)
+	}
+}
+
+fun foreOnce(key: String, block: () -> Unit) {
+	fore {
+		runOnce(key, block)
+	}
 }
 
 //app的当前版本只执行一次
