@@ -3,8 +3,11 @@ package net.yet.ui.widget.listview.itemview
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.TextView
+import net.yet.R
+import net.yet.ext.size
 import net.yet.ui.ext.*
 import net.yet.ui.res.Img
+import net.yet.util.app.App
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -54,4 +57,17 @@ open class TextDetailView(context: Context) : HorItemView(context) {
 		setLeftImage(Img.namedStatesSize(name, false, size))
 	}
 
+	fun setRightImage(name: String, size: Int = 25) {
+		setRightImage(Img.namedStatesSize(name, false, size))
+	}
+
+	fun setRightImage(d: Drawable) {
+		detailView.setCompoundDrawables(null, null, d, null)
+		detailView.compoundDrawablePadding = dp(10)
+	}
+
+	fun rightImageMore() {
+		val d = App.drawable(R.drawable.back).size(25)
+		setRightImage(d)
+	}
 }
