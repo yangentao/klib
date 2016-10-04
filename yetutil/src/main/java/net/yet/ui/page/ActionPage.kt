@@ -36,7 +36,7 @@ abstract class ActionPage : TitledPage() {
 		scrollView.addView(scrollContentView, layoutParam().widthFill().heightWrap())
 
 		actionSetView = ActionSetView(context)
-		actionSetView.padding(10, 0, 10, 1)
+		actionSetView.padding(0, 0, 0, 1)
 		actionSetView.onItemAction = {
 			onPageAction(it)
 		}
