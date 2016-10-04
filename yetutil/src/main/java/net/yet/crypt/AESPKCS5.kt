@@ -18,7 +18,7 @@ object AESPKCS5 {
 	}
 
 	private fun doAES(mode: Int, key: ByteArray, data: ByteArray): ByteArray {
-		val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+		val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
 		cipher.init(mode, SecretKeySpec(key, "AES"))
 		return cipher.doFinal(data)
 	}
