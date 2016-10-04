@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import net.yet.ext.size
-import net.yet.theme.Colors
 import net.yet.theme.Dim
 import net.yet.ui.ext.*
 import net.yet.ui.res.Img
@@ -44,12 +43,11 @@ class ActionSetView(context: Context) : LinearLayout(context), IActionPanel {
 				val a = view.tag as Action
 				a.onAction(a)
 				onItemAction(a)
-//				val arr = visibleAcitons
-//				onItemAction(arr[position])
 			}
 		})
 		addViewParam(linearPanel) { widthFill().heightWrap() }
-		setBackgroundColor(Colors.PageGray)
+//		setBackgroundColor(Colors.PageGray)
+		this.divider(Divider())
 	}
 
 	private fun createOneItemView(context: Context, item: Action, hasIcon: Boolean, hasSubIcon: Boolean): View {
@@ -77,8 +75,8 @@ class ActionSetView(context: Context) : LinearLayout(context), IActionPanel {
 		}
 
 		val view = TextDetailView(context)
-		val padLeft = if (hasIcon) 5 else 20
-		val padRight = if (hasSubIcon) 5 else 20
+		val padLeft = if (hasIcon) 15 else 20
+		val padRight = if (hasSubIcon) 15 else 20
 		view.padding(padLeft, 5, padRight, 5)
 		view.setTextSize(textSize, subTextSize)
 		view.setValues(item.label, item.subLabel)
@@ -156,6 +154,8 @@ class ActionSetView(context: Context) : LinearLayout(context), IActionPanel {
 		groupSet.add(actionCount)
 		return this
 	}
+
+
 
 
 }

@@ -13,7 +13,7 @@ import net.yet.util.XMap
 
 class WebPage : TitledPage() {
 
-	private var webView: WebView? = null
+	lateinit  var webView: WebView
 	private var rootUrl: String? = null
 	private var title: String? = null
 
@@ -40,12 +40,12 @@ class WebPage : TitledPage() {
 		webView = WebView(context).genId()
 		contentView.addView(webView, linearParam().widthFill().heightDp(0).weight_(1))
 
-		webView!!.settings.javaScriptEnabled = true
-		webView!!.settings.domStorageEnabled = true
+		webView.settings.javaScriptEnabled = true
+		webView.settings.domStorageEnabled = true
 
-		webView!!.addJavascriptInterface(WebStoreObject(), "webstore")
+		webView.addJavascriptInterface(WebStoreObject(), "webstore")
 
-		webView!!.setWebViewClient(object : WebViewClient() {
+		webView.setWebViewClient(object : WebViewClient() {
 			override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
 				view.loadUrl(url)
 				return true
@@ -60,7 +60,7 @@ class WebPage : TitledPage() {
 			}
 
 		})
-		webView!!.setWebChromeClient(object : WebChromeClient() {
+		webView.setWebChromeClient(object : WebChromeClient() {
 			override fun onJsAlert(view: WebView, url: String, message: String, result: JsResult): Boolean {
 				return super.onJsAlert(view, url, message, result)
 			}
@@ -69,7 +69,7 @@ class WebPage : TitledPage() {
 		CookieSyncManager.createInstance(activity).sync()
 
 		if (rootUrl != null) {
-			webView!!.loadUrl(rootUrl)
+			webView.loadUrl(rootUrl)
 		}
 	}
 
@@ -78,8 +78,8 @@ class WebPage : TitledPage() {
 	}
 
 	override fun onBackPressed(): Boolean {
-		if (webView!!.canGoBack()) {
-			webView!!.goBack()
+		if (webView.canGoBack()) {
+			webView.goBack()
 			return true
 		} else {
 			return super.onBackPressed()
@@ -87,7 +87,7 @@ class WebPage : TitledPage() {
 	}
 
 	fun loadAsset(assetPath: String) {
-		webView!!.loadUrl("file:///android_asset/" + assetPath)
+		webView.loadUrl("file:///android_asset/" + assetPath)
 	}
 
 	companion object {

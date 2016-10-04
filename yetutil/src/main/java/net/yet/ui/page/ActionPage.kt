@@ -22,23 +22,21 @@ import net.yet.ui.widget.add
  * @author yangentao@gmail.com
  */
 abstract class ActionPage : TitledPage() {
-	protected var scrollView: ScrollView? = null
-	private var _scrollContentView: LinearLayout? = null
-	val scrollContentView: LinearLayout get() = _scrollContentView!!
-	private var _actionSetView: ActionSetView? = null
-	protected val actionSetView: ActionSetView get() = _actionSetView!!
+	lateinit var scrollView: ScrollView
+	lateinit var scrollContentView: LinearLayout
+	lateinit var actionSetView: ActionSetView
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
 		contentView.setBackgroundColor(Color.WHITE)
 		scrollView = ScrollView(activity).genId().backColorPage()
-		contentView.addViewParam(scrollView!!) { widthFill().heightDp(0).weight(1f) }
+		contentView.addViewParam(scrollView) { widthFill().heightDp(0).weight(1f) }
 
-		_scrollContentView = context.createLinearVertical()
-		scrollView!!.addView(scrollContentView, layoutParam().widthFill().heightWrap())
+		scrollContentView = context.createLinearVertical()
+		scrollView.addView(scrollContentView, layoutParam().widthFill().heightWrap())
 
-		_actionSetView = ActionSetView(context)
-		actionSetView.padding(0, 0, 0, 1)
+		actionSetView = ActionSetView(context)
+		actionSetView.padding(10, 0, 10, 1)
 		actionSetView.onItemAction = {
 			onPageAction(it)
 		}
@@ -64,7 +62,7 @@ abstract class ActionPage : TitledPage() {
 	protected abstract fun onPageAction(action: Action)
 
 	fun indexOfActionSetView(): Int {
-		return scrollContentView.indexOfChild(_actionSetView!!)
+		return scrollContentView.indexOfChild(actionSetView)
 	}
 
 	fun actionViewParam(): LinearLayout.LayoutParams {

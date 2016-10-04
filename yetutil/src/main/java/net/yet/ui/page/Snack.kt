@@ -29,10 +29,10 @@ class Snack(context: Context) : LinearLayout(context) {
 	private val gd: GestureDetector
 
 	private val clickListener = View.OnClickListener { v ->
-		val action = okButton!!.text.toString()
+		val action = okButton.text.toString()
 		val c = callback
 		hide()
-		if (v === okButton!! && c != null) {
+		if (v === okButton && c != null) {
 			TaskUtil.fore(object : RunTask() {
 				@Throws(Exception::class)
 				override fun onRun() {
