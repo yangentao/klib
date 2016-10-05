@@ -12,6 +12,7 @@ import net.yet.ext.notEmpty
 import net.yet.ext.size
 import net.yet.theme.Colors
 import net.yet.ui.ext.*
+import net.yet.util.app.App
 import java.util.*
 
 /**
@@ -53,6 +54,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	private var showInputEdit: Boolean = false
 	private var editHint: String = ""
 	private var onTextChanged: (String) -> Unit = {}
+	var titleStyleDropdown = false
 
 
 	init {
@@ -220,6 +222,11 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 			titleView.onClick {
 				onTitleClick(title ?: "")
 			}
+			if (titleStyleDropdown) {
+				val drop = App.drawable(R.drawable.dropdown).size(15,15)
+				titleView.setCompoundDrawables(null, null, drop, null)
+				titleView.compoundDrawablePadding = dp(5)
+			}
 			return titleView
 		}
 	}
@@ -266,6 +273,16 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 					addViewParam(midView) {
 						widthWrap().heightFill().centerInParent()
 					}
+				}
+			} else if (titleStyleDropdown) {
+				addViewParam(midView) {
+					if (leftView != null) {
+						toRightOf(leftView).margins(5, 2, 5, 2)
+					} else {
+						parentLeft().margins(20, 2, 5, 2)
+					}
+
+					widthWrap().heightFill().centerVertical()
 				}
 			} else {
 				addViewParam(midView) {

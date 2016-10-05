@@ -9,6 +9,7 @@ import android.widget.ListView
 import net.yet.sys.contact.ContactSelectPage
 import net.yet.ui.activities.PageUtil
 import net.yet.ui.activities.TitledActivity
+import net.yet.ui.dialogs.ListViewDialog
 import net.yet.ui.ext.addViewParam
 import net.yet.ui.ext.heightWrap
 import net.yet.ui.ext.widthWrap
@@ -24,6 +25,11 @@ class MainActivity : TitledActivity() {
 		titleBar.title = "主页"
 		titleBar.addAction(TEST)
 		titleBar.showBack()
+		titleBar.titleAlignCenter = true
+		titleBar.titleStyleDropdown = true
+		titleBar.onTitleClick = {
+			this@MainActivity.onTitleClick(it)
+		}
 
 		val lv = object : AdapterListView<String>(this) {
 
@@ -58,6 +64,17 @@ class MainActivity : TitledActivity() {
 		if (action.isTag(TEST)) {
 			PageUtil.open(this, ContactSelectPage())
 		}
+	}
+
+	fun onTitleClick(title: String) {
+		val dlg = object : ListViewDialog() {
+			override fun onSelect(index: Int, s: String) {
+				toast(s)
+			}
+		}
+		dlg.gravityTop = true
+		dlg.addItems("A", "B", "C")
+		dlg.show(this, "Title")
 	}
 
 }
