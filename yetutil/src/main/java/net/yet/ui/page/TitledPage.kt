@@ -53,6 +53,9 @@ open class TitledPage : BaseFragment() {
 			b, a ->
 			this@TitledPage.onTitleBarActionNav(b, a)
 		}
+		titleBar.onTitleClick = {
+			onTitleBarTitleClick(titleBar.title ?: "")
+		}
 
 		rootView.addView(titleBar)
 
@@ -128,6 +131,10 @@ open class TitledPage : BaseFragment() {
 		if (bar.isBack(action)) {
 			activity.onBackPressed()
 		}
+	}
+
+	open fun onTitleBarTitleClick(title: String) {
+
 	}
 
 	override fun onBackPressed(): Boolean {

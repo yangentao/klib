@@ -47,6 +47,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	var onActionNav: (bar: TitleBar, action: Action) -> Unit = {
 		b, a ->
 	}
+	var onTitleClick: (title: String) -> Unit = {}
 
 
 	private var showInputEdit: Boolean = false
@@ -216,6 +217,9 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 			titleView.textColor(TEXT_COLOR).miniWidthDp(35).gravityLeftCenter().ellipsizeMarquee()
 			titleView.text(title)
 			titleView.maxLines = 2
+			titleView.onClick {
+				onTitleClick(title ?: "")
+			}
 			return titleView
 		}
 	}
