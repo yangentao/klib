@@ -1,5 +1,6 @@
 package net.yet.ext
 
+import net.yet.util.MyDate
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -7,6 +8,11 @@ import org.json.JSONObject
  * Created by entaoyang@163.com on 16/7/20.
  */
 
+
+fun JSONObject.dateTime(key: String): Long {
+	val s = this.string(key) ?: return 0L
+	return MyDate.parseDateTime(s)?.time ?: 0L
+}
 
 fun JSONObject.bool(key: String): Boolean? {
 	return this.optBoolean(key)
@@ -104,3 +110,4 @@ fun JSONObject.array(key: String, value: JSONArray?): JSONObject? {
 	}
 	return this
 }
+

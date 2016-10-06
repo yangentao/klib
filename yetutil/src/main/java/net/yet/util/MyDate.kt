@@ -237,5 +237,9 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
 			}
 			return null
 		}
+
+		fun parseDateTime(s: String): MyDate? {
+			return parse(FORMAT_DATE_TIME, s)
+		}
 	}
 }
