@@ -67,7 +67,7 @@ class HttpResult {
 			if (response != null) {
 				var s = String(response!!, contentCharset ?: defCharset)
 				if (needDecode) {
-					s = URLDecoder.decode(s)
+					s = URLDecoder.decode(s, defCharset.name())
 				}
 				return s
 			}
