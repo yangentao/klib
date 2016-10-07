@@ -24,8 +24,8 @@ fun Base64.decodeSafe(data:ByteArray):ByteArray {
 }
 
 fun Base64.decode(s:String):ByteArray {
-	return Base64.decode(s.toByteArray(), Base64.DEFAULT)
+	return Base64.decode(s.toByteArray(Charsets.ISO_8859_1), Base64.DEFAULT)
 }
 fun Base64.decodeSafe(s:String):ByteArray {
-	return Base64.decode(s.toByteArray(), Base64.URL_SAFE)
+	return Base64.decode(s.toByteArray(Charsets.ISO_8859_1), Base64.URL_SAFE)
 }
