@@ -51,7 +51,7 @@ class Http(val url: String) {
 		accept("application/json,text/plain,text/html,*/*")
 		acceptLanguage("zh-CN,en-US;q=0.8,en;q=0.6")
 		headerMap.put("Accept-Charset", "UTF-8,*")
-		headerMap.put("Connection:", "close")
+		headerMap.put("Connection", "close")
 		headerMap.put("Charset", UTF8)
 	}
 
@@ -138,8 +138,8 @@ class Http(val url: String) {
 	}
 
 	fun args(map: Map<String, String>): Http {
-		argMap.putAll(map);
-		return this;
+		argMap.putAll(map)
+		return this
 	}
 
 	fun file(key: String, file: File): Http {
@@ -366,6 +366,9 @@ class Http(val url: String) {
 			}
 			for ((k, v) in fileMap) {
 				log("--file:", k, "=", v)
+			}
+			for ((k, v) in mimeMap) {
+				log("--mime:", k, v)
 			}
 			if (method == HttpMethod.GET || method == HttpMethod.POST_RAW_DATA) {
 				connection = URL(buildGetUrl()).openConnection() as HttpURLConnection
