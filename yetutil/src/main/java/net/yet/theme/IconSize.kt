@@ -7,6 +7,6 @@ object IconSize {
 	var Large = 48//dp
 	var Big = 32//dp
 	var Normal = 24//dp
-	var Mid = 20//dp
+	var Small = 20//dp
 	var Min = 12//dp
 }

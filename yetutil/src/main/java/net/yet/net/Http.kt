@@ -36,6 +36,7 @@ class Http(val url: String) {
 	private val fileMap = HashMap<String, Uri>()
 	private val filenameMap = HashMap<String, String>()
 	private val progressMap = HashMap<String, Progress>()
+	private val mimeMap = HashMap<String, String>()
 
 	private var timeoutConnect = 10000
 	private var timeoutRead = 10000
@@ -144,22 +145,31 @@ class Http(val url: String) {
 	fun file(key: String, file: File): Http {
 		return file(key, Uri.fromFile(file))
 	}
+
 	fun file(key: String, file: Uri): Http {
 		fileMap.put(key, file)
 		return this
 	}
 
-	fun file(key: String, file: File, progress: Progress? ): Http {
+	fun file(key: String, file: File, progress: Progress?): Http {
 		return file(key, Uri.fromFile(file), progress)
 	}
-	fun file(key: String, file: Uri, progress: Progress? ): Http {
-		if(progress != null) {
+
+	fun file(key: String, file: Uri, progress: Progress?): Http {
+		if (progress != null) {
 			progressMap.put(key, progress)
 		}
 		return file(key, file)
 	}
-	fun filename(key:String, filename:String): Http {
+
+	fun filename(key: String, filename: String): Http {
 		filenameMap[key] = filename
+		return this
+	}
+
+
+	fun mime(key: String, mime: String): Http {
+		mimeMap[key] = mime
 		return this
 	}
 
@@ -227,13 +237,11 @@ class Http(val url: String) {
 		if (fileMap.size > 0) {
 			for (e in fileMap.entries) {
 				val file = e.value
-				var filename = filenameMap[e.key]
-				if(filename == null) {
-					filename = file.lastPathSegment
-				}
+				var filename = filenameMap[e.key] ?: file.lastPathSegment ?: "a.tmp"
+				var mime = mimeMap[e.key] ?: "application/octet-stream"
 				write(os, BOUNDARY_START)
-				write(os, "Content-Disposition:form-data;name=\"", e.key, "\";filename=\"", filename!!, "\"\r\n")
-				write(os, "Content-Type:application/octet-stream\r\n")
+				write(os, "Content-Disposition:form-data;name=\"${e.key}\";filename=\"$filename\"\r\n")
+				write(os, "Content-Type:$mime\r\n")
 				write(os, "Content-Transfer-Encoding: binary\r\n")
 				write(os, "\r\n")
 				val progress = progressMap[e.key]
@@ -356,7 +364,7 @@ class Http(val url: String) {
 			for ((k, v) in argMap) {
 				log("--arg:", k, "=", v)
 			}
-			for ((k, v)  in fileMap) {
+			for ((k, v) in fileMap) {
 				log("--file:", k, "=", v)
 			}
 			if (method == HttpMethod.GET || method == HttpMethod.POST_RAW_DATA) {

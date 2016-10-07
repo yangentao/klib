@@ -14,6 +14,7 @@ import android.widget.TextView
 import net.yet.ext.ColorList
 import net.yet.theme.Colors
 import net.yet.theme.Dim
+import net.yet.theme.Space
 import net.yet.ui.res.Img
 import net.yet.util.Util
 import net.yet.util.app.App
@@ -300,16 +301,28 @@ fun <T : TextView> T.linkifyAll(): T {
 	return this
 }
 
-fun <T : TextView> T.leftImage(d: Drawable, marginTop: Int = 5): T {
+fun <T : TextView> T.leftImage(d: Drawable, margin: Int = Space.Small): T {
 	this.setCompoundDrawables(d, null, null, null)
-	this.compoundDrawablePadding = dp(marginTop)
+	this.compoundDrawablePadding = dp(margin)
+	return this
+}
+
+fun <T : TextView> T.rightImage(d: Drawable, margin: Int = Space.Small): T {
+	this.setCompoundDrawables(null, null, d, null)
+	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 
 
-fun <T : TextView> T.topImage(d: Drawable, marginTop: Int = 5): T {
+fun <T : TextView> T.topImage(d: Drawable, margin: Int = Space.Small): T {
 	this.setCompoundDrawables(null, d, null, null)
-	this.compoundDrawablePadding = dp(marginTop)
+	this.compoundDrawablePadding = dp(margin)
+	return this
+}
+
+fun <T : TextView> T.bottomImage(d: Drawable, margin: Int = Space.Small): T {
+	this.setCompoundDrawables(null, null, null, d)
+	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 

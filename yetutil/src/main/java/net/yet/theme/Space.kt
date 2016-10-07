@@ -5,9 +5,9 @@ package net.yet.theme
  */
 
 object Space {
-	val Large = 45
-	val Big = 30
-	val Normal = 16
-	val Small = 10
-	val Tiny = 5
+	@JvmStatic val Large = 45
+	@JvmStatic val Big = 30
+	@JvmStatic val Normal = 16
+	@JvmStatic val Small = 10
+	@JvmStatic val Tiny = 5
 }
