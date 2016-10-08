@@ -1,6 +1,7 @@
 package net.yet.ui.activities
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -11,6 +12,7 @@ import net.yet.R
 import net.yet.ui.dialogs.OKDialog
 import net.yet.util.*
 import net.yet.util.app.App
+import net.yet.util.app.OS
 import net.yet.util.event.EventMerge
 import java.util.*
 
@@ -20,6 +22,71 @@ import java.util.*
 
 open class BaseActivity : AppCompatActivity(), MsgListener {
 	private val eventMerges = ArrayList<EventMerge>()
+
+
+	private val PERM_CODE = 58
+	val reqPermSet = HashSet<String>()
+	val grantedPermSet = HashSet<String>()
+	val denyPermSet = HashSet<String>()
+	private var permCallback: ((Set<String>) -> Unit)? = null
+
+
+	//6.0之前返回false,
+	fun hasPerm(p: String): Boolean {
+		if (OS.GE60) {
+			return PackageManager.PERMISSION_GRANTED == checkSelfPermission(p)
+		}
+		return false
+	}
+
+	//检查权限, 返回获得的权限
+	//6.0之前返回空集合
+	fun checkPerm(ps: Collection<String>): Set<String> {
+		val set = HashSet<String>(8)
+		for (s in ps) {
+			if (hasPerm(s)) {
+				set.add(s)
+			}
+		}
+		return set
+	}
+
+	//ps:要请求的权限android.Manifest.permision.xxx
+	//block, 获得的权限
+	fun reqPerm(ps: Collection<String>, block: (Set<String>) -> Unit) {
+		if (ps.isEmpty() || !OS.GE60) {
+			return
+		}
+		reqPermSet.clear()
+		grantedPermSet.clear()
+		denyPermSet.clear()
+		reqPermSet.addAll(ps)
+		grantedPermSet.addAll(checkPerm(reqPermSet))
+		if (grantedPermSet.size == reqPermSet.size) {
+			block(grantedPermSet)
+			return
+		}
+		permCallback = block
+		denyPermSet.addAll(reqPermSet - grantedPermSet)
+		requestPermissions(denyPermSet.toTypedArray(), PERM_CODE)
+	}
+
+	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+		if (requestCode == requestCode) {
+			for (i in permissions.indices) {
+				val p = permissions[i]
+				val ok = grantResults[i] == PackageManager.PERMISSION_GRANTED
+				if (ok) {
+					denyPermSet.remove(p)
+					grantedPermSet.add(p)
+				}
+			}
+			val c = permCallback
+			permCallback = null
+			c?.invoke(grantedPermSet)
+		}
+	}
 
 	protected fun createMerge(millSec: Int): EventMerge {
 		val em = EventMerge.delay(millSec)
@@ -42,11 +109,13 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 	override fun onMsg(msg: Msg) {
 		xlog.d("Message:", msg)
 	}
-	fun alert(title:String, msg:String) {
+
+	fun alert(title: String, msg: String) {
 		val dlg = OKDialog()
 		dlg.show(this, title, msg)
 	}
-	fun alert(title:String) {
+
+	fun alert(title: String) {
 		val dlg = OKDialog()
 		dlg.show(this, title, null)
 	}
