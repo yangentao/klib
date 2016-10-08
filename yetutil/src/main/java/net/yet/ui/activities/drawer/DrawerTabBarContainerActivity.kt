@@ -76,7 +76,7 @@ class DrawerTabBarContainerActivity : BaseActivity() {
 		tabBar.onSelect = { bar, action ->
 			xlog.d("select ", action.tag)
 			val page = pages[action.tag]
-			fragmentHelper.showFragment(page, action.tag)
+			fragmentHelper.showFragment(page!!, action.tag)
 		}
 		rootView.addView(tabBar)
 	}
