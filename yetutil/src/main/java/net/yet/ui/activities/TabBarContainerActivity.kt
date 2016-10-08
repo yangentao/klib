@@ -82,7 +82,7 @@ open class TabBarContainerActivity : BaseActivity() {
 	fun onXTabBarSelect(bar: TabBar, action: Action) {
 		xlog.d("select ", action.tag)
 		val page = pages[action.tag]
-		fragmentHelper!!.showFragment(page, action.tag)
+		fragmentHelper!!.showFragment(page!!, action.tag)
 	}
 
 	override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
