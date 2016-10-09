@@ -138,10 +138,6 @@ open class TitledPage : BaseFragment() {
 	}
 
 	override fun onBackPressed(): Boolean {
-		if (titleBar.isEditShowing()) {
-			titleBar.hideInputEdit()
-			return true
-		}
 		return super.onBackPressed()
 	}
 }
