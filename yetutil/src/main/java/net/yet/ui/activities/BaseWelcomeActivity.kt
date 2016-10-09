@@ -6,9 +6,7 @@ import android.widget.ImageView
 import net.yet.ui.activities.BaseActivity
 import net.yet.ui.ext.openActivity
 import net.yet.ui.widget.ImageResPager
-import net.yet.util.Util
-import net.yet.util.back
-import net.yet.util.fore
+import net.yet.util.*
 
 /**
  * Created by entaoyang@163.com on 16/3/12.
@@ -38,6 +36,9 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 	 * @return
 	 */
 	protected abstract val nextActivity: Class<out Activity>
+
+	//毫秒
+	var minTime:Long = 0
 
 	/**
 	 * 进行app的初始化/预加载工作
@@ -71,7 +72,12 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 	override fun onResume() {
 		super.onResume()
 		back {
+			val t = Tick()
 			onBackTask()
+			val delta = t.end("")
+			if(delta < minTime) {
+				sleep(minTime - delta)
+			}
 			fore {
 				if (!isGuide) {
 					openActivity(nextActivity)
