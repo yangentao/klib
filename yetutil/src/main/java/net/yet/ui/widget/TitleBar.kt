@@ -50,9 +50,11 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	}
 	var onTitleClick: (title: String) -> Unit = {}
 
+	var inputEdit: EditTextX? = null
+
 
 	private var showInputEdit: Boolean = false
-	private var editHint: String = ""
+	private var editHint: CharSequence = ""
 	private var onTextChanged: (String) -> Unit = {}
 	var titleStyleDropdown = false
 
@@ -91,7 +93,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 		return showInputEdit
 	}
 
-	fun showInputEdit(hint: String = "", onTextChanged: (String) -> Unit) {
+	fun showInputEdit(hint: CharSequence = "", onTextChanged: (String) -> Unit) {
 		this.showInputEdit = true
 		editHint = hint
 		this.onTextChanged = onTextChanged
@@ -196,8 +198,9 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	}
 
 	private fun buildTitleView(): View {
+		inputEdit = null
 		if (showInputEdit) {
-			val editText = context.createEditText()
+			val editText = context.createEditTextX()
 			editText.hint = editHint
 			editText.gravity = Gravity.CENTER_VERTICAL
 			editText.padding(10, 2, 10, 2)
@@ -213,6 +216,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 				}
 
 			})
+			inputEdit = editText
 			return editText
 		} else {
 			val titleView = context.createTextViewA().textSizeTitle()
@@ -223,7 +227,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 				onTitleClick(title ?: "")
 			}
 			if (titleStyleDropdown) {
-				val drop = App.drawable(R.drawable.dropdown).size(15,15)
+				val drop = App.drawable(R.drawable.dropdown).size(15, 15)
 				titleView.setCompoundDrawables(null, null, drop, null)
 				titleView.compoundDrawablePadding = dp(5)
 			}
@@ -255,7 +259,17 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 
 		if (showInputEdit) {
 			addViewParam(midView) {
-				widthFill().heightFill().centerInParent().margins(20, 5, 20, 5)
+				if (leftView != null) {
+					toRightOf(leftView).margins(5, 2, 5, 2)
+				} else {
+					parentLeft().margins(20, 2, 5, 2)
+				}
+				if (rightView != null) {
+					toLeftOf(rightView!!)
+				} else {
+					parentRight()
+				}
+				heightFill().centerVertical().margins(0, 5, 20, 5)
 			}
 		} else {
 			if (midCenter) {
