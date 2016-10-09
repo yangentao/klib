@@ -1,10 +1,8 @@
 package net.yet.kutil.ui.activities
 
-import android.app.Activity
 import android.os.Bundle
 import android.widget.ImageView
 import net.yet.ui.activities.BaseActivity
-import net.yet.ui.ext.openActivity
 import net.yet.ui.widget.ImageResPager
 import net.yet.util.*
 
@@ -30,15 +28,9 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 	 */
 	protected abstract val resImages: IntArray
 
-	/**
-	 * 要跳转的下一个页面
-
-	 * @return
-	 */
-	protected abstract val nextActivity: Class<out Activity>
 
 	//毫秒
-	open var minTime:Long = 0
+	open var minTime: Long = 0
 
 	/**
 	 * 进行app的初始化/预加载工作
@@ -55,7 +47,7 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 			setContentView(pager)
 			pager.setItems(Util.asList(*images))
 			pager.onLastPageClick = {
-				openActivity(nextActivity)
+				onNextPage()
 				finish()
 			}
 			return
@@ -75,17 +67,19 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 			val t = Tick()
 			onBackTask()
 			val delta = t.end("")
-			if(delta < minTime) {
+			if (delta < minTime) {
 				sleep(minTime - delta)
 			}
 			fore {
 				if (!isGuide) {
-					openActivity(nextActivity)
+					onNextPage()
 					finish()
 				}
 			}
 		}
 	}
+
+	abstract fun onNextPage()
 
 	override fun onBackPressed() {
 		// 不可退出
