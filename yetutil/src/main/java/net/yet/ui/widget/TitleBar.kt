@@ -51,6 +51,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	var onTitleClick: (title: String) -> Unit = {}
 
 	var inputEdit: EditTextX? = null
+	var onSearch: (String) -> Unit = {}
 
 
 	private var showInputEdit: Boolean = false
@@ -200,10 +201,13 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	private fun buildTitleView(): View {
 		inputEdit = null
 		if (showInputEdit) {
-			val editText = context.createEditTextX()
+			val editText = context.createEditTextX().singleLine()
 			editText.hint = editHint
 			editText.gravity = Gravity.CENTER_VERTICAL
 			editText.padding(10, 2, 10, 2)
+			editText.imeSearch {
+				onSearch(it.text.toString())
+			}
 			editText.addTextChangedListener(object : TextWatcher {
 				override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 				}
