@@ -10,8 +10,8 @@ import java.util.*
 class StringSelectDialog {
 	private val list = ArrayList<String>(64)
 
-	val onConfig: (AlertDialog) -> Unit = {}
-	val onSelect: (Int, String) -> Unit = { n, s -> }
+	var onConfig: (AlertDialog) -> Unit = {}
+	var onSelect: (Int, String) -> Unit = { n, s -> }
 
 	fun size(): Int {
 		return list.size

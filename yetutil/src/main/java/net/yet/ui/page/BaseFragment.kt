@@ -87,40 +87,36 @@ open class BaseFragment : Fragment(), MsgListener {
 	}
 
 	fun itemSelectN(items: Collection<String>, block: (Int) -> Unit) {
-		val dlg = object : StringSelectDialog() {
-			override fun onSelect(index: Int, s: String) {
-				block(index)
-			}
+		var dlg = StringSelectDialog()
+		dlg.onSelect = { n, s ->
+			block(n)
 		}
 		dlg.addItems(items)
 		dlg.show(activity)
 	}
 
 	fun itemSelect(items: Collection<String>, block: (String) -> Unit) {
-		val dlg = object : StringSelectDialog() {
-			override fun onSelect(index: Int, s: String) {
-				block(s)
-			}
+		val dlg = StringSelectDialog()
+		dlg.onSelect = { n, s ->
+			block(s)
 		}
 		dlg.addItems(items)
 		dlg.show(activity)
 	}
 
 	fun itemSelect(vararg items: String, block: (String) -> Unit) {
-		val dlg = object : StringSelectDialog() {
-			override fun onSelect(index: Int, s: String) {
-				block(s)
-			}
+		val dlg = StringSelectDialog()
+		dlg.onSelect = { n, s ->
+			block(s)
 		}
 		dlg.addItems(*items)
 		dlg.show(activity)
 	}
 
 	fun showMenuSelect(vararg items: String, block: (String) -> Unit) {
-		val dlg = object : StringSelectDialog() {
-			override fun onSelect(index: Int, s: String) {
-				block(s)
-			}
+		val dlg = StringSelectDialog()
+		dlg.onSelect = { n, s ->
+			block(s)
 		}
 		dlg.addItems(*items)
 		dlg.show(activity)

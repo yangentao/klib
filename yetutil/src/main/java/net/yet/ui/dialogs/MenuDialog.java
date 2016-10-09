@@ -5,6 +5,9 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
+
 /**
  * Created by yet on 2015/11/1.
  */
@@ -59,14 +62,16 @@ public class MenuDialog {
 	}
 
 	public void show(Context context) {
-		StringSelectDialog dlg = new StringSelectDialog() {
+		StringSelectDialog dlg = new StringSelectDialog();
+		dlg.setOnSelect(new Function2<Integer, String, Unit>() {
 			@Override
-			protected void onSelect(int index, String s) {
+			public Unit invoke(Integer integer, String s) {
 				if (callback != null) {
 					callback.onMenuCallback(MenuDialog.this, group, s);
 				}
+				return Unit.INSTANCE;
 			}
-		};
+		});
 		dlg.addItems(this.items);
 		dlg.show(context, title);
 	}
