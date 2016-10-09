@@ -38,7 +38,7 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 	protected abstract val nextActivity: Class<out Activity>
 
 	//毫秒
-	var minTime:Long = 0
+	open var minTime:Long = 0
 
 	/**
 	 * 进行app的初始化/预加载工作

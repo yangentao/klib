@@ -1,12 +1,30 @@
 package net.yet.ui.dialogs
 
+import android.app.AlertDialog
+import android.view.Gravity
 import net.yet.R
 import net.yet.locale.LibS
+import net.yet.ui.ext.dp
 import net.yet.ui.page.BaseFragment
 
 /**
  * Created by entaoyang@163.com on 16/5/10.
  */
+
+
+fun AlertDialog.gravityTop(margin: Int): AlertDialog {
+	val lp = this.window.attributes
+	lp.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+	lp.y = dp(margin)
+	return this
+}
+
+fun AlertDialog.gravityBottom(margin: Int): AlertDialog {
+	val lp = this.window.attributes
+	lp.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+	lp.y = dp(margin)
+	return this
+}
 
 
 fun BaseFragment.showAlert(title: String, msg: String? = null, okText: String = LibS(R.string.ok)): OKDialog {
