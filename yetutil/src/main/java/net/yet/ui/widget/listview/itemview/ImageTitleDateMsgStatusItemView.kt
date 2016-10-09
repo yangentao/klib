@@ -79,6 +79,19 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 		return setValues(icon, title, s, msg, status)
 	}
 
+	fun setValues(title: String, date: Long, msg: String, status: String): ImageTitleDateMsgStatusItemView {
+		val s = if (date == 0L) "" else DateUtil.shortString(date)
+		return setValues(title, s, msg, status)
+	}
+
+	fun setValues(title: String, date: String, msg: String, status: String): ImageTitleDateMsgStatusItemView {
+		titleView.text = title
+		dateView.text = date
+		msgView.text = msg
+		statusView.text = status
+		return this
+	}
+
 	fun showRedPoint(show: Boolean): ImageTitleDateMsgStatusItemView {
 		statusView.setCompoundDrawables(null, null, if (show) redDrawable else null, null)
 		return this
