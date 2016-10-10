@@ -1,5 +1,6 @@
 package net.yet.ext
 
+import net.yet.util.DO
 import net.yet.util.Util
 import java.io.Closeable
 import java.util.*
@@ -15,6 +16,7 @@ inline fun <T> T?.notNull(block: (T) -> Unit) {
 	if (this != null) {
 		block(this)
 	}
+	this.DO(block)
 }
 
 fun <T : Closeable> T?.closeSafe() {

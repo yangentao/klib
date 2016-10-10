@@ -74,3 +74,10 @@ fun String?.hasCharLast(ch: Char): Boolean {
 fun String?.hasChar(ch: Char): Boolean {
 	return (this?.indexOf(ch) ?: -1) >= 0
 }
+
+fun String.head(n: Int): String {
+	if (this.length <= n) {
+		return this
+	}
+	return this.substring(0, n)
+}

@@ -1,5 +1,6 @@
-package net.yet.xml
+package net.yet.ext
 
+import net.yet.util.MyDate
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.ByteArrayInputStream
@@ -58,6 +59,19 @@ fun Element.text(): String? {
 	return this.textContent?.trim()
 }
 
+val Element.text: String? get() {
+	return this.textContent?.trim()
+}
+val Element.textDateTime: Long get() {
+	return this.textDateTime()
+}
+
+
+//yyyy-MM-dd HH:mm:ss
+fun Element.textDateTime(): Long {
+	return MyDate.parseDateTime(text())?.time ?: 0L
+}
+
 fun Element.addText(text: String): Element {
 	val node = this.ownerDocument.createTextNode(text)
 	this.appendChild(node)
@@ -71,6 +85,7 @@ fun Element.element(name: String): Element? {
 	}
 	return null
 }
+
 fun Element.e(name: String): Element? {
 	return this.element(name)
 }
@@ -93,13 +108,14 @@ fun Element.elements(name: String): List<Element> {
 	val es = ArrayList<Element>(16)
 	val ls = this.getElementsByTagName(name)
 	if (ls != null) {
-		for(i in 0..ls.length-1) {
+		for (i in 0..ls.length - 1) {
 			val e = ls.item(i) as Element
 			es.add(e)
 		}
 	}
 	return es
 }
+
 fun Element.elist(name: String): List<Element> {
 	return this.elements(name)
 }
