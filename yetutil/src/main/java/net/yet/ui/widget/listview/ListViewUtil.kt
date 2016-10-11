@@ -8,19 +8,19 @@ import android.widget.ListView
  * Created by yet on 2015/10/11.
  */
 object ListViewUtil {
-	fun addClick(listView: ListView, listener: ListViewClickListener) {
+	@JvmStatic fun addClick(listView: ListView, listener: ListViewClickListener) {
 		listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
 			click(listView, view, position, listener)
 		}
 	}
 
-	fun addLongClick(listView: ListView, listener: ListViewLongClickListener) {
+	@JvmStatic fun addLongClick(listView: ListView, listener: ListViewLongClickListener) {
 		listView.onItemLongClickListener = AdapterView.OnItemLongClickListener { adapterView, view, position, id ->
 			longClick(listView, view, position, listener)
 		}
 	}
 
-	fun click(listView: ListView, view: View, position: Int, event: ListViewClickListener?) {
+	@JvmStatic fun click(listView: ListView, view: View, position: Int, event: ListViewClickListener?) {
 		if (event == null) {
 			return
 		}
@@ -36,6 +36,7 @@ object ListViewUtil {
 		pos -= listView.headerViewsCount
 		if (pos >= 0 && pos < countAdapter) {
 			event.onItemClickAdapter(listView, view, pos)
+
 		}
 		pos -= countAdapter
 		if (pos >= 0 && pos < listView.footerViewsCount) {
@@ -44,7 +45,7 @@ object ListViewUtil {
 		event.onItemClick(listView, view, position)
 	}
 
-	fun longClick(listView: ListView, view: View, position: Int, event: ListViewLongClickListener?): Boolean {
+	@JvmStatic fun longClick(listView: ListView, view: View, position: Int, event: ListViewLongClickListener?): Boolean {
 		if (event == null) {
 			return false
 		}

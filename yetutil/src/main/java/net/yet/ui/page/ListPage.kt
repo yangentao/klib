@@ -46,7 +46,7 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 			this@ListPage.onItemsRefreshed()
 		}
 
-		override fun onOrderItems(items: ArrayList<T>):ArrayList<T> {
+		override fun onOrderItems(items: ArrayList<T>): ArrayList<T> {
 			return this@ListPage.onOrderItems(items)
 		}
 	}
@@ -55,9 +55,9 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	 * @return listView的上级View
 	 */
 	lateinit var listViewParent: RelativeLayout
-//		private set
+	//		private set
 	lateinit var listView: ListView
-//		private set
+	//		private set
 	lateinit var emptyView: TextView
 //		private set
 
@@ -73,7 +73,7 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 		adapter.refilter()
 	}
 
-	open fun onOrderItems(items: ArrayList<T>):ArrayList<T> {
+	open fun onOrderItems(items: ArrayList<T>): ArrayList<T> {
 		return items
 	}
 
@@ -208,8 +208,12 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	 */
 	protected abstract fun onRequestItems(): List<T>
 
-	override fun onItemClickAdapter(listView: ListView, view: View, position: Int) {
+	open fun onItemClickAdapter2(listView: ListView, view: View, position: Int, item: T) {
 
+	}
+
+	override fun onItemClickAdapter(listView: ListView, view: View, position: Int) {
+		onItemClickAdapter2(listView, view, position, getItem(position))
 	}
 
 	override fun onItemClickHeader(listView: ListView, view: View, position: Int) {
@@ -224,8 +228,12 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 
 	}
 
-	override fun onItemLongClickAdapter(listView: ListView, view: View, position: Int): Boolean {
+	open fun onItemLongClickAdapter2(listView: ListView, view: View, position: Int, item: T): Boolean {
 		return false
+	}
+
+	override fun onItemLongClickAdapter(listView: ListView, view: View, position: Int): Boolean {
+		return onItemLongClickAdapter2(listView, view, position, getItem(position))
 	}
 
 	override fun onItemLongClickHeader(listView: ListView, view: View, position: Int): Boolean {
