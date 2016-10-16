@@ -21,8 +21,8 @@ fun layoutParam(): ViewGroup.LayoutParams {
 }
 
 
-fun <T : ViewGroup.LayoutParams> T.size(s: Int): T {
-	return widthDp(s).heightDp(s)
+fun <T : ViewGroup.LayoutParams> T.size(w: Int, h: Int = w): T {
+	return widthDp(w).heightDp(h)
 }
 
 fun <T : ViewGroup.LayoutParams> T.width_(w: Int): T {
@@ -122,6 +122,7 @@ fun <T : ViewGroup.LayoutParams> T.heightButton(): T {
 fun <T : ViewGroup.LayoutParams> T.heightButtonSmall(): T {
 	return heightDp(InputSize.ButtonHeightSmall)
 }
+
 fun <T : ViewGroup.LayoutParams> T.heightEdit(): T {
 	return heightDp(InputSize.EditHeight)
 }
