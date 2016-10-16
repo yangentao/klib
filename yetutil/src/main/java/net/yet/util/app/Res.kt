@@ -15,6 +15,14 @@ object Res {
 		return App.getResources().getString(resId, *args)
 	}
 
+	@JvmStatic fun color(resId: Int): Int {
+		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			App.getResources().getColor(resId, App.get().theme)
+		} else {
+			App.getResources().getColor(resId)
+		}
+	}
+
 	@JvmStatic fun image(resId: Int): Drawable {
 		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			App.getResources().getDrawable(resId, App.get().theme)
@@ -22,6 +30,7 @@ object Res {
 			App.getResources().getDrawable(resId)
 		}
 	}
+
 	@JvmStatic fun drawable(resId: Int): Drawable {
 		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			App.getResources().getDrawable(resId, App.get().theme)
@@ -30,11 +39,4 @@ object Res {
 		}
 	}
 
-	@JvmStatic fun color(resId: Int): Int {
-		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			App.getResources().getColor(resId, App.get().theme)
-		} else {
-			App.getResources().getColor(resId)
-		}
-	}
 }

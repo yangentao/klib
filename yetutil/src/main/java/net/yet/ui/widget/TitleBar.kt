@@ -329,7 +329,6 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	}
 
 	override fun onRebuild() {
-		padding(0, 0, 0, 0).backColor(BG_COLOR)
 		removeAllViews()
 		var leftView: View? = null
 		if (navAction != null) {
