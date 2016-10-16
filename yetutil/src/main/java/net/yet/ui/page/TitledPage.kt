@@ -34,6 +34,8 @@ open class TitledPage : BaseFragment() {
 	lateinit var rootView: LinearLayout
 		private set
 
+	var autoStatusBarColor: Boolean = true
+
 
 	protected lateinit var snack: Snack
 
@@ -80,12 +82,17 @@ open class TitledPage : BaseFragment() {
 			onBottomBarAction(bar, a)
 		}
 		onCreateContent(this.activity, contentView)
+		if(autoStatusBarColor) {
+			titleBar.solidColor
+//			titleBar.backColor()
+		}
+		titleBar.commit()
 		return rootView
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		titleBar.commit()
+
 	}
 
 	fun showProgressBar(max: Int) {

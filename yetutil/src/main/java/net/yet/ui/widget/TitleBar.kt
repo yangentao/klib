@@ -59,10 +59,15 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	private var onTextChanged: (String) -> Unit = {}
 	var titleStyleDropdown = false
 
+	var themeBackColor:Int = BG_COLOR
+		set(value) {
+			field = value
+			backColor(value)
+		}
 
 	init {
 		genId()
-		padding(0, 0, 0, 0).backColor(BG_COLOR)
+		padding(0, 0, 0, 0).backColor(themeBackColor)
 		layoutParams = layoutParam().widthFill().height(HEIGHT)
 	}
 
