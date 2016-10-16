@@ -189,7 +189,7 @@ public class BmpUtil {
 		RectF rect = new RectF(0, 0, d, d);
 		canvas.drawRoundRect(rect, d / 2, d / 2, paint);
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-		canvas.drawBitmap(source, (w - d) / 2, (h - 2) / 2, paint);
+		canvas.drawBitmap(source, (w - d) / 2, (h - d) / 2, paint);
 		return target;
 	}
 
