@@ -84,14 +84,19 @@ open class TitledPage : BaseFragment() {
 			onBottomBarAction(bar, a)
 		}
 		onCreateContent(this.activity, contentView)
-		if(autoStatusBarColor) {
+		if (autoStatusBarColor) {
 			if (OS.GE50) {
 				val c = MyColor(titleBar.themeBackColor)
 				statusBarColor(c.multiRGB(0.7))
 			}
 		}
 		titleBar.commit()
+		onContentCreated()
 		return rootView
+	}
+
+	open fun onContentCreated() {
+
 	}
 
 

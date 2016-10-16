@@ -2,7 +2,6 @@ package net.yet.ui.page
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -43,10 +42,11 @@ abstract class ActionPage : TitledPage() {
 		addScrollItemView(actionSetView, actionViewParam())
 	}
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+	override fun onContentCreated() {
+		super.onContentCreated()
 		commit()
 	}
+
 
 	fun addTailButton(text: String, onclick: (Button) -> Unit): Button {
 		val tailButton = scrollContentView.createButton(text).themeRed(20)
