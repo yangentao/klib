@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import net.yet.theme.Colors
+import net.yet.ui.MyColor
 import net.yet.ui.ext.*
 import net.yet.ui.widget.Action
 import net.yet.ui.widget.BottomBar
 import net.yet.ui.widget.MyProgressBar
 import net.yet.ui.widget.TitleBar
+import net.yet.util.app.OS
 import net.yet.util.fore
 
 /**
@@ -83,19 +85,15 @@ open class TitledPage : BaseFragment() {
 		}
 		onCreateContent(this.activity, contentView)
 		if(autoStatusBarColor) {
-			titleBar.solidColor
-//			titleBar.backColor()
+			if (OS.GE50) {
+				val c = MyColor(titleBar.themeBackColor)
+				statusBarColor(c.multiRGB(0.7))
+			}
 		}
 		titleBar.commit()
 		return rootView
 	}
 
-
-
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-
-	}
 
 	fun showProgressBar(max: Int) {
 		fore {
