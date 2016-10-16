@@ -7,7 +7,7 @@ import net.yet.R
 import net.yet.ext.size
 import net.yet.ui.ext.*
 import net.yet.ui.res.Img
-import net.yet.util.app.App
+import net.yet.util.app.Res
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -67,7 +67,7 @@ open class TextDetailView(context: Context) : HorItemView(context) {
 	}
 
 	fun rightImageMore() {
-		val d = App.drawable(R.drawable.back).size(25)
+		val d = Res.drawable(R.drawable.back).size(25)
 		setRightImage(d)
 	}
 }

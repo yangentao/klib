@@ -14,11 +14,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
@@ -36,7 +34,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.ref.WeakReference;
-import java.util.Locale;
 
 public class App {
 
@@ -196,16 +193,7 @@ public class App {
 		return (int) (dpValue * density + 0.5f);
 	}
 
-	/**
-	 * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
-	 */
-	public static int px2dp(float pxValue) {
-		return (int) (pxValue / density + 0.5f);
-	}
 
-	public static int px2dp(int pxValue) {
-		return (int) (pxValue / density + 0.5f);
-	}
 
 	public static Resources getResources() {
 		return app().getResources();
@@ -274,63 +262,9 @@ public class App {
 		}
 	}
 
-	public static String resString(int res) {
-		return getResources().getString(res);
-	}
-
-	public static String S(int res) {
-		return getResources().getString(res);
-	}
-
-	public static Drawable drawable(int res) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			return getResources().getDrawable(res, get().getTheme());
-		}else {
-			return getResources().getDrawable(res);
-		}
-	}
 
 	public static InputStream openStream(Uri uri) throws FileNotFoundException {
 		return getContentResolver().openInputStream(uri);
-	}
-
-	public static boolean zh() {
-		Locale lo = Locale.getDefault();
-		if (lo != null) {
-			return "zh".equals(lo.getLanguage());
-		}
-		return false;
-	}
-
-	//简体
-	public static boolean zhCN() {
-		Locale lo = Locale.getDefault();
-		if (lo != null) {
-			return "zh".equals(lo.getLanguage()) && "CN".equals(lo.getCountry());
-		}
-		return false;
-	}
-
-	//繁体
-	public static boolean zhOther() {
-		Locale lo = Locale.getDefault();
-		if (lo != null) {
-			return "zh".equals(lo.getLanguage()) && !"CN".equals(lo.getCountry());
-		}
-		return false;
-	}
-
-	//英语
-	public static boolean en() {
-		Locale lo = Locale.getDefault();
-		if (lo != null) {
-			return "en".equals(lo.getLanguage());
-		}
-		return false;
-	}
-
-	public static String serial(){
-		return Build.SERIAL;
 	}
 
 }

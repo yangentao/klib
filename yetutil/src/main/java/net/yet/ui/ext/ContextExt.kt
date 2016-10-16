@@ -119,21 +119,21 @@ fun Context.sp(sp: Int): Float {
 }
 
 fun dp(dp: Int): Int {
-	return App.dp2px(dp)
+	return (dp * App.density + 0.5f).toInt()
 }
 
 fun dp2(dp: Int?): Int? {
 	if (dp != null) {
-		return App.dp2px(dp)
+		return dp(dp)
 	}
 	return null
 }
 
 fun sp(sp: Int): Float {
-	return sp * App.get().displayMetrics.scaledDensity + 0.5f
+	return sp * App.scaledDensity + 0.5f
 }
 
 fun px2dp(px: Int): Int {
-	return App.px2dp(px)
+	return (px / App.density + 0.5f).toInt()
 }
 

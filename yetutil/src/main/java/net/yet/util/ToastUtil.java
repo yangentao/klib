@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import net.yet.util.app.App;
+import net.yet.util.app.Res;
 
 public class ToastUtil {
 	public static void show(String msg) {
@@ -47,7 +48,7 @@ public class ToastUtil {
 	}
 
 	public static void show(Context context, int msg, int duration) {
-		show(context, App.resString(msg), duration);
+		show(context, Res.str(msg), duration);
 	}
 
 	public static void show(final Context context, final String msg, final int duration) {

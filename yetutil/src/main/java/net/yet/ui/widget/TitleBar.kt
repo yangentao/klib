@@ -12,7 +12,7 @@ import net.yet.ext.notEmpty
 import net.yet.ext.size
 import net.yet.theme.Colors
 import net.yet.ui.ext.*
-import net.yet.util.app.App
+import net.yet.util.app.Res
 import java.util.*
 
 /**
@@ -231,7 +231,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 				onTitleClick(title ?: "")
 			}
 			if (titleStyleDropdown) {
-				val drop = App.drawable(R.drawable.dropdown).size(15, 15)
+				val drop = Res.drawable(R.drawable.dropdown).size(15, 15)
 				titleView.setCompoundDrawables(null, null, drop, null)
 				titleView.compoundDrawablePadding = dp(5)
 			}

@@ -5,7 +5,7 @@ import android.widget.TextView;
 import net.yet.R;
 import net.yet.util.RepeatCallback;
 import net.yet.util.TaskUtil;
-import net.yet.util.app.App;
+import net.yet.util.app.Res;
 import net.yet.util.xlog;
 
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class TimeDown {
 					TextView v = map.get(name);
 					if (v != null) {
 						String s = "" + leftTimes;
-						s += App.resString(R.string.retrive_again);
+						s += Res.str(R.string.retrive_again);
 						v.setText(s);
 					}
 					return true;
@@ -58,7 +58,7 @@ public class TimeDown {
 					TextView v = map.get(name);
 					if (v != null) {
 						v.setEnabled(true);
-						v.setText(App.resString(R.string.retrive));
+						v.setText(Res.str(R.string.retrive));
 					}
 				}
 			});

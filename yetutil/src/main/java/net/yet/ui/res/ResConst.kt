@@ -11,7 +11,7 @@ import net.yet.ui.util.RectDrawable
 import net.yet.ui.util.ShapeUtil
 import net.yet.ui.util.StateImage
 import net.yet.ui.widget.EditTextX
-import net.yet.util.app.App
+import net.yet.util.app.Res
 
 /**
  * Created by yet on 2015/10/16.
@@ -19,19 +19,19 @@ import net.yet.util.app.App
 object ResConst {
 
 	fun editClear(): Drawable {
-		return App.drawable(R.drawable.edit_clear).size(EditTextX.IMAGE_WIDTH)
+		return Res.image(R.drawable.edit_clear).size(EditTextX.IMAGE_WIDTH)
 	}
 
 	fun back(): Drawable {
-		return App.drawable(R.drawable.back).size(Dim.iconSize)
+		return Res.drawable(R.drawable.back).size(Dim.iconSize)
 	}
 
 	fun arrowRight(): Drawable {
-		return App.drawable(R.drawable.arrow_right).size(Dim.iconSizeMin)
+		return Res.drawable(R.drawable.arrow_right).size(Dim.iconSizeMin)
 	}
 
 	fun checkbox(): Drawable {
-		return StateImage(App.drawable(R.drawable.checkbox)).checked(App.drawable(R.drawable.checkbox_checked)).value.size(15)
+		return StateImage(Res.drawable(R.drawable.checkbox)).checked(Res.drawable(R.drawable.checkbox_checked)).value.size(15)
 //		return Img.namedStates("checkbox", true)
 	}
 

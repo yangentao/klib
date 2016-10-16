@@ -13,7 +13,7 @@ import net.yet.ui.util.XTextWatcher
 import net.yet.ui.widget.Action
 import net.yet.ui.widget.ListIndexBar
 import net.yet.ui.widget.TitleBar
-import net.yet.util.app.App
+import net.yet.util.app.Res
 import java.util.*
 
 @SuppressLint("UseSparseArrays")
@@ -70,7 +70,7 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 		requestItems()
 		setMultiChoiceMode(true)
 
-		DONE = App.S(R.string.done)
+		DONE = Res.str(R.string.done)
 		titleBar.addAction(DONE)
 
 	}

@@ -6,6 +6,8 @@ import net.yet.util.Util
 import java.util.*
 
 object OS {
+	val SERIAL: String = Build.SERIAL
+
 	val HUAWEI = isManufacturer("HUAWEI")
 
 	val API = Build.VERSION.SDK_INT
