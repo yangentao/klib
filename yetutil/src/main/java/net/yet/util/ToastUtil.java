@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import net.yet.util.app.App;
-import net.yet.util.app.Res;
+import net.yet.ui.res.Res;
 
 public class ToastUtil {
 	public static void show(String msg) {

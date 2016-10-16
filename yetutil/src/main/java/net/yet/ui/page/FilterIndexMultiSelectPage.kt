@@ -13,7 +13,7 @@ import net.yet.ui.util.XTextWatcher
 import net.yet.ui.widget.Action
 import net.yet.ui.widget.ListIndexBar
 import net.yet.ui.widget.TitleBar
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 import java.util.*
 
 @SuppressLint("UseSparseArrays")

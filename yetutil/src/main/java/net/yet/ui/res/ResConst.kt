@@ -11,7 +11,6 @@ import net.yet.ui.util.RectDrawable
 import net.yet.ui.util.ShapeUtil
 import net.yet.ui.util.StateImage
 import net.yet.ui.widget.EditTextX
-import net.yet.util.app.Res
 
 /**
  * Created by yet on 2015/10/16.

@@ -5,7 +5,7 @@ import android.widget.TextView;
 import net.yet.R;
 import net.yet.util.RepeatCallback;
 import net.yet.util.TaskUtil;
-import net.yet.util.app.Res;
+import net.yet.ui.res.Res;
 import net.yet.util.xlog;
 
 import java.util.HashMap;

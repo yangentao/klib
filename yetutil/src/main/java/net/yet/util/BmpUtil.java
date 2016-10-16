@@ -28,7 +28,6 @@ import java.io.OutputStream;
 public class BmpUtil {
 
 
-
 	public static Bitmap fromAsset(String path) {
 		return AssetUtil.bitmap(path);
 	}
@@ -42,12 +41,9 @@ public class BmpUtil {
 	}
 
 	/**
-	 * @param old
-	 *            非空, 高宽都大于0
-	 * @param newWidth
-	 *            >0
-	 * @param newHeight
-	 *            >0
+	 * @param old       非空, 高宽都大于0
+	 * @param newWidth  >0
+	 * @param newHeight >0
 	 * @return
 	 */
 	public static Bitmap scaleTo(Bitmap old, int newWidth, int newHeight) {
@@ -71,10 +67,9 @@ public class BmpUtil {
 
 	/**
 	 * 按比例缩小图片
-	 * 
+	 *
 	 * @param old
-	 * @param scale
-	 *            0-1.0之间, 0.5缩小 1倍
+	 * @param scale 0-1.0之间, 0.5缩小 1倍
 	 * @return
 	 */
 	public static Bitmap scale(Bitmap old, float scale) {
@@ -90,6 +85,7 @@ public class BmpUtil {
 		matrix.postScale(scale, scale);
 		return Bitmap.createBitmap(old, 0, 0, width, height, matrix, true);
 	}
+
 	public static Bitmap rotate(Bitmap old, int degree) {
 		if (old == null) {
 			return null;
@@ -126,6 +122,7 @@ public class BmpUtil {
 		}
 		return degree;
 	}
+
 	public static Bitmap line(int width, int height, int color) {
 		Bitmap target = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 		target.setDensity(DisplayMetrics.DENSITY_HIGH);
@@ -137,6 +134,8 @@ public class BmpUtil {
 	public static BitmapDrawable lineDraw(int width, int height, int color) {
 		return new BitmapDrawable(App.getResources(), line(width, height, color));
 	}
+
+	//指定圆角
 	public static Bitmap round(Bitmap source, int corner) {
 		if (source == null) {
 			return null;
@@ -155,7 +154,7 @@ public class BmpUtil {
 		return target;
 	}
 
-
+	//高宽的一半做圆角
 	public static Bitmap round(Bitmap source) {
 		if (source == null) {
 			return null;
@@ -173,6 +172,27 @@ public class BmpUtil {
 		canvas.drawBitmap(source, 0, 0, paint);
 		return target;
 	}
+
+	//圆,  高和宽较最小的值做直径,
+	public static Bitmap oval(Bitmap source) {
+		if (source == null) {
+			return null;
+		}
+		int w = source.getScaledWidth(App.getResources().getDisplayMetrics());
+		int h = source.getScaledHeight(App.getResources().getDisplayMetrics());
+		int d = Math.min(w, h);
+
+		Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		Bitmap target = Bitmap.createBitmap(d, d, Config.ARGB_8888);
+		Canvas canvas = new Canvas(target);
+		RectF rect = new RectF(0, 0, d, d);
+		canvas.drawRoundRect(rect, d / 2, d / 2, paint);
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+		canvas.drawBitmap(source, (w - d) / 2, (h - 2) / 2, paint);
+		return target;
+	}
+
 	public static MySize sizeOf(Uri uri) throws FileNotFoundException {
 		return sizeOfStream(App.openStream(uri));
 	}
@@ -195,6 +215,7 @@ public class BmpUtil {
 		}
 		return null;
 	}
+
 	//会关闭流
 	private static Bitmap decodeStream(InputStream inputStream, int inSampleSize, Bitmap.Config config) {
 		BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -213,6 +234,7 @@ public class BmpUtil {
 		Util.close(inputStream);
 		return bmp;
 	}
+
 	/**
 	 * 图片高*宽不超过maxSize
 	 *
@@ -226,7 +248,7 @@ public class BmpUtil {
 		}
 		try {
 			MySize size = sizeOf(uri);
-			if (size.area() > maxSize) {
+			if (size.area() > maxSize && maxSize > 0) {
 				// 300 * 200 /(100*100) ==> 6
 				float scale = size.area() * 1.0f / maxSize;
 				scale = (float) Math.sqrt(scale);// 2.4
@@ -240,6 +262,7 @@ public class BmpUtil {
 		}
 		return null;
 	}
+
 	public static Bitmap fromUri(Uri uri) {
 		if (uri == null) {
 			return null;
@@ -260,7 +283,7 @@ public class BmpUtil {
 		}
 		try {
 			MySize size = sizeOf(imageFile);
-			if (size.area() > maxSize) {
+			if (size.area() > maxSize && maxSize > 0) {
 				// 300 * 200 /(100*100) ==> 6
 				float scale = size.area() * 1.0f / maxSize;
 				scale = (float) Math.sqrt(scale);// 2.4

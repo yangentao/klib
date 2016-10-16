@@ -5,7 +5,7 @@ import android.view.Gravity
 import net.yet.R
 import net.yet.ui.ext.dp
 import net.yet.ui.page.BaseFragment
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 
 /**
  * Created by entaoyang@163.com on 16/5/10.

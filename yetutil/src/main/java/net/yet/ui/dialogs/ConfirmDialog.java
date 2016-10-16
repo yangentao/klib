@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import net.yet.R;
-import net.yet.util.app.Res;
+import net.yet.ui.res.Res;
 
 public abstract class ConfirmDialog {
 	public String okText = Res.str(R.string.ok);

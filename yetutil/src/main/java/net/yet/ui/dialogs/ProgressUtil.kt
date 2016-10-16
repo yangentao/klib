@@ -5,7 +5,7 @@ import android.content.Context
 import net.yet.R
 import net.yet.util.TaskUtil
 import net.yet.util.Util
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 
 class ProgressUtil {
 	private var context: Context? = null

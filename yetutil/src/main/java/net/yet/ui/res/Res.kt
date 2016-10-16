@@ -1,7 +1,8 @@
-package net.yet.util.app
+package net.yet.ui.res
 
 import android.graphics.drawable.Drawable
 import android.os.Build
+import net.yet.util.app.App
 
 /**
  * Created by entaoyang@163.com on 2016-10-16.

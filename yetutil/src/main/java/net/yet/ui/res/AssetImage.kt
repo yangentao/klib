@@ -106,7 +106,7 @@ object AssetImage {
 	}
 
 	//"user.png"
-	fun drawable(file: String): Drawable? {
+	fun drawable(file: String): BitmapDrawable? {
 		val bmp = bitmap(file)
 		if (bmp != null) {
 			return BitmapDrawable(App.getResources(), bmp)
@@ -115,7 +115,7 @@ object AssetImage {
 	}
 
 	//drawable("user", State.Selected) => "user.selected.png"
-	fun drawable(file: String, state: State): Drawable? {
+	fun drawable(file: String, state: State): BitmapDrawable? {
 		val bmp = bitmap(file, state)
 		if (bmp != null) {
 			return BitmapDrawable(App.getResources(), bmp)

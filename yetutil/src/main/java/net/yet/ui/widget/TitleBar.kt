@@ -12,7 +12,7 @@ import net.yet.ext.notEmpty
 import net.yet.ext.size
 import net.yet.theme.Colors
 import net.yet.ui.ext.*
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 import java.util.*
 
 /**

@@ -5,7 +5,7 @@ import android.R
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 import java.util.*
 
 abstract class StringMultiSelectDialog {

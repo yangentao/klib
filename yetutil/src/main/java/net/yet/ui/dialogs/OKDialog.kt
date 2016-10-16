@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import net.yet.R
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 
 
 open class OKDialog {

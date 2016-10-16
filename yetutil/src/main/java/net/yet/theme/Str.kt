@@ -1,7 +1,7 @@
 package net.yet.theme
 
 import net.yet.R
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 
 object Str {
 	val OP_SUCCESS: String get() = Res.str(R.string.op_success)

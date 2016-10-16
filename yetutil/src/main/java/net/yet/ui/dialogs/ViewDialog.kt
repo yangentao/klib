@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.View
 import net.yet.R
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 
 abstract class ViewDialog {
 	var isOK = false

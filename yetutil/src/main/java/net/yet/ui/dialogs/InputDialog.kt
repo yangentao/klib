@@ -7,7 +7,7 @@ import android.text.InputType
 import net.yet.R
 import net.yet.ui.ext.createEditText
 import net.yet.ui.ext.dp
-import net.yet.util.app.Res
+import net.yet.ui.res.Res
 
 abstract class InputDialog {
 	private var inputType = InputType.TYPE_CLASS_TEXT
