@@ -1,6 +1,7 @@
 package net.yet.ui.page
 
 import android.content.Context
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import net.yet.ui.ext.*
@@ -21,6 +22,13 @@ open class ScrollTitledFragment : TitledPage() {
 
 	open fun onCreateScrollContent(context: Context, scrollContentView: LinearLayout) {
 
+	}
+	fun addScrollItemView(view: View, params: LinearLayout.LayoutParams) {
+		scrollContentView.addView(view, params)
+	}
+
+	fun addScrollItemView(view: View, index: Int, params: LinearLayout.LayoutParams) {
+		scrollContentView.addView(view, index, params)
 	}
 
 }
