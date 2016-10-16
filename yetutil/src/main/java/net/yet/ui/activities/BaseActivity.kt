@@ -30,6 +30,13 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 	val denyPermSet = HashSet<String>()
 	private var permCallback: ((Set<String>) -> Unit)? = null
 
+	fun statusBarColor(color:Int){
+		val w  = window ?: return
+		if(OS.GE50) {
+			w.statusBarColor = color
+		}
+	}
+
 
 	//6.0之前返回false,
 	fun hasPerm(p: String): Boolean {

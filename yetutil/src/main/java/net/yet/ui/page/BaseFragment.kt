@@ -31,6 +31,7 @@ import net.yet.ui.dialogs.StringSelectDialog
 import net.yet.ui.widget.TabBar
 import net.yet.util.*
 import net.yet.util.app.App
+import net.yet.util.app.OS
 import net.yet.util.database.Values
 import net.yet.util.event.EventMerge
 import java.io.File
@@ -74,6 +75,13 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+	}
+
+	fun statusBarColor(color: Int) {
+		val w = activity?.window ?: return
+		if (OS.GE50) {
+			w.statusBarColor = color
+		}
 	}
 
 	fun alert(title: String, msg: String) {
