@@ -7,7 +7,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import net.yet.theme.Space
 import net.yet.ui.ext.*
-import net.yet.ui.util.XView
 import net.yet.util.BmpUtil
 
 /**
@@ -20,8 +19,7 @@ class NavHeader(context: Context) : RelativeLayout(context) {
 	var statusText: TextView
 
 	init {
-		id = XView.genViewId()
-
+		genId()
 		imageView = context.createImageView().scaleFitXY()
 		addViewParam(imageView) {
 			size(80).centerVertical().parentLeft().margins(0, 0, Space.Small, 0)

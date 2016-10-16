@@ -18,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
@@ -151,6 +152,7 @@ public class App {
 		try {
 			TelephonyManager tm = (TelephonyManager) app().getSystemService(Context.TELEPHONY_SERVICE);
 			if (tm != null) {
+
 				return tm.getDeviceId();
 			}
 		} catch (Exception ex) {
@@ -281,7 +283,11 @@ public class App {
 	}
 
 	public static Drawable drawable(int res) {
-		return getResources().getDrawable(res);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			return getResources().getDrawable(res, get().getTheme());
+		}else {
+			return getResources().getDrawable(res);
+		}
 	}
 
 	public static InputStream openStream(Uri uri) throws FileNotFoundException {
@@ -321,6 +327,10 @@ public class App {
 			return "en".equals(lo.getLanguage());
 		}
 		return false;
+	}
+
+	public static String serial(){
+		return Build.SERIAL;
 	}
 
 }

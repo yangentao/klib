@@ -17,7 +17,6 @@ import net.yet.theme.Dim
 import net.yet.theme.Space
 import net.yet.ui.res.Img
 import net.yet.util.Util
-import net.yet.util.app.App
 
 /**
  * Created by entaoyang@163.com on 16/3/12.
@@ -114,12 +113,12 @@ fun <T : TextView> T.gravityTopLeft(): T {
 }
 
 fun <T : TextView> T.miniWidthDp(widthDp: Int): T {
-	this.minWidth = App.dp2px(widthDp)
+	this.minWidth = dp(widthDp)
 	return this
 }
 
 fun <T : TextView> T.miniHeightDp(heightDp: Int): T {
-	this.minHeight = App.dp2px(heightDp)
+	this.minHeight = dp(heightDp)
 	return this
 }
 

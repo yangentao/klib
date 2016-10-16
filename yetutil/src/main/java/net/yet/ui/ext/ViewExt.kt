@@ -85,6 +85,14 @@ inline fun <reified T : View> T.backColorWhite(): T {
 	setBackgroundColor(Colors.WHITE)
 	return this;
 }
+inline fun <reified T : View> T.backColorWhiteFade(): T {
+	backColor(Colors.WHITE, Colors.Fade)
+	return this;
+}
+inline fun <reified T : View> T.backColorTransFade(): T {
+	backColor(Colors.TRANS, Colors.Fade)
+	return this;
+}
 
 inline fun <reified T : View> T.backColorPage(): T {
 	setBackgroundColor(Colors.PageGray)
@@ -103,6 +111,10 @@ inline fun <reified T : View> T.backDrawable(name: String): T {
 
 
 fun View.makeClickable(): View {
+	this.isClickable = true
+	return this
+}
+fun View.clickable(): View {
 	this.isClickable = true
 	return this
 }

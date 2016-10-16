@@ -11,7 +11,6 @@ import net.yet.theme.Colors
 import net.yet.ui.ext.*
 import net.yet.ui.res.Img
 import net.yet.ui.util.ShapeUtil
-import net.yet.util.app.App
 import net.yet.util.fore
 import java.util.*
 
@@ -34,14 +33,14 @@ class PopActions(private val context: Context) {
 			d = Img.color(Color.TRANSPARENT)
 		}
 		d = d.size(TitleBar.IMAGE_BOUNDS)
-		tv.compoundDrawablePadding = App.dp2px(10)
+		tv.compoundDrawablePadding = dp(10)
 		tv.setCompoundDrawables(d, null, null, null)
 		return tv
 	}
 
 	private fun create(context: Context): PopupWindow {
 		val linearPanel = LinearPanel(context)
-		linearPanel.minimumWidth = App.dp2px(MIN_WIDTH)
+		linearPanel.minimumWidth = dp(MIN_WIDTH)
 		linearPanel.setItemHeight(45)
 		for (action in this.items) {
 			linearPanel.addItemView(createItemView(context, action))

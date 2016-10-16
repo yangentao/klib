@@ -9,7 +9,6 @@ import net.yet.ui.ext.*
 import net.yet.ui.widget.recycler.ActionItemView
 import net.yet.ui.widget.recycler.ImageItemAction
 import net.yet.ui.widget.recycler.TextItemAction
-import net.yet.util.app.App
 import java.util.*
 
 /**
@@ -30,13 +29,13 @@ class XRowItemView(context: Context) : HorItemView(context), ActionItemView {
     }
 
     fun minHeight(dp: Int): XRowItemView {
-        minimumHeight = App.dp2px(dp)
+        minimumHeight = dp(dp)
         return this
     }
 
     fun setRightWidth(dp: Int): XRowItemView {
         val lp = rightPanel.layoutParams as LinearLayout.LayoutParams
-        lp.width = App.dp2px(dp)
+        lp.width = dp(dp)
         rightPanel.layoutParams = lp
         return this
     }

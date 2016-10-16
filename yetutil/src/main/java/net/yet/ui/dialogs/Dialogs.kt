@@ -3,9 +3,9 @@ package net.yet.ui.dialogs
 import android.app.AlertDialog
 import android.view.Gravity
 import net.yet.R
-import net.yet.locale.LibS
 import net.yet.ui.ext.dp
 import net.yet.ui.page.BaseFragment
+import net.yet.util.app.Res
 
 /**
  * Created by entaoyang@163.com on 16/5/10.
@@ -27,14 +27,14 @@ fun AlertDialog.gravityBottom(margin: Int): AlertDialog {
 }
 
 
-fun BaseFragment.showAlert(title: String, msg: String? = null, okText: String = LibS(R.string.ok)): OKDialog {
+fun BaseFragment.showAlert(title: String, msg: String? = null, okText: String = Res.str(R.string.ok)): OKDialog {
 	val dlg = OKDialog()
 	dlg.okText = okText
 	dlg.show(activity, title, msg)
 	return dlg
 }
 
-fun BaseFragment.showAlert(title: String, msg: String?, okText: String = LibS(R.string.ok), block: () -> Unit): OKDialog {
+fun BaseFragment.showAlert(title: String, msg: String?, okText: String = Res.str(R.string.ok), block: () -> Unit): OKDialog {
 	val dlg = object : OKDialog() {
 		override fun onOK() {
 			block.invoke()

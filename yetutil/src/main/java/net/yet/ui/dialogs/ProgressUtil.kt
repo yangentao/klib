@@ -2,11 +2,10 @@ package net.yet.ui.dialogs
 
 import android.app.ProgressDialog
 import android.content.Context
-
 import net.yet.R
-import net.yet.locale.LibS
 import net.yet.util.TaskUtil
 import net.yet.util.Util
+import net.yet.util.app.Res
 
 class ProgressUtil {
 	private var context: Context? = null
@@ -28,7 +27,7 @@ class ProgressUtil {
 	 * 显示正在加载的进度条
 	 */
 	fun showLoading() {
-		showProgress(LibS(R.string.loading))
+		showProgress(Res.str(R.string.loading))
 	}
 
 	fun showProgress(msg: String) {

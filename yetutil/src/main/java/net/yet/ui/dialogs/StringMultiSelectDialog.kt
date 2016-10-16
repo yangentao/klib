@@ -5,7 +5,7 @@ import android.R
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
-import net.yet.locale.LibS
+import net.yet.util.app.Res
 import java.util.*
 
 abstract class StringMultiSelectDialog {
@@ -85,7 +85,7 @@ abstract class StringMultiSelectDialog {
 			map.put(s, isChecked)
 		}
 
-		builder.setPositiveButton(LibS(R.string.ok), DialogInterface.OnClickListener { dlg, arg1 ->
+		builder.setPositiveButton(Res.str(R.string.ok), DialogInterface.OnClickListener { dlg, arg1 ->
 			dlg.dismiss()
 			val indexs = ArrayList<Int>(list.size)
 			val selectItems = ArrayList<String>(list.size)
@@ -102,7 +102,7 @@ abstract class StringMultiSelectDialog {
 			}
 			onOK(indexs, selectItems)
 		})
-		builder.setNegativeButton(LibS(R.string.cancel), DialogInterface.OnClickListener { dlg, arg1 -> dlg.dismiss() })
+		builder.setNegativeButton(Res.str(R.string.cancel), DialogInterface.OnClickListener { dlg, arg1 -> dlg.dismiss() })
 		val dlg = builder.create()
 		dlg.setCancelable(true)
 		dlg.setCanceledOnTouchOutside(true)

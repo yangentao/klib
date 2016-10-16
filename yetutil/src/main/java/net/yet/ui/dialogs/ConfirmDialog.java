@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import net.yet.R;
-import net.yet.locale.LSKt;
+import net.yet.util.app.Res;
 
 public abstract class ConfirmDialog {
-	public String okText = LSKt.LibS(R.string.ok);
+	public String okText = Res.str(R.string.ok);
 
 	public ConfirmDialog setOKText(String ok) {
 		this.okText = ok;
@@ -32,7 +32,7 @@ public abstract class ConfirmDialog {
 
 			}
 		});
-		builder.setNegativeButton(LSKt.LibS(R.string.cancel), new DialogInterface.OnClickListener() {
+		builder.setNegativeButton(Res.str(R.string.cancel), new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dlg, int arg1) {

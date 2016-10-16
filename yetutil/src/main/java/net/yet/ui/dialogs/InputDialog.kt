@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.DialogInterface
 import android.text.InputType
 import net.yet.R
-import net.yet.locale.LibS
 import net.yet.ui.ext.createEditText
-import net.yet.util.app.App
+import net.yet.ui.ext.dp
+import net.yet.util.app.Res
 
 abstract class InputDialog {
 	private var inputType = InputType.TYPE_CLASS_TEXT
@@ -49,16 +49,16 @@ abstract class InputDialog {
 		builder.setTitle(title)
 		//		final EditText edit = XView.id(new EditText(context));
 		val edit = context.createEditText()
-		edit.minimumHeight = App.dp2px(45)
+		edit.minimumHeight = dp(45)
 		edit.inputType = inputType
 		edit.setText(defalutValue)
 		builder.setView(edit)
-		builder.setPositiveButton(LibS(R.string.ok), DialogInterface.OnClickListener { dlg, arg1 ->
+		builder.setPositiveButton(Res.str(R.string.ok), DialogInterface.OnClickListener { dlg, arg1 ->
 			isOK = true
 			dlg.dismiss()
 			onOK(edit.text.toString())
 		})
-		builder.setNegativeButton(LibS(R.string.cancel), DialogInterface.OnClickListener { dlg, arg1 -> dlg.dismiss() })
+		builder.setNegativeButton(Res.str(R.string.cancel), DialogInterface.OnClickListener { dlg, arg1 -> dlg.dismiss() })
 		val dlg = builder.create()
 		dlg.setCanceledOnTouchOutside(true)
 		dlg.setCancelable(true)

@@ -11,7 +11,6 @@ import android.widget.*
 import net.yet.ui.ext.*
 import net.yet.ui.util.LayerUtil
 import net.yet.ui.util.ShapeUtil
-import net.yet.ui.util.XView
 import net.yet.util.*
 import java.util.*
 
@@ -25,10 +24,10 @@ abstract class ListIndexBar<T>(context: Context, feedbackParentView: RelativeLay
 	private var tagList: ArrayList<Char>? = null
 	private val darkColor = Util.argb("#ccc")
 	private val normalColor = Color.TRANSPARENT
-	lateinit private var feedbackView: TextView
+	private var feedbackView: TextView
 	private val tagPosMap = HashMap<Char, Int>(30)
 
-	private val hideFeedbackRun = Runnable { XView.view(feedbackView).gone() }
+	val hideFeedbackRun:Runnable
 
 	private val touchListener = View.OnTouchListener { v, event ->
 		val action = event.actionMasked
@@ -46,12 +45,13 @@ abstract class ListIndexBar<T>(context: Context, feedbackParentView: RelativeLay
 	}
 
 	init {
-		XView.view(this).orientationVertical().gravityCenterHorizontal().padding(0, 0, 0, 0).clickable()
-		setOnTouchListener(touchListener)
+		orientationVertical().gravityCenterHorizontal().padding(0, 0, 0, 0).makeClickable()
 		feedbackView = createTextView()
+		this.setOnTouchListener(touchListener)
+		hideFeedbackRun = Runnable { feedbackView.gone() }
 		val d = ShapeUtil.round(10, Util.argb("#555"), 2, Util.argb("#ddd"))
 		feedbackView.textColor_(Color.WHITE).textSize_(50).gravityCenter().backDrawable(d).gone()
-		feedbackParentView.addView(feedbackView, XView.relativeParam().centerInParent().size(70).get())
+		feedbackParentView.addView(feedbackView, relativeParam().centerInParent().size(70))
 
 		listView.setOnScrollListener(object : AbsListView.OnScrollListener {
 

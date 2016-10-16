@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.View
 import net.yet.R
-import net.yet.locale.LibS
+import net.yet.util.app.Res
 
 abstract class ViewDialog {
 	var isOK = false
 		private set
-	var okText = LibS(R.string.ok)
-	var cancelText = LibS(R.string.cancel)
+	var okText = Res.str(R.string.ok)
+	var cancelText = Res.str(R.string.cancel)
 
 
 	fun show(context: Context, view: View, title: String?) {

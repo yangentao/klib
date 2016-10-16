@@ -10,7 +10,6 @@ import net.yet.ui.ext.*
 import net.yet.ui.res.Img
 import net.yet.ui.res.ResConst
 import net.yet.ui.widget.listview.itemview.TextDetailView
-import net.yet.util.app.App
 import java.util.*
 
 /**
@@ -86,7 +85,7 @@ class ActionSetView(context: Context) : LinearLayout(context), IActionPanel {
 			icon = Img.color(Color.TRANSPARENT)
 		}
 		if (icon != null) {
-			view.textView.compoundDrawablePadding = App.dp2px(10)
+			view.textView.compoundDrawablePadding = dp(10)
 			view.textView.setCompoundDrawables(icon.size(iconSize), null, null, null)
 		}
 		var subIcon = item.subIcon
@@ -102,7 +101,7 @@ class ActionSetView(context: Context) : LinearLayout(context), IActionPanel {
 		val subIconLeft = item.subIconLeft
 		subIconLeft?.size(subIconLeftSize)
 		if (subIcon != null || subIconLeft != null) {
-			view.detailView.compoundDrawablePadding = App.dp2px(10)
+			view.detailView.compoundDrawablePadding = dp(10)
 			view.detailView.setCompoundDrawables(subIconLeft, null, subIcon, null)
 		}
 		return view

@@ -8,9 +8,9 @@ import android.widget.ImageView
 import android.widget.ImageView.ScaleType
 import android.widget.LinearLayout
 import android.widget.TextView
-import net.yet.ext.size
+import net.yet.theme.Colors
+import net.yet.ui.ext.*
 import net.yet.ui.res.ResConst
-import net.yet.ui.util.XView
 
 /**
  * 左右对齐listview itemview
@@ -22,11 +22,11 @@ import net.yet.ui.util.XView
 class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(context) {
 
 	init {
-		XView.view(this).orientationHorizontal().gravityCenterVertical().backColorWhiteFade().padding(10, 5, 10, 5)
-		XView.linearParam().widthFill().height(ITEM_HEIGHT).margins(0, 0, 0, marginBottom).set(this)
+		orientationHorizontal().gravityCenterVertical().padding(10, 5, 10, 5).backColor(Colors.WHITE, Colors.Fade)
+		linearParam().widthFill().height(ITEM_HEIGHT).margins(0, 0, 0, marginBottom).set(this)
 
-		val v = XView.id(View(getContext()))
-		addView(v, XView.linearParam().weight(1f).heightFill().get())
+		val v = View(getContext()).genId()
+		addView(v, linearParam().weight(1f).heightFill())
 	}
 
 	fun findCheckBox(): CheckBox? {
@@ -41,16 +41,15 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
 
 	private fun addText(text: String, width: Int, right: Boolean, marginLeft: Int): TextView {
 		if (right) {
-			val tv = XView.createTextViewB(context)
-			XView.view(tv).textColorMinor().gravityRightCenter()
+			val tv = context.createTextViewB().textColorMinor().gravityRightCenter()
 			tv.text = text
-			XView.linearParam().heightWrap().width(width).gravityRightCenter().margins(marginLeft, 0, 0, 0).set(tv)
+			linearParam().heightWrap().width(width).gravityRightCenter().margins(marginLeft, 0, 0, 0).set(tv)
 			this.addView(tv)
 			return tv
 		} else {
-			val tv = XView.createTextViewA(context)
+			val tv = context.createTextViewA()
 			tv.text = text
-			XView.linearParam().heightWrap().width(width).gravityLeftCenter().margins(marginLeft, 0, 0, 0).set(tv)
+			linearParam().heightWrap().width(width).gravityLeftCenter().margins(marginLeft, 0, 0, 0).set(tv)
 			this.addView(tv, 0)
 			return tv
 		}
@@ -65,15 +64,14 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
 	}
 
 	private fun addImage(d: Drawable, sizeDp: Int, right: Boolean, marginLeft: Int): ImageView {
-		val iv = XView.createImageView(context)
+		val iv = context.createImageView().backColorTransFade()
 		iv.scaleType = ScaleType.CENTER_INSIDE
 		iv.setImageDrawable(d)
-		XView.view(iv).backColorTransFade()
 		if (right) {
-			XView.linearParam().size(sizeDp).gravityRightCenter().margins(marginLeft, 0, 0, 0).set(iv)
+			linearParam().size(sizeDp).gravityRightCenter().margins(marginLeft, 0, 0, 0).set(iv)
 			this.addView(iv)
 		} else {
-			XView.linearParam().size(sizeDp).gravityLeftCenter().margins(marginLeft, 0, 0, 0).set(iv)
+			linearParam().size(sizeDp).gravityLeftCenter().margins(marginLeft, 0, 0, 0).set(iv)
 			this.addView(iv, 0)
 		}
 		return iv
@@ -88,10 +86,10 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
 	}
 
 	fun addCheckBoxRight(marginLeft: Int): CheckBox {
-		val cb = XView.createCheckbox(context)
+		val cb = context.createCheckbox()
 		val d = ResConst.checkbox()
 		cb.buttonDrawable = d
-		XView.linearParam().size(20).gravityRightCenter().margins(marginLeft, 0, 0, 0).set(cb)
+		linearParam().size(20).gravityRightCenter().margins(marginLeft, 0, 0, 0).set(cb)
 		this.addView(cb)
 		return cb
 	}

@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface.OnClickListener
 import net.yet.R
-import net.yet.locale.LibS
+import net.yet.util.app.Res
 import net.yet.util.xlog
 import java.util.*
 
@@ -105,8 +105,8 @@ abstract class StringMultiSelectDialogX<T> {
 			val s = list[which]
 			select(s, isChecked)
 		}
-		builder.setNegativeButton(LibS(R.string.cancel), OnClickListener { dlg, arg1 -> dlg.dismiss() })
-		builder.setPositiveButton(LibS(R.string.ok), OnClickListener { dlg, arg1 ->
+		builder.setNegativeButton(Res.str(R.string.cancel), OnClickListener { dlg, arg1 -> dlg.dismiss() })
+		builder.setPositiveButton(Res.str(R.string.ok), OnClickListener { dlg, arg1 ->
 			dlg.dismiss()
 			val indexs = ArrayList<Int>(list.size)
 			val selectItems = ArrayList<T>(list.size)

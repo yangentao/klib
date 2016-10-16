@@ -4,12 +4,12 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import net.yet.R
-import net.yet.locale.LibS
+import net.yet.util.app.Res
 
 
 open class OKDialog {
 	var dlg: AlertDialog? = null
-	var okText = LibS(R.string.ok)
+	var okText = Res.str(R.string.ok)
 
 	fun setOKText(s: String): OKDialog {
 		okText = s

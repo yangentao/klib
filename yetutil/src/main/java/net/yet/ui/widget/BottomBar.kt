@@ -11,7 +11,6 @@ import net.yet.theme.Dim
 import net.yet.ui.ext.*
 import net.yet.ui.util.StateImage
 import net.yet.util.Util
-import net.yet.util.app.App
 import net.yet.util.xlog
 import java.util.*
 
@@ -106,7 +105,7 @@ class BottomBar(context: Context) : TablePanel(context), IActionModeSupport {
 					tv.backDrawable(StateImage(BG_COLOR).pressed(BG_PRESSED).value).textColor(TEXT_COLOR, TEXT_PRESSED)
 				}
 				if (action.icon != null) {
-					action.icon?.setBounds(0, 0, App.dp2px(IMG_SIZE), App.dp2px(IMG_SIZE))
+					action.icon?.setBounds(0, 0, dp(IMG_SIZE), dp(IMG_SIZE))
 					tv.compoundDrawablePadding = 0
 					tv.setCompoundDrawables(null, action.icon, null, null)
 					tv.textSizeSp(Dim.textSizeD)
