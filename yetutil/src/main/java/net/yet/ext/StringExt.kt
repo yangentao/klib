@@ -81,3 +81,10 @@ fun String.head(n: Int): String {
 	}
 	return this.substring(0, n)
 }
+
+fun String.tail(n: Int): String {
+	if (this.length < n) {
+		return this
+	}
+	return this.substring(this.length - n)
+}
