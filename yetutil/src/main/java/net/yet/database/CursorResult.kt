@@ -8,7 +8,7 @@ import net.yet.ext.putLong
 import net.yet.ext.putNull
 import net.yet.ext.putString
 import net.yet.util.Util
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.util.*
 
 /**

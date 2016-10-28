@@ -2,7 +2,7 @@
 @file:JvmName("KUtil")
 package net.yet.util
 
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 
 private const val TAG = "tick"
 
@@ -26,9 +26,9 @@ class Tick {
 		end_time = System.currentTimeMillis()
 		val tick = end_time - start_time
 		if (warnLevel > 0 && tick > warnLevel) {
-			xlog.wTag(TAG, "[TimeTick]", prefix, ":", tick, "(expect<", warnLevel, ")")
+			xlog.w(TAG, "[TimeTick]", prefix, ":", tick, "(expect<", warnLevel, ")")
 		} else {
-			xlog.dTag(TAG, "[TimeTick]", prefix, ":", tick)
+			xlog.d(TAG, "[TimeTick]", prefix, ":", tick)
 		}
 		start_time = System.currentTimeMillis()
 		return tick

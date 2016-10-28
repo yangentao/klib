@@ -3,7 +3,7 @@ package net.yet.ui.util;
 import android.content.res.ColorStateList;
 import android.util.Pair;
 
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class ColorListUtil {
 	public void addColor(Integer color, int... states) {
 		if (color != null) {
 			if (index >= 10) {
-				xlog.e("max color num is 10");
+				xlog.INSTANCE.e("max color num is 10");
 				return;
 			}
 			colors[index] = color.intValue();

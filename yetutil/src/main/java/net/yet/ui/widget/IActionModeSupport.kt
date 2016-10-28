@@ -1,6 +1,6 @@
 package net.yet.ui.widget
 
-import net.yet.util.loge
+import net.yet.util.log.loge
 
 /**
  * actions , navAction, title改变后， 要调用updaeActions来刷新界面

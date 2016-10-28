@@ -9,7 +9,7 @@ import android.util.DisplayMetrics
 import net.yet.util.StreamUtil
 import net.yet.util.Util
 import net.yet.util.app.App
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.io.BufferedInputStream
 import java.io.IOException
 import java.io.InputStream

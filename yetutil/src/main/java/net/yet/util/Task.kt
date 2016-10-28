@@ -6,6 +6,7 @@ package net.yet.util
 import android.os.Handler
 import android.os.Looper
 import net.yet.util.app.App
+import net.yet.util.log.xlog
 import java.util.*
 import java.util.concurrent.Executors
 

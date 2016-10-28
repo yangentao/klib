@@ -1,11 +1,11 @@
 package net.yet.ui.dialogs
 
+import android.R
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface.OnClickListener
-import net.yet.R
 import net.yet.ui.res.Res
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.util.*
 
 abstract class StringMultiSelectDialogX<T> {

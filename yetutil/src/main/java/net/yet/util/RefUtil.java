@@ -1,5 +1,7 @@
 package net.yet.util;
 
+import net.yet.util.log.xlog;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -11,20 +13,20 @@ public class RefUtil {
 
 	public static void dumpObject(Object obj) {
 		if (obj == null) {
-			xlog.d("NULL");
+			xlog.INSTANCE.d("NULL");
 			return;
 		}
 		dumpClass(obj.getClass());
 	}
 
 	public static void dumpService(String name) {
-		xlog.d("Dump Service ", name);
+		xlog.INSTANCE.d("Dump Service ", name);
 		Object obj = Util.getService(name);
 		dumpObject(obj);
 	}
 
 	public static void dumpClass(Class<?> cls) {
-		xlog.d("Dump Class Methods: ", cls.getName());
+		xlog.INSTANCE.d("Dump Class Methods: ", cls.getName());
 		StrBuilder sb = new StrBuilder(128);
 		Field[] fs = cls.getDeclaredFields();
 		Arrays.sort(fs, new Comparator<Field>() {
@@ -79,7 +81,7 @@ public class RefUtil {
 			if (isStatic) {
 				sb.append(" = ", getStatic(cls, f.getName()));
 			}
-			xlog.d(sb.toString());
+			xlog.INSTANCE.d(sb.toString());
 		}
 
 		for (Method m : ms) {
@@ -103,7 +105,7 @@ public class RefUtil {
 				sb.append(p.getSimpleName());
 			}
 			sb.append(");");
-			xlog.d(sb.toString());
+			xlog.INSTANCE.d(sb.toString());
 		}
 	}
 

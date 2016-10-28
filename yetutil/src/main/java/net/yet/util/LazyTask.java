@@ -1,5 +1,7 @@
 package net.yet.util;
 
+import net.yet.util.log.xlog;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -51,7 +53,7 @@ public class LazyTask {
 			if (t != null) {
 				long delta = t.scheduleTime + t.delay - System.currentTimeMillis();
 				if (delta <= 0) {
-					xlog.d("lazy task callback!");
+					xlog.INSTANCE.d("lazy task callback!");
 					map.remove(taskname);
 					t.task.run();
 				} else {

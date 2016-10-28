@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import net.yet.net.IP
 import net.yet.util.JsonUtil
 import net.yet.util.StrBuilder
+import java.util.*
 
 /**
  * Created by entaoyang@163.com on 16/5/13.
@@ -87,4 +88,23 @@ fun String.tail(n: Int): String {
 		return this
 	}
 	return this.substring(this.length - n)
+}
+
+//分隔成长度不大于n的字符串数组
+fun String.truck(n: Int): List<String> {
+	val ls = ArrayList<String>()
+	if (this.length <= n) {
+		ls.add(this)
+	} else {
+		val x = this.length / n
+		val y = this.length % n
+		for (i in 1..x) {
+			val start = (i - 1) * n
+			ls.add(this.substring(start, start + n))
+		}
+		if (y != 0) {
+			ls.add(this.substring(x * n))
+		}
+	}
+	return ls
 }

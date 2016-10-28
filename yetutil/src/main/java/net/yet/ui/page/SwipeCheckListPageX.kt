@@ -4,11 +4,10 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-
 import net.yet.ui.widget.Action
 import net.yet.ui.widget.listview.swipe.SwipeHandlerX
 import net.yet.ui.widget.listview.swipe.XSwipeItemView
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 
 /**
  * 支持多选和侧滑的ListView Fragment

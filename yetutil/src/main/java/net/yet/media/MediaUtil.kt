@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
-
 import net.yet.util.Util
-import net.yet.util.xlog
-
+import net.yet.util.log.xlog
 import java.io.File
 import java.io.IOException
 

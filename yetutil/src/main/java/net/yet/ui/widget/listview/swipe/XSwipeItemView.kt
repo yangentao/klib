@@ -11,7 +11,7 @@ import net.yet.ui.ext.*
 import net.yet.ui.widget.Action
 import net.yet.ui.widget.listview.itemview.HorItemView
 import net.yet.ui.widget.listview.itemview.ItemViewCheckable
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.util.*
 
 interface SwipeItemListener {

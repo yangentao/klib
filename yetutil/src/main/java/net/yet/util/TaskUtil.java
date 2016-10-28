@@ -3,6 +3,8 @@ package net.yet.util;
 import android.os.Handler;
 import android.os.Looper;
 
+import net.yet.util.log.xlog;
+
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,8 +18,8 @@ public class TaskUtil {
 		@Override
 		public void uncaughtException(Thread thread, Throwable ex) {
 			ex.printStackTrace();
-			xlog.e(ex);
-			xlog.flush();
+			xlog.INSTANCE.e(ex);
+			xlog.INSTANCE.flush();
 		}
 	};
 
@@ -83,7 +85,7 @@ public class TaskUtil {
 					r.run();
 				} catch (Throwable e) {
 					e.printStackTrace();
-					xlog.e(e);
+					xlog.INSTANCE.e(e);
 				}
 			}
 		});
@@ -140,7 +142,7 @@ public class TaskUtil {
 					task.onFore();
 				} catch (Throwable e) {
 					e.printStackTrace();
-					xlog.e(e);
+					xlog.INSTANCE.e(e);
 				}
 				back(new Runnable() {
 
@@ -150,7 +152,7 @@ public class TaskUtil {
 							task.onBack();
 						} catch (Throwable e) {
 							e.printStackTrace();
-							xlog.e(e);
+							xlog.INSTANCE.e(e);
 						}
 					}
 				});
@@ -175,7 +177,7 @@ public class TaskUtil {
 					task.onBack();
 				} catch (Throwable e) {
 					e.printStackTrace();
-					xlog.e(e);
+					xlog.INSTANCE.e(e);
 				}
 				fore(new Runnable() {
 
@@ -185,7 +187,7 @@ public class TaskUtil {
 							task.onFore();
 						} catch (Throwable e) {
 							e.printStackTrace();
-							xlog.e(e);
+							xlog.INSTANCE.e(e);
 						}
 
 					}

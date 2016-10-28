@@ -1,6 +1,7 @@
 package net.yet.util
 
 import net.yet.util.event.mergeAction
+import net.yet.util.log.log
 import java.util.*
 
 /**

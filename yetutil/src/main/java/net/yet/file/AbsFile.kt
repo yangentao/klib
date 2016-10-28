@@ -1,7 +1,7 @@
 package net.yet.file
 
 import net.yet.util.DateUtil
-import net.yet.util.logd
+import net.yet.util.log.logd
 import java.io.File
 import java.io.IOException
 

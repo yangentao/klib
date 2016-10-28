@@ -8,7 +8,7 @@ import android.net.Uri;
 import net.yet.file.SdAppFile;
 import net.yet.util.Util;
 import net.yet.util.XMap;
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 import java.io.File;
 
@@ -39,7 +39,7 @@ public class DownloadTask {
 		this.status = success ? SUCCESS : FAILED;
 		if (success) {
 			File file = new File(filepath);
-			xlog.d("下载成功:", filepath);
+			xlog.INSTANCE.d("下载成功:", filepath);
 			if (actionInstall) {
 				Util.installApk(file);
 			}

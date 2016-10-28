@@ -5,7 +5,7 @@ import android.content.Intent;
 import net.yet.util.RunTask;
 import net.yet.util.TaskUtil;
 import net.yet.util.Util;
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 import java.util.LinkedList;
 
@@ -83,7 +83,7 @@ public abstract class SeqTaskService extends BaseTaskService {
 	@Override
 	final public void finish(int startId) {
 		if (lastRunningTask == null) {
-			xlog.e("没有正在执行的任务");
+			xlog.INSTANCE.e("没有正在执行的任务");
 			return;
 		}
 		Util.debugFail(lastRunningTask.startId != startId, "要结束的task和正在运行的不一样!");

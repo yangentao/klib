@@ -8,7 +8,7 @@ import net.yet.util.IdGen;
 import net.yet.util.PowerLock;
 import net.yet.util.RunTask;
 import net.yet.util.TaskQueue;
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 /**
  * IntentService有个问题, 如果后面的Intent提前处理完, 调用了stopSelf(int startId), 则, 整个service被关闭了.
@@ -42,7 +42,7 @@ public abstract class BaseTaskService extends Service {
         if (lock != null) {
             lock.release();
         }
-        xlog.d("Service Destroy");
+        xlog.INSTANCE.d("Service Destroy");
     }
 
     @Override

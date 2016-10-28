@@ -2,6 +2,8 @@ package net.yet.util;
 
 import android.os.Handler;
 
+import net.yet.util.log.xlog;
+
 import java.util.concurrent.ExecutorService;
 
 public abstract class ForeBackTask extends RunTask {
@@ -30,7 +32,7 @@ public abstract class ForeBackTask extends RunTask {
 			} else if (backHandler != null) {
 				backHandler.post(this);
 			} else {
-				xlog.e("No back handler given");
+				xlog.INSTANCE.e("No back handler given");
 				finish();
 			}
 		} else {

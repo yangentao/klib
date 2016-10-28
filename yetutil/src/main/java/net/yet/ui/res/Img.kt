@@ -9,7 +9,7 @@ import net.yet.ext.size
 import net.yet.ui.util.StateColor
 import net.yet.ui.util.StateImage
 import net.yet.util.app.App
-import net.yet.util.loge
+import net.yet.util.log.loge
 
 /**
  * Created by entaoyang@163.com on 2016-07-23.

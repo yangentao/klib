@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import net.yet.R
 import net.yet.ui.activities.BaseActivity
 import net.yet.ui.ext.*
 import net.yet.ui.page.BaseFragment
@@ -19,7 +18,7 @@ import net.yet.ui.util.FragmentHelper
 import net.yet.ui.widget.Action
 import net.yet.ui.widget.TabBar
 import net.yet.ui.widget.add
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.util.*
 
 class DrawerTabBarContainerActivity : BaseActivity() {
@@ -61,7 +60,7 @@ class DrawerTabBarContainerActivity : BaseActivity() {
 		this.setContentView(drawerLayout)
 
 		val toggle = ActionBarDrawerToggle(
-				this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+				this, drawerLayout, net.yet.R.string.navigation_drawer_open, net.yet.R.string.navigation_drawer_close)
 		drawerLayout.setDrawerListener(toggle)
 		toggle.syncState()
 		containerView = createFrameLayout()

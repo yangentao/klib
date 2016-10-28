@@ -21,13 +21,11 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import net.yet.ui.activities.AnimConf;
-import net.yet.util.CacheFilePrinter;
-import net.yet.util.LogcatPrinter;
 import net.yet.util.MsgCenter;
 import net.yet.util.StrBuilder;
 import net.yet.util.Util;
 import net.yet.util.database.Values;
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -79,12 +77,11 @@ public class App {
 				StrBuilder sb = new StrBuilder(128);
 				sb.append("uncaughtException:", thread.getId(), " ", thread.getName());
 				ex.printStackTrace();
-				xlog.e(ex);
-				xlog.flush();
+				xlog.INSTANCE.e(ex);
+				xlog.INSTANCE.flush();
 				System.exit(-1);
 			}
 		});
-		xlog.setPrinters(new LogcatPrinter(), new CacheFilePrinter());
 
 		BroadcastReceiver connectivityReceiver = new BroadcastReceiver() {
 
@@ -168,7 +165,7 @@ public class App {
 			return ai == null ? null : (ai.metaData == null ? null : ai.metaData.getString(metaKey));
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		}
 		return null;
 	}
@@ -226,7 +223,7 @@ public class App {
 		for (ActivityManager.RunningAppProcessInfo info : am.getRunningAppProcesses()) {
 
 			if (info.processName.equals(packageName)) {
-				xlog.d(info.processName, info.importance);
+				xlog.INSTANCE.d(info.processName, info.importance);
 				return info.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 			}
 		}
@@ -258,7 +255,7 @@ public class App {
 		try {
 			App.get().sendOrderedBroadcast(it, null);
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		}
 	}
 

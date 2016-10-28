@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.util.DisplayMetrics;
 
 import net.yet.util.app.App;
+import net.yet.util.log.xlog;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -79,7 +80,7 @@ public class AssetUtil {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		} finally {
 			Util.close(is);
 		}
@@ -99,7 +100,7 @@ public class AssetUtil {
 			// return Drawable.createFromResourceStream(null, null, is, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		} finally {
 			Util.close(is);
 		}

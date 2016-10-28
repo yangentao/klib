@@ -1,8 +1,8 @@
 package net.yet.util.database
 
-import android.support.v4.util.ArrayMap
+import android.util.ArrayMap
 import net.yet.util.app.App
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.util.*
 
 

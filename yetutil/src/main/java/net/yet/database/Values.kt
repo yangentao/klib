@@ -4,23 +4,23 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.util.ArrayMap
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import net.yet.ext.*
 import net.yet.util.Util
 import net.yet.util.app.OS
-import net.yet.util.loge
-import net.yet.util.xlog
+import net.yet.util.log.loge
+import net.yet.util.log.xlog
 import java.io.Serializable
+import java.util.*
 
 /**
  * Created by entaoyang@163.com on 16/5/13.
  */
 
 class Values(n: Int = 8) {
-	val map: ArrayMap<String, Any> = ArrayMap(n)
+	val map: HashMap<String, Any?> = HashMap(n)
 
 	constructor(other: Values) : this(other.map.size) {
 		for ((k, v) in other.map) {
@@ -236,13 +236,6 @@ class Values(n: Int = 8) {
 		return map.size
 	}
 
-	fun keyAt(index: Int): String {
-		return map.keyAt(index)
-	}
-
-	fun valueAt(index: Int): Any {
-		return map.valueAt(index)
-	}
 
 	fun keySet(): Set<String> {
 		return map.keys

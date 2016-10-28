@@ -9,7 +9,7 @@ import net.yet.util.JsonUtil
 import net.yet.util.database.LiteBase
 import net.yet.util.database.Query
 import net.yet.util.database.WhereNode
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.io.Closeable
 import java.util.*
 

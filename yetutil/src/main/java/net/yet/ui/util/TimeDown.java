@@ -6,7 +6,7 @@ import net.yet.R;
 import net.yet.util.RepeatCallback;
 import net.yet.util.TaskUtil;
 import net.yet.ui.res.Res;
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 import java.util.HashMap;
 
@@ -31,12 +31,12 @@ public class TimeDown {
 
 	//要在主线程调用
 	public static void startClick(final String name, final int secondsLimit, TextView view) {
-		xlog.d("startClick ", name, secondsLimit);
+		xlog.INSTANCE.d("startClick ", name, secondsLimit);
 		map.put(name, view);
 		view.setEnabled(false);
 		if (!secondsMap.containsKey(name)) {
 			secondsMap.put(name, secondsLimit);
-			xlog.d("倒计时开始", name, secondsLimit);
+			xlog.INSTANCE.d("倒计时开始", name, secondsLimit);
 			TaskUtil.repeatFore(secondsLimit, 1000, new RepeatCallback() {
 
 				@Override
@@ -63,7 +63,7 @@ public class TimeDown {
 				}
 			});
 		} else {
-			xlog.d("重复的点击");
+			xlog.INSTANCE.d("重复的点击");
 		}
 	}
 }

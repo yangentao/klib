@@ -25,6 +25,7 @@ import android.widget.Toast;
 import net.yet.ui.util.DrawableListUtil;
 import net.yet.util.app.App;
 import net.yet.util.app.DownloadTask;
+import net.yet.util.log.xlog;
 
 import java.io.Closeable;
 import java.io.File;
@@ -73,7 +74,7 @@ public class Util {
 
 	public static void Assert(boolean b) {
 		if (!b && debug()) {
-			xlog.fatal("assert failed!");
+			xlog.INSTANCE.fatal("assert failed!");
 		}
 	}
 
@@ -704,7 +705,6 @@ public class Util {
 	}
 
 	public static void installShortcut(String name, int imageRes, Intent intent) {
-		xlog.d("创建快捷方式: ", name);
 		Intent addShortcutIntent = new Intent(ACTION_INSTALL_SHORTCUT);
 		// 不允许重复创建
 		addShortcutIntent.putExtra("duplicate", false);// 经测试不是根据快捷方式的名字判断重复的
@@ -1239,7 +1239,7 @@ public class Util {
 			if (debug()) {
 				fail(msg);
 			} else {
-				xlog.e(msg);
+				xlog.INSTANCE.e(msg);
 			}
 		}
 	}
@@ -1334,7 +1334,7 @@ public class Util {
 			return bytes2HexString(m);
 		} catch (Exception e) {
 			e.printStackTrace();
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		}
 		return null;
 	}

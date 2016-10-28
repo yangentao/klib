@@ -9,6 +9,7 @@ import com.google.gson.JsonParser;
 
 import net.yet.file.AppFile;
 import net.yet.file.AppFileVer;
+import net.yet.util.log.xlog;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -191,7 +192,7 @@ public class JsonUtil {
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		} finally {
 			Util.close(fos);
 		}
@@ -203,7 +204,7 @@ public class JsonUtil {
 			FileOutputStream fos = new FileOutputStream(file);
 			saveGeneric(fos, data, type);
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		}
 	}
 
@@ -219,7 +220,7 @@ public class JsonUtil {
 			gson.toJson(data, writer);
 			writer.close();
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		} finally {
 			Util.close(fos);
 		}
@@ -232,7 +233,7 @@ public class JsonUtil {
 			FileOutputStream fos = new FileOutputStream(file);
 			save(fos, data);
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		}
 	}
 
@@ -265,7 +266,7 @@ public class JsonUtil {
 			reader.close();
 		} catch (FileNotFoundException e) {
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		} finally {
 			Util.close(fis);
 		}
@@ -280,7 +281,7 @@ public class JsonUtil {
 			return load(fis, classOfT);
 		} catch (FileNotFoundException e) {
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		}
 		return null;
 	}
@@ -317,7 +318,7 @@ public class JsonUtil {
 			result = gson.fromJson(reader, typeOfT);
 			reader.close();
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		} finally {
 			Util.close(fis);
 		}
@@ -331,7 +332,7 @@ public class JsonUtil {
 			return loadGeneric(fis, typeOfT);
 		} catch (FileNotFoundException e) {
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 		}
 		return null;
 	}

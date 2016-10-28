@@ -24,7 +24,7 @@ import net.yet.orm.serial.TypeSerializer;
 import net.yet.orm.serial.UUIDSerializer;
 import net.yet.orm.serial.UtilDateSerializer;
 import net.yet.util.database.LiteBase;
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -106,7 +106,7 @@ public final class TableInfo {
 						sqlTypeMap.put(field, tsObj.getSqliteType());
 					} catch (Exception ex) {
 						ex.printStackTrace();
-						xlog.e(ex);
+						xlog.INSTANCE.e(ex);
 					}
 				}
 			}
@@ -162,8 +162,8 @@ public final class TableInfo {
 		String dbpath = lb.getDb().getPath();
 		String pathAndTable =  type.getSimpleName() + "@" + dbpath;
 		if (!dbSet.contains(pathAndTable)) {
-			xlog.d("数据库路径: ", dbpath);
-			xlog.d("表名: ", type.getSimpleName());
+			xlog.INSTANCE.d("数据库路径: ", dbpath);
+			xlog.INSTANCE.d("表名: ", type.getSimpleName());
 			dbSet.add(pathAndTable);
 			TableDefUtil.createOrModifyTable(lb, tableInfo);
 		}

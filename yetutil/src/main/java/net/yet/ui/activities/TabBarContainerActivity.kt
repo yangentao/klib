@@ -11,7 +11,7 @@ import net.yet.ui.util.FragmentHelper
 import net.yet.ui.widget.Action
 import net.yet.ui.widget.TabBar
 import net.yet.ui.widget.add
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.util.*
 
 /**

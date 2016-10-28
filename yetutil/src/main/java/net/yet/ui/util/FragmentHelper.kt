@@ -3,7 +3,7 @@ package net.yet.ui.util
 import android.app.Fragment
 import android.app.FragmentManager
 import net.yet.ui.page.BaseFragment
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 
 /**
  * Created by yet on 2015/10/10.

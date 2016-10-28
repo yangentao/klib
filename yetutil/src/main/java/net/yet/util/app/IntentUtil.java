@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import net.yet.util.database.Values;
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 /**
  * 明确带有Sys后缀的函数, 是面向Android系统的全局回调/调用
@@ -146,14 +146,14 @@ public class IntentUtil {
 	// return null;
 	// }
 	public static void dump(Intent it) {
-		xlog.d("Dump Intent");
+		xlog.INSTANCE.d("Dump Intent");
 		if (it == null) {
-			xlog.d("NULL");
+			xlog.INSTANCE.d("NULL");
 			return;
 		}
-		xlog.d("ACTION:", it.getAction());
+		xlog.INSTANCE.d("ACTION:", it.getAction());
 		dump(it.getExtras());
-		xlog.d("Dump Intent  END");
+		xlog.INSTANCE.d("Dump Intent  END");
 	}
 
 	public static void dump(Bundle b) {
@@ -165,10 +165,10 @@ public class IntentUtil {
 			for (String key : b.keySet()) {
 				Object value = b.get(key);
 				if (value instanceof Bundle) {
-					xlog.d(prefix, key);
+					xlog.INSTANCE.d(prefix, key);
 					dump(prefix + "        ", (Bundle) value);
 				} else {
-					xlog.d(prefix, key, value, value == null ? " null " : value.getClass().getSimpleName());
+					xlog.INSTANCE.d(prefix, key, value, value == null ? " null " : value.getClass().getSimpleName());
 				}
 
 			}

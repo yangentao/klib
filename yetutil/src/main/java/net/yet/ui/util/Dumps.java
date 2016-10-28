@@ -6,7 +6,7 @@ import android.telephony.TelephonyManager;
 
 import net.yet.util.DateUtil;
 import net.yet.util.StrBuilder;
-import net.yet.util.xlog;
+import net.yet.util.log.xlog;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -46,7 +46,7 @@ public class Dumps {
 		}
 		Collections.sort(all);
 		for (String m : all) {
-			xlog.d(m);
+			xlog.INSTANCE.d(m);
 		}
 	}
 
@@ -59,10 +59,10 @@ public class Dumps {
 			for (String key : b.keySet()) {
 				Object value = b.get(key);
 				if (value instanceof Bundle) {
-					xlog.d(prefix, key);
+					xlog.INSTANCE.d(prefix, key);
 					dumpBundle(prefix + "        ", (Bundle) value);
 				} else {
-					xlog.d(prefix, key, value, value == null ? " null " : value.getClass().getSimpleName());
+					xlog.INSTANCE.d(prefix, key, value, value == null ? " null " : value.getClass().getSimpleName());
 				}
 
 			}
@@ -71,45 +71,45 @@ public class Dumps {
 
 	@SuppressWarnings("deprecation")
 	public static void build() {
-		xlog.d("BOARD", Build.BOARD);
-		xlog.d("BOOTLOADER", Build.BOOTLOADER);
-		xlog.d("BRAND", Build.BRAND);
-		xlog.d("CPU_ABI", Build.CPU_ABI);
-		xlog.d("CPU_ABI2", Build.CPU_ABI2);
-		xlog.d("DEVICE", Build.DEVICE);
-		xlog.d("DISPLAY", Build.DISPLAY);
-		xlog.d("FINGERPRINT", Build.FINGERPRINT);
-		xlog.d("HARDWARE", Build.HARDWARE);
-		xlog.d("HOST", Build.HOST);
-		xlog.d("ID", Build.ID);
-		xlog.d("MANUFACTURER", Build.MANUFACTURER);
-		xlog.d("MODEL", Build.MODEL);
-		xlog.d("PRODUCT", Build.PRODUCT);
-		xlog.d("RADIO", Build.RADIO);
-		xlog.d("SERIAL", Build.SERIAL);
-		xlog.d("TAGS", Build.TAGS);
-		xlog.d("TIME", DateUtil.date(Build.TIME));
-		xlog.d("TYPE", Build.TYPE);
-		xlog.d("UNKNOWN", Build.UNKNOWN);
-		xlog.d("USER", Build.USER);
-		xlog.d("getRadioVersion", Build.getRadioVersion());
+		xlog.INSTANCE.d("BOARD", Build.BOARD);
+		xlog.INSTANCE.d("BOOTLOADER", Build.BOOTLOADER);
+		xlog.INSTANCE.d("BRAND", Build.BRAND);
+		xlog.INSTANCE.d("CPU_ABI", Build.CPU_ABI);
+		xlog.INSTANCE.d("CPU_ABI2", Build.CPU_ABI2);
+		xlog.INSTANCE.d("DEVICE", Build.DEVICE);
+		xlog.INSTANCE.d("DISPLAY", Build.DISPLAY);
+		xlog.INSTANCE.d("FINGERPRINT", Build.FINGERPRINT);
+		xlog.INSTANCE.d("HARDWARE", Build.HARDWARE);
+		xlog.INSTANCE.d("HOST", Build.HOST);
+		xlog.INSTANCE.d("ID", Build.ID);
+		xlog.INSTANCE.d("MANUFACTURER", Build.MANUFACTURER);
+		xlog.INSTANCE.d("MODEL", Build.MODEL);
+		xlog.INSTANCE.d("PRODUCT", Build.PRODUCT);
+		xlog.INSTANCE.d("RADIO", Build.RADIO);
+		xlog.INSTANCE.d("SERIAL", Build.SERIAL);
+		xlog.INSTANCE.d("TAGS", Build.TAGS);
+		xlog.INSTANCE.d("TIME", DateUtil.date(Build.TIME));
+		xlog.INSTANCE.d("TYPE", Build.TYPE);
+		xlog.INSTANCE.d("UNKNOWN", Build.UNKNOWN);
+		xlog.INSTANCE.d("USER", Build.USER);
+		xlog.INSTANCE.d("getRadioVersion", Build.getRadioVersion());
 	}
 
 	public static void telMgr(TelephonyManager tm) {
-		xlog.d("Dump TelephonyManager");
-		xlog.d("line 1 number:", tm.getLine1Number());
-		xlog.d("country iso: ", tm.getNetworkCountryIso());
-		xlog.d("getNetworkOperator", tm.getNetworkOperator());
-		xlog.d("getNetworkOperatorName", tm.getNetworkOperatorName());
-		xlog.d("getNetworkType", tm.getNetworkType());
-		xlog.d("getPhoneType", tm.getPhoneType());
-		xlog.d("getSimCountryIso", tm.getSimCountryIso());
-		xlog.d("getSimOperator", tm.getSimOperator());
-		xlog.d("getSimOperatorName ", tm.getSimOperatorName());
-		xlog.d("getSimSerialNumber ", tm.getSimSerialNumber());
-		xlog.d("getSimState ", tm.getSimState());
-		xlog.d("getSubscriberId ", tm.getSubscriberId());
-		xlog.d("getDeviceId ", tm.getDeviceId());
-		xlog.d("getDeviceSoftwareVersion ", tm.getDeviceSoftwareVersion());
+		xlog.INSTANCE.d("Dump TelephonyManager");
+		xlog.INSTANCE.d("line 1 number:", tm.getLine1Number());
+		xlog.INSTANCE.d("country iso: ", tm.getNetworkCountryIso());
+		xlog.INSTANCE.d("getNetworkOperator", tm.getNetworkOperator());
+		xlog.INSTANCE.d("getNetworkOperatorName", tm.getNetworkOperatorName());
+		xlog.INSTANCE.d("getNetworkType", tm.getNetworkType());
+		xlog.INSTANCE.d("getPhoneType", tm.getPhoneType());
+		xlog.INSTANCE.d("getSimCountryIso", tm.getSimCountryIso());
+		xlog.INSTANCE.d("getSimOperator", tm.getSimOperator());
+		xlog.INSTANCE.d("getSimOperatorName ", tm.getSimOperatorName());
+		xlog.INSTANCE.d("getSimSerialNumber ", tm.getSimSerialNumber());
+		xlog.INSTANCE.d("getSimState ", tm.getSimState());
+		xlog.INSTANCE.d("getSubscriberId ", tm.getSubscriberId());
+		xlog.INSTANCE.d("getDeviceId ", tm.getDeviceId());
+		xlog.INSTANCE.d("getDeviceSoftwareVersion ", tm.getDeviceSoftwareVersion());
 	}
 }

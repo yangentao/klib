@@ -11,7 +11,7 @@ import net.yet.theme.Dim
 import net.yet.ui.ext.*
 import net.yet.ui.util.StateImage
 import net.yet.util.Util
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.util.*
 
 /**

@@ -1,9 +1,8 @@
 package net.yet.util.database
 
-import android.support.v4.util.ArrayMap
 import net.yet.util.eachRow
+import net.yet.util.log.xlog
 import net.yet.util.runOnce
-import net.yet.util.xlog
 import java.util.*
 
 
@@ -20,13 +19,6 @@ class DBMap(val table: String) : MapLike<String> {
 		return liteBase.trans {
 			block(this)
 		}
-	}
-
-
-	fun toArrayMap(): ArrayMap<String, String> {
-		val map = ArrayMap<String, String>(512)
-		toMap(map)
-		return map
 	}
 
 	fun toHashMap(): HashMap<String, String> {
@@ -82,7 +74,7 @@ class DBMap(val table: String) : MapLike<String> {
 	}
 
 	fun dumpAll() {
-		val map = toArrayMap()
+		val map = toHashMap()
 		for ((k, v) in map) {
 			xlog.d(k, " = ", v)
 		}

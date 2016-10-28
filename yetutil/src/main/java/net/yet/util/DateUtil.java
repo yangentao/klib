@@ -1,5 +1,7 @@
 package net.yet.util;
 
+import net.yet.util.log.xlog;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +26,7 @@ public class DateUtil {
 			return ff.parse(dateStr);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			xlog.e(ex);
+			xlog.INSTANCE.e(ex);
 		}
 		return null;
 	}

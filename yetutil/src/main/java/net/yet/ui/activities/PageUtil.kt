@@ -3,7 +3,7 @@ package net.yet.ui.activities
 import android.content.Context
 import net.yet.ui.page.BaseFragment
 import net.yet.util.database.Values
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 
 /**
  * Created by entaoyang@163.com on 2016-07-26.

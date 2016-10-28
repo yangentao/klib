@@ -8,7 +8,7 @@ import net.yet.util.database.IDatabaseExt
 import net.yet.util.database.LiteBase
 import net.yet.util.database.WhereNode
 import net.yet.util.empty
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.lang.reflect.Field
 
 /**

@@ -2,6 +2,8 @@ package net.yet.util;
 
 import android.media.MediaRecorder;
 
+import net.yet.util.log.xlog;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -37,7 +39,6 @@ public class AmrRecord {
 		for (int i = 0; i < QUEUE_SIZE; ++i) {
 			queue.add(0);
 		}
-		xlog.debugFail(isRecording(), "已经开始录音了");
 		recording = true;
 		recordFile = file;
 		recorder = new MediaRecorder();
@@ -69,7 +70,7 @@ public class AmrRecord {
 			}
 			return true;
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 			release();
 		}
 		return false;

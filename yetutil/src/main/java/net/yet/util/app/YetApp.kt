@@ -1,11 +1,9 @@
 package net.yet.util.app
 
 import android.app.Application
-
-import net.yet.R
 import net.yet.theme.Dim
 import net.yet.ui.activities.AppVisibleListener
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 
 /**
  * Created by yet on 2015/10/10.
@@ -13,7 +11,7 @@ import net.yet.util.xlog
 open class YetApp : Application(), AppVisibleListener {
 
 	override fun onCreate() {
-		this.setTheme(R.style.LibTheme)
+		this.setTheme(net.yet.R.style.LibTheme)
 		super.onCreate()
 		App.init(this)
 		if (OS.HUAWEI) {

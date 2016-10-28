@@ -11,7 +11,7 @@ import android.widget.TextView
 import net.yet.theme.Str
 import net.yet.ui.page.FilterIndexMultiSelectPage
 import net.yet.ui.widget.listview.itemview.TextDetailView
-import net.yet.util.log
+import net.yet.util.log.log
 import java.util.*
 
 /**

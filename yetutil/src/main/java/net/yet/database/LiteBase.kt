@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import net.yet.util.app.App
-import net.yet.util.logd
+import net.yet.util.log.logd
 import java.io.Closeable
 import java.io.File
 

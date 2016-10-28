@@ -12,7 +12,7 @@ import net.yet.ui.widget.TitleBar
 import net.yet.ui.widget.listview.itemview.TextDetailView
 import net.yet.util.OnValue
 import net.yet.util.Util
-import net.yet.util.xlog
+import net.yet.util.log.xlog
 import java.io.File
 import java.util.*
 

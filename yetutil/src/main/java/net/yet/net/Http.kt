@@ -6,6 +6,9 @@ import android.os.NetworkOnMainThreadException
 import android.util.Base64
 import net.yet.util.*
 import net.yet.util.app.App
+import net.yet.util.log.log
+import net.yet.util.log.logd
+import net.yet.util.log.loge
 import java.io.*
 import java.net.*
 import java.util.*

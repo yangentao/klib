@@ -1,5 +1,6 @@
 package net.yet.util
 
+import net.yet.util.log.logd
 import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
 import kotlin.reflect.KParameter

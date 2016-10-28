@@ -3,6 +3,8 @@ package net.yet.util;
 import android.content.Context;
 import android.media.MediaRecorder;
 
+import net.yet.util.log.xlog;
+
 import java.io.File;
 
 public class MyAudioRecord {
@@ -70,7 +72,7 @@ public class MyAudioRecord {
 	private int getMaxAmplitude() {
 		if (recorder != null) {
 			int am = recorder.getMaxAmplitude();
-			xlog.d("AM:" + am);
+			xlog.INSTANCE.d("AM:" + am);
 			return am;
 		}
 		return 0;
@@ -102,12 +104,12 @@ public class MyAudioRecord {
 
 	public boolean start(File file) {
 		if (recording) {
-			xlog.e("already recoding");
+			xlog.INSTANCE.e("already recoding");
 			return false;
 		}
 		recordFile = file;
 		recorder = new MediaRecorder();
-		xlog.d("begin recording...");
+		xlog.INSTANCE.d("begin recording...");
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);// 设置MediaRecorder的音频源为麦克风
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);// RAW_AMR
 																		// 设置MediaRecorder录制的音频格式
@@ -122,16 +124,16 @@ public class MyAudioRecord {
 			TaskUtil.getMainHandler().post(tick);
 			return true;
 		} catch (Exception e) {
-			xlog.e(e);
+			xlog.INSTANCE.e(e);
 			release();
 		}
 		return false;
 	}
 
 	public boolean stop() {
-		xlog.d("end recording...");
+		xlog.INSTANCE.d("end recording...");
 		if (!recording) {
-			xlog.e("no not recording!!");
+			xlog.INSTANCE.e("no not recording!!");
 			return false;
 		}
 		stopInner();
@@ -139,7 +141,7 @@ public class MyAudioRecord {
 	}
 
 	public void cancel() {
-		xlog.d("cancel recording...");
+		xlog.INSTANCE.d("cancel recording...");
 		stopInner();
 		if (recordFile != null && recordFile.exists()) {
 			recordFile.delete();

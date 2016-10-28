@@ -10,10 +10,6 @@ class ActionMerger {
 	private var millSedonds = 0
 	private var callback: Runnable? = null
 
-	constructor() {
-
-	}
-
 	fun clear() {
 		millSedonds = 0
 		callback = null

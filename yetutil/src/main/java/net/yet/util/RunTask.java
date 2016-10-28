@@ -1,5 +1,7 @@
 package net.yet.util;
 
+import net.yet.util.log.xlog;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -95,7 +97,7 @@ public abstract class RunTask implements Runnable {
 		try {
 			onRun();
 		} catch (Throwable t) {
-			xlog.e(t);
+			xlog.INSTANCE.e(t);
 			ex = t;
 		}
 		finish();

@@ -4,6 +4,7 @@
 package net.yet.util
 
 import android.database.Cursor
+import net.yet.util.log.loge
 import java.io.Closeable
 import java.io.IOException
 import java.io.InputStream

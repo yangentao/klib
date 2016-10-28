@@ -10,10 +10,14 @@ import android.view.Window
 import android.widget.Toast
 import net.yet.R
 import net.yet.ui.dialogs.OKDialog
-import net.yet.util.*
+import net.yet.util.Msg
+import net.yet.util.MsgCenter
+import net.yet.util.MsgListener
 import net.yet.util.app.App
 import net.yet.util.app.OS
 import net.yet.util.event.EventMerge
+import net.yet.util.fore
+import net.yet.util.log.xlog
 import java.util.*
 
 /**
@@ -146,7 +150,7 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
-		this.setTheme(R.style.LibTheme_NoActionBar)
+		this.setTheme(net.yet.R.style.LibTheme_NoActionBar)
 		requestWindowFeature(Window.FEATURE_NO_TITLE)
 		xlog.dTag("yet", "onCreate:", this.toString())
 		super.onCreate(savedInstanceState)
@@ -184,13 +188,13 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 			}
 			Msg(MsgEnterForeground).fireCurrent()
 		}
-		xlog.dTag("yet", "onStart:", visiableActivityCount, this.toString())
+		xlog.d("yet", "onStart:", visiableActivityCount, this.toString())
 		_topActivity = this
 		super.onStart()
 	}
 
 	override fun onRestart() {
-		xlog.dTag("yet", "onRestart:", this.toString())
+		xlog.d("yet", "onRestart:", this.toString())
 		super.onRestart()
 	}
 
@@ -206,7 +210,7 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 			}
 			Msg(MsgEnterBackground).fireCurrent()
 		}
-		xlog.dTag("yet", "onStop:", visiableActivityCount, this.toString())
+		xlog.d("yet", "onStop:", visiableActivityCount, this.toString())
 		super.onStop()
 	}
 

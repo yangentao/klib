@@ -5,7 +5,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import net.yet.ext.notEmpty
 import net.yet.util.close
-import net.yet.util.loge
+import net.yet.util.log.loge
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
