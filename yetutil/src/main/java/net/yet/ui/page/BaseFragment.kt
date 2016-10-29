@@ -359,7 +359,7 @@ open class BaseFragment : Fragment(), MsgListener {
 		imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
 	}
 
-	fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+	open fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
 		return false
 	}
 
