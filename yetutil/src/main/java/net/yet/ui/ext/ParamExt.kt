@@ -130,3 +130,5 @@ fun <T : ViewGroup.LayoutParams> T.heightEdit(): T {
 fun <T : ViewGroup.LayoutParams> T.heightEditSmall(): T {
 	return heightDp(InputSize.EditHeightSmall)
 }
+
+
