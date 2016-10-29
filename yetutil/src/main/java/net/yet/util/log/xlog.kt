@@ -10,7 +10,6 @@ import net.yet.util.event.ActionMerger
  */
 
 object xlog : LogPrinter {
-	const val TAG = "xlog"
 	var level = LogLevel.DEBUG
 	var printer: LogPrinter
 

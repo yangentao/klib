@@ -7,7 +7,7 @@ import android.util.Log;
  */
 
 public class LogLevel {
-	public static final String TAG = "klog";
+	public static final String TAG = "xlog";
 
 	public static final int DISABLE = 0;
 	public static final int ENABLE_ALL = 1;

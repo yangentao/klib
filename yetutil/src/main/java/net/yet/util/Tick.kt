@@ -1,16 +1,14 @@
-@file:JvmMultifileClass
-@file:JvmName("KUtil")
 package net.yet.util
 
 import net.yet.util.log.xlog
 
-private const val TAG = "tick"
 
 /**
  * Created by yangentao on 2015/11/21.
  * entaoyang@163.com
  */
 class Tick {
+	val TAG = "tick"
 	private var start_time: Long = 0
 	private var end_time: Long = 0
 
@@ -18,7 +16,7 @@ class Tick {
 		start_time = System.currentTimeMillis()
 	}
 
-	fun end(prefix: String): Long {
+	fun end(prefix: String = ""): Long {
 		return end(0, prefix)
 	}
 
@@ -26,15 +24,12 @@ class Tick {
 		end_time = System.currentTimeMillis()
 		val tick = end_time - start_time
 		if (warnLevel > 0 && tick > warnLevel) {
-			xlog.w(TAG, "[TimeTick]", prefix, ":", tick, "(expect<", warnLevel, ")")
+			xlog.wTag(TAG, "[TimeTick]", prefix, ":", tick, "(expect<", warnLevel, ")")
 		} else {
-			xlog.d(TAG, "[TimeTick]", prefix, ":", tick)
+			xlog.dTag(TAG, "[TimeTick]", prefix, ":", tick)
 		}
 		start_time = System.currentTimeMillis()
 		return tick
 	}
 }
 
-fun tick(): Tick {
-	return Tick()
-}

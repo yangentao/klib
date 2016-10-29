@@ -15,13 +15,17 @@ interface LogPrinter {
 	fun println(priority: Int, tag: String, msg: String)
 
 	fun printsome(level: Int, vararg args: Any?) {
-		val msg = makeString(args)
+		val msg = makeString(*args)
 		println(level, LogLevel.TAG, msg)
 	}
 
 	fun dTag(tag: String, vararg args: Any?) {
-		val msg = makeString(args)
+		val msg = makeString(*args)
 		println(LogLevel.DEBUG, tag, msg)
+	}
+	fun wTag(tag: String, vararg args: Any?) {
+		val msg = makeString(*args)
+		println(LogLevel.WARN, tag, msg)
 	}
 
 	fun dIf(c: Boolean, vararg args: Any?) {
