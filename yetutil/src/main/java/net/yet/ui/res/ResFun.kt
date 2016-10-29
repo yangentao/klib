@@ -3,10 +3,12 @@ package net.yet.ui.res
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.StateListDrawable
 import android.net.Uri
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
+import net.yet.ui.util.StateImage
 import net.yet.util.BmpUtil
 import net.yet.util.app.App
 import java.io.File
@@ -60,6 +62,27 @@ fun AssetDrawable(name: String): BitmapDrawable? {
 fun AssetDrawable(name: String, state: State): BitmapDrawable? {
 	return AssetImage.drawable(name, state)
 }
+
 fun AssetDrawable(name: String, state: Boolean): Drawable? {
 	return AssetImage.drawable(name, state)
+}
+
+fun DrawablePressed(@DrawableRes normalId: Int, @DrawableRes pressedId: Int): StateListDrawable {
+	return StateImage(ResDrawable(normalId)).pressed(ResDrawable(pressedId)).value
+}
+
+fun DrawableSelected(@DrawableRes normalId: Int, @DrawableRes selectedId: Int): StateListDrawable {
+	return StateImage(ResDrawable(normalId)).selected(ResDrawable(selectedId)).value
+}
+
+fun DrawableFocused(@DrawableRes normalId: Int, @DrawableRes focusId: Int): StateListDrawable {
+	return StateImage(ResDrawable(normalId)).focused(ResDrawable(focusId)).value
+}
+
+fun DrawableDisabled(@DrawableRes normalId: Int, @DrawableRes disabledId: Int): StateListDrawable {
+	return StateImage(ResDrawable(normalId)).enabled(ResDrawable(disabledId), false).value
+}
+
+fun DrawableChecked(@DrawableRes normalId: Int, @DrawableRes checkedId: Int): StateListDrawable {
+	return StateImage(ResDrawable(normalId)).checked(ResDrawable(checkedId)).value
 }
