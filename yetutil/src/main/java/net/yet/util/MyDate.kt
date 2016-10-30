@@ -1,6 +1,5 @@
 package net.yet.util
 
-import net.yet.util.log.xlog
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -234,13 +233,12 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
 				}
 			} catch (ex: Exception) {
 				ex.printStackTrace()
-				xlog.e(ex)
 			}
 			return null
 		}
 
 		fun parseDateTime(s: String?): MyDate? {
-			if (s == null) {
+			if (s == null || s.length < 6) {
 				return null
 			}
 			return parse(FORMAT_DATE_TIME, s)
