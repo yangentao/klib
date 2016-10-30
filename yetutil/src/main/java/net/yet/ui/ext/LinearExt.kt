@@ -2,6 +2,7 @@ package net.yet.ui.ext
 
 import android.app.Fragment
 import android.content.Context
+import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -181,3 +182,18 @@ fun <T : LinearLayout> T.addViewParam(view: View, index: Int, f: LinearLayout.La
 	return this
 }
 
+
+fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int = Color.LTGRAY):View {
+	val view = View(context).genId().backColor(color)
+	val ver = this.orientation == LinearLayout.VERTICAL
+	if (ver) {
+		addViewParam(view) {
+			widthFill().height(size).margins(margin, 0, margin, 0)
+		}
+	} else {
+		addViewParam(view) {
+			heightFill().width(size).margins(0, margin, 0, margin)
+		}
+	}
+	return view
+}

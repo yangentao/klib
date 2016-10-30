@@ -248,6 +248,10 @@ fun <T : TextView> T.singleLine(): T {
 	this.setSingleLine(true)
 	return this
 }
+fun <T : TextView> T.multiLine(): T {
+	this.setSingleLine(false)
+	return this
+}
 
 fun <T : TextView> T.ellipsizeStart(): T {
 	ellipsize = TextUtils.TruncateAt.START
