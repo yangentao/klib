@@ -33,7 +33,10 @@ public class JsonUtil {
 
 	static {
 		GsonBuilder gb = new GsonBuilder();
-		gson = gb.serializeNulls().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+		gson = gb.serializeNulls()
+				.serializeSpecialFloatingPointValues()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+				.create();
 	}
 
 	public static int getInt(JsonObject jo, String key, int fallback) {

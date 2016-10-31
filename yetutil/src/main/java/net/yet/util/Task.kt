@@ -8,6 +8,7 @@ import android.os.Looper
 import net.yet.util.app.App
 import net.yet.util.log.xlog
 import java.util.*
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
@@ -16,6 +17,7 @@ import java.util.concurrent.Executors
 
 
 private fun uncaughtException(thread: Thread, ex: Throwable): Unit {
+	ex.printStackTrace()
 	xlog.e(ex)
 	xlog.flush()
 	System.exit(-1)
@@ -23,8 +25,8 @@ private fun uncaughtException(thread: Thread, ex: Throwable): Unit {
 
 private object ContextHelper {
 	val handler = Handler(Looper.getMainLooper())
-	val mainThread = Looper.getMainLooper().thread
-	val es = Executors.newCachedThreadPool { r ->
+	val mainThread:Thread = Looper.getMainLooper().thread
+	val es: ExecutorService = Executors.newCachedThreadPool { r ->
 		val t = Thread(r)
 		t.isDaemon = false
 		t.priority = Thread.NORM_PRIORITY - 1

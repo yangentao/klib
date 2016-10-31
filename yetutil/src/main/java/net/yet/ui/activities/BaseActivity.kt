@@ -146,7 +146,9 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 		get() = (findViewById(android.R.id.content) as ViewGroup).getChildAt(0)
 
 	fun toast(text: String) {
-		Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+		fore {
+			Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+		}
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
