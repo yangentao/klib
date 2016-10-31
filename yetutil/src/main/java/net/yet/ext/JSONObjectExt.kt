@@ -11,7 +11,7 @@ import org.json.JSONObject
 
 fun JSONObject.dateTime(key: String): Long {
 	val s = this.string(key) ?: return 0L
-	if(s.length < 6) {
+	if (s.length < 6) {
 		return 0L
 	}
 	return MyDate.parseDateTime(s)?.time ?: 0L
@@ -34,7 +34,8 @@ fun JSONObject.string(key: String): String? {
 }
 
 fun JSONObject.double(key: String): Double? {
-	return this.optDouble(key)
+	val d = this.optDouble(key)
+	return if (d.isNaN()) null else d
 }
 
 fun JSONObject.obj(key: String): JSONObject? {

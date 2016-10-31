@@ -90,7 +90,15 @@ fun JsonObject.optLong(key: String, value: Long = 0): Long {
 	}
 	return value
 }
-
+fun JsonObject.optDouble(key: String, value: Double = 0.0): Double {
+	val je = this.get(key)
+	if (je != null) {
+		if (je.isJsonPrimitive) {
+			return je.asDouble
+		}
+	}
+	return value
+}
 fun JsonObject.optBool(key: String, value: Boolean = false): Boolean {
 	val je = this.get(key)
 	if (je != null) {
