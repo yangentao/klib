@@ -4,7 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import net.yet.ui.ext.dp
-import net.yet.ui.util.StateColor
+import net.yet.ui.res.ColorStated
 import net.yet.ui.util.StateImage
 
 /**
@@ -26,7 +26,7 @@ fun ColorDrawable(normal: Int, pressed: Int): Drawable {
 }
 
 fun ColorList(normal: Int, pressed: Int): ColorStateList {
-	return StateColor(normal).pressed(pressed).selected(pressed).focused(pressed).value
+	return ColorStated(normal).pressed(pressed).selected(pressed).focused(pressed).value
 }
 
 //#8f8, #800f, #ff884422

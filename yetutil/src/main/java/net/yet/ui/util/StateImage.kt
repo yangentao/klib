@@ -45,9 +45,16 @@ class StateImage(val normal: Drawable) {
 		return this
 	}
 
+	fun disabled(color:Int):StateImage {
+		return enabled(color, false)
+	}
 
 	fun enabled(color: Int, enabled: Boolean = true): StateImage {
 		return enabled(ColorDrawable(color), enabled)
+	}
+
+	fun disabled(d:Drawable?):StateImage {
+		return enabled(d, false)
 	}
 
 	fun enabled(d: Drawable?, enabled: Boolean = true): StateImage {

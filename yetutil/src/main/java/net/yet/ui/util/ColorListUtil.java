@@ -1,15 +1,12 @@
 package net.yet.ui.util;
 
 import android.content.res.ColorStateList;
-import android.util.Pair;
 
 import net.yet.util.log.xlog;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ColorListUtil {
-	ArrayList<Pair<Integer, int[]>> all = new ArrayList<Pair<Integer, int[]>>();
 	private int[] colors = new int[10];
 	private int[][] states = new int[10][];
 

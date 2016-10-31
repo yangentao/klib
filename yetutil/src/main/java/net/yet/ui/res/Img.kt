@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import net.yet.ext.size
-import net.yet.ui.util.StateColor
 import net.yet.ui.util.StateImage
 import net.yet.util.app.App
 import net.yet.util.log.loge
@@ -74,7 +73,7 @@ object Img {
 	}
 
 	@JvmStatic fun colorList(normal: Int, pressed: Int): ColorStateList {
-		return StateColor(normal).pressed(pressed, true).selected(pressed, true).focused(pressed, true).get()
+		return ColorStated(normal).pressed(pressed, true).selected(pressed, true).focused(pressed, true).get()
 	}
 
 

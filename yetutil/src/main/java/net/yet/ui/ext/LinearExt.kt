@@ -139,7 +139,9 @@ fun <T : LinearLayout> T.vertical(): T {
 	this.orientation = LinearLayout.VERTICAL
 	return this
 }
-
+fun <T : LinearLayout> T.isVertical(): Boolean {
+	return this.orientation == LinearLayout.VERTICAL
+}
 fun <T : LinearLayout> T.gravity(n: Int): T {
 	this.setGravity(n)
 	return this
@@ -185,14 +187,27 @@ fun <T : LinearLayout> T.addViewParam(view: View, index: Int, f: LinearLayout.La
 
 fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int = Color.LTGRAY):View {
 	val view = View(context).genId().backColor(color)
-	val ver = this.orientation == LinearLayout.VERTICAL
-	if (ver) {
+	if (this.isVertical()) {
 		addViewParam(view) {
 			widthFill().height(size).margins(margin, 0, margin, 0)
 		}
 	} else {
 		addViewParam(view) {
 			heightFill().width(size).margins(0, margin, 0, margin)
+		}
+	}
+	return view
+}
+
+fun LinearLayout.addFlex(weight: Int = 1): View {
+	val view = View(this.context).genId()
+	if (this.isVertical()) {
+		this.addViewParam(view) {
+			widthFill().height(0).weight(weight)
+		}
+	} else {
+		this.addViewParam(view) {
+			heightFill().width(0).weight(weight)
 		}
 	}
 	return view
