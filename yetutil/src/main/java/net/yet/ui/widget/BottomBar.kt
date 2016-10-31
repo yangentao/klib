@@ -9,7 +9,7 @@ import net.yet.ext.size
 import net.yet.theme.Colors
 import net.yet.theme.Dim
 import net.yet.ui.ext.*
-import net.yet.ui.util.StateImage
+import net.yet.ui.res.ColorStated
 import net.yet.util.Util
 import net.yet.util.log.xlog
 import java.util.*
@@ -93,16 +93,16 @@ class BottomBar(context: Context) : TablePanel(context), IActionModeSupport {
 					val iv = context.createImageView()
 					iv.setImageDrawable(action.icon?.size(IMG_SIZE))
 					iv.scaleType = ImageView.ScaleType.CENTER_INSIDE
-					iv.setBackgroundDrawable(StateImage(BG_COLOR).pressed(BG_PRESSED).value)
+					iv.setBackgroundDrawable(ColorStated(BG_COLOR).pressed(BG_PRESSED).value)
 					iv
 				}
 			} else {//label
 				val tv = context.createTextViewC()
 				tv.gravityCenter().padding(1, 2, 1, 1).text(action.label)
 				if (action.risk) {
-					tv.backDrawable(StateImage(BG_RISK).pressed(BG_PRESSED).value).textColor(TEXT_RISK)
+					tv.backDrawable(ColorStated(BG_RISK).pressed(BG_PRESSED).value).textColor(TEXT_RISK)
 				} else {
-					tv.backDrawable(StateImage(BG_COLOR).pressed(BG_PRESSED).value).textColor(TEXT_COLOR, TEXT_PRESSED)
+					tv.backDrawable(ColorStated(BG_COLOR).pressed(BG_PRESSED).value).textColor(TEXT_COLOR, TEXT_PRESSED)
 				}
 				if (action.icon != null) {
 					action.icon?.setBounds(0, 0, dp(IMG_SIZE), dp(IMG_SIZE))

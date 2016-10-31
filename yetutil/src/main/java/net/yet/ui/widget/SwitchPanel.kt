@@ -6,10 +6,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import net.yet.theme.Colors
 import net.yet.ui.ext.*
-import net.yet.ui.res.ColorStated
+import net.yet.ui.res.ColorList
+import net.yet.ui.res.ImageStated
 import net.yet.ui.util.RectDrawable
 import net.yet.ui.util.ShapeUtil
-import net.yet.ui.util.StateImage
 import net.yet.util.TaskUtil
 import java.util.*
 
@@ -155,23 +155,23 @@ class SwitchPanel(context: Context) : LinearLayout(context) {
 		}
 
 		fun styleLeft(): SwitchPanelItem {
-			val d = StateImage(RectDrawable(Colors.Theme).corners(corner, 0, 0, corner).drawable).selected(
+			val d = ImageStated(RectDrawable(Colors.Theme).corners(corner, 0, 0, corner).drawable).selected(
 					RectDrawable(Colors.WHITE).corners(corner, 0, 0, corner).drawable).value
-			backDrawable(d).textColor(ColorStated(Colors.WHITE).selected(Colors.Theme).value)
+			backDrawable(d).textColor(ColorList(Colors.WHITE).selected(Colors.Theme).value)
 			return this
 		}
 
 		fun styleRight(): SwitchPanelItem {
-			val d = StateImage(RectDrawable(Colors.Theme).corners(0, corner, corner, 0).drawable)
+			val d = ImageStated(RectDrawable(Colors.Theme).corners(0, corner, corner, 0).drawable)
 					.selected(RectDrawable(Colors.WHITE).corners(0, corner, corner, 0).drawable).value
-			backDrawable(d).textColor(ColorStated(Colors.WHITE).selected(Colors.Theme).get())
+			backDrawable(d).textColor(ColorList(Colors.WHITE).selected(Colors.Theme).get())
 			return this
 		}
 
 		fun styleMid(): SwitchPanelItem {
-			val d = StateImage(RectDrawable(Colors.Theme).drawable).selected(
+			val d = ImageStated(RectDrawable(Colors.Theme).drawable).selected(
 					RectDrawable(Colors.WHITE).drawable).get()
-			backDrawable(d).textColor(ColorStated(Colors.WHITE).selected(Colors.Theme).get())
+			backDrawable(d).textColor(ColorList(Colors.WHITE).selected(Colors.Theme).get())
 			return this
 		}
 	}

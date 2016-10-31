@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.LruCache
-import net.yet.ui.util.StateImage
 import net.yet.util.AssetUtil
 import net.yet.util.Util
 import net.yet.util.app.App
@@ -136,7 +135,7 @@ object AssetImage {
 		val checked = drawable(name, State.Checked)
 		val disabled = drawable(name, State.Disabled)
 		if (normal != null) {
-			return StateImage(normal)
+			return ImageStated(normal)
 					.pressed(pressed, true)
 					.selected(selected, true)
 					.focused(focused, true)

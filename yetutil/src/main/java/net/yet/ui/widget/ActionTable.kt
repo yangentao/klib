@@ -9,7 +9,7 @@ import net.yet.ext.size
 import net.yet.theme.Colors
 import net.yet.theme.Dim
 import net.yet.ui.ext.*
-import net.yet.ui.util.StateImage
+import net.yet.ui.res.ColorStated
 import net.yet.util.Util
 import net.yet.util.log.xlog
 import java.util.*
@@ -126,7 +126,7 @@ class ActionTable(context: Context) : LinearLayout(context) {
 						val iv = context.createImageView()
 						iv.setImageDrawable(action.icon?.size(IMG_SIZE))
 						iv.scaleType = ImageView.ScaleType.CENTER_INSIDE
-						val itemBackDraw = StateImage(Color.WHITE).pressed(Colors.Fade).value
+						val itemBackDraw = ColorStated(Color.WHITE).pressed(Colors.Fade).value
 						iv.setBackgroundDrawable(itemBackDraw)
 						view = iv
 					}
@@ -136,13 +136,13 @@ class ActionTable(context: Context) : LinearLayout(context) {
 					tv.textSizeSp(if (action.icon == null) Dim.textSizeB else Dim.textSizeD)
 					tv.textX(action.label).gravityCenter().padding(1, 2, 1, 1)
 					if (action.risk) {
-						val riskItemBackkDraw = StateImage(Colors.Risk).pressed(Colors.Fade).value
+						val riskItemBackkDraw = ColorStated(Colors.Risk).pressed(Colors.Fade).value
 						tv.backDrawable(riskItemBackkDraw).textColor(Color.WHITE)
 					} else if (action.safe) {
-						val riskItemBackkDraw = StateImage(Colors.Safe).pressed(Colors.Fade).value
+						val riskItemBackkDraw = ColorStated(Colors.Safe).pressed(Colors.Fade).value
 						tv.backDrawable(riskItemBackkDraw).textColor(Color.WHITE)
 					} else {
-						val itemBackDraw = StateImage(Color.WHITE).pressed(Colors.Fade).value
+						val itemBackDraw = ColorStated(Color.WHITE).pressed(Colors.Fade).value
 						tv.backDrawable(itemBackDraw).textColor(Colors.TextColorMid)
 					}
 					if (action.icon != null) {

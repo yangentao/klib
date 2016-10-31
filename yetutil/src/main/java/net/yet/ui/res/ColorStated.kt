@@ -1,81 +1,51 @@
 package net.yet.ui.res
 
-import android.content.res.ColorStateList
-import net.yet.util.log.xlog
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.StateListDrawable
 
 /**
  * Created by entaoyang@163.com on 2016-10-31.
  */
 
-
 class ColorStated(val normal: Int) {
-	private val colors = IntArray(10)
-	private val states = arrayOfNulls<IntArray>(10)
-	private var index = 0
+	private var stateDrawable = StateListDrawable()
 
-	val value: ColorStateList get() {
+	private fun addColor(color: Int, vararg states: Int): ColorStated {
+		stateDrawable.addState(states, ColorDrawable(color))
+		return this
+	}
+
+	val value: StateListDrawable get() {
 		return this.get()
 	}
 
-	fun get(): ColorStateList {
+	fun get(): StateListDrawable {
 		addColor(normal)
-		return make()!!
+		return stateDrawable
 	}
 
-	private fun addColor(color: Int?, vararg states: Int) {
-		if (color != null) {
-			if (index >= 10) {
-				xlog.e("max color num is 10")
-				return
-			}
-			colors[index] = color
-			this.states[index] = states
-			++index
-		}
+	fun selected(color: Int, selected: Boolean = true): ColorStated {
+		return addColor(color, if (selected) android.R.attr.state_selected else -android.R.attr.state_selected)
 	}
 
-	private fun make(): ColorStateList? {
-		if (index <= 0) {
-			return null
-		}
-		val a = Array<IntArray>(index) {
-			states[it]!!
-		}
-		val b = IntArray(index) {
-			colors[it]
-		}
-		return ColorStateList(a, b)
+	fun pressed(color: Int, pressed: Boolean = true): ColorStated {
+		return addColor(color, if (pressed) android.R.attr.state_pressed else -android.R.attr.state_pressed)
 	}
 
-
-	fun selected(c: Int, selected: Boolean = true): ColorStated {
-		addColor(c, if (selected) android.R.attr.state_selected else -android.R.attr.state_selected)
-		return this
+	fun enabled(color: Int, enabled: Boolean = true): ColorStated {
+		return addColor(color, if (enabled) android.R.attr.state_enabled else -android.R.attr.state_enabled)
 	}
 
-	fun pressed(c: Int, pressed: Boolean = true): ColorStated {
-		addColor(c, if (pressed) android.R.attr.state_pressed else -android.R.attr.state_pressed)
-		return this
+	fun disabled(color: Int): ColorStated {
+		return enabled(color, false)
 	}
 
-	fun disabled(c: Int): ColorStated {
-		return enabled(c, false)
+	fun checked(color: Int, checked: Boolean = true): ColorStated {
+		return addColor(color, if (checked) android.R.attr.state_checked else -android.R.attr.state_checked)
 	}
 
-	fun enabled(c: Int, enabled: Boolean = true): ColorStated {
-		addColor(c, if (enabled) android.R.attr.state_enabled else -android.R.attr.state_enabled)
-		return this
+	fun focused(color: Int, focused: Boolean = true): ColorStated {
+		return addColor(color, if (focused) android.R.attr.state_focused else -android.R.attr.state_focused)
 	}
-
-	fun checked(c: Int, checked: Boolean = true): ColorStated {
-		addColor(c, if (checked) android.R.attr.state_checked else -android.R.attr.state_checked)
-		return this
-	}
-
-	fun focused(c: Int, focused: Boolean = true): ColorStated {
-		addColor(c, if (focused) android.R.attr.state_focused else -android.R.attr.state_focused)
-		return this
-	}
-
 
 }

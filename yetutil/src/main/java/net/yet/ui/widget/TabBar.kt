@@ -5,8 +5,8 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import net.yet.ui.ext.*
+import net.yet.ui.res.ColorList
 import net.yet.ui.res.ColorStated
-import net.yet.ui.util.StateImage
 import net.yet.util.app.App
 import java.util.*
 
@@ -97,9 +97,9 @@ class TabBar(context: Context) : LinearLayout(context), IActionPanel {
 		var size = items.size
 		for (action in items) {
 			val tv = context.createTextViewD()
-			val csl = ColorStated(style.textColor).pressed(style.textPressedColor).selected(style.textSelectedColor).get()
+			val csl = ColorList(style.textColor).pressed(style.textPressedColor).selected(style.textSelectedColor).get()
 			tv.textColor(csl).gravityCenter().padding(1, 4, 1, 1)
-			val backDraw = StateImage(style.backColor).pressed(style.backPressedColor).selected(style.backSelectedColor).value
+			val backDraw = ColorStated(style.backColor).pressed(style.backPressedColor).selected(style.backSelectedColor).value
 			tv.backDrawable(backDraw)//.miniHeightTV(TabBar.HEIGHT_MIN);
 			tv.text(action.label)
 			if (action.icon != null) {

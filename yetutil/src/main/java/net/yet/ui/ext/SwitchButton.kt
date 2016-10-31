@@ -5,8 +5,8 @@ import android.graphics.drawable.LayerDrawable
 import android.view.View
 import android.widget.CheckBox
 import net.yet.theme.Colors
+import net.yet.ui.res.ImageStated
 import net.yet.ui.util.OvalDrawable
-import net.yet.ui.util.StateImage
 import net.yet.ui.util.makeRoundEdgeRectDrawable
 
 /**
@@ -39,7 +39,7 @@ open class SwitchButton(context: Context) : CheckBox(context) {
 		val dd1 = makeRoundEdgeRectDrawable(w, h, Colors.WHITE, 1, Colors.LightGray)
 		val dd2 = makeRoundEdgeRectDrawable(w, h, Colors.Safe)
 		val dd3 = makeRoundEdgeRectDrawable(w, h, Colors.LightGray, 1, Colors.WHITE)
-		val draw = StateImage(dd1).checked(dd2).enabled(dd3, false).value
+		val draw = ImageStated(dd1).checked(dd2).enabled(dd3, false).value
 
 		val h2: Int = if (h <= 2) {
 			1

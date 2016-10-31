@@ -11,6 +11,11 @@ import android.support.annotation.DrawableRes
 
 class ImageStated(var normal: Drawable? = null) {
 	private var stateDrawable = StateListDrawable()
+
+	constructor(@DrawableRes resId: Int) : this(ResDrawable(resId)) {
+
+	}
+
 	//如果d是null, 不执行任何动作, 忽略掉
 	private fun addDrawable(d: Drawable?, vararg states: Int) {
 		if (d != null) {

@@ -8,10 +8,10 @@ import net.yet.theme.Colors
 import net.yet.theme.InputSize
 import net.yet.ui.ext.*
 import net.yet.ui.page.BaseFragment
+import net.yet.ui.res.ImageStated
 import net.yet.ui.res.ResConst
 import net.yet.ui.res.ResStr
 import net.yet.ui.util.RectDrawable
-import net.yet.ui.util.StateImage
 import net.yet.ui.util.TimeDown
 import net.yet.util.ToastUtil
 import net.yet.util.Util
@@ -167,7 +167,7 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 		val btnNormalDraw = RectDrawable(Colors.Theme).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
 		val btnPressDraw = RectDrawable(Colors.Fade).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
 		val btnDisableDraw = RectDrawable(Colors.Disabled).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
-		val btnDraw = StateImage(btnNormalDraw).pressed(btnPressDraw).enabled(btnDisableDraw, false).value
+		val btnDraw = ImageStated(btnNormalDraw).pressed(btnPressDraw).enabled(btnDisableDraw, false).value
 
 		val verifyLayout = context.createLinearHorizontal().backDrawable(llDraw).padding(1)
 		codeEdit = context.createEditText().text("输入验证码").inputTypeNumber().backDrawable(editDraw).padding(15, 0, 15, 0)

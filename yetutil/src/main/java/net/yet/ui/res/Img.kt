@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import net.yet.ext.size
-import net.yet.ui.util.StateImage
 import net.yet.util.app.App
 import net.yet.util.log.loge
 
@@ -69,16 +68,16 @@ object Img {
 	}
 
 	@JvmStatic fun colorStates(normal: Int, pressed: Int): Drawable {
-		return StateImage(normal).pressed(pressed, true).selected(pressed, true).focused(pressed, true).value
+		return ColorStated(normal).pressed(pressed, true).selected(pressed, true).focused(pressed, true).value
 	}
 
 	@JvmStatic fun colorList(normal: Int, pressed: Int): ColorStateList {
-		return ColorStated(normal).pressed(pressed, true).selected(pressed, true).focused(pressed, true).get()
+		return ColorList(normal).pressed(pressed, true).selected(pressed, true).focused(pressed, true).get()
 	}
 
 
 	@JvmStatic fun normalPressed(normal: Drawable, pressed: Drawable): Drawable {
-		return StateImage(normal).pressed(pressed, true).selected(pressed, true).focused(pressed, true).value
+		return ImageStated(normal).pressed(pressed, true).selected(pressed, true).focused(pressed, true).value
 	}
 
 	@JvmStatic fun res(@DrawableRes resId: Int): Drawable {
