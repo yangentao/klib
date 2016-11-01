@@ -5,8 +5,9 @@ import android.content.Context
 import android.content.DialogInterface
 import android.text.InputType
 import net.yet.R
-import net.yet.ui.ext.createEditText
-import net.yet.ui.ext.dp
+import net.yet.theme.InputSize
+import net.yet.theme.Space
+import net.yet.ui.ext.*
 import net.yet.ui.res.Res
 
 abstract class InputDialog {
@@ -52,7 +53,11 @@ abstract class InputDialog {
 		edit.minimumHeight = dp(45)
 		edit.inputType = inputType
 		edit.setText(defalutValue)
-		builder.setView(edit)
+		val ll = context.createLinearVertical()
+		ll.addViewParam(edit) {
+			widthFill().height(InputSize.EditHeight).gravityCenter().margins(Space.Normal)
+		}
+		builder.setView(ll)
 		builder.setPositiveButton(Res.str(R.string.ok), DialogInterface.OnClickListener { dlg, arg1 ->
 			isOK = true
 			dlg.dismiss()
