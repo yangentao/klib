@@ -36,6 +36,10 @@ object ImgLoader {
 		}
 	}
 
+	fun retrive(url:String, block:(File?)->Unit){
+		FileDownloader.retrive(url, block)
+	}
+
 	fun bitmap(url: String, config: BmpConfig, block: (Bitmap?) -> Unit) {
 		FileDownloader.retrive(url) {
 			block(Local.bitmap(url, config))
