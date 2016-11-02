@@ -25,6 +25,7 @@ import net.yet.util.MsgCenter;
 import net.yet.util.StrBuilder;
 import net.yet.util.Util;
 import net.yet.util.database.Values;
+import net.yet.util.imageloader.ImageLoaderExtKt;
 import net.yet.util.log.xlog;
 
 import java.io.File;
@@ -97,6 +98,8 @@ public class App {
 			}
 		};
 		App.get().registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+		ImageLoaderExtKt.initImageLoader();
 	}
 
 	public static Context getContext() {
