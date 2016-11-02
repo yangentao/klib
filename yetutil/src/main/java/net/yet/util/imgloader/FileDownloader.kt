@@ -6,6 +6,7 @@ import net.yet.util.MultiHashMap
 import net.yet.util.database.DBMap
 import net.yet.util.fore
 import net.yet.util.log.xlog
+import net.yet.util.sleep
 import java.io.File
 import java.util.*
 import java.util.concurrent.ExecutorService
@@ -76,6 +77,17 @@ object FileDownloader {
 		}
 	}
 
+	private fun httpDown(url: String, file: File): Boolean {
+		var r = Http(url).download(file, null)
+		var ok = r.OK && r.contentLength > 0 && file.length() == r.contentLength.toLong()
+		if (!ok) {
+			sleep(300)
+			r = Http(url).download(file, null)
+			ok = r.OK && r.contentLength > 0 && file.length() == r.contentLength.toLong()
+		}
+		return ok
+	}
+
 	fun downloadSync(url: String, listener: DownListener? = null) {
 		if (listener != null) {
 			synchronized(listenMap) {
@@ -86,8 +98,7 @@ object FileDownloader {
 			return
 		}
 		val tmp = SdAppFile.tempFile()
-		val r = Http(url).download(tmp, null)
-		val ok = r.OK && r.contentLength > 0 && tmp.length() == r.contentLength.toLong()
+		val ok = httpDown(url, tmp)
 		if (ok) {
 			map[url] = tmp.absolutePath
 		} else {
