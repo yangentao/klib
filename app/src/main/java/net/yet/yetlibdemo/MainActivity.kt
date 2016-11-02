@@ -1,13 +1,14 @@
 package net.yet.yetlibdemo
 
-import android.os.Bundle
-import net.yet.ui.activities.drawer.DrawerActivity
+import net.yet.ui.activities.ContainerActivity
+import net.yet.ui.page.BaseFragment
 
-class MainActivity : DrawerActivity() {
+class MainActivity : ContainerActivity() {
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
 
+	override fun getInitPage(): BaseFragment? {
+		return MainPage()
 	}
+
 
 }
