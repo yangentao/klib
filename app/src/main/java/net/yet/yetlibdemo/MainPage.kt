@@ -28,11 +28,21 @@ class MainPage : TitledPage() {
 			imageView.setImageDrawable(null)
 		}
 
+		val cl = context.createConstraintLayout()
 
-		imageView = createImageView()
-		contentView.addViewParam(imageView) {
-			size(320).gravityCenter().margins(30)
+		contentView.addViewParam(cl) {
+			fill()
 		}
+
+		val b = cl.createButton("A")
+		cl.addViewParam(b) {
+			width(200).height(0)
+			centerInParent()
+			ratioW(2.0, 1.0)
+//			centerHorInParent()
+//			topToTopOfParent()
+		}
+
 	}
 
 }

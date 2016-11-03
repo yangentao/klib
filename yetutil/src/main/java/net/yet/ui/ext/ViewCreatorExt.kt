@@ -3,6 +3,7 @@ package net.yet.ui.ext
 import android.app.Fragment
 import android.content.Context
 import android.graphics.Color
+import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.widget.*
 import net.yet.theme.Colors
@@ -15,6 +16,11 @@ import net.yet.ui.widget.EditTextX
  */
 
 //--------------Fragment----------------
+
+fun Fragment.createConstraintLayout():ConstraintLayout {
+	return ConstraintLayout(this.activity).genId()
+}
+
 fun Fragment.createImageButton():ImageButton {
 	return ImageButton(this.activity).genId()
 }
@@ -93,6 +99,9 @@ fun Fragment.createCheckbox(): CheckBox {
 }
 
 //--------------View--------------------
+fun View.createConstraintLayout():ConstraintLayout {
+	return ConstraintLayout(this.context).genId()
+}
 fun View.createImageButton():ImageButton {
 	return ImageButton(this.context).genId()
 }
@@ -171,7 +180,9 @@ fun View.createCheckbox(): CheckBox {
 }
 
 //----------------Context-------------
-
+fun Context.createConstraintLayout():ConstraintLayout {
+	return ConstraintLayout(this).genId()
+}
 fun Context.createImageButton():ImageButton {
 	return ImageButton(this).genId()
 }
