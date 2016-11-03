@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import net.yet.ui.ext.*
 import net.yet.ui.page.TitledPage
 import net.yet.util.imgloader.ImgLoader
+import net.yet.util.log.log
 
 /**
  * Created by entaoyang@163.com on 2016-10-07.
@@ -36,9 +37,10 @@ class MainPage : TitledPage() {
 
 		val b = cl.createButton("A")
 		cl.addViewParam(b) {
-			width(200).height(0)
+			width(200).fillHeight()
+			log("w, h: ", this.width, this.height)
 			centerInParent()
-			ratioW(2.0, 1.0)
+//			ratioW(2.0, 1.0)
 //			centerHorInParent()
 //			topToTopOfParent()
 		}
