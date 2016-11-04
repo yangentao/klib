@@ -200,7 +200,7 @@ fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int 
 }
 
 fun LinearLayout.addFlex(weight: Double = 1.0): View {
-	val view = View(this.context).genId()
+	val view = View(this.context).genId().invisiable()
 	if (this.isVertical()) {
 		this.addViewParam(view) {
 			widthFill().height(0).weight(weight)
