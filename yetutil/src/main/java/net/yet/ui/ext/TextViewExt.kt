@@ -253,12 +253,27 @@ fun <T : TextView> T.textColorWhite(): T {
 	return this
 }
 
+fun <T : TextView> T.colorWhite(): T {
+	this.setTextColor(Colors.WHITE)
+	return this
+}
+
 fun <T : TextView> T.textColorMajor(): T {
 	this.setTextColor(Colors.TextColorMajor)
 	return this
 }
 
+fun <T : TextView> T.colorMajor(): T {
+	this.setTextColor(Colors.TextColorMajor)
+	return this
+}
+
 fun <T : TextView> T.textColorMinor(): T {
+	this.setTextColor(Colors.TextColorMinor)
+	return this
+}
+
+fun <T : TextView> T.colorMinor(): T {
 	this.setTextColor(Colors.TextColorMinor)
 	return this
 }
@@ -273,6 +288,15 @@ fun <T : TextView> T.textColorSafe(): T {
 	return this
 }
 
+fun <T : TextView> T.colorGreen(): T {
+	this.setTextColor(Colors.Safe)
+	return this
+}
+
+fun <T : TextView> T.colorRed(): T {
+	this.setTextColor(Colors.RedMajor)
+	return this
+}
 
 fun <T : TextView> T.textColorMajorFade(): T {
 	setTextColor(Img.colorList(Colors.TextColor, Colors.Fade))
