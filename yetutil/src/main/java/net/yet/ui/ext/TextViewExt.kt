@@ -165,6 +165,10 @@ fun <T : TextView> T.inputTypeNumber(): T {
 	this.inputType = InputType.TYPE_CLASS_NUMBER
 	return this
 }
+fun <T : TextView> T.inputTypeNumberDecimal(): T {
+	this.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+	return this
+}
 
 
 fun <T : TextView> T.textSizeSp(sp: Int): T {
