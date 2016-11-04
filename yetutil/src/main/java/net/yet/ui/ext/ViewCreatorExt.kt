@@ -260,15 +260,15 @@ fun Fragment.createEditArea(): EditText {
 
 
 fun View.createButton(text: String = ""): Button {
-	return Button(this.context).genId().text(text).textSizeB()
+	return Button(this.context).genId().text(text).textSizeB().padding(3)
 }
 
 fun Fragment.createButton(text: String = ""): Button {
-	return Button(this.activity).genId().text(text).textSizeB()
+	return Button(this.activity).genId().text(text).textSizeB().padding(3)
 }
 
 fun Context.createButton(text: String = ""): Button {
-	return Button(this).genId().text(text).textSizeB()
+	return Button(this).genId().text(text).textSizeB().padding(3)
 }
 
 fun View.createCheckbox(): CheckBox {

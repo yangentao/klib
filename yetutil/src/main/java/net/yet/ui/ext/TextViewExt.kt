@@ -18,6 +18,7 @@ import net.yet.theme.Colors
 import net.yet.theme.Space
 import net.yet.theme.TextSize
 import net.yet.ui.res.Img
+import net.yet.ui.util.XTextWatcher
 import net.yet.util.HtmlText
 import net.yet.util.Util
 
@@ -165,6 +166,7 @@ fun <T : TextView> T.inputTypeNumber(): T {
 	this.inputType = InputType.TYPE_CLASS_NUMBER
 	return this
 }
+
 fun <T : TextView> T.inputTypeNumberDecimal(): T {
 	this.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 	return this
@@ -393,4 +395,12 @@ fun <T : TextView> T.bottomImage(d: Drawable, margin: Int = Space.Small): T {
 	return this
 }
 
+fun <T : TextView> T.onTextChanged(block: (String) -> Unit): T {
+	this.addTextChangedListener(object : XTextWatcher() {
+		override fun afterTextChanged(text: String?) {
+			block(text ?: "")
+		}
+	})
+	return this
+}
 
