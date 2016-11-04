@@ -8,7 +8,9 @@ import net.yet.ui.widget.EditTextX
  */
 fun <T : LinearLayout> T.addButton(title: String, block: LinearLayout.LayoutParams.() -> LinearLayout.LayoutParams): Button {
 	val view = this.context.createButton(title)
-	val lp = linearParam(block)
+	val lp = linearParam()
+	lp.heightButton()
+	lp.block()
 	this.addView(view, lp)
 	return view
 }
@@ -22,7 +24,9 @@ fun <T : LinearLayout> T.addCheckbox(title: String, block: LinearLayout.LayoutPa
 
 fun <T : LinearLayout> T.addEditText(block: LinearLayout.LayoutParams.() -> LinearLayout.LayoutParams): EditText {
 	val view = this.context.createEditText()
-	val lp = linearParam(block)
+	val lp = linearParam()
+	lp.heightEdit()
+	lp.block()
 	this.addView(view, lp)
 	return view
 }
@@ -36,7 +40,9 @@ fun <T : LinearLayout> T.addEditArea(block: LinearLayout.LayoutParams.() -> Line
 
 fun <T : LinearLayout> T.addEditTextX(block: LinearLayout.LayoutParams.() -> LinearLayout.LayoutParams): EditTextX {
 	val view = this.context.createEditTextX()
-	val lp = linearParam(block)
+	val lp = linearParam()
+	lp.heightEdit()
+	lp.block()
 	this.addView(view, lp)
 	return view
 }

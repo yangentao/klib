@@ -5,6 +5,10 @@ import android.graphics.Color
 import android.widget.ImageView
 import android.widget.LinearLayout
 import net.yet.theme.Colors
+import net.yet.ui.ext.addButton
+import net.yet.ui.ext.margins
+import net.yet.ui.ext.styleWhite
+import net.yet.ui.ext.widthFill
 import net.yet.ui.page.TitledPage
 import net.yet.util.log.log
 
@@ -24,6 +28,11 @@ class MainPage : TitledPage() {
 		titleBar.addAction("test").onAction {
 			test()
 		}
+
+
+		contentView.addButton("Hello"){
+			widthFill().margins(20)
+		}.styleWhite()
 
 	}
 

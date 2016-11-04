@@ -52,7 +52,7 @@ object ResConst {
 	}
 
 	fun whiteButton(corner: Int = InputSize.ButtonCorner): Drawable {
-		return colorButton(Colors.WHITE, corner)
+		return colorButton(Color.rgb(245,245,245), corner)
 	}
 
 	fun colorButton(color: Int, corner: Int = InputSize.ButtonCorner): Drawable {

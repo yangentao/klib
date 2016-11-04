@@ -9,21 +9,31 @@ import net.yet.ui.res.ResConst
  * Created by entaoyang@163.com on 16/4/28.
  */
 
-
-fun <T : Button> T.themeGreen(): T {
-	this.textSizeB().textColor(Colors.WHITE, Colors.Fade).backDrawable(ResConst.greenButton())
+fun <T : Button> T.styleGreen(corner: Int = 2): T {
+	this.textSizeB().textColor(Colors.WHITE, Colors.Fade).backDrawable(ResConst.greenButton(corner))
 	return this
 }
 
-fun <T : Button> T.themeRed(corner: Int = 2): T {
+fun <T : Button> T.themeGreen(corner: Int = 2): T {
+	return this.styleGreen(corner)
+}
+
+fun <T : Button> T.styleRed(corner: Int = 2): T {
 	this.textSizeB().textColor(Colors.WHITE).backDrawable(ResConst.redButton(corner))
 	return this
 }
 
+fun <T : Button> T.themeRed(corner: Int = 2): T {
+	return this.styleRed(corner)
+}
 
-fun <T : Button> T.themeWhite(): T {
-	this.textSizeB().textColorMajor().backDrawable(ResConst.whiteButton())
+fun <T : Button> T.styleWhite(corner: Int = 2): T {
+	this.textSizeB().textColorMajor().backDrawable(ResConst.whiteButton(corner))
 	return this
+}
+
+fun <T : Button> T.themeWhite(corner: Int = 2): T {
+	return this.styleWhite(corner)
 }
 
 fun <T : CheckBox> T.styleSwitch(): T {
