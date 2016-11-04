@@ -6,6 +6,17 @@ package net.yet.util;
 public class Hex {
 	private static final String DICT = "0123456789abcdef";
 
+	// 8->08,  17->1f
+	public static String encode(byte b) {
+		int h = 0x0f & (b >> 4);
+		int l = 0x0f & b;
+		char[] arr = new char[2];
+		arr[0] = DICT.charAt(h);
+		arr[1] = DICT.charAt(l);
+		return new String(arr);
+
+	}
+
 	public static String encode(byte[] bytes) {
 		if (bytes == null) {
 			return null;

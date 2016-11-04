@@ -1,11 +1,11 @@
 package net.yet.yetlibdemo
 
 import android.content.Context
+import android.graphics.Color
 import android.widget.ImageView
 import android.widget.LinearLayout
-import net.yet.ui.ext.*
+import net.yet.theme.Colors
 import net.yet.ui.page.TitledPage
-import net.yet.util.imgloader.ImgLoader
 import net.yet.util.log.log
 
 /**
@@ -21,30 +21,16 @@ class MainPage : TitledPage() {
 		super.onCreateContent(context, contentView)
 		titleBar.title = "Test"
 
-		titleBar.addAction("show").onAction {
-			ImgLoader.display(imageView, url)
-		}
-		titleBar.addAction("del").onAction {
-			ImgLoader.Local.remove(url)
-			imageView.setImageDrawable(null)
+		titleBar.addAction("test").onAction {
+			test()
 		}
 
-		val cl = context.createConstraintLayout()
+	}
 
-		contentView.addViewParam(cl) {
-			fill()
-		}
-
-		val b = cl.createButton("A")
-		cl.addViewParam(b) {
-			width(200).fillHeight()
-			log("w, h: ", this.width, this.height)
-			centerInParent()
-//			ratioW(2.0, 1.0)
-//			centerHorInParent()
-//			topToTopOfParent()
-		}
-
+	fun test() {
+		val c = Color.rgb(255, 128, 0)
+		val s = Colors.toStringColor(c)
+		log(s)
 	}
 
 }

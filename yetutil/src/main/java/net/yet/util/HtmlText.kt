@@ -3,6 +3,7 @@ package net.yet.util
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
+import net.yet.theme.Colors
 
 /**
  * Created by entaoyang@163.com on 2016-11-04.
@@ -46,6 +47,12 @@ class HtmlText(capcity: Int = 64) {
 	fun font(color: String, block: HtmlText.() -> Unit): HtmlText {
 		return tag("font", "color" to color, block = block)
 	}
+
+	fun font(color: Int, block: HtmlText.() -> Unit): HtmlText {
+		val s = Colors.toStringColor(color)
+		return tag("font", "color" to s, block = block)
+	}
+
 
 	fun br(): HtmlText {
 		return tag("br")

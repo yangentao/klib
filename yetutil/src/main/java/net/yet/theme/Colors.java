@@ -3,6 +3,7 @@ package net.yet.theme;
 import android.graphics.Color;
 
 import net.yet.ext.GraphicExtKt;
+import net.yet.util.Hex;
 
 public class Colors {
 	public static final int BLACK = 0xFF000000;
@@ -40,7 +41,6 @@ public class Colors {
 	public static int EditFocus = 0xFF38C4B0;
 
 
-
 	public static int Risk = 0xFFCF2C40;
 	public static int Safe = 0xFF199055;
 	public static int Progress = 0xFF00C864;
@@ -55,6 +55,18 @@ public class Colors {
 
 	public static int color(String value) {
 		return GraphicExtKt.argb(value);
+	}
+
+	//0xff8800 --> "#ff8800"
+	public static String toStringColor(int color) {
+		int a = Color.alpha(color);
+		int r = Color.red(color);
+		int g = Color.green(color);
+		int b = Color.blue(color);
+		if (a == 0xff) {
+			return "#" + Hex.encode((byte) r) + Hex.encode((byte) g) + Hex.encode((byte) b);
+		}
+		return "#" + Hex.encode((byte) a) + Hex.encode((byte) r) + Hex.encode((byte) g) + Hex.encode((byte) b);
 	}
 
 
