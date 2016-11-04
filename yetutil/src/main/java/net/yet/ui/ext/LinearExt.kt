@@ -199,7 +199,7 @@ fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int 
 	return view
 }
 
-fun LinearLayout.addFlex(weight: Int = 1): View {
+fun LinearLayout.addFlex(weight: Double = 1.0): View {
 	val view = View(this.context).genId()
 	if (this.isVertical()) {
 		this.addViewParam(view) {
