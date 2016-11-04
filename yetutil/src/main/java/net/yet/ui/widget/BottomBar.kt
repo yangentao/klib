@@ -7,7 +7,7 @@ import android.widget.ImageView
 import net.yet.ext.empty
 import net.yet.ext.size
 import net.yet.theme.Colors
-import net.yet.theme.Dim
+import net.yet.theme.IconSize
 import net.yet.ui.ext.*
 import net.yet.ui.res.ColorStated
 import net.yet.util.Util
@@ -50,7 +50,7 @@ class BottomBar(context: Context) : TablePanel(context), IActionModeSupport {
 	var LINE_COLOR = Color.LTGRAY//可以改变
 
 	val HEIGHT = 50
-	val IMG_SIZE = Dim.iconSize
+	val IMG_SIZE = IconSize.Normal
 
 
 	var onAction: (BottomBar, Action) -> Unit = {
@@ -108,9 +108,9 @@ class BottomBar(context: Context) : TablePanel(context), IActionModeSupport {
 					action.icon?.setBounds(0, 0, dp(IMG_SIZE), dp(IMG_SIZE))
 					tv.compoundDrawablePadding = 0
 					tv.setCompoundDrawables(null, action.icon, null, null)
-					tv.textSizeSp(Dim.textSizeD)
+					tv.textSizeTiny()
 				} else {
-					tv.textSizeSp(Dim.textSizeB)
+					tv.textSizeNormal()
 				}
 				tv
 			}

@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable
 import net.yet.R
 import net.yet.ext.size
 import net.yet.theme.Colors
-import net.yet.theme.Dim
+import net.yet.theme.IconSize
 import net.yet.theme.InputSize
 import net.yet.ui.util.RectDrawable
 import net.yet.ui.util.ShapeUtil
@@ -21,11 +21,11 @@ object ResConst {
 	}
 
 	fun back(): Drawable {
-		return Res.drawable(R.drawable.back).size(Dim.iconSize)
+		return Res.drawable(R.drawable.back).size(IconSize.Normal)
 	}
 
 	fun arrowRight(): Drawable {
-		return Res.drawable(R.drawable.arrow_right).size(Dim.iconSizeMin)
+		return Res.drawable(R.drawable.arrow_right).size(IconSize.Tiny)
 	}
 
 	fun checkbox(): Drawable {

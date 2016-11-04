@@ -1,7 +1,7 @@
 package net.yet.util.app
 
 import android.app.Application
-import net.yet.theme.Dim
+import net.yet.theme.TextSize
 import net.yet.ui.activities.AppVisibleListener
 import net.yet.util.log.xlog
 
@@ -15,7 +15,7 @@ open class YetApp : Application(), AppVisibleListener {
 		super.onCreate()
 		App.init(this)
 		if (OS.HUAWEI) {
-			Dim.addTextSize(-1)
+			TextSize.addTextSize(-1)
 		}
 	}
 

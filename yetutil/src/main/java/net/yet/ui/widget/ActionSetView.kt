@@ -5,7 +5,8 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import net.yet.ext.size
-import net.yet.theme.Dim
+import net.yet.theme.IconSize
+import net.yet.theme.TextSize
 import net.yet.ui.ext.*
 import net.yet.ui.res.Img
 import net.yet.ui.res.ResConst
@@ -23,11 +24,11 @@ class ActionSetView(context: Context) : LinearLayout(context), IActionPanel {
 		get() = this
 
 	var GROUP_MARGIN = 15
-	private var iconSize = Dim.iconSize
-	private var subIconSize = Dim.iconSizeMin
-	private val subIconLeftSize = Dim.iconSizeMid
-	private var textSize = Dim.textSizeB
-	private var subTextSize = Dim.textSizeC
+	private var iconSize = IconSize.Normal
+	private var subIconSize = IconSize.Tiny
+	private val subIconLeftSize = IconSize.Small
+	private var textSize = TextSize.Normal
+	private var subTextSize = TextSize.Small
 	private var linearPanel: LinearPanel
 	var onItemAction: (Action) -> Unit = {}
 	private val groupSet = HashSet<Int>()

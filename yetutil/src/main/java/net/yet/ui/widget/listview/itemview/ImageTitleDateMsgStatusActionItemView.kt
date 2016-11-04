@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import net.yet.theme.Colors
-import net.yet.theme.Dim
+import net.yet.theme.IconSize
 import net.yet.ui.ext.*
 import net.yet.ui.res.ResConst
 import net.yet.ui.util.ShapeUtil
@@ -38,7 +38,7 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
     private val lineView: View
     var position = -1
 
-    private var iconSize = Dim.iconSizeMid
+    private var iconSize = IconSize.Small
 
     private var callback: ImageItemActionCallback? = null
 

@@ -7,7 +7,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import net.yet.ext.size
 import net.yet.theme.Colors
-import net.yet.theme.Dim
+import net.yet.theme.IconSize
+import net.yet.theme.TextSize
 import net.yet.ui.ext.*
 import net.yet.ui.res.ColorStated
 import net.yet.util.Util
@@ -101,7 +102,7 @@ class ActionTable(context: Context) : LinearLayout(context) {
 		override val actionPanelView: View get() = this
 		override var allActions: ArrayList<Action> = ArrayList<Action>()
 
-		var IMG_SIZE = Dim.iconSize
+		var IMG_SIZE = IconSize.Normal
 		var rowHeight = 45
 		var horSpace = 1
 		var clickListener: View.OnClickListener? = null
@@ -133,7 +134,7 @@ class ActionTable(context: Context) : LinearLayout(context) {
 				} else {
 					//label
 					val tv = context.createTextViewC()
-					tv.textSizeSp(if (action.icon == null) Dim.textSizeB else Dim.textSizeD)
+					tv.textSizeSp(if (action.icon == null) TextSize.Normal else TextSize.Tiny)
 					tv.textX(action.label).gravityCenter().padding(1, 2, 1, 1)
 					if (action.risk) {
 						val riskItemBackkDraw = ColorStated(Colors.Risk).pressed(Colors.Fade).value

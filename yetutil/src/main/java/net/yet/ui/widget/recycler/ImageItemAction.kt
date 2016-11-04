@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import net.yet.ext.size
-import net.yet.theme.Dim
+import net.yet.theme.IconSize
 import net.yet.ui.ext.*
 
 /**
@@ -21,7 +21,7 @@ class ImageItemAction(context: Context) : ImageView(context) {
 	}
 
 	fun icon(d: Drawable): ImageItemAction {
-		setImageDrawable(d.size(Dim.iconSizeMid))
+		setImageDrawable(d.size(IconSize.Small))
 		return this
 	}
 }

@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import net.yet.theme.Dim
+import net.yet.theme.IconSize
 import net.yet.ui.ext.*
 import net.yet.ui.util.ShapeUtil
 import net.yet.util.DateUtil
@@ -34,7 +34,7 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 
 	init {
 		padding(10, 0, 10, 0)
-		addViewParam(iconView) { size(Dim.iconSizeMid).gravityCenter().margins(0, 0, 5, 0) }
+		addViewParam(iconView) { size(IconSize.Small).gravityCenter().margins(0, 0, 5, 0) }
 
 		val ll = createLinearVertical().apply {
 			val top = topView.apply {

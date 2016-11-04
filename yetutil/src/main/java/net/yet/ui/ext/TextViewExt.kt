@@ -15,8 +15,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import net.yet.ext.ColorList
 import net.yet.theme.Colors
-import net.yet.theme.Dim
 import net.yet.theme.Space
+import net.yet.theme.TextSize
 import net.yet.ui.res.Img
 import net.yet.util.HtmlText
 import net.yet.util.Util
@@ -177,29 +177,45 @@ fun <T : TextView> T.textSize_(n: Int): T {
 }
 
 fun <T : TextView> T.textSizeA(): T {
-	return this.textSizeSp(Dim.textSizeA)
+	return this.textSizeBig()
 }
 
 fun <T : TextView> T.textSizeB(): T {
-	return this.textSizeSp(Dim.textSizeB)
+	return this.textSizeNormal()
 }
 
 fun <T : TextView> T.textSizeC(): T {
-	return this.textSizeSp(Dim.textSizeC)
+	return this.textSizeSmall()
 }
 
 fun <T : TextView> T.textSizeD(): T {
-	return this.textSizeSp(Dim.textSizeD)
+	return this.textSizeTiny()
 }
 
+fun <T : TextView> T.textSizeLarge(): T {
+	return this.textSizeSp(TextSize.Large)
+}
 
 fun <T : TextView> T.textSizeTitle(): T {
-	return textSizeSp(Dim.textSizeTitle)
+	return this.textSizeSp(TextSize.Title)
+}
+
+fun <T : TextView> T.textSizeBig(): T {
+	return this.textSizeSp(TextSize.Big)
 }
 
 fun <T : TextView> T.textSizeNormal(): T {
-	return textSizeSp(Dim.textSize)
+	return this.textSizeSp(TextSize.Normal)
 }
+
+fun <T : TextView> T.textSizeSmall(): T {
+	return this.textSizeSp(TextSize.Small)
+}
+
+fun <T : TextView> T.textSizeTiny(): T {
+	return this.textSizeSp(TextSize.Tiny)
+}
+
 
 fun <T : TextView> T.lines(lines: Int): T {
 	setLines(lines)

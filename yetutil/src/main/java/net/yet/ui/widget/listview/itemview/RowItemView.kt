@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import net.yet.theme.Colors
-import net.yet.theme.Dim
+import net.yet.theme.TextSize
 import net.yet.ui.ext.*
 
 /**
@@ -17,7 +17,7 @@ class RowItemView(context: Context) : LinearLayout(context) {
     private var space = 10
     private var minWidth = 60
     private var textColor = Colors.TextColorMinor
-    private var textSize = Dim.textSize
+    private var textSize = TextSize.Normal
 
     init {
         genId()

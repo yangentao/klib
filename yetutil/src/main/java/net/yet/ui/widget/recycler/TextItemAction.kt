@@ -5,7 +5,6 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.widget.TextView
 import net.yet.theme.Colors
-import net.yet.theme.Dim
 import net.yet.ui.ext.*
 import net.yet.ui.res.Img
 
@@ -16,7 +15,7 @@ import net.yet.ui.res.Img
 class TextItemAction(context: Context) : TextView(context) {
 
 	init {
-		miniWidth(60).miniHeight(40).textSize(Dim.textSize).textColor(Colors.TextColorMinor).gravityCenter()
+		miniWidth(60).miniHeight(40).textSizeNormal().textColor(Colors.TextColorMinor).gravityCenter()
 		linearParam().widthWrap().heightFill().set(this)
 		padding(10, 0, 10, 0)
 	}
