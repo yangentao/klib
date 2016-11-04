@@ -2,6 +2,8 @@ package net.yet.ui.ext
 
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
+import android.os.Build
+import android.text.Html
 import android.text.InputType
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
@@ -16,11 +18,28 @@ import net.yet.theme.Colors
 import net.yet.theme.Dim
 import net.yet.theme.Space
 import net.yet.ui.res.Img
+import net.yet.util.HtmlText
 import net.yet.util.Util
 
 /**
  * Created by entaoyang@163.com on 16/3/12.
  */
+
+fun <T : TextView> T.html(block: HtmlText.() -> Unit): T {
+	val h = HtmlText()
+	h.block()
+	this.text = h.spanned()
+	return this
+}
+
+fun <T : TextView> T.setHtmlString(s: String) {
+	if (Build.VERSION.SDK_INT >= 24) {
+		this.text = Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
+	} else {
+		this.text = Html.fromHtml(s)
+	}
+}
+
 fun <T : TextView> T.hideInputMethod(): T {
 	Util.hideInputMethod(this)
 	return this
@@ -248,6 +267,7 @@ fun <T : TextView> T.singleLine(): T {
 	this.setSingleLine(true)
 	return this
 }
+
 fun <T : TextView> T.multiLine(): T {
 	this.setSingleLine(false)
 	return this

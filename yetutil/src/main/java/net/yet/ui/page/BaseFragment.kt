@@ -66,6 +66,10 @@ open class BaseFragment : Fragment(), MsgListener {
 
 		}
 
+	fun singleTop(){
+		openFlag = openFlag or Intent.FLAG_ACTIVITY_SINGLE_TOP
+	}
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setHasOptionsMenu(true)
