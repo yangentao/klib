@@ -15,12 +15,12 @@
         <activity
             android:name=".ui.activities.ContainerActivity"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize|locale|fontScale|layoutDirection|screenLayout"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ui.activities.TabBarContainerActivity"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize|locale|fontScale|layoutDirection|screenLayout"
             android:windowSoftInputMode="adjustPan"/>
 
 
