@@ -7,6 +7,26 @@ import net.yet.ui.widget.EditTextX
  * Created by entaoyang@163.com on 2016-11-04.
  */
 
+fun <T : RelativeLayout> T.addRelative(block: RelativeLayout.LayoutParams.() -> RelativeLayout.LayoutParams): RelativeLayout {
+	val view = this.context.createRelativeLayout()
+	val lp = relativeParam(block)
+	this.addView(view, lp)
+	return view
+}
+fun <T : RelativeLayout> T.addLinearHor(block: RelativeLayout.LayoutParams.() -> RelativeLayout.LayoutParams): LinearLayout {
+	val view = this.context.createLinearHorizontal()
+	val lp = relativeParam(block)
+	this.addView(view, lp)
+	return view
+}
+
+fun <T : RelativeLayout> T.addLinearVer(block: RelativeLayout.LayoutParams.() -> RelativeLayout.LayoutParams): LinearLayout {
+	val view = this.context.createLinearVertical()
+	val lp = relativeParam(block)
+	this.addView(view, lp)
+	return view
+}
+
 fun <T : RelativeLayout> T.addButton(title: String, block: RelativeLayout.LayoutParams.() -> RelativeLayout.LayoutParams): Button {
 	val view = this.context.createButton(title)
 	val lp = relativeParam(block)

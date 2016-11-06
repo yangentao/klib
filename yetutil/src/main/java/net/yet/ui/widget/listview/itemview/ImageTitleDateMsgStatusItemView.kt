@@ -29,8 +29,8 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 	var msgView: TextView = createTextViewC().singleLine().ellipsizeEnd()
 	var statusView: TextView = createTextViewC().singleLine()
 
-	private var topView = createLinearHorizontal().gravityCenterVertical()
-	private var bottomView = createLinearHorizontal().gravityCenterVertical()
+	var topView = createLinearHorizontal().gravityCenterVertical()
+	var bottomView = createLinearHorizontal().gravityCenterVertical()
 
 	init {
 		padding(10, 0, 10, 0)
