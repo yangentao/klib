@@ -23,6 +23,31 @@ import net.yet.ui.widget.EditTextX
 //fun Context.createConstraintLayout():ConstraintLayout {
 //	return ConstraintLayout(this).genId()
 //}
+
+fun View.createRadioButton(): RadioButton {
+	return RadioButton(this.context).genId().gravityLeftCenter()
+}
+
+fun Fragment.createRadioButton(): RadioButton {
+	return RadioButton(this.activity).genId().gravityLeftCenter()
+}
+
+fun Context.createRadioButton(): RadioButton {
+	return RadioButton(this).genId().gravityLeftCenter()
+}
+
+fun View.createRadioGroup(): RadioGroup {
+	return RadioGroup(this.context).genId()
+}
+
+fun Fragment.createRadioGroup(): RadioGroup {
+	return RadioGroup(this.activity).genId()
+}
+
+fun Context.createRadioGroup(): RadioGroup {
+	return RadioGroup(this).genId()
+}
+
 fun View.createImageButton(): ImageButton {
 	return ImageButton(this.context).genId()
 }

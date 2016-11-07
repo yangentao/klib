@@ -6,6 +6,12 @@ import net.yet.ui.widget.EditTextX
 /**
  * Created by entaoyang@163.com on 2016-11-04.
  */
+fun <T : RelativeLayout> T.addRadioGroup(block: RelativeLayout.LayoutParams.() -> RelativeLayout.LayoutParams): RadioGroup {
+	val view = this.context.createRadioGroup()
+	val lp = relativeParam(block)
+	this.addView(view, lp)
+	return view
+}
 
 fun <T : RelativeLayout> T.addRelative(block: RelativeLayout.LayoutParams.() -> RelativeLayout.LayoutParams): RelativeLayout {
 	val view = this.context.createRelativeLayout()
