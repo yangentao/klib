@@ -225,22 +225,34 @@ open class BaseFragment : Fragment(), MsgListener {
 	}
 
 	fun takePhotoPng(block: (File) -> Unit) {
-		takePhoto("PNG", block)
+		takePhoto(true, block)
 	}
 
 	fun takePhotoJpg(block: (File) -> Unit) {
-		takePhoto("JPEG", block)
+		takePhoto(false, block)
 	}
 
-	fun takePhoto(format: String, block: (File) -> Unit) {
-		val outputFile = SdAppFile.temp("" + System.currentTimeMillis() + "." + format)
+	fun takePhoto(png: Boolean, block: (File) -> Unit) {
+		val FMT = if (png) "PNG" else "JPEG"
+		val outputFile = SdAppFile.temp("" + System.currentTimeMillis() + "." + FMT)
 		val intent = Intent("android.media.action.IMAGE_CAPTURE")
 		intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0)
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputFile))
-		intent.putExtra("outputFormat", format)
+		intent.putExtra("outputFormat", FMT)
 		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
 			if (resultCode == Activity.RESULT_OK && outputFile.exists()) {
-				block(outputFile)
+				val f = SdAppFile.tempFile(FMT.toLowerCase())
+				val bmp = BmpUtil.fromFile(outputFile, 1000 * 1000, Bitmap.Config.ARGB_8888)
+				if (bmp != null) {
+					if (png) {
+						BmpUtil.savePng(bmp, f)
+					} else {
+						BmpUtil.saveJpg(bmp, f)
+					}
+					if (f.exists()) {
+						block(f)
+					}
+				}
 			}
 			true
 		}
