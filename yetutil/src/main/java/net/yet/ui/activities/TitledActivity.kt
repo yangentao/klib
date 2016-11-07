@@ -35,10 +35,12 @@ abstract class TitledActivity() : BaseActivity() {
 	}
 
 	open fun onTitleBarActionNav(action: Action) {
+		if (titleBar.isBack(action)) {
+			finish()
+			return
+		}
 
 	}
 
-	open fun onCreateContent(contentView: LinearLayout) {
-
-	}
+	abstract fun onCreateContent(contentView: LinearLayout)
 }

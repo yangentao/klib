@@ -34,7 +34,6 @@ class WebPage : TitledPage() {
 
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		titleBar.showBack()
 		titleBar.title = title ?: ""
 		webView = WebView(context).genId()

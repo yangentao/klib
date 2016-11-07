@@ -2,7 +2,6 @@ package net.yet.ui.ext
 
 import android.app.Fragment
 import android.content.Context
-import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -185,7 +184,7 @@ fun <T : LinearLayout> T.addViewParam(view: View, index: Int, f: LinearLayout.La
 }
 
 
-fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int = Color.LTGRAY):View {
+fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int = Colors.LineGray):View {
 	val view = View(context).genId().backColor(color)
 	if (this.isVertical()) {
 		addViewParam(view) {
@@ -198,6 +197,35 @@ fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int 
 	}
 	return view
 }
+fun <T : LinearLayout> T.addGrayLine(config: GrayLineConfig = GrayLineConfig()):View {
+	val view = View(context).genId().backColor(config.color)
+	if (this.isVertical()) {
+		addViewParam(view) {
+			widthFill().height(config.size).margins(config.marginLeft, config.marginTop, config.marginRight, config.marginBottom)
+		}
+	} else {
+		addViewParam(view) {
+			heightFill().width(config.size).margins(config.marginLeft, config.marginTop, config.marginRight, config.marginBottom)
+		}
+	}
+	return view
+}
+fun <T : LinearLayout> T.addGrayLine(block: GrayLineConfig.()->Unit):View {
+	val config = GrayLineConfig()
+	config.block()
+	val view = View(context).genId().backColor(config.color)
+	if (this.isVertical()) {
+		addViewParam(view) {
+			widthFill().height(config.size).margins(config.marginLeft, config.marginTop, config.marginRight, config.marginBottom)
+		}
+	} else {
+		addViewParam(view) {
+			heightFill().width(config.size).margins(config.marginLeft, config.marginTop, config.marginRight, config.marginBottom)
+		}
+	}
+	return view
+}
+
 
 fun LinearLayout.addFlex(weight: Double = 1.0): View {
 	val view = View(this.context).genId().invisiable()

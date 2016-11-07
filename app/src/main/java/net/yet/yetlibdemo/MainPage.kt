@@ -22,7 +22,6 @@ class MainPage : TitledPage() {
 	lateinit var imageView: ImageView
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		titleBar.title = "Test"
 
 		titleBar.addAction("test").onAction {
@@ -30,7 +29,7 @@ class MainPage : TitledPage() {
 		}
 
 
-		contentView.addButton("Hello"){
+		contentView.addButton("Hello") {
 			widthFill().margins(20)
 		}.styleWhite()
 

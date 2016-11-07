@@ -35,7 +35,6 @@ abstract class InputPage : TitledPage() {
 
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		inputLayout = context.createLinearVertical().padding(40, 25, 40, 5)
 		contentView.addViewParam(inputLayout) {
 			widthFill().heightWrap()

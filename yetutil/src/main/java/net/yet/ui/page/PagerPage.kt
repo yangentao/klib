@@ -19,7 +19,6 @@ open class PagerPage : TitledPage() {
 	var views: ArrayList<View> = ArrayList()
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		switchView = object : SwitchView(context) {
 			override fun onSelectChanged(index: Int, itemName: String) {
 				viewPager.setCurrentItem(index, true)

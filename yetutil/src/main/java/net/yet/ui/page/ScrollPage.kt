@@ -15,7 +15,6 @@ open class ScrollPage : TitledPage() {
 	lateinit var scrollContentView: LinearLayout
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		scrollView = ScrollView(context)
 		contentView.addViewParam(scrollView) {
 			widthFill().height(0).weight(1)

@@ -100,7 +100,6 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	}
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		listViewParent = createRelativeLayout()
 		contentView.addView(listViewParent, linearParam().widthFill().height(0).weight(1f))
 		listView = context.createListView()

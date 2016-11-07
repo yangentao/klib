@@ -23,7 +23,7 @@ import net.yet.util.fore
  */
 
 
-open class TitledPage : BaseFragment() {
+abstract class TitledPage : BaseFragment() {
 	protected lateinit var relativeLayout: RelativeLayout
 	lateinit var contentView: LinearLayout
 		private set
@@ -123,9 +123,7 @@ open class TitledPage : BaseFragment() {
 		}
 	}
 
-	protected open fun onCreateContent(context: Context, contentView: LinearLayout) {
-
-	}
+	abstract fun onCreateContent(context: Context, contentView: LinearLayout)
 
 	open fun onBottomBarAction(bar: BottomBar, action: Action) {
 

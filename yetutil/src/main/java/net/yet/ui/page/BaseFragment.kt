@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.provider.MediaStore
@@ -31,7 +32,6 @@ import net.yet.ui.dialogs.StringSelectDialog
 import net.yet.ui.widget.TabBar
 import net.yet.util.*
 import net.yet.util.app.App
-import net.yet.util.app.OS
 import net.yet.util.database.Values
 import net.yet.util.event.EventMerge
 import java.io.File
@@ -52,8 +52,8 @@ open class BaseFragment : Fragment(), MsgListener {
 	private val resultListeners = SparseArray<PreferenceManager.OnActivityResultListener>(8)
 	private val eventMerges = ArrayList<EventMerge>()
 
-	var spinProgressDlg: SpinProgressDlg? = null
-	var horProgressDlg: HorProgressDlg? = null
+	lateinit var spinProgressDlg: SpinProgressDlg
+	lateinit var horProgressDlg: HorProgressDlg
 
 	var openFlag: Int = 0
 
@@ -66,7 +66,7 @@ open class BaseFragment : Fragment(), MsgListener {
 
 		}
 
-	fun singleTop(){
+	fun singleTop() {
 		openFlag = openFlag or Intent.FLAG_ACTIVITY_SINGLE_TOP
 	}
 
@@ -83,7 +83,7 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	fun statusBarColor(color: Int) {
 		val w = activity?.window ?: return
-		if (OS.GE50) {
+		if (Build.VERSION.SDK_INT >= 21) {
 			w.statusBarColor = color
 		}
 	}

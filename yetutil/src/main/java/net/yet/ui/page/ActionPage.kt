@@ -26,7 +26,6 @@ abstract class ActionPage : TitledPage() {
 	lateinit var actionSetView: ActionSetView
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		contentView.setBackgroundColor(Color.WHITE)
 		scrollView = ScrollView(activity).genId().backColorPage()
 		contentView.addViewParam(scrollView) { widthFill().heightDp(0).weight(1f) }

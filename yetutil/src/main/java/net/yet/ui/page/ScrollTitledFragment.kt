@@ -12,7 +12,6 @@ open class ScrollTitledFragment : TitledPage() {
 
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		scrollView = ScrollView(activity).genId()
 		contentView.addView(scrollView, linearParam().widthFill().height(0).weight(1f))
 		scrollContentView = context.createLinearVertical()

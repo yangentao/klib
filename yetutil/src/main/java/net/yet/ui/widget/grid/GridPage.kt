@@ -20,7 +20,6 @@ abstract class GridPage<T> : TitledPage() {
 	lateinit var adapter: TypedAdapter<T>
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		super.onCreateContent(context, contentView)
 		gridView = GridView(context)
 		gridView.numColumns = 2
 		gridView.padding(Space.Normal)
