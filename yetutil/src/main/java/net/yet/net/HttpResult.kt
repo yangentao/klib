@@ -32,7 +32,7 @@ class HttpResult {
 	var headerMap: Map<String, List<String>>? = null
 	var exception: Exception? = null
 
-	private var needDecode: Boolean = false
+	var needDecode: Boolean = false
 
 	var OK: Boolean = false
 		get() = responseCode >= 200 && responseCode < 300
