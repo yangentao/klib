@@ -5,10 +5,7 @@ import android.graphics.Color
 import android.widget.ImageView
 import android.widget.LinearLayout
 import net.yet.theme.Colors
-import net.yet.ui.ext.addButton
-import net.yet.ui.ext.margins
-import net.yet.ui.ext.styleWhite
-import net.yet.ui.ext.widthFill
+import net.yet.ui.ext.*
 import net.yet.ui.page.TitledPage
 import net.yet.util.log.log
 
@@ -28,10 +25,17 @@ class MainPage : TitledPage() {
 			test()
 		}
 
+		val group = contentView.addRadioGroup {
+			widthFill().heightWrap()
+		}
 
-		contentView.addButton("Hello") {
-			widthFill().margins(20)
-		}.styleWhite()
+		group.addRadioButton("微信") {
+			widthFill().heightButton()
+		}.styleImageTextCheckRes(R.drawable.image_miss)
+
+		group.addRadioButton("支付宝") {
+			widthFill().heightButton()
+		}.styleImageTextCheck(null)
 
 	}
 

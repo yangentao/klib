@@ -13,12 +13,20 @@ import net.yet.ui.res.Res
  */
 
 // IMAGE--Title------CHECK
-fun <T : RadioButton> T.styleImageTextCheck(leftRes: Int, rightNormal: Int = R.drawable.checkbox, rightChecked: Int = R.drawable.checkbox_checked): T {
+fun <T : RadioButton> T.styleImageTextCheckRes(leftRes: Int): T {
+	return this.styleImageTextCheckRes(leftRes, R.drawable.checkbox, R.drawable.checkbox_checked)
+}
+
+fun <T : RadioButton> T.styleImageTextCheckRes(leftRes: Int, rightNormal: Int, rightChecked: Int): T {
 	val rightImg = ImageStated(Res.drawable(rightNormal)).checked(Res.drawable(rightChecked)).value.size(15)
 	this.buttonDrawable = null
 	this.setCompoundDrawables(Res.drawable(leftRes).size(27), null, rightImg.size(25), null)
 	this.compoundDrawablePadding = dp(15)
 	return this
+}
+
+fun <T : RadioButton> T.styleImageTextCheck(leftDraw: Drawable?): T {
+	return styleImageTextCheck(leftDraw, Res.drawable(R.drawable.checkbox), Res.drawable(R.drawable.checkbox_checked))
 }
 
 fun <T : RadioButton> T.styleImageTextCheck(leftDraw: Drawable?, rightNormal: Drawable, rightChecked: Drawable): T {
