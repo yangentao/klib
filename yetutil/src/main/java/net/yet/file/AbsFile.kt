@@ -27,8 +27,12 @@ interface AbsFile {
 		return f
 	}
 
+	fun tempFile():File{
+		return tempFile(".tmp")
+	}
+
 	//tempFile(".txt") => 20160130_120159_300.txt
-	fun tempFile(ext: String = ""): File {
+	fun tempFile(ext: String): File {
 		var dotExt = ".tmp"
 		if (ext.length > 0) {
 			if (ext[0] == '.') {//.x
