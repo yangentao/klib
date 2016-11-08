@@ -9,8 +9,8 @@ import net.yet.R
 
 class BmpConfig {
 	//最大高*宽
-	var maxSize: Int = 480 * 800
-	var quility: Bitmap.Config = Bitmap.Config.ARGB_8888
+	var maxSize: Int = 128 * 128
+	var quility: Bitmap.Config = Bitmap.Config.RGB_565
 	//加载失败的图片
 	var failedResId: Int = R.drawable.image_miss
 	//默认的图片, 下载前
@@ -21,17 +21,20 @@ class BmpConfig {
 	}
 
 	fun small(): BmpConfig {
-		return maxSize(128 * 128)
+		return maxSize(64 * 64)
 	}
 
 	fun mid(): BmpConfig {
-		return maxSize(256 * 256)
+		return maxSize(128 * 128)
 	}
 
 	fun big(): BmpConfig {
-		return maxSize(480 * 800)
+		return maxSize(256 * 256)
 	}
 
+	fun large(): BmpConfig {
+		return maxSize(480 * 800)
+	}
 
 	fun maxSize(n: Int): BmpConfig {
 		maxSize = n

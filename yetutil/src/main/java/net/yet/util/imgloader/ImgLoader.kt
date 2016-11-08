@@ -57,7 +57,7 @@ object ImgLoader {
 
 	fun bitmap(url: String, config: BmpConfig, block: (Bitmap?) -> Unit) {
 		val b = findCache(url, config)
-		if(b != null) {
+		if (b != null) {
 			block(b)
 			return
 		}
@@ -99,6 +99,12 @@ object ImgLoader {
 	fun displayBig(imageView: ImageView, url: String) {
 		display(imageView, url) {
 			big()
+		}
+	}
+
+	fun displayLarge(imageView: ImageView, url: String) {
+		display(imageView, url) {
+			large()
 		}
 	}
 
