@@ -79,11 +79,11 @@ object FileDownloader {
 
 	private fun httpDown(url: String, file: File): Boolean {
 		var r = Http(url).download(file, null)
-		var ok = r.OK && r.contentLength > 0 && file.length() == r.contentLength.toLong()
+		var ok = r.OK && file.exists() && file.length() > 0
 		if (!ok) {
 			sleep(300)
 			r = Http(url).download(file, null)
-			ok = r.OK && r.contentLength > 0 && file.length() == r.contentLength.toLong()
+			ok = r.OK && file.exists() && file.length() > 0
 		}
 		return ok
 	}

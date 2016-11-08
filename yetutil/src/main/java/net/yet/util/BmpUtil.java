@@ -15,6 +15,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.util.DisplayMetrics;
 
+import net.yet.file.SdAppFile;
 import net.yet.util.app.App;
 
 import java.io.File;
@@ -338,6 +339,33 @@ public class BmpUtil {
 			Util.close(saveTo);
 		}
 		return false;
+	}
+	public static File compressJpg(Uri from, int maxSize) {
+		Bitmap bmp = fromUri(from, maxSize, Config.ARGB_8888);
+		if (bmp != null) {
+			File tofile = SdAppFile.INSTANCE.tempFile(".jpg");
+			boolean b = saveJpg(bmp, tofile);
+			if (b && tofile.exists()) {
+				return tofile;
+			} else {
+				tofile.delete();
+			}
+		}
+		return null;
+	}
+
+	public static File compressPng(Uri from, int maxSize) {
+		Bitmap bmp = fromUri(from, maxSize, Config.ARGB_8888);
+		if (bmp != null) {
+			File tofile = SdAppFile.INSTANCE.tempFile(".png");
+			boolean b = savePng(bmp, tofile);
+			if (b && tofile.exists()) {
+				return tofile;
+			} else {
+				tofile.delete();
+			}
+		}
+		return null;
 	}
 
 
