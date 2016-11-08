@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference
  */
 
 object ImgLoader {
-	var configSmall: BmpConfig = BmpConfig().small()
+	var cache = BitmapLruCache()
 
 	object Local {
 		fun remove(url: String) {
@@ -36,13 +36,33 @@ object ImgLoader {
 		}
 	}
 
+	fun findCache(url: String, config: BmpConfig): Bitmap? {
+		val key = url + config.toString()
+		var bmp: Bitmap? = cache.get(key)
+		if (bmp != null) {
+			return bmp
+		}
+		bmp = Local.bitmap(url, config)
+		if (bmp != null) {
+			if (config.maxSize < 480 * 800) {
+				cache.put(key, bmp)
+			}
+		}
+		return bmp
+	}
+
 	fun retrive(url: String, block: (File?) -> Unit) {
 		FileDownloader.retrive(url, block)
 	}
 
 	fun bitmap(url: String, config: BmpConfig, block: (Bitmap?) -> Unit) {
+		val b = findCache(url, config)
+		if(b != null) {
+			block(b)
+			return
+		}
 		FileDownloader.retrive(url) {
-			block(Local.bitmap(url, config))
+			block(findCache(url, config))
 		}
 	}
 
