@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference
  */
 
 object ImgLoader {
-	var config: BmpConfig = BmpConfig()
+	var configSmall: BmpConfig = BmpConfig().small()
 
 	object Local {
 		fun remove(url: String) {
@@ -36,7 +36,7 @@ object ImgLoader {
 		}
 	}
 
-	fun retrive(url:String, block:(File?)->Unit){
+	fun retrive(url: String, block: (File?) -> Unit) {
 		FileDownloader.retrive(url, block)
 	}
 
@@ -64,8 +64,22 @@ object ImgLoader {
 		}
 	}
 
-	fun display(imageView: ImageView, url: String) {
-		display(imageView, url, config)
+	fun displaySmall(imageView: ImageView, url: String) {
+		display(imageView, url) {
+			small()
+		}
+	}
+
+	fun displayMid(imageView: ImageView, url: String) {
+		display(imageView, url) {
+			mid()
+		}
+	}
+
+	fun displayBig(imageView: ImageView, url: String) {
+		display(imageView, url) {
+			big()
+		}
 	}
 
 	fun display(imageView: ImageView, url: String, block: BmpConfig.() -> Unit) {
