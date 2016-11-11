@@ -78,6 +78,9 @@ object FileDownloader {
 	}
 
 	private fun httpDown(url: String, file: File): Boolean {
+		if (url.length < 8) {//http://a.cn
+			return false
+		}
 		var r = Http(url).download(file, null)
 		var ok = r.OK && file.exists() && file.length() > 0
 		if (!ok) {
