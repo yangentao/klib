@@ -7,7 +7,7 @@ import android.widget.ImageView
  */
 
 fun ImageView.load(uri: String) {
-	ImgLoader.display(this, uri)
+	ImgLoader.display(this, uri, BmpConfig().mid().rgb565())
 }
 
 fun ImageView.load(uri: String, block: BmpConfig.() -> Unit) {
