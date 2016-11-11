@@ -76,8 +76,8 @@ abstract class ActionPage : TitledPage() {
 		scrollContentView.addView(view, index, params)
 	}
 
-	fun findAction(tag: String): Action {
-		return actionSetView.findTag(tag)!!
+	fun findAction(tag: String): Action? {
+		return actionSetView.findTag(tag)
 	}
 
 	fun addAction(tag: String, block: (Action) -> Unit): Action {
