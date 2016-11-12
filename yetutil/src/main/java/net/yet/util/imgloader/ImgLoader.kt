@@ -36,6 +36,11 @@ object ImgLoader {
 		}
 	}
 
+	private fun removeCache(url: String, config: BmpConfig) {
+		val key = url + config.toString()
+		cache.remove(key)
+	}
+
 	fun findCache(url: String, config: BmpConfig): Bitmap? {
 		val key = url + config.toString()
 		var bmp: Bitmap? = cache.get(key)
@@ -60,6 +65,7 @@ object ImgLoader {
 		if (b != null) {
 			if (config.forceDownload) {
 				FileDownloader.download(url) {
+					removeCache(url, config)
 					block(findCache(url, config))
 				}
 			} else {
