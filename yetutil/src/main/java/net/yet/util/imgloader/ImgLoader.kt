@@ -58,11 +58,12 @@ object ImgLoader {
 	fun bitmap(url: String, config: BmpConfig, block: (Bitmap?) -> Unit) {
 		val b = findCache(url, config)
 		if (b != null) {
-			block(b)
 			if (config.forceDownload) {
 				FileDownloader.download(url) {
 					block(findCache(url, config))
 				}
+			} else {
+				block(b)
 			}
 		} else {
 			FileDownloader.retrive(url) {
