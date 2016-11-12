@@ -16,8 +16,15 @@ class BmpConfig {
 	//默认的图片, 下载前
 	var defaultResId: Int = R.drawable.image_miss
 
+	var forceDownload: Boolean = false
+
 	override fun toString(): String {
 		return Integer.toString(maxSize) + quility.toString()
+	}
+
+	fun forceDownload(): BmpConfig {
+		this.forceDownload = true
+		return this
 	}
 
 	fun small(): BmpConfig {

@@ -59,11 +59,17 @@ object ImgLoader {
 		val b = findCache(url, config)
 		if (b != null) {
 			block(b)
-			return
+			if (config.forceDownload) {
+				FileDownloader.download(url) {
+					block(findCache(url, config))
+				}
+			}
+		} else {
+			FileDownloader.retrive(url) {
+				block(findCache(url, config))
+			}
 		}
-		FileDownloader.retrive(url) {
-			block(findCache(url, config))
-		}
+
 	}
 
 	fun display(imageView: ImageView, url: String, config: BmpConfig) {
