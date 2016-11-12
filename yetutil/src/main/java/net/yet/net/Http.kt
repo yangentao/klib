@@ -36,10 +36,8 @@ class Http(val url: String) {
 
 	private val headerMap = HashMap<String, String>()
 	private val argMap = HashMap<String, String>()
-	private val fileMap = HashMap<String, Uri>()
-	private val filenameMap = HashMap<String, String>()
-	private val progressMap = HashMap<String, Progress>()
-	private val mimeMap = HashMap<String, String>()
+
+	private val fileList = ArrayList<FileParam>()
 
 	private var timeoutConnect = 10000
 	private var timeoutRead = 10000
@@ -145,36 +143,27 @@ class Http(val url: String) {
 		return this
 	}
 
+
+	fun file(fileParam: FileParam): Http {
+		fileList.add(fileParam)
+		return this
+	}
+
+	fun file(key: String, file: Uri): Http {
+		val p = FileParam(key, file)
+		return file(p)
+	}
+
 	fun file(key: String, file: File): Http {
 		return file(key, Uri.fromFile(file))
 	}
 
-	fun file(key: String, file: Uri): Http {
-		fileMap.put(key, file)
-		return this
+	fun file(key: String, file: Uri, block: FileParam.() -> Unit): Http {
+		val p = FileParam(key, file)
+		p.block()
+		return file(p)
 	}
 
-	fun file(key: String, file: File, progress: Progress?): Http {
-		return file(key, Uri.fromFile(file), progress)
-	}
-
-	fun file(key: String, file: Uri, progress: Progress?): Http {
-		if (progress != null) {
-			progressMap.put(key, progress)
-		}
-		return file(key, file)
-	}
-
-	fun filename(key: String, filename: String): Http {
-		filenameMap[key] = filename
-		return this
-	}
-
-
-	fun mime(key: String, mime: String): Http {
-		mimeMap[key] = mime
-		return this
-	}
 
 	/**
 	 * [from, to]
@@ -212,7 +201,7 @@ class Http(val url: String) {
 		for (e in headerMap.entries) {
 			connection.setRequestProperty(e.key, e.value)
 		}
-		if (fileMap.size > 0) {
+		if (fileList.size > 0) {
 			val os = SizeStream()
 			sendMultipart(os)
 			connection.setFixedLengthStreamingMode(os.size)
@@ -237,18 +226,15 @@ class Http(val url: String) {
 				write(os, e.value, "\r\n")
 			}
 		}
-		if (fileMap.size > 0) {
-			for (e in fileMap.entries) {
-				val file = e.value
-				var filename = filenameMap[e.key] ?: file.lastPathSegment ?: "a.tmp"
-				var mime = mimeMap[e.key] ?: "application/octet-stream"
+		if (fileList.size > 0) {
+			for (fp in fileList) {
 				write(os, BOUNDARY_START)
-				write(os, "Content-Disposition:form-data;name=\"${e.key}\";filename=\"$filename\"\r\n")
-				write(os, "Content-Type:$mime\r\n")
+				write(os, "Content-Disposition:form-data;name=\"${fp.key}\";filename=\"${fp.filename}\"\r\n")
+				write(os, "Content-Type:${fp.mime}\r\n")
 				write(os, "Content-Transfer-Encoding: binary\r\n")
 				write(os, "\r\n")
-				val progress = progressMap[e.key]
-				val fis = App.getContentResolver().openInputStream(file)
+				val progress = fp.progress
+				val fis = App.getContentResolver().openInputStream(fp.file)
 				val total = fis.available()
 				if (os is SizeStream) {
 					os.incSize(total)
@@ -367,11 +353,8 @@ class Http(val url: String) {
 			for ((k, v) in argMap) {
 				log("--arg:", k, "=", v)
 			}
-			for ((k, v) in fileMap) {
-				log("--file:", k, "=", v)
-			}
-			for ((k, v) in mimeMap) {
-				log("--mime:", k, v)
+			for (fp in fileList) {
+				log("--file:", fp)
 			}
 			if (method == HttpMethod.GET || method == HttpMethod.POST_RAW_DATA) {
 				connection = URL(buildGetUrl()).openConnection() as HttpURLConnection
