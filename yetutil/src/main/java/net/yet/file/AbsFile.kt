@@ -41,7 +41,7 @@ interface AbsFile {
 				dotExt = "." + ext
 			}
 		}
-		return temp(DateUtil.nowDigits() + dotExt)
+		return temp(DateUtil.tmpFile() + dotExt)
 	}
 
 	fun temp(file: String): File {

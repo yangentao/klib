@@ -15,9 +15,19 @@ public class DateUtil {
 	public static final String FORMAT_DATE_TIME_NO_SEC = "yyyy-MM-dd HH:mm";
 	public static final String FORMAT_DATE_TIME_X = "yyyy-MM-dd HH:mm:ss.SSS";
 
-	public static String nowDigits() {
+//	public static String nowDigits() {
+//		SimpleDateFormat ff = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS", Locale.getDefault());
+//		return ff.format(new Date());
+//	}
+
+	private static long tmpFileN = 0;
+
+	synchronized public static String tmpFile() {
 		SimpleDateFormat ff = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS", Locale.getDefault());
-		return ff.format(new Date());
+		String s = ff.format(new Date());
+		++tmpFileN;
+		s += "_" + Long.toString(tmpFileN);
+		return s;
 	}
 
 	public static Date parse(String format, String dateStr) {
