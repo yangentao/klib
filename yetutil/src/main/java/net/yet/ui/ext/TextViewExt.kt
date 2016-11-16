@@ -14,10 +14,12 @@ import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import net.yet.ext.ColorList
+import net.yet.ext.size
 import net.yet.theme.Colors
 import net.yet.theme.Space
 import net.yet.theme.TextSize
 import net.yet.ui.res.Img
+import net.yet.ui.res.Res
 import net.yet.ui.util.XTextWatcher
 import net.yet.util.HtmlText
 import net.yet.util.Util
@@ -370,8 +372,20 @@ fun <T : TextView> T.linkifyAll(): T {
 	return this
 }
 
+fun <T : TextView> T.leftImage(resId: Int, size: Int, margin: Int = Space.Small): T {
+	this.setCompoundDrawables(Res.drawable(resId).size(size), null, null, null)
+	this.compoundDrawablePadding = dp(margin)
+	return this
+}
+
 fun <T : TextView> T.leftImage(d: Drawable, margin: Int = Space.Small): T {
 	this.setCompoundDrawables(d, null, null, null)
+	this.compoundDrawablePadding = dp(margin)
+	return this
+}
+
+fun <T : TextView> T.rightImage(resId: Int, size: Int, margin: Int = Space.Small): T {
+	this.setCompoundDrawables(null, null, Res.drawable(resId).size(size), null)
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
@@ -382,9 +396,20 @@ fun <T : TextView> T.rightImage(d: Drawable, margin: Int = Space.Small): T {
 	return this
 }
 
+fun <T : TextView> T.topImage(resId: Int, size: Int, margin: Int = Space.Small): T {
+	this.setCompoundDrawables(null, Res.drawable(resId).size(size), null, null)
+	this.compoundDrawablePadding = dp(margin)
+	return this
+}
 
 fun <T : TextView> T.topImage(d: Drawable, margin: Int = Space.Small): T {
 	this.setCompoundDrawables(null, d, null, null)
+	this.compoundDrawablePadding = dp(margin)
+	return this
+}
+
+fun <T : TextView> T.bottomImage(resId: Int, size: Int, margin: Int = Space.Small): T {
+	this.setCompoundDrawables(null, null, null, Res.drawable(resId).size(size))
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
@@ -394,6 +419,12 @@ fun <T : TextView> T.bottomImage(d: Drawable, margin: Int = Space.Small): T {
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
+
+fun <T : TextView> T.imagePadding(p: Int): T {
+	this.compoundDrawablePadding = dp(p)
+	return this
+}
+
 
 fun <T : TextView> T.onTextChanged(block: (String) -> Unit): T {
 	this.addTextChangedListener(object : XTextWatcher() {
