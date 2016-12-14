@@ -26,7 +26,9 @@ class BmpConfig {
 		this.forceDownload = true
 		return this
 	}
-
+	fun noCache(): BmpConfig {
+		return forceDownload()
+	}
 	fun small(): BmpConfig {
 		return maxSize(BmpSize.SMALL)
 	}
