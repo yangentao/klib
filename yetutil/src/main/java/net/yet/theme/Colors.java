@@ -56,6 +56,9 @@ public class Colors {
 	public static int color(String value) {
 		return GraphicExtKt.argb(value);
 	}
+	public static int rgb(int r, int g, int b) {
+		return Color.rgb(r, g, b);
+	}
 
 	//0xff8800 --> "#ff8800"
 	public static String toStringColor(int color) {
