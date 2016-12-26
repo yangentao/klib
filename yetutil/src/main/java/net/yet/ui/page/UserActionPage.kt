@@ -20,7 +20,7 @@ import net.yet.ui.widget.add
 
  * @author yangentao@gmail.com
  */
-abstract class UserActionPage : TitledPage() {
+abstract class UserActionPage : UserTitledPage() {
 	lateinit var scrollView: ScrollView
 	lateinit var scrollContentView: LinearLayout
 	lateinit var actionSetView: ActionSetView
