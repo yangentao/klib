@@ -30,8 +30,15 @@ abstract class ListSelectDialog<T, V : View> {
 	private var midButtonTitle: String? = null
 	private var midListener: View.OnClickListener? = null
 
-	var onMultiSelectIndices:(Set<Int>)->Unit = {}
-	var onMultiSelectValues:((List<T>)->Unit)? = null
+	var onConfigDialog: ((AlertDialog) -> Unit)? = null
+	var onConfigTitleView: ((TextView) -> Unit)? = null
+	var onConfigListView: ((ListView) -> Unit)? = null
+	var onDismiss: (() -> Unit)? = null
+
+	var onMultiSelectIndices: ((Set<Int>) -> Unit)? = null
+	var onMultiSelectValues: ((List<T>) -> Unit)? = null
+	var onSelectIndex: ((Int) -> Unit)? = null
+	var onSelectValue: ((T) -> Unit)? = null
 
 	var argS: String? = null
 
@@ -139,7 +146,7 @@ abstract class ListSelectDialog<T, V : View> {
 			ll.addViewParam(textView) {
 				widthFill().height(TitleBar.HEIGHT).gravityLeftCenter()
 			}
-			onConfigTitleView(textView)
+			onConfigTitleView?.invoke(textView)
 			listPadTop = 0
 			if (multiSelect) {
 				bgList = RectDrawable(Colors.WHITE).value
@@ -162,7 +169,7 @@ abstract class ListSelectDialog<T, V : View> {
 
 		adapter.setItems(items)
 		listView.adapter = adapter
-		onConfigListView(listView)
+		onConfigListView?.invoke(listView)
 		ll.addViewParam(listView) {
 			widthFill().height(0).weight(1)
 		}
@@ -230,10 +237,7 @@ abstract class ListSelectDialog<T, V : View> {
 		okView.setOnClickListener({
 			dismiss()
 			if (!indexSet.isEmpty()) {
-				onMultiSelectIndices(indexSet)
-				if(onMultiSelectValues != null) {
-					onMultiSelectValues?.invoke(selectItems)
-				}
+				onMultiSelect(indexSet)
 			}
 		})
 		return ll2
@@ -246,7 +250,6 @@ abstract class ListSelectDialog<T, V : View> {
 	}
 
 	fun show(context: Context): AlertDialog {
-		preShow()
 		adapter.setItems(items)
 		val builder = AlertDialog.Builder(context)
 		builder.setView(createView(context))
@@ -255,7 +258,10 @@ abstract class ListSelectDialog<T, V : View> {
 		this.alertDialog = dlg
 		dlg.setCanceledOnTouchOutside(true)
 		dlg.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-		onConfigDialog(dlg)
+		onConfigDialog?.invoke(dlg)
+		dlg.setOnDismissListener {
+			onDismiss?.invoke()
+		}
 		dlg.show()
 		return dlg
 	}
@@ -271,30 +277,18 @@ abstract class ListSelectDialog<T, V : View> {
 		dlg.window!!.attributes = lp
 	}
 
-
-	fun preShow() {
-
+	open protected fun onSelect(position: Int, item: T) {
+		onSelectIndex?.invoke(position)
+		onSelectValue?.invoke(item)
 	}
 
-	fun onConfigDialog(dlg: AlertDialog) {
-
-	}
-
-	fun onConfigTitleView(textView: TextView) {
-
-	}
-
-	fun onConfigListView(listView: ListView) {
-
+	open protected fun onMultiSelect(indexSet: Set<Int>) {
+		onMultiSelectIndices?.invoke(indexSet)
+		onMultiSelectValues?.invoke(selectItems)
 	}
 
 	abstract fun onNewItemView(context: Context, item: T): V
 
 	abstract fun onBindItemView(itemView: V, item: T)
-
-
-	protected abstract fun onSelect(position: Int, item: T)
-
-
 
 }
