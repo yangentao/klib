@@ -1,44 +1,39 @@
 package net.yet.yetlibdemo
 
 import android.content.Context
-import android.graphics.Color
 import android.widget.LinearLayout
-import net.yet.ui.ext.*
-import net.yet.ui.page.UserTitledPage
+import net.yet.ui.dialogs.list.StringSelectDialog
+import net.yet.ui.page.TitledPage
+import net.yet.util.log.log
 
 /**
  * Created by entaoyang@163.com on 2016-10-07.
  */
 
-class MainPage : UserTitledPage() {
+class MainPage : TitledPage() {
 
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		titleBar.title = "Test"
 
 		titleBar.addAction("test").onAction {
-			toast("Test")
+			test()
 		}
 
-		titleBar.themeBackColor = Color.TRANSPARENT
 
-		val imageView = createImageView()
-		imageView.scaleCenterCrop()
-		imageView.setImageResource(R.mipmap.user_bg)
-		titleRelativeView.addViewParam(imageView) {
-			widthFill().height(220)
+	}
+
+	fun test() {
+		val dlg = StringSelectDialog()
+		dlg.onSelectValue = {
+			log(it)
 		}
-		titleLinearView.bringToFront()
-
-		statusBarColor(Color.rgb(200, 100, 0))
-
-
-		val tv = createTextViewA()
-		tv.text = "Hello"
-		contentView.addViewParam(tv) {
-			widthFill().heightWrap()
+		dlg.onMultiSelectValues = {
+			log(it)
 		}
-
+		dlg.multiSelect = true
+		dlg.addItems("A", "B", "C")
+		dlg.show(activity, "Hello")
 	}
 
 

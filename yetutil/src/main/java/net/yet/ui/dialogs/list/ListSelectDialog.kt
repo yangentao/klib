@@ -30,6 +30,9 @@ abstract class ListSelectDialog<T, V : View> {
 	private var midButtonTitle: String? = null
 	private var midListener: View.OnClickListener? = null
 
+	var onMultiSelectIndices:(Set<Int>)->Unit = {}
+	var onMultiSelectValues:((List<T>)->Unit)? = null
+
 	var argS: String? = null
 
 	private val adapter = object : TypedAdapter<T>() {
@@ -227,7 +230,10 @@ abstract class ListSelectDialog<T, V : View> {
 		okView.setOnClickListener({
 			dismiss()
 			if (!indexSet.isEmpty()) {
-				onMultiSelect(indexSet)
+				onMultiSelectIndices(indexSet)
+				if(onMultiSelectValues != null) {
+					onMultiSelectValues?.invoke(selectItems)
+				}
 			}
 		})
 		return ll2
@@ -289,9 +295,6 @@ abstract class ListSelectDialog<T, V : View> {
 
 	protected abstract fun onSelect(position: Int, item: T)
 
-	protected fun onMultiSelect(indexs: Set<Int>) {
-
-	}
 
 
 }

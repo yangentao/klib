@@ -11,67 +11,67 @@ import net.yet.ui.res.ResConst
  */
 
 
-open class CheckItemView @JvmOverloads constructor(context: Context, val itemView: View, listener: CheckItemView.CheckStatusListener? = null) : HorItemView(context), ItemViewCheckable {
-    protected var checkView: CheckedTextView
-        private set
-    private var listener: CheckStatusListener? = null
+open class CheckItemView(context: Context, val itemView: View, listener: CheckItemView.CheckStatusListener? = null) : HorItemView(context), ItemViewCheckable {
+	protected var checkView: CheckedTextView
+		private set
+	private var listener: CheckStatusListener? = null
 
-    private val MR = 15
+	private val MR = 10
 
-    init {
-        padding(0, 0, 0, 0)
-        this.listener = listener
-        addViewParam(itemView, 0) { widthDp(0).weight(1f).heightWrap() }
+	init {
+		padding(0, 0, 0, 0)
+		this.listener = listener
+		addViewParam(itemView, 0) { widthDp(0).weight(1f).heightWrap() }
 
-        checkView = CheckedTextView(context).genId().gone()
-        checkView.checkMarkDrawable = ResConst.checkbox()
-        addViewParam(checkView) { wrap().gravityRightCenter().margins(10, 0, MR, 0) }
+		checkView = CheckedTextView(context).genId().gone()
+		checkView.checkMarkDrawable = ResConst.checkbox()
+		addViewParam(checkView) { wrap().gravityRightCenter().margins(10, 0, MR, 0) }
 
-        if (this.listener == null && itemView is CheckStatusListener) {
-            this.listener = itemView
-        }
-    }
+		if (this.listener == null && itemView is CheckStatusListener) {
+			this.listener = itemView
+		}
+	}
 
 
-    override fun isChecked(): Boolean {
-        return checkView.isChecked
-    }
+	override fun isChecked(): Boolean {
+		return checkView.isChecked
+	}
 
-    override fun setChecked(checked: Boolean) {
-        if (checked == isChecked) {
-            return
-        }
-        checkView.isChecked = checked
-        listener?.onItemCheckChanged(this, checked)
-    }
+	override fun setChecked(checked: Boolean) {
+		if (checked == isChecked) {
+			return
+		}
+		checkView.isChecked = checked
+		listener?.onItemCheckChanged(this, checked)
+	}
 
-    override fun toggle() {
-        isChecked = !isChecked
-    }
+	override fun toggle() {
+		isChecked = !isChecked
+	}
 
-    override var isCheckModel: Boolean
-        get() = checkView.isVisiable()
-        set(checkModel) {
-            if (isCheckModel == checkModel) {
-                return
-            }
-            if (checkModel) {
-                isChecked = false
-                checkView.visiable()
-            } else {
-                checkView.gone()
-            }
-            listener?.onItemCheckModelChanged(this, checkModel)
-        }
+	override var isCheckModel: Boolean
+		get() = checkView.isVisiable()
+		set(checkModel) {
+			if (isCheckModel == checkModel) {
+				return
+			}
+			if (checkModel) {
+				isChecked = false
+				checkView.visiable()
+			} else {
+				checkView.gone()
+			}
+			listener?.onItemCheckModelChanged(this, checkModel)
+		}
 
-    override fun setCheckboxMarginRight(dp: Int) {
-        linearParam().wrap().gravityRightCenter().margins(10, 0, MR + dp, 0).set(checkView)
-        this.requestLayout()
-    }
+	override fun setCheckboxMarginRight(dp: Int) {
+		linearParam().wrap().gravityRightCenter().margins(10, 0, MR + dp, 0).set(checkView)
+		this.requestLayout()
+	}
 
-    interface CheckStatusListener {
-        fun onItemCheckModelChanged(checkItemView: CheckItemView, checkModel: Boolean)
+	interface CheckStatusListener {
+		fun onItemCheckModelChanged(checkItemView: CheckItemView, checkModel: Boolean)
 
-        fun onItemCheckChanged(checkItemView: CheckItemView, check: Boolean)
-    }
+		fun onItemCheckChanged(checkItemView: CheckItemView, check: Boolean)
+	}
 }

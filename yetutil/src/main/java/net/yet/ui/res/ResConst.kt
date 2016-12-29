@@ -30,7 +30,6 @@ object ResConst {
 
 	fun checkbox(): Drawable {
 		return ImageStated(Res.drawable(R.drawable.checkbox)).checked(Res.drawable(R.drawable.checkbox_checked)).value.size(15)
-//		return Img.namedStates("checkbox", true)
 	}
 
 	fun redPoint(): Drawable {
@@ -52,7 +51,7 @@ object ResConst {
 	}
 
 	fun whiteButton(corner: Int = InputSize.ButtonCorner): Drawable {
-		return colorButton(Color.rgb(245,245,245), corner)
+		return colorButton(Color.rgb(245, 245, 245), corner)
 	}
 
 	fun colorButton(color: Int, corner: Int = InputSize.ButtonCorner): Drawable {
