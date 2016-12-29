@@ -16,6 +16,8 @@ open class CheckItemView @JvmOverloads constructor(context: Context, val itemVie
         private set
     private var listener: CheckStatusListener? = null
 
+    private val MR = 15
+
     init {
         padding(0, 0, 0, 0)
         this.listener = listener
@@ -23,7 +25,7 @@ open class CheckItemView @JvmOverloads constructor(context: Context, val itemVie
 
         checkView = CheckedTextView(context).genId().gone()
         checkView.checkMarkDrawable = ResConst.checkbox()
-        addViewParam(checkView) { wrap().gravityRightCenter().margins(10, 0, 10, 0) }
+        addViewParam(checkView) { wrap().gravityRightCenter().margins(10, 0, MR, 0) }
 
         if (this.listener == null && itemView is CheckStatusListener) {
             this.listener = itemView
@@ -63,7 +65,7 @@ open class CheckItemView @JvmOverloads constructor(context: Context, val itemVie
         }
 
     override fun setCheckboxMarginRight(dp: Int) {
-        linearParam().wrap().gravityRightCenter().margins(10, 0, 10 + dp, 0).set(checkView)
+        linearParam().wrap().gravityRightCenter().margins(10, 0, MR + dp, 0).set(checkView)
         this.requestLayout()
     }
 

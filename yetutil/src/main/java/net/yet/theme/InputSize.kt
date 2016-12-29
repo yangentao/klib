@@ -11,4 +11,6 @@ object InputSize {
 	val EditHeight = 45
 	val EditHeightSmall = 38
 	val EditCorner = 6
+
+	val DialogCorner = 6
 }

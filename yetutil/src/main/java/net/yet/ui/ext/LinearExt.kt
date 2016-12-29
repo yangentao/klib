@@ -53,6 +53,9 @@ class Divider(var color: Int = Colors.LineGray) {
 
 }
 
+fun <T : LinearLayout> T.divider(color:Int = Colors.LineGray): T {
+	return this.divider(Divider(color))
+}
 
 fun <T : LinearLayout> T.divider(ld: Divider): T {
 	if (ld.size > 0) {
@@ -183,6 +186,17 @@ fun <T : LinearLayout> T.addViewParam(view: View, index: Int, f: LinearLayout.La
 	return this
 }
 
+fun <T : LinearLayout> T.addView(view: View, f: LinearLayout.LayoutParams.() -> LinearLayout.LayoutParams): T {
+	val lp = linearParam(f)
+	this.addView(view, lp)
+	return this
+}
+
+fun <T : LinearLayout> T.addView(view: View, index: Int, f: LinearLayout.LayoutParams.() -> LinearLayout.LayoutParams): T {
+	val lp = linearParam(f)
+	this.addView(view, index, lp)
+	return this
+}
 
 fun <T : LinearLayout> T.addGrayLine(size: Int = 1, margin: Int = 0, color: Int = Colors.LineGray):View {
 	val view = View(context).genId().backColor(color)

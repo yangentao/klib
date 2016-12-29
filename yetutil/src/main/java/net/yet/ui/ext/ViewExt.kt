@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import net.yet.ext.ColorDrawable
 import net.yet.theme.Colors
 import net.yet.ui.res.Img
+import net.yet.ui.util.StateImage
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -101,10 +102,13 @@ inline fun <reified T : View> T.backColorPage(): T {
 
 fun <T : View> T.backDrawable(d: Drawable): T {
 	this.setBackgroundDrawable(d)
-	return this;
+	return this
 }
-
-inline fun <reified T : View> T.backDrawable(name: String): T {
+fun <T : View> T.backDrawable(normal: Drawable, pressed: Drawable): T {
+	this.setBackgroundDrawable(StateImage(normal).pressed(pressed).value)
+	return this
+}
+fun <T : View> T.backDrawable(name: String): T {
 	this.setBackgroundDrawable(Img.namedStates(name, false))
 	return this;
 }
