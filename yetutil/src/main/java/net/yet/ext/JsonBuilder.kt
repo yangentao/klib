@@ -36,13 +36,13 @@ fun jsonArray(vararg values: Any): JSONArray {
 	return arr
 }
 
-fun testJson() {
-	jsonObject {
-		"bid" to "123"
-		"lat" to 123.444
-		"arr" to jsonArray(1, 2, 3)
-		"obj" to jsonObject {
-			"name" to "yang"
-		}
-	}
-}
+//fun testJson() {
+//	jsonObject {
+//		"bid" to "123"
+//		"lat" to 123.444
+//		"arr" to jsonArray(1, 2, 3)
+//		"obj" to jsonObject {
+//			"name" to "yang"
+//		}
+//	}
+//}
