@@ -2,8 +2,8 @@ package net.yet.yetlibdemo
 
 import android.content.Context
 import android.widget.LinearLayout
-import net.yet.ui.dialogs.list.StringSelectDialog
 import net.yet.ui.page.TitledPage
+import net.yet.ui.page.select.StringSelectPage
 import net.yet.util.log.log
 
 /**
@@ -24,16 +24,13 @@ class MainPage : TitledPage() {
 	}
 
 	fun test() {
-		val dlg = StringSelectDialog()
-		dlg.onSelectValue = {
-			log(it)
+		val p = StringSelectPage()
+		p.multiMode()
+		p.addItems("Yang", "En", "Tao", "DouDou")
+		p.onMultiSelect = {
+			log(it, p.selectItems)
 		}
-		dlg.onMultiSelectValues = {
-			log(it)
-		}
-		dlg.multiSelect = true
-		dlg.addItems("A", "B", "C")
-		dlg.show(activity, "Hello")
+		openPage(p)
 	}
 
 

@@ -38,6 +38,7 @@ abstract class TitledPage : BaseFragment() {
 
 	var autoStatusBarColor: Boolean = true
 
+	var pageReady = false
 
 	protected lateinit var snack: Snack
 
@@ -63,6 +64,7 @@ abstract class TitledPage : BaseFragment() {
 
 		rootView.addView(titleBar)
 
+
 		snack = Snack(activity).gone()
 		rootView.addView(snack)
 
@@ -83,6 +85,7 @@ abstract class TitledPage : BaseFragment() {
 			bar, a ->
 			onBottomBarAction(bar, a)
 		}
+		pageReady = true
 		onCreateContent(this.activity, contentView)
 		if (autoStatusBarColor) {
 			if (OS.GE50) {
