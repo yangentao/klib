@@ -13,7 +13,7 @@ import net.yet.ui.ext.*
 import net.yet.ui.util.RectDrawable
 import net.yet.util.app.App
 
-abstract class CustomDialog {
+abstract class TitleMsgDialog {
 	var CORNER = InputSize.DialogCorner
 	var TITLE_HEIGHT = 45
 	var OK_COLOR = Colors.GreenMajor
@@ -39,38 +39,38 @@ abstract class CustomDialog {
 	var argN = 0
 
 
-	fun safe(): CustomDialog {
+	fun safe(): TitleMsgDialog {
 		this.OK_COLOR = Colors.GreenMajor
 		return this
 	}
 
-	fun risk(): CustomDialog {
+	fun risk(): TitleMsgDialog {
 		this.OK_COLOR = Colors.Risk
 		return this
 	}
 
 
-	fun title(title: String?): CustomDialog {
+	fun title(title: String?): TitleMsgDialog {
 		this.title = title
 		return this
 	}
 
-	fun msg(msg: String?): CustomDialog {
+	fun msg(msg: String?): TitleMsgDialog {
 		this.msg = msg
 		return this
 	}
 
-	fun ok(text: String?): CustomDialog {
+	fun ok(text: String?): TitleMsgDialog {
 		this.okButtonText = text
 		return this
 	}
 
-	fun cancel(text: String?): CustomDialog {
+	fun cancel(text: String?): TitleMsgDialog {
 		this.cancelButtonText = text
 		return this
 	}
 
-	fun mid(text: String?): CustomDialog {
+	fun mid(text: String?): TitleMsgDialog {
 		this.midButtonText = text
 		return this
 	}
@@ -179,7 +179,7 @@ abstract class CustomDialog {
 		alertDialog = dlg
 		dlg.setCanceledOnTouchOutside(true)
 		dlg.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-		dlg.setOnDismissListener { this@CustomDialog.onDismiss() }
+		dlg.setOnDismissListener { this@TitleMsgDialog.onDismiss() }
 		onConfigDialog(dlg)
 		dlg.show()
 		return dlg

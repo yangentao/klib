@@ -2,7 +2,7 @@ package net.yet.yetlibdemo
 
 import android.content.Context
 import android.widget.LinearLayout
-import net.yet.ui.dialogs.ConfirmDialog
+import net.yet.ui.dialogs.confirm
 import net.yet.ui.page.TitledPage
 
 /**
@@ -23,12 +23,10 @@ class MainPage : TitledPage() {
 	}
 
 	fun test() {
-		val dlg = ConfirmDialog()
-		dlg.ok("OK")
-		dlg.onOK = {
+		confirm("Title", "Message ? ", "OK", "Cancel") {
 			toast("OK")
 		}
-		dlg.show(activity, "Title", "Message ?")
+
 	}
 
 

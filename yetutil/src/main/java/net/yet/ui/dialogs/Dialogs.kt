@@ -48,6 +48,18 @@ fun BaseFragment.showConfirm(title: String, msg: String? = null, block: () -> Un
 	dlg.show(activity, title, msg)
 }
 
+fun BaseFragment.confirm(title: String?, msg: String?, okText: String? = null, cancelText: String? = null, block: () -> Unit) {
+	val dlg = ConfirmDialog()
+	if (okText != null) {
+		dlg.ok(okText)
+	}
+	if (cancelText != null) {
+		dlg.cancel(cancelText)
+	}
+	dlg.onOK = block
+	dlg.show(activity, title, msg)
+}
+
 fun BaseFragment.showInputDialog(title: String, defaultValue: String = "", block: (String) -> Unit) {
 	val dlg = InputDialog()
 	dlg.onOK = block
