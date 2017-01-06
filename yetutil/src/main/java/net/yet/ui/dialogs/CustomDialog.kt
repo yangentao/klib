@@ -4,126 +4,79 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.text.InputType
 import android.view.Gravity
 import android.view.View
-import android.widget.EditText
 import net.yet.theme.Colors
 import net.yet.theme.InputSize
+import net.yet.theme.Str
 import net.yet.ui.ext.*
 import net.yet.ui.util.RectDrawable
 import net.yet.util.app.App
 
-class InputDialog {
+abstract class CustomDialog {
 	var CORNER = InputSize.DialogCorner
 	var TITLE_HEIGHT = 45
 	var OK_COLOR = Colors.GreenMajor
 
 	private var alertDialog: AlertDialog? = null
 	var title: String? = null
-	var text: String? = null
-	var hint: String? = null
+	var msg: String? = null
 	var midButtonText: String? = null
-	var okButtonText: String? = "确定"
-	var cancelButtonText: String? = "取消"
+	var okButtonText: String? = Str.OK
+	var cancelButtonText: String? = Str.CANCEL
+
+
+	var onConfigDialog: (AlertDialog) -> Unit = {}
+
+
+	var onDismiss: () -> Unit = {}
+	var onCancel: () -> Unit = {}
+	var onMid: () -> Unit = {}
+	var onOK: () -> Unit = {}
 
 	var argS: String? = null
 	var argObj: Any? = null
 	var argN = 0
 
-	private var editText: EditText? = null
 
-	var inputType = InputType.TYPE_CLASS_TEXT
-
-	fun inputTypeText() {
-		this.inputType = InputType.TYPE_CLASS_TEXT
-	}
-
-	fun inputTypePhone() {
-		this.inputType = InputType.TYPE_CLASS_PHONE
-	}
-
-	fun inputTypeNumber() {
-		this.inputType = InputType.TYPE_CLASS_NUMBER
-	}
-
-	fun inputTypeNumberFloat() {
-		this.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-	}
-
-	fun inputTypePassword() {
-		this.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-	}
-
-	fun inputTypePasswordNumber() {
-		this.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
-	}
-
-	fun inputTypeEmail() {
-		this.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-	}
-
-
-	val inputText: String
-		get() {
-			if (editText != null) {
-				return editText!!.text.toString()
-			}
-			return ""
-		}
-
-	val trimText: String
-		get() {
-			if (editText != null) {
-				return editText!!.text.toString().trim { it <= ' ' }
-			}
-			return ""
-		}
-
-	fun safe(): InputDialog {
+	fun safe(): CustomDialog {
 		this.OK_COLOR = Colors.GreenMajor
 		return this
 	}
 
-	fun risk(): InputDialog {
+	fun risk(): CustomDialog {
 		this.OK_COLOR = Colors.Risk
 		return this
 	}
 
 
-	fun title(title: String?): InputDialog {
+	fun title(title: String?): CustomDialog {
 		this.title = title
 		return this
 	}
 
-	fun text(text: String?): InputDialog {
-		this.text = text
+	fun msg(msg: String?): CustomDialog {
+		this.msg = msg
 		return this
 	}
 
-	fun hint(hint: String?): InputDialog {
-		this.hint = hint
-		return this
-	}
-
-
-	fun ok(text: String?): InputDialog {
+	fun ok(text: String?): CustomDialog {
 		this.okButtonText = text
 		return this
 	}
 
-	fun cancel(text: String?): InputDialog {
+	fun cancel(text: String?): CustomDialog {
 		this.cancelButtonText = text
 		return this
 	}
 
-	fun mid(text: String?): InputDialog {
+	fun mid(text: String?): CustomDialog {
 		this.midButtonText = text
 		return this
 	}
 
 
-	private fun createView(context: Context): View {
+	protected fun createView(context: Context): View {
 		val ll = context.createLinearVertical()
 		ll.padding(22, 10, 22, 10)
 		ll.divider()
@@ -134,22 +87,18 @@ class InputDialog {
 			textView.textColorWhite().textSizeTitle().backDrawable(bgText).padding(15, 0, 0, 0)
 			ll.addView(textView) { widthFill().height(TITLE_HEIGHT).gravityLeftCenter() }
 		}
-
-		editText = context.createEditText()
-		editText!!.setText(text)
-		editText!!.hint = hint
-		editText!!.inputType = inputType
-		val ll2 = context.createLinearHorizontal()
-		ll2.addView(editText!!) { gravityCenter().widthFill().height(InputSize.EditHeight) }
-		ll.addView(ll2) { widthFill().heightWrap() }
-
-		val vw = ll2.padding(15, 25, 15, 25).gravityCenter()
-		if (title == null) {
-			vw.backDrawable(RectDrawable(Colors.WHITE).corners(CORNER, CORNER, 0, 0).value)
-		} else {
-			vw.backDrawable(RectDrawable(Colors.WHITE).value)
+		if (msg != null) {
+			val msgView = context.createTextViewA()
+			msgView.setText(msg)
+			val vw = msgView.textColorMajor().padding(15, 0, 15, 0).gravityCenter()
+			vw.miniHeightDp(80)
+			if (title == null) {
+				vw.backDrawable(RectDrawable(Colors.WHITE).corners(CORNER, CORNER, 0, 0).value)
+			} else {
+				vw.backDrawable(RectDrawable(Colors.WHITE).value)
+			}
+			ll.addView(msgView) { widthFill().heightWrap() }
 		}
-
 		val buttonsView = createButtonsView(context)
 		ll.addView(buttonsView) { widthFill().height(InputSize.ButtonHeight) }
 		return ll
@@ -211,19 +160,14 @@ class InputDialog {
 			ll2.addView(okView) { width(0).weight(1).heightFill().gravityCenter() }
 			okView.setOnClickListener(View.OnClickListener {
 				dismiss()
-				onOK(inputText)
+				onOK()
 			})
 		}
 		return ll2
 	}
 
-	fun show(context: Context, title: String) {
-		title(title)
-		show(context)
-	}
-
-	fun show(context: Context, title: String, value: String) {
-		title(title).text(value)
+	fun show(context: Context, title: String?, msg: String?) {
+		title(title).msg(msg)
 		show(context)
 	}
 
@@ -235,18 +179,19 @@ class InputDialog {
 		alertDialog = dlg
 		dlg.setCanceledOnTouchOutside(true)
 		dlg.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-		dlg.setOnDismissListener { this@InputDialog.onDismiss() }
+		dlg.setOnDismissListener { this@CustomDialog.onDismiss() }
 		onConfigDialog(dlg)
 		dlg.show()
 		return dlg
 	}
 
 	fun dismiss() {
-		alertDialog?.dismiss()
+		val d = alertDialog
+		d?.dismiss()
 	}
 
 	fun gravityTop(dlg: AlertDialog, yMargin: Int) {
-		val lp = dlg.window!!.attributes
+		val lp = dlg.window?.attributes
 		if (lp != null) {
 			lp.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
 			lp.y = App.dp2px(yMargin)
@@ -254,9 +199,5 @@ class InputDialog {
 		}
 	}
 
-	var onConfigDialog: (AlertDialog) -> Unit = {}
-	var onDismiss: () -> Unit = {}
-	var onCancel: () -> Unit = {}
-	var onMid: () -> Unit = {}
-	var onOK: (String) -> Unit = {}
+
 }

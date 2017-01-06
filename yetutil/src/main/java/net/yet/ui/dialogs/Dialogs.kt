@@ -29,88 +29,63 @@ fun AlertDialog.gravityBottom(margin: Int): AlertDialog {
 
 fun BaseFragment.showAlert(title: String, msg: String? = null, okText: String = Res.str(R.string.ok)): OKDialog {
 	val dlg = OKDialog()
-	dlg.okText = okText
+	dlg.ok(okText)
 	dlg.show(activity, title, msg)
 	return dlg
 }
 
 fun BaseFragment.showAlert(title: String, msg: String?, okText: String = Res.str(R.string.ok), block: () -> Unit): OKDialog {
-	val dlg = object : OKDialog() {
-		override fun onOK() {
-			block.invoke()
-		}
-	}
-	dlg.okText = okText
+	val dlg = OKDialog()
+	dlg.onOK = block
+	dlg.ok(okText)
 	dlg.show(activity, title, msg)
 	return dlg
 }
 
 fun BaseFragment.showConfirm(title: String, msg: String? = null, block: () -> Unit) {
-	val dlg = object : ConfirmDialog() {
-
-		override fun onOK() {
-			block()
-		}
-	}
+	val dlg = ConfirmDialog()
+	dlg.onOK = block
 	dlg.show(activity, title, msg)
 }
 
 fun BaseFragment.showInputDialog(title: String, defaultValue: String = "", block: (String) -> Unit) {
-	val dlg = object : InputDialog() {
-		override fun onOK(text: String?) {
-			block(text ?: "")
-		}
-	}
+	val dlg = InputDialog()
+	dlg.onOK = block
 	dlg.inputTypeText()
 	dlg.show(activity, title, defaultValue)
 }
 
 fun BaseFragment.showInputPassword(title: String, defaultValue: String = "", block: (String) -> Unit) {
-	val dlg = object : InputDialog() {
-		override fun onOK(text: String?) {
-			block(text ?: "")
-		}
-	}
+	val dlg = InputDialog()
+	dlg.onOK = block
 	dlg.inputTypePassword()
 	dlg.show(activity, title, defaultValue)
 }
 
 fun BaseFragment.showInputPasswordNumber(title: String, defaultValue: String = "", block: (String) -> Unit) {
-	val dlg = object : InputDialog() {
-		override fun onOK(text: String?) {
-			block(text ?: "")
-		}
-	}
+	val dlg = InputDialog()
+	dlg.onOK = block
 	dlg.inputTypePasswordNumber()
 	dlg.show(activity, title, defaultValue)
 }
 
 fun BaseFragment.showInputEmail(title: String, defaultValue: String = "", block: (String) -> Unit) {
-	val dlg = object : InputDialog() {
-		override fun onOK(text: String?) {
-			block(text ?: "")
-		}
-	}
+	val dlg = InputDialog()
+	dlg.onOK = block
 	dlg.inputTypeEmail()
 	dlg.show(activity, title, defaultValue)
 }
 
 fun BaseFragment.showInputNumber(title: String, defaultValue: String = "", block: (String) -> Unit) {
-	val dlg = object : InputDialog() {
-		override fun onOK(text: String?) {
-			block(text ?: "")
-		}
-	}
+	val dlg = InputDialog()
+	dlg.onOK = block
 	dlg.inputTypeNumber()
 	dlg.show(activity, title, defaultValue)
 }
 
 fun BaseFragment.showInputPhone(title: String, defaultValue: String = "", block: (String) -> Unit) {
-	val dlg = object : InputDialog() {
-		override fun onOK(text: String?) {
-			block(text ?: "")
-		}
-	}
+	val dlg = InputDialog()
+	dlg.onOK = block
 	dlg.inputTypePhone()
 	dlg.show(activity, title, defaultValue)
 }

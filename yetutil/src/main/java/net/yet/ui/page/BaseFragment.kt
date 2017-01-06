@@ -28,7 +28,7 @@ import net.yet.ui.activities.TabBarContainerActivity
 import net.yet.ui.dialogs.HorProgressDlg
 import net.yet.ui.dialogs.OKDialog
 import net.yet.ui.dialogs.SpinProgressDlg
-import net.yet.ui.dialogs.StringSelectDialog
+import net.yet.ui.dialogs.list.StringSelectDialog
 import net.yet.ui.widget.TabBar
 import net.yet.util.*
 import net.yet.util.app.App
@@ -100,8 +100,8 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	fun itemSelectN(items: Collection<String>, block: (Int) -> Unit) {
 		var dlg = StringSelectDialog()
-		dlg.onSelect = { n, s ->
-			block(n)
+		dlg.onSelectIndex = {
+			block(it)
 		}
 		dlg.addItems(items)
 		dlg.show(activity)
@@ -109,8 +109,8 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	fun itemSelect(items: Collection<String>, block: (String) -> Unit) {
 		val dlg = StringSelectDialog()
-		dlg.onSelect = { n, s ->
-			block(s)
+		dlg.onSelectValue = {
+			block(it)
 		}
 		dlg.addItems(items)
 		dlg.show(activity)
@@ -118,17 +118,8 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	fun itemSelect(vararg items: String, block: (String) -> Unit) {
 		val dlg = StringSelectDialog()
-		dlg.onSelect = { n, s ->
-			block(s)
-		}
-		dlg.addItems(*items)
-		dlg.show(activity)
-	}
-
-	fun showMenuSelect(vararg items: String, block: (String) -> Unit) {
-		val dlg = StringSelectDialog()
-		dlg.onSelect = { n, s ->
-			block(s)
+		dlg.onSelectValue = {
+			block(it)
 		}
 		dlg.addItems(*items)
 		dlg.show(activity)

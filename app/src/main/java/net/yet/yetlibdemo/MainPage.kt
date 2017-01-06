@@ -2,9 +2,8 @@ package net.yet.yetlibdemo
 
 import android.content.Context
 import android.widget.LinearLayout
+import net.yet.ui.dialogs.ConfirmDialog
 import net.yet.ui.page.TitledPage
-import net.yet.ui.page.select.StringSelectPage
-import net.yet.util.log.log
 
 /**
  * Created by entaoyang@163.com on 2016-10-07.
@@ -24,14 +23,12 @@ class MainPage : TitledPage() {
 	}
 
 	fun test() {
-		val p = StringSelectPage()
-		p.multiMode()
-		p.enableSearch()
-		p.addItems("Yang", "En", "Tao", "DouDou")
-		p.onMultiSelect = {
-			log(it, p.selectItems)
+		val dlg = ConfirmDialog()
+		dlg.ok("OK")
+		dlg.onOK = {
+			toast("OK")
 		}
-		openPage(p)
+		dlg.show(activity, "Title", "Message ?")
 	}
 
 
