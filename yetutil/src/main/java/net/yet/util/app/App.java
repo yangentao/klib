@@ -185,11 +185,19 @@ public class App {
 	 * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
 	 */
 	public static int dp2px(float dpValue) {
-		return (int) (dpValue * density + 0.5f);
+		if(dpValue > 0) {
+			return (int) (dpValue * density + 0.5f);
+		}else {
+			return (int)dpValue;
+		}
 	}
 
 	public static int dp2px(int dpValue) {
-		return (int) (dpValue * density + 0.5f);
+		if(dpValue > 0) {
+			return (int) (dpValue * density + 0.5f);
+		}else {
+			return dpValue;
+		}
 	}
 
 
