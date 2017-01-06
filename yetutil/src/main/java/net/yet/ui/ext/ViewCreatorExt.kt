@@ -260,7 +260,7 @@ fun Context.createEditTextX(): EditTextX {
 
 fun Fragment.createEditTextX(): EditTextX {
 	val ed = EditTextX(this.activity).genId().singleLine()
-	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)
+	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(10, 2, 10, 2)
 	return ed
 }
 

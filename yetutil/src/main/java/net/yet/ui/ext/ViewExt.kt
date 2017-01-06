@@ -26,76 +26,76 @@ fun genViewId(): Int {
 	}
 }
 
-inline fun <reified T : View> T.genId(): T {
+fun < T : View> T.genId(): T {
 	id = genViewId()
 	return this
 }
 
-inline fun <reified T : View> T.gone(): T {
+fun <T : View> T.gone(): T {
 	visibility = View.GONE
 	return this
 }
 
-inline fun <reified T : View> T.visiable(): T {
+fun <T : View> T.visiable(): T {
 	visibility = View.VISIBLE
 	return this
 }
 
-inline fun <reified T : View> T.invisiable(): T {
+fun <T : View> T.invisiable(): T {
 	visibility = View.INVISIBLE
 	return this
 }
 
-inline fun <reified T : View> T.isGone(): Boolean {
+fun <T : View> T.isGone(): Boolean {
 	return visibility == View.GONE
 }
 
-inline fun <reified T : View> T.isVisiable(): Boolean {
+fun <T : View> T.isVisiable(): Boolean {
 	return visibility == View.VISIBLE
 }
 
-inline fun <reified T : View> T.isInvisiable(): Boolean {
+fun <T : View> T.isInvisiable(): Boolean {
 	return visibility == View.INVISIBLE
 }
 
 
-inline fun <reified T : View> T.padding(left: Int, top: Int, right: Int, bottom: Int): T {
+fun < T : View> T.padding(left: Int, top: Int, right: Int, bottom: Int): T {
 	this.setPadding(dp(left), dp(top), dp(right), dp(bottom));
 	return this
 }
 
-inline fun <reified T : View> T.padding(p: Int): T {
+fun < T : View> T.padding(p: Int): T {
 	this.setPadding(dp(p), dp(p), dp(p), dp(p))
 	return this
 }
 
 
-inline fun <reified T : View> T.backColor(color: Int): T {
+ fun <T : View> T.backColor(color: Int): T {
 	setBackgroundColor(color)
-	return this;
+	return this
 }
 
-inline fun <reified T : View> T.backColor(color: Int, fadeColor: Int): T {
+fun < T : View> T.backColor(color: Int, fadeColor: Int): T {
 	//    background = colorDrawable(color, fadeColor)
 	setBackgroundDrawable(ColorDrawable(color, fadeColor))
-	return this;
+	return this
 }
 
 
-inline fun <reified T : View> T.backColorWhite(): T {
+fun < T : View> T.backColorWhite(): T {
 	setBackgroundColor(Colors.WHITE)
-	return this;
+	return this
 }
-inline fun <reified T : View> T.backColorWhiteFade(): T {
+fun <T : View> T.backColorWhiteFade(): T {
 	backColor(Colors.WHITE, Colors.Fade)
-	return this;
+	return this
 }
-inline fun <reified T : View> T.backColorTransFade(): T {
+fun <T : View> T.backColorTransFade(): T {
 	backColor(Colors.TRANS, Colors.Fade)
-	return this;
+	return this
 }
 
-inline fun <reified T : View> T.backColorPage(): T {
+fun <T : View> T.backColorPage(): T {
 	setBackgroundColor(Colors.PageGray)
 	return this
 }

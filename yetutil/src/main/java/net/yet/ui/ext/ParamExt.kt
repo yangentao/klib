@@ -131,4 +131,7 @@ fun <T : ViewGroup.LayoutParams> T.heightEditSmall(): T {
 	return heightDp(InputSize.EditHeightSmall)
 }
 
+fun <T : ViewGroup.LayoutParams> T.heightEditSearch(): T {
+	return heightDp(InputSize.EditHeightSearch)
+}
 

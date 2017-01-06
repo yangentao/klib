@@ -26,6 +26,7 @@ class MainPage : TitledPage() {
 	fun test() {
 		val p = StringSelectPage()
 		p.multiMode()
+		p.enableSearch()
 		p.addItems("Yang", "En", "Tao", "DouDou")
 		p.onMultiSelect = {
 			log(it, p.selectItems)

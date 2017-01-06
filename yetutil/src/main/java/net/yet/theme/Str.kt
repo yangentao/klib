@@ -15,4 +15,5 @@ object Str {
 	val SETTING: String get() = Res.str(R.string.setting)
 	val LOADING: String get() = Res.str(R.string.loading)
 	val CONTACT_SELECT: String get() = Res.str(R.string.contact_select)
+	val SEARCH: String get() = Res.str(R.string.search)
 }

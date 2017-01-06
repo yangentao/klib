@@ -36,9 +36,15 @@ object ResConst {
 		return ShapeUtil.oval(10, Color.rgb(255, 128, 0))
 	}
 
-	fun input(): Drawable {
-		val normal = RectDrawable(Colors.WHITE).corner(InputSize.EditCorner).stroke(1, Colors.GRAY).value
-		val focused = RectDrawable(Colors.WHITE).corner(InputSize.EditCorner).stroke(2, Colors.EditFocus).value
+	fun input(corner: Int = InputSize.EditCorner): Drawable {
+		val normal = RectDrawable(Colors.WHITE).corner(corner).stroke(1, Colors.GRAY).value
+		val focused = RectDrawable(Colors.WHITE).corner(corner).stroke(1, Colors.EditFocus).value
+		return ImageStated(normal).focused(focused, true).get()
+	}
+
+	fun inputSearch(corner: Int = InputSize.EditHeightSearch / 2): Drawable {
+		val normal = RectDrawable(Colors.WHITE).corner(corner).stroke(1, Colors.GRAY).value
+		val focused = RectDrawable(Colors.WHITE).corner(corner).stroke(1, Colors.EditFocus).value
 		return ImageStated(normal).focused(focused, true).get()
 	}
 

@@ -7,15 +7,18 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ListView
 import net.yet.R
+import net.yet.theme.Space
 import net.yet.theme.Str
 import net.yet.ui.ext.*
 import net.yet.ui.page.TitledPage
 import net.yet.ui.widget.Action
+import net.yet.ui.widget.EditTextX
 import net.yet.ui.widget.TitleBar
+import net.yet.ui.widget.listview.IndexFilterAdapter
 import net.yet.ui.widget.listview.ListViewClickListener
 import net.yet.ui.widget.listview.ListViewUtil
-import net.yet.ui.widget.listview.TypedAdapter
 import net.yet.ui.widget.listview.itemview.CheckItemView
+import net.yet.util.JsonUtil
 import java.util.*
 
 /**
@@ -23,23 +26,27 @@ import java.util.*
  */
 
 abstract class SelectPage<T, V : View> : TitledPage(), ListViewClickListener {
-	protected var title:String = "选择"
-	protected var multiSelect:Boolean = false
+	protected var title: String = Str.SELECT
+	protected var multiSelect: Boolean = false
 	protected val items: ArrayList<T> = ArrayList(64)
 	protected val indexSet: MutableSet<Int> = TreeSet()
-	protected lateinit  var listView: ListView
+	protected lateinit var listView: ListView
 	protected var selAllAction: Action? = null
 	protected var doneAction: Action? = null
 
-	var onSelect:((position: Int, item: T)->Unit)? = null
+	protected var enableSearch = false
+	protected var searchEdit: EditTextX? = null
 
-	var onMultiSelect:((indexs: Set<Int>)->Unit)? = null
+	var onSelect: ((position: Int, item: T) -> Unit)? = null
 
-	private val adapter = object : TypedAdapter<T>() {
+	var onMultiSelect: ((indexs: Set<Int>) -> Unit)? = null
+
+	private val adapter = object : IndexFilterAdapter<T>() {
 		override fun bindView(position: Int, itemView: View, parent: ViewGroup, item: T, viewType: Int) {
 			if (multiSelect) {
 				val checkItemView = itemView as CheckItemView
-				val c = indexSet.contains(position)
+				val index = indexOfPosition(position)
+				val c = indexSet.contains(index)
 				checkItemView.isChecked = c
 				onBindItemView(checkItemView.itemView as V, item)
 
@@ -65,16 +72,45 @@ abstract class SelectPage<T, V : View> : TitledPage(), ListViewClickListener {
 		multiSelect = true
 	}
 
-	 override fun onCreateContent(context: Context, contentView: LinearLayout) {
+	fun enableSearch() {
+		enableSearch = true
+	}
+
+	open fun accept(item:T, text:String):Boolean {
+		return JsonUtil.toJson(item)?.toString()?.contains(text) ?: false
+	}
+
+	open fun onFilter(text: String) {
+		if (text.isEmpty()) {
+			adapter.resetFilter()
+		} else {
+			adapter.setFilter {
+				accept(it, text)
+			}
+		}
+	}
+
+	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		titleBar.showBack()
 		titleBar.title = title
 
 		listView = context.createListView()
-		listView.isVerticalScrollBarEnabled = true
-		listView.isScrollbarFadingEnabled = true
+		if (enableSearch) {
+			val ll = createLinearVertical()
+			val edit = createEditTextX().styleSearch()
+			searchEdit = edit
+			ll.addView(edit) {
+				widthFill().heightEditSearch().margins(Space.Normal, Space.Tiny, Space.Normal, Space.Tiny)
+			}
+			listView.addHeaderView(ll)
+			edit.onTextChanged {
+				onFilter(it)
+			}
+		}
+
 		adapter.setItems(items)
 		listView.adapter = adapter
-		contentView.addViewParam(listView){
+		contentView.addViewParam(listView) {
 			widthFill().heightDp(0).weight(1)
 		}
 
@@ -133,20 +169,21 @@ abstract class SelectPage<T, V : View> : TitledPage(), ListViewClickListener {
 	}
 
 	override fun onItemClickAdapter(listView: ListView, view: View, position: Int) {
+		val index = adapter.indexOfPosition(position)
 		if (multiSelect) {
 			val checkItemView = view as CheckItemView
 			checkItemView.toggle()
 			val c = checkItemView.isChecked
 			if (c) {
-				indexSet.add(position)
+				indexSet.add(index)
 			} else {
-				indexSet.remove(position)
+				indexSet.remove(index)
 			}
 			checkSellAllState()
 		} else {
 			val item = adapter.getItem(position)
 			finish()
-			onSelect?.invoke(position, item)
+			onSelect?.invoke(index, item)
 		}
 	}
 
