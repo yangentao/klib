@@ -1,5 +1,6 @@
 package net.yet.ui.widget
 
+import net.yet.R
 import net.yet.util.Util
 import java.util.*
 
@@ -33,14 +34,45 @@ interface IActionGroup {
 	}
 
 	fun findTag(tag: String): Action? {
-		return find() { it.isTag(tag) }
+		return find { it.isTag(tag) }
 	}
 
-	fun addMenu(): Action {
-		val menuAction = Action(Action.MENU).icon("menu")
+	fun findMenuAction(): Action {
+		for (a in allActions) {
+			if (a.isTag(Action.MENU)) {
+				return a
+			}
+		}
+		val menuAction = Action(Action.MENU).icon(R.drawable.menu)
 		add(menuAction)
 		return menuAction
 	}
+
+	fun addMenuItem(labelTag: String): Action {
+		val m = findMenuAction()
+		return m.addAction(labelTag)
+	}
+
+	fun addMenuItem(action: Action): Action {
+		val m = findMenuAction()
+		m.add(action)
+		return action
+	}
+
+	fun addMenuItems(vararg labelTags: String) {
+		val m = findMenuAction()
+		for (s in labelTags) {
+			m.addAction(s)
+		}
+	}
+
+	fun addMenuItems(vararg actions: Action) {
+		val m = findMenuAction()
+		for (a in actions) {
+			m.add(a)
+		}
+	}
+
 
 	fun addAction(labelTag: String): Action {
 		val a = Action(labelTag)

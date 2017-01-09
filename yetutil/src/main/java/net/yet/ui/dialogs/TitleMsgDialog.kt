@@ -78,7 +78,7 @@ abstract class TitleMsgDialog {
 
 	protected fun createView(context: Context): View {
 		val ll = context.createLinearVertical()
-		ll.padding(22, 10, 22, 10)
+		ll.padding(0)
 		ll.divider()
 		if (title != null) {
 			val textView = context.createTextViewA()
@@ -90,7 +90,7 @@ abstract class TitleMsgDialog {
 		if (msg != null) {
 			val msgView = context.createTextViewA()
 			msgView.setText(msg)
-			val vw = msgView.textColorMajor().padding(15, 0, 15, 0).gravityCenter()
+			val vw = msgView.textColorMajor().padding(15, 10, 15, 10).gravityCenter()
 			vw.miniHeightDp(80)
 			if (title == null) {
 				vw.backDrawable(RectDrawable(Colors.WHITE).corners(CORNER, CORNER, 0, 0).value)

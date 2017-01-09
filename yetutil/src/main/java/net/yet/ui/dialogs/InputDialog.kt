@@ -125,7 +125,7 @@ class InputDialog {
 
 	private fun createView(context: Context): View {
 		val ll = context.createLinearVertical()
-		ll.padding(22, 10, 22, 10)
+		ll.padding(0)
 		ll.divider()
 		if (title != null) {
 			val textView = context.createTextViewA()
