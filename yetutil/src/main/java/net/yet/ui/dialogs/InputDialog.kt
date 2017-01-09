@@ -245,7 +245,6 @@ class InputDialog {
 		val p = dlg.window?.attributes!!
 		p.widthFill()
 		p.heightWrap()
-		p.horizontalMargin = App.dp2px(30).toFloat()
 		dlg.setOnDismissListener { this@InputDialog.onDismiss() }
 		onConfigDialog(dlg)
 		dlg.show()
