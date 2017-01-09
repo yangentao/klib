@@ -1,11 +1,12 @@
 package net.yet.ui.dialogs
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.View
+import android.view.Window
 import net.yet.theme.Colors
 import net.yet.theme.InputSize
 import net.yet.theme.Str
@@ -13,12 +14,13 @@ import net.yet.ui.ext.*
 import net.yet.ui.util.RectDrawable
 import net.yet.util.app.App
 
-abstract class TitleMsgDialog {
+open class MyDialog {
 	var CORNER = InputSize.DialogCorner
 	var TITLE_HEIGHT = 45
 	var OK_COLOR = Colors.GreenMajor
+	var MARGIN_HOR = 25
 
-	private var alertDialog: AlertDialog? = null
+	private var alertDialog: Dialog? = null
 	var title: String? = null
 	var msg: String? = null
 	var midButtonText: String? = null
@@ -26,7 +28,7 @@ abstract class TitleMsgDialog {
 	var cancelButtonText: String? = Str.CANCEL
 
 
-	var onConfigDialog: (AlertDialog) -> Unit = {}
+	var onConfigDialog: (Dialog) -> Unit = {}
 
 
 	var onDismiss: () -> Unit = {}
@@ -39,38 +41,38 @@ abstract class TitleMsgDialog {
 	var argN = 0
 
 
-	fun safe(): TitleMsgDialog {
+	fun safe(): MyDialog {
 		this.OK_COLOR = Colors.GreenMajor
 		return this
 	}
 
-	fun risk(): TitleMsgDialog {
+	fun risk(): MyDialog {
 		this.OK_COLOR = Colors.Risk
 		return this
 	}
 
 
-	fun title(title: String?): TitleMsgDialog {
+	fun title(title: String?): MyDialog {
 		this.title = title
 		return this
 	}
 
-	fun msg(msg: String?): TitleMsgDialog {
+	fun msg(msg: String?): MyDialog {
 		this.msg = msg
 		return this
 	}
 
-	fun ok(text: String?): TitleMsgDialog {
+	fun ok(text: String?): MyDialog {
 		this.okButtonText = text
 		return this
 	}
 
-	fun cancel(text: String?): TitleMsgDialog {
+	fun cancel(text: String?): MyDialog {
 		this.cancelButtonText = text
 		return this
 	}
 
-	fun mid(text: String?): TitleMsgDialog {
+	fun mid(text: String?): MyDialog {
 		this.midButtonText = text
 		return this
 	}
@@ -171,15 +173,24 @@ abstract class TitleMsgDialog {
 		show(context)
 	}
 
-	fun show(context: Context): AlertDialog {
-		val builder = AlertDialog.Builder(context)
-		builder.setView(createView(context))
-		builder.setCancelable(true)
-		val dlg = builder.create()
+	fun show(context: Context): Dialog {
+		val dlg = Dialog(context)
 		alertDialog = dlg
+		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+		val view = createView(context)
+		val rootLayout = context.createRelativeLayout()
+		rootLayout.addViewParam(view) {
+			widthFill().heightWrap().margins(MARGIN_HOR, 0, MARGIN_HOR, 0).centerInParent()
+		}
+		dlg.setContentView(rootLayout)
+		dlg.setCancelable(true)
 		dlg.setCanceledOnTouchOutside(true)
 		dlg.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-		dlg.setOnDismissListener { this@TitleMsgDialog.onDismiss() }
+		val p = dlg.window?.attributes!!
+		p.widthFill()
+		p.heightWrap()
+		p.horizontalMargin = App.dp2px(30).toFloat()
+		dlg.setOnDismissListener { this@MyDialog.onDismiss() }
 		onConfigDialog(dlg)
 		dlg.show()
 		return dlg
@@ -190,7 +201,7 @@ abstract class TitleMsgDialog {
 		d?.dismiss()
 	}
 
-	fun gravityTop(dlg: AlertDialog, yMargin: Int) {
+	fun gravityTop(dlg: Dialog, yMargin: Int) {
 		val lp = dlg.window?.attributes
 		if (lp != null) {
 			lp.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL

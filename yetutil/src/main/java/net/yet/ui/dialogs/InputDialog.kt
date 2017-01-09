@@ -1,12 +1,13 @@
 package net.yet.ui.dialogs
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.InputType
 import android.view.Gravity
 import android.view.View
+import android.view.Window
 import android.widget.EditText
 import net.yet.theme.Colors
 import net.yet.theme.InputSize
@@ -18,8 +19,9 @@ class InputDialog {
 	var CORNER = InputSize.DialogCorner
 	var TITLE_HEIGHT = 45
 	var OK_COLOR = Colors.GreenMajor
+	var MARGIN_HOR = 25
 
-	private var alertDialog: AlertDialog? = null
+	private var alertDialog: Dialog? = null
 	var title: String? = null
 	var text: String? = null
 	var hint: String? = null
@@ -227,17 +229,27 @@ class InputDialog {
 		show(context)
 	}
 
-	fun show(context: Context): AlertDialog {
-		val builder = AlertDialog.Builder(context)
-		builder.setView(createView(context))
-		builder.setCancelable(true)
-		val dlg = builder.create()
+	fun show(context: Context): Dialog {
+		val dlg = Dialog(context)
 		alertDialog = dlg
+		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+		val view = createView(context)
+		val rootLayout = context.createRelativeLayout()
+		rootLayout.addViewParam(view) {
+			widthFill().heightWrap().margins(MARGIN_HOR, 0, MARGIN_HOR, 0).centerInParent()
+		}
+		dlg.setContentView(rootLayout)
+		dlg.setCancelable(true)
 		dlg.setCanceledOnTouchOutside(true)
 		dlg.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+		val p = dlg.window?.attributes!!
+		p.widthFill()
+		p.heightWrap()
+		p.horizontalMargin = App.dp2px(30).toFloat()
 		dlg.setOnDismissListener { this@InputDialog.onDismiss() }
 		onConfigDialog(dlg)
 		dlg.show()
+
 		return dlg
 	}
 
@@ -245,7 +257,7 @@ class InputDialog {
 		alertDialog?.dismiss()
 	}
 
-	fun gravityTop(dlg: AlertDialog, yMargin: Int) {
+	fun gravityTop(dlg: Dialog, yMargin: Int) {
 		val lp = dlg.window!!.attributes
 		if (lp != null) {
 			lp.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
@@ -254,7 +266,7 @@ class InputDialog {
 		}
 	}
 
-	var onConfigDialog: (AlertDialog) -> Unit = {}
+	var onConfigDialog: (Dialog) -> Unit = {}
 	var onDismiss: () -> Unit = {}
 	var onCancel: () -> Unit = {}
 	var onMid: () -> Unit = {}

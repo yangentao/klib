@@ -6,7 +6,7 @@ import net.yet.theme.Str
  * Created by entaoyang@163.com on 2017-01-04.
  */
 
-class ConfirmDialog : TitleMsgDialog() {
+class ConfirmDialog : MyDialog() {
 	init {
 		risk().ok(Str.OK).cancel(Str.CANCEL)
 	}
