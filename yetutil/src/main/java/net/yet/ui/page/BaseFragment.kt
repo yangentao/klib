@@ -93,9 +93,9 @@ open class BaseFragment : Fragment(), MsgListener {
 		dlg.show(activity, title, msg)
 	}
 
-	fun alert(title: String) {
+	fun alert(msg: String) {
 		val dlg = OKDialog()
-		dlg.show(activity, title, null)
+		dlg.show(activity, msg)
 	}
 
 	fun itemSelectN(items: Collection<String>, block: (Int) -> Unit) {

@@ -2,7 +2,6 @@ package net.yet.yetlibdemo
 
 import android.content.Context
 import android.widget.LinearLayout
-import net.yet.ui.dialogs.InputDialog
 import net.yet.ui.page.TitledPage
 
 /**
@@ -23,22 +22,7 @@ class MainPage : TitledPage() {
 	}
 
 	fun test() {
-		val dlg = InputDialog()
-		dlg.onOK = {
-			toast(it)
-		}
-		dlg.inputTypeNumber()
-		dlg.show(activity, "Title", "EntaoYang")
-
-
-//		val dlg = MyDialog()
-//		dlg.title("Title").msg("Message")
-//		dlg.ok("OK")
-//		dlg.show(activity)
-
-//		confirm("Title", "Message ? ", "OK", "Cancel") {
-//			toast("OK")
-//		}
+		alert("Title", "Hello")
 
 	}
 

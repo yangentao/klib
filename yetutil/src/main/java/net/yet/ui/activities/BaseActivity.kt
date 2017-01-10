@@ -126,9 +126,9 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 		dlg.show(this, title, msg)
 	}
 
-	fun alert(title: String) {
+	fun alert(msg: String) {
 		val dlg = OKDialog()
-		dlg.show(this, title, null)
+		dlg.show(this, msg)
 	}
 
 

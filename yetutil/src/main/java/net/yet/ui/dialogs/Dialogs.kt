@@ -1,6 +1,6 @@
 package net.yet.ui.dialogs
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.view.Gravity
 import net.yet.R
 import net.yet.ui.ext.dp
@@ -12,14 +12,19 @@ import net.yet.ui.res.Res
  */
 
 
-fun AlertDialog.gravityTop(margin: Int): AlertDialog {
+fun Dialog.gravityCenter(): Dialog {
+	val lp = this.window.attributes
+	lp.gravity = Gravity.CENTER
+	return this
+}
+fun Dialog.gravityTop(margin: Int = 0): Dialog {
 	val lp = this.window.attributes
 	lp.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
 	lp.y = dp(margin)
 	return this
 }
 
-fun AlertDialog.gravityBottom(margin: Int): AlertDialog {
+fun Dialog.gravityBottom(margin: Int = 0): Dialog {
 	val lp = this.window.attributes
 	lp.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
 	lp.y = dp(margin)
@@ -27,28 +32,20 @@ fun AlertDialog.gravityBottom(margin: Int): AlertDialog {
 }
 
 
-fun BaseFragment.showAlert(title: String, msg: String? = null, okText: String = Res.str(R.string.ok)): OKDialog {
+fun BaseFragment.showAlert(msg: String, okText: String = Res.str(R.string.ok)): OKDialog {
 	val dlg = OKDialog()
 	dlg.ok(okText)
-	dlg.show(activity, title, msg)
+	dlg.show(activity, msg)
 	return dlg
 }
 
-fun BaseFragment.showAlert(title: String, msg: String?, okText: String = Res.str(R.string.ok), block: () -> Unit): OKDialog {
-	val dlg = OKDialog()
-	dlg.onOK = block
-	dlg.ok(okText)
-	dlg.show(activity, title, msg)
-	return dlg
-}
-
-fun BaseFragment.showConfirm(title: String, msg: String? = null, block: () -> Unit) {
+fun BaseFragment.showConfirm(title: String?, msg: String, block: () -> Unit) {
 	val dlg = ConfirmDialog()
 	dlg.onOK = block
 	dlg.show(activity, title, msg)
 }
 
-fun BaseFragment.confirm(title: String?, msg: String?, okText: String? = null, cancelText: String? = null, block: () -> Unit) {
+fun BaseFragment.confirm(title: String?, msg: String, okText: String? = null, cancelText: String? = null, block: () -> Unit) {
 	val dlg = ConfirmDialog()
 	if (okText != null) {
 		dlg.ok(okText)
