@@ -6,19 +6,22 @@ import android.os.Build
 /**
  * Created by entaoyang@163.com on 2016-11-17.
  */
-//6.0之前返回false,
-fun hasPerm(p: String): Boolean {
+fun hasPerm(p: String, before60: Boolean): Boolean {
 	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 		return PackageManager.PERMISSION_GRANTED == App.get().checkSelfPermission(p)
 	}
-	return false
+	return before60
 }
 
-fun hasPerms(ls: Collection<String>): Boolean {
-	ls.forEach { s ->
-		if (!hasPerm(s)) {
-			return false
+fun hasPerms(ls: Collection<String>, before60: Boolean): Boolean {
+	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+		ls.forEach { s ->
+			val b = PackageManager.PERMISSION_GRANTED == App.get().checkSelfPermission(s)
+			if (!b) {
+				return false
+			}
 		}
+		return true
 	}
-	return true
+	return before60
 }

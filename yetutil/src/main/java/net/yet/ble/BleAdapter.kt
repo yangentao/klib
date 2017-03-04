@@ -46,7 +46,7 @@ object BleAdapter {
 	}
 
 	fun checkPerms(context: Activity): Boolean {
-		return hasPerms(blePermSet)
+		return hasPerms(blePermSet, false)
 	}
 
 	fun enable(context: Activity) {
@@ -76,7 +76,7 @@ object BleAdapter {
 
 	fun checkExample() {
 		if (OS.GE60) {
-			if (!hasPerms(blePermSet)) {
+			if (!hasPerms(blePermSet, false)) {
 				toast(BleStr.NeedPerms)
 				return
 			}
