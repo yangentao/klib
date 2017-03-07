@@ -236,7 +236,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 				onTitleClick(title ?: "")
 			}
 			if (titleStyleDropdown) {
-				val drop = Res.drawable(R.drawable.dropdown).size(15, 15)
+				val drop = Res.drawable(R.drawable.yet_dropdown).size(15, 15)
 				titleView.setCompoundDrawables(null, null, drop, null)
 				titleView.compoundDrawablePadding = dp(5)
 			}
@@ -357,7 +357,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	}
 
 	fun showBack(): TitleBar {
-		setNavAction(Action(BACK_TAG).icon(R.drawable.back))
+		setNavAction(Action(BACK_TAG).icon(R.drawable.yet_back))
 		return this
 	}
 

@@ -32,7 +32,7 @@ fun Dialog.gravityBottom(margin: Int = 0): Dialog {
 }
 
 
-fun BaseFragment.showAlert(msg: String, okText: String = Res.str(R.string.ok)): OKDialog {
+fun BaseFragment.showAlert(msg: String, okText: String = Res.str(R.string.yet_ok)): OKDialog {
 	val dlg = OKDialog()
 	dlg.ok(okText)
 	dlg.show(activity, msg)

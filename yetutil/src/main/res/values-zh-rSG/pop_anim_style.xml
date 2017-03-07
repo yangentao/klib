@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="pop_anim_style_right_in_right_out">
-        <item name="android:windowEnterAnimation">@anim/libui_slide_in_right</item>
-        <item name="android:windowExitAnimation">@anim/libui_slide_out_right</item>
-    </style>
-</resources>

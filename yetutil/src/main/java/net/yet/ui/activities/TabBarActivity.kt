@@ -18,7 +18,7 @@ import java.util.*
  * Created by entaoyang@163.com on 16/3/13.
  */
 
-open class TabBarContainerActivity : BaseActivity() {
+open class TabBarActivity : BaseActivity() {
 	var rootView: LinearLayout? = null
 		private set
 	var containerView: FrameLayout? = null
@@ -52,15 +52,15 @@ open class TabBarContainerActivity : BaseActivity() {
 		_tabBar = TabBar(this)
 		tabBar.onUnselect = {
 			b, a ->
-			this@TabBarContainerActivity.onXTabBarUnselect(b, a)
+			this@TabBarActivity.onXTabBarUnselect(b, a)
 		}
 		tabBar.onSelect = {
 			b, a ->
-			this@TabBarContainerActivity.onXTabBarSelect(b, a)
+			this@TabBarActivity.onXTabBarSelect(b, a)
 		}
 		tabBar.onReselect = {
 			b, a ->
-			this@TabBarContainerActivity.onXTabBarReselect(b, a)
+			this@TabBarActivity.onXTabBarReselect(b, a)
 		}
 		rootView!!.addView(tabBar)
 	}

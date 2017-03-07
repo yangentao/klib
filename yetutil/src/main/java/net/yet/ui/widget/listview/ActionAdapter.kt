@@ -13,8 +13,8 @@ abstract class ActionAdapter<T> : XBaseAdapter<T>() {
 	private val actionPress = Colors.Fade
 
 	private val clickListener = View.OnClickListener { v ->
-		val position = v.getTag(R.id.adapter_position) as Int
-		val index = v.getTag(R.id.adapter_action_index) as Int
+		val position = v.getTag(R.id.yet_adapter_position) as Int
+		val index = v.getTag(R.id.yet_adapter_action_index) as Int
 		onItemAction(position, index, getItem(position))
 	}
 
@@ -32,12 +32,12 @@ abstract class ActionAdapter<T> : XBaseAdapter<T>() {
 			}
 		}
 		bindView(position, v, parent, getItem(position), type)
-		v.setTag(R.id.adapter_position, position)
+		v.setTag(R.id.yet_adapter_position, position)
 		if (v is ActionItemView) {
 			for (i in 0..v.actionCount - 1) {
 				val v = v.getActionView(i)
-				v.setTag(R.id.adapter_position, position)
-				v.setTag(R.id.adapter_action_index, i)
+				v.setTag(R.id.yet_adapter_position, position)
+				v.setTag(R.id.yet_adapter_action_index, i)
 			}
 		}
 		return v

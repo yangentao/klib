@@ -43,7 +43,7 @@ interface IActionGroup {
 				return a
 			}
 		}
-		val menuAction = Action(Action.MENU).icon(R.drawable.menu)
+		val menuAction = Action(Action.MENU).icon(R.drawable.yet_menu)
 		add(menuAction)
 		return menuAction
 	}

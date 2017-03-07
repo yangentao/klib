@@ -13,12 +13,12 @@
 
     <application>
         <activity
-            android:name=".ui.activities.ContainerActivity"
+            android:name=".ui.activities.PageActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize|locale|fontScale|layoutDirection|screenLayout"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".ui.activities.TabBarContainerActivity"
+            android:name=".ui.activities.TabBarActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize|locale|fontScale|layoutDirection|screenLayout"
             android:windowSoftInputMode="adjustPan"/>

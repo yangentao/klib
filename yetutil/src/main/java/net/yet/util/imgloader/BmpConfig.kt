@@ -12,9 +12,9 @@ class BmpConfig {
 	var maxSize: Int = BmpSize.MID
 	var quility: Bitmap.Config = Bitmap.Config.RGB_565
 	//加载失败的图片
-	var failedResId: Int = R.drawable.image_miss
+	var failedResId: Int = R.drawable.yet_image_miss
 	//默认的图片, 下载前
-	var defaultResId: Int = R.drawable.image_miss
+	var defaultResId: Int = R.drawable.yet_image_miss
 
 	var forceDownload: Boolean = false
 

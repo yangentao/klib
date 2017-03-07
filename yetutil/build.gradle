@@ -9,6 +9,8 @@ android {
     compileSdkVersion 24
     buildToolsVersion "25.0.0"
 
+    resourcePrefix "yet"
+
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'

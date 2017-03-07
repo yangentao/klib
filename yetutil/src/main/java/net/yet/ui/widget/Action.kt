@@ -261,7 +261,7 @@ class Action(val tag: String) {
 	}
 
 	fun more(arrow: Boolean = true): Action {
-		this.subIcon = if (arrow) Img.res(net.yet.R.drawable.arrow_right) else null
+		this.subIcon = if (arrow) Img.res(net.yet.R.drawable.yet_arrow_right) else null
 		return this
 	}
 

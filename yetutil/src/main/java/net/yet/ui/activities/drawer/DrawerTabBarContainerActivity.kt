@@ -60,7 +60,7 @@ class DrawerTabBarContainerActivity : BaseActivity() {
 		this.setContentView(drawerLayout)
 
 		val toggle = ActionBarDrawerToggle(
-				this, drawerLayout, net.yet.R.string.navigation_drawer_open, net.yet.R.string.navigation_drawer_close)
+				this, drawerLayout, net.yet.R.string.yet_navigation_drawer_open, net.yet.R.string.yet_navigation_drawer_close)
 		drawerLayout.setDrawerListener(toggle)
 		toggle.syncState()
 		containerView = createFrameLayout()

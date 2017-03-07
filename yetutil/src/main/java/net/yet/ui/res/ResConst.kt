@@ -17,19 +17,19 @@ import net.yet.ui.widget.EditTextX
 object ResConst {
 
 	fun editClear(): Drawable {
-		return Res.image(R.drawable.edit_clear).size(EditTextX.IMAGE_WIDTH)
+		return Res.image(R.drawable.yet_edit_clear).size(EditTextX.IMAGE_WIDTH)
 	}
 
 	fun back(): Drawable {
-		return Res.drawable(R.drawable.back).size(IconSize.Normal)
+		return Res.drawable(R.drawable.yet_back).size(IconSize.Normal)
 	}
 
 	fun arrowRight(): Drawable {
-		return Res.drawable(R.drawable.arrow_right).size(IconSize.Tiny)
+		return Res.drawable(R.drawable.yet_arrow_right).size(IconSize.Tiny)
 	}
 
 	fun checkbox(): Drawable {
-		return ImageStated(Res.drawable(R.drawable.checkbox)).checked(Res.drawable(R.drawable.checkbox_checked)).value.size(15)
+		return ImageStated(Res.drawable(R.drawable.yet_checkbox)).checked(Res.drawable(R.drawable.yet_checkbox_checked)).value.size(15)
 	}
 
 	fun redPoint(): Drawable {

@@ -24,7 +24,7 @@ import net.yet.file.SdAppFile
 import net.yet.theme.Str
 import net.yet.ui.activities.AnimConf
 import net.yet.ui.activities.PageUtil
-import net.yet.ui.activities.TabBarContainerActivity
+import net.yet.ui.activities.TabBarActivity
 import net.yet.ui.dialogs.HorProgressDlg
 import net.yet.ui.dialogs.OKDialog
 import net.yet.ui.dialogs.SpinProgressDlg
@@ -304,8 +304,8 @@ open class BaseFragment : Fragment(), MsgListener {
 
 	val tabBar: TabBar?
 		get() {
-			if (activity is TabBarContainerActivity) {
-				return (activity as TabBarContainerActivity).tabBar
+			if (activity is TabBarActivity) {
+				return (activity as TabBarActivity).tabBar
 			}
 			return null
 		}

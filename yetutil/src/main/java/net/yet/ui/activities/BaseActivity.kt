@@ -152,7 +152,7 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
-		this.setTheme(net.yet.R.style.LibTheme_NoActionBar)
+		this.setTheme(net.yet.R.style.yetTheme_NoActionBar)
 		requestWindowFeature(Window.FEATURE_NO_TITLE)
 		xlog.dTag("yet", "onCreate:", this.toString())
 		super.onCreate(savedInstanceState)

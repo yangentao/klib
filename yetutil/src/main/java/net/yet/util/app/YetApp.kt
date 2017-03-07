@@ -11,7 +11,7 @@ import net.yet.util.log.xlog
 open class YetApp : Application(), AppVisibleListener {
 
 	override fun onCreate() {
-		this.setTheme(net.yet.R.style.LibTheme)
+		this.setTheme(net.yet.R.style.yetTheme)
 		super.onCreate()
 		App.init(this)
 		if (OS.HUAWEI) {

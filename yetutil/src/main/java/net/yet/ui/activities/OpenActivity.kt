@@ -31,7 +31,7 @@ object OpenActivity {
 			n = n.removeBits(Intent.FLAG_ACTIVITY_SINGLE_TOP)
 		}
 
-		val intent = Intent(context, ContainerActivity::class.java)
+		val intent = Intent(context, PageActivity::class.java)
 		if (n != 0) {
 			intent.flags = n
 		}

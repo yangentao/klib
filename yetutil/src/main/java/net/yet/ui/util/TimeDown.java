@@ -47,7 +47,7 @@ public class TimeDown {
 					TextView v = map.get(name);
 					if (v != null) {
 						String s = "" + leftTimes;
-						s += Res.str(R.string.retrive_again);
+						s += Res.str(R.string.yet_retrive_again);
 						v.setText(s);
 					}
 					return true;
@@ -58,7 +58,7 @@ public class TimeDown {
 					TextView v = map.get(name);
 					if (v != null) {
 						v.setEnabled(true);
-						v.setText(Res.str(R.string.retrive));
+						v.setText(Res.str(R.string.yet_retrive));
 					}
 				}
 			});

@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
@@ -809,9 +808,6 @@ public class Util {
 		return activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI;
 	}
 
-	public static WifiManager getWifiManager() {
-		return (WifiManager) App.get().getSystemService(Context.WIFI_SERVICE);
-	}
 
 	public static ConnectivityManager getConnMgr() {
 		return (ConnectivityManager) App.get().getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -67,7 +67,7 @@ open class TextDetailView(context: Context) : HorItemView(context) {
 	}
 
 	fun rightImageMore() {
-		val d = Res.drawable(R.drawable.back).size(25)
+		val d = Res.drawable(R.drawable.yet_back).size(25)
 		setRightImage(d)
 	}
 }

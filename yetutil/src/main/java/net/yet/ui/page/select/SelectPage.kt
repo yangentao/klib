@@ -117,7 +117,7 @@ abstract class SelectPage<T, V : View> : TitledPage(), ListViewClickListener {
 		ListViewUtil.addClick(listView, this)
 
 		if (multiSelect) {
-			selAllAction = titleBar.addAction(Str.SEL_ALL).icon(R.drawable.sel_all)
+			selAllAction = titleBar.addAction(Str.SEL_ALL).icon(R.drawable.yet_sel_all)
 			doneAction = titleBar.addAction(Str.DONE)
 		}
 	}
@@ -154,9 +154,9 @@ abstract class SelectPage<T, V : View> : TitledPage(), ListViewClickListener {
 	private fun checkSellAllState() {
 		if (multiSelect) {
 			if (items.size == indexSet.size) {
-				selAllAction?.icon(R.drawable.sel_all2)
+				selAllAction?.icon(R.drawable.yet_sel_all2)
 			} else {
-				selAllAction?.icon(R.drawable.sel_all)
+				selAllAction?.icon(R.drawable.yet_sel_all)
 			}
 			val n = indexSet.size
 			if (n == 0) {

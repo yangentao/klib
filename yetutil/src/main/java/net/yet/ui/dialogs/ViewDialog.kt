@@ -10,8 +10,8 @@ import net.yet.ui.res.Res
 abstract class ViewDialog {
 	var isOK = false
 		private set
-	var okText = Res.str(R.string.ok)
-	var cancelText = Res.str(R.string.cancel)
+	var okText = Res.str(R.string.yet_ok)
+	var cancelText = Res.str(R.string.yet_cancel)
 
 
 	fun show(context: Context, view: View, title: String?) {

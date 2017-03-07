@@ -28,7 +28,7 @@ class MainPage : TitledPage() {
 	}
 
 	fun test() {
-		test1 { log(it) }
+		alert("Helo")
 
 	}
 

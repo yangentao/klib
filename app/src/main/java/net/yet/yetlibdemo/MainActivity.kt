@@ -1,9 +1,9 @@
 package net.yet.yetlibdemo
 
-import net.yet.ui.activities.ContainerActivity
+import net.yet.ui.activities.PageActivity
 import net.yet.ui.page.BaseFragment
 
-class MainActivity : ContainerActivity() {
+class MainActivity : PageActivity() {
 
 
 	override fun getInitPage(): BaseFragment? {

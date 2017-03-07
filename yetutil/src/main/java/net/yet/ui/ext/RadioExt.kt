@@ -14,7 +14,7 @@ import net.yet.ui.res.Res
 
 // IMAGE--Title------CHECK
 fun <T : RadioButton> T.styleImageTextCheckRes(leftRes: Int): T {
-	return this.styleImageTextCheckRes(leftRes, R.drawable.checkbox, R.drawable.checkbox_checked)
+	return this.styleImageTextCheckRes(leftRes, R.drawable.yet_checkbox, R.drawable.yet_checkbox_checked)
 }
 
 fun <T : RadioButton> T.styleImageTextCheckRes(leftRes: Int, rightNormal: Int, rightChecked: Int): T {
@@ -26,7 +26,7 @@ fun <T : RadioButton> T.styleImageTextCheckRes(leftRes: Int, rightNormal: Int, r
 }
 
 fun <T : RadioButton> T.styleImageTextCheck(leftDraw: Drawable?): T {
-	return styleImageTextCheck(leftDraw, Res.drawable(R.drawable.checkbox), Res.drawable(R.drawable.checkbox_checked))
+	return styleImageTextCheck(leftDraw, Res.drawable(R.drawable.yet_checkbox), Res.drawable(R.drawable.yet_checkbox_checked))
 }
 
 fun <T : RadioButton> T.styleImageTextCheck(leftDraw: Drawable?, rightNormal: Drawable, rightChecked: Drawable): T {

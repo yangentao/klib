@@ -51,7 +51,7 @@ open class DrawerActivity : BaseActivity() {
 		this.setContentView(drawerLayout)
 
 		val toggle = ActionBarDrawerToggle(
-				this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+				this, drawerLayout, R.string.yet_navigation_drawer_open, R.string.yet_navigation_drawer_close)
 		drawerLayout.setDrawerListener(toggle)
 		toggle.syncState()
 		containerFrameLayout = createFrameLayout()

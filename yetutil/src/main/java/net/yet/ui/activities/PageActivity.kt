@@ -13,7 +13,7 @@ import net.yet.ui.page.BaseFragment
  */
 
 
-open class ContainerActivity : BaseActivity() {
+open class PageActivity : BaseActivity() {
 	lateinit  var rootView: LinearLayout
 	lateinit var fragmentContainerView: FrameLayout
 	var currentFragment: BaseFragment? = null

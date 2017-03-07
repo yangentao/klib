@@ -1,0 +1,25 @@
+<resources>
+    <string name="yet_retrive">獲取驗證碼</string>
+    <string name="yet_retrive_again">秒后再次獲取</string>
+    <string name="yet_setting">設置</string>
+    <string name="yet_ok">確定</string>
+    <string name="yet_cancel">取消</string>
+    <string name="yet_loading">加載中...</string>
+    <string name="yet_remove_confirm">確定要刪除嗎?</string>
+    <string name="yet_phone_input">請輸入手機號</string>
+    <string name="yet_pwd_again">請再次輸入新密碼</string>
+    <string name="yet_pwd_input">請輸入密碼</string>
+    <string name="yet_code_input">請輸入驗證碼</string>
+    <string name="yet_code_request">驗證</string>
+    <string name="yet_phone_input_err">手機號錯誤</string>
+    <string name="yet_done">完成</string>
+    <string name="yet_op_failed">操作失敗</string>
+    <string name="yet_sel_all">全選</string>
+    <string name="yet_sel_none">全不選</string>
+    <string name="yet_op_success">操作成功</string>
+    <string name="yet_contact_select">選擇聯繫人</string>
+    <string name="yet_select">選擇</string>
+    <string name="yet_navigation_drawer_close">CloseDrawer</string>
+    <string name="yet_navigation_drawer_open">OpenDrawer</string>
+    <string name="yet_search">搜索</string>
+</resources>

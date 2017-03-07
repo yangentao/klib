@@ -27,7 +27,7 @@ class ProgressUtil {
 	 * 显示正在加载的进度条
 	 */
 	fun showLoading() {
-		showProgress(Res.str(R.string.loading))
+		showProgress(Res.str(R.string.yet_loading))
 	}
 
 	fun showProgress(msg: String) {

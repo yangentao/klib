@@ -70,7 +70,7 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 		requestItems()
 		setMultiChoiceMode(true)
 
-		DONE = Res.str(R.string.done)
+		DONE = Res.str(R.string.yet_done)
 		titleBar.addAction(DONE)
 
 	}
