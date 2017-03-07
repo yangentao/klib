@@ -10,7 +10,7 @@ import net.yet.ui.widget.TitleBar
  * Created by entaoyang@163.com on 16/4/14.
  */
 
-abstract class TitledActivity() : BaseActivity() {
+abstract class TitledActivity : BaseActivity() {
 	lateinit var rootView: LinearLayout
 	lateinit var titleBar: TitleBar
 

@@ -2,13 +2,13 @@ package net.yet.ui.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
-import net.yet.R
 import net.yet.ui.dialogs.OKDialog
 import net.yet.util.Msg
 import net.yet.util.MsgCenter
@@ -17,7 +17,6 @@ import net.yet.util.app.App
 import net.yet.util.app.OS
 import net.yet.util.event.EventMerge
 import net.yet.util.fore
-import net.yet.util.log.xlog
 import java.util.*
 
 /**
@@ -34,9 +33,9 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 	val denyPermSet = HashSet<String>()
 	private var permCallback: ((Set<String>) -> Unit)? = null
 
-	fun statusBarColor(color:Int){
-		val w  = window ?: return
-		if(OS.GE50) {
+	fun statusBarColor(color: Int) {
+		val w = window ?: return
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			w.statusBarColor = color
 		}
 	}
@@ -44,7 +43,7 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 
 	//6.0之前返回false,
 	fun hasPerm(p: String): Boolean {
-		if (OS.GE60) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			return PackageManager.PERMISSION_GRANTED == checkSelfPermission(p)
 		}
 		return false
@@ -79,7 +78,9 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 		}
 		permCallback = block
 		denyPermSet.addAll(reqPermSet - grantedPermSet)
-		requestPermissions(denyPermSet.toTypedArray(), PERM_CODE)
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			requestPermissions(denyPermSet.toTypedArray(), PERM_CODE)
+		}
 	}
 
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -118,7 +119,6 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 	}
 
 	override fun onMsg(msg: Msg) {
-		xlog.d("Message:", msg)
 	}
 
 	fun alert(title: String, msg: String) {
@@ -130,12 +130,6 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 		val dlg = OKDialog()
 		dlg.show(this, msg)
 	}
-
-
-//    fun openActivity(activityClass: Class<out Activity>) {
-//        startActivity(Intent(this, activityClass))
-//    }
-
 
 	override fun startActivity(intent: Intent) {
 		super.startActivity(intent)
@@ -154,12 +148,10 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		this.setTheme(net.yet.R.style.yetTheme_NoActionBar)
 		requestWindowFeature(Window.FEATURE_NO_TITLE)
-		xlog.dTag("yet", "onCreate:", this.toString())
 		super.onCreate(savedInstanceState)
 	}
 
 	override fun onDestroy() {
-		xlog.dTag("yet", "onDestroy:", this.toString())
 		super.onDestroy()
 		MsgCenter.remove(this)
 		for (m in eventMerges) {
@@ -170,12 +162,10 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 
 
 	override fun onResume() {
-		xlog.dTag("yet", "onResume:", this.toString())
 		super.onResume()
 	}
 
 	override fun onPause() {
-		xlog.dTag("yet", "onPause:", this.toString())
 		super.onPause()
 	}
 
@@ -190,13 +180,11 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 			}
 			Msg(MsgEnterForeground).fireCurrent()
 		}
-		xlog.d("yet", "onStart:", visiableActivityCount, this.toString())
 		_topActivity = this
 		super.onStart()
 	}
 
 	override fun onRestart() {
-		xlog.d("yet", "onRestart:", this.toString())
 		super.onRestart()
 	}
 
@@ -212,7 +200,6 @@ open class BaseActivity : AppCompatActivity(), MsgListener {
 			}
 			Msg(MsgEnterBackground).fireCurrent()
 		}
-		xlog.d("yet", "onStop:", visiableActivityCount, this.toString())
 		super.onStop()
 	}
 

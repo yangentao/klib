@@ -19,17 +19,16 @@ import java.util.*
  */
 
 open class TabBarActivity : BaseActivity() {
-	var rootView: LinearLayout? = null
+	lateinit var rootView: LinearLayout
 		private set
-	var containerView: FrameLayout? = null
+	lateinit var containerView: FrameLayout
 		private set
 	private var fragLayoutId = 0
-	private var _tabBar: TabBar? = null
+	lateinit var tabBar: TabBar
 		private set
-	val tabBar: TabBar get() = _tabBar!!
 	private val pages = HashMap<String, BaseFragment>()
 
-	private var fragmentHelper: FragmentHelper? = null
+	lateinit var fragmentHelper: FragmentHelper
 
 	fun selectTab(tag: String) {
 		tabBar.select(tag)
@@ -37,19 +36,19 @@ open class TabBarActivity : BaseActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_NONE).commit()
+		fragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_NONE).commit()
 		rootView = this.createLinearVertical()
 		this.setContentView(rootView)
 
 		containerView = this.createFrameLayout()
-		rootView!!.addViewParam(containerView!!) {
+		rootView.addViewParam(containerView) {
 			widthFill().heightDp(0).weight(1f)
 		}
-		fragLayoutId = containerView!!.id
+		fragLayoutId = containerView.id
 
-		fragmentHelper = FragmentHelper(getFragmentManager(), fragLayoutId)
+		fragmentHelper = FragmentHelper(fragmentManager, fragLayoutId)
 
-		_tabBar = TabBar(this)
+		tabBar = TabBar(this)
 		tabBar.onUnselect = {
 			b, a ->
 			this@TabBarActivity.onXTabBarUnselect(b, a)
@@ -62,7 +61,7 @@ open class TabBarActivity : BaseActivity() {
 			b, a ->
 			this@TabBarActivity.onXTabBarReselect(b, a)
 		}
-		rootView!!.addView(tabBar)
+		rootView.addView(tabBar)
 	}
 
 	fun addTab(action: Action, page: BaseFragment): Action {
@@ -72,21 +71,18 @@ open class TabBarActivity : BaseActivity() {
 	}
 
 	fun onXTabBarUnselect(bar: TabBar, action: Action) {
-		xlog.d("unselect ", action.tag)
 	}
 
 	fun onXTabBarReselect(bar: TabBar, action: Action) {
-		xlog.d("reselect ", action.tag)
 	}
 
 	fun onXTabBarSelect(bar: TabBar, action: Action) {
-		xlog.d("select ", action.tag)
 		val page = pages[action.tag]
-		fragmentHelper!!.showFragment(page!!, action.tag)
+		fragmentHelper.showFragment(page!!, action.tag)
 	}
 
 	override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-		val currentFragment = fragmentHelper!!.currentBaseFragment
+		val currentFragment = fragmentHelper.currentBaseFragment
 		if (currentFragment != null && currentFragment.onKeyDown(keyCode, event)) {
 			return true
 		}
@@ -94,7 +90,7 @@ open class TabBarActivity : BaseActivity() {
 	}
 
 	override fun finish() {
-		val currentFragment = fragmentHelper!!.currentBaseFragment
+		val currentFragment = fragmentHelper.currentBaseFragment
 		super.finish()
 		if (currentFragment != null) {
 			val ac = currentFragment.activityAnim
@@ -105,7 +101,7 @@ open class TabBarActivity : BaseActivity() {
 	}
 
 	override fun onBackPressed() {
-		val currentFragment = fragmentHelper!!.currentBaseFragment
+		val currentFragment = fragmentHelper.currentBaseFragment
 		if (currentFragment != null) {
 			if (currentFragment.onBackPressed()) {
 				return
