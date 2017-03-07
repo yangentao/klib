@@ -121,7 +121,6 @@ object MsgCenter {
 	}
 
 	@JvmStatic fun fireCurrent(msg: Msg) {
-		log("fireMsg:", msg.msg)
 		var ls2 = ArrayList<MsgListener>()
 		sync(this) {
 			val ls = map[msg.msg]
