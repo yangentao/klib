@@ -1,38 +1,25 @@
 package net.yet.yetlibdemo
 
-import net.yet.sqlite.SQL_TYPE_MAP
-import net.yet.sqlite.fieldNameOf
+import net.yet.sqlite.convert.IntegerDataConvert
+import net.yet.sqlite.isKClass
 import net.yet.util.log.log
-import kotlin.reflect.KMutableProperty
-import kotlin.reflect.jvm.javaType
 
 /**
  * Created by entaoyang@163.com on 2017-03-07.
  */
 
 class Person {
-	var name: String = ""
+	var name: String = "def_name"
 	var age: Int = 0
+	var addr: String? = null
+	var image: ByteArray? = null
 }
 
-class Worker {
-	var name: String = ""
-	var dollary: Int = 0
-}
-
-fun defProp(p: KMutableProperty<*>): String {
-	val name = fieldNameOf(p)
-	val sqlType = SQL_TYPE_MAP[p.returnType.javaType]
-	if (sqlType == null) {
-		return ""
-	} else {
-		return name + " " + sqlType.toString()
-	}
-}
 
 fun testlite() {
-	val s = defProp(Person::name)
-	val s2 = defProp(Person::age)
-	log(s)
-	log(s2)
+	val p = Person()
+	val c = IntegerDataConvert()
+	log(Person::age.returnType.isKClass(Int::class))
+	log(Person::age.returnType.isKClass(Long::class))
+	log(Person::age.returnType.isKClass(Number::class))
 }

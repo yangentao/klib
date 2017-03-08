@@ -1,8 +1,12 @@
 package net.yet.sqlite
 
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import net.yet.ext.len
+import net.yet.orm.SqliteType
+import net.yet.util.closeAfter
 import net.yet.util.database.SafeCursor
+import net.yet.util.log.loge
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty
@@ -13,6 +17,8 @@ import kotlin.reflect.KMutableProperty
 
 
 class KQuery(val db: SQLiteDatabase, val fromKClass: KClass<*>, vararg val otherKCls: KClass<*>) {
+	private val modelInfo = ModelInfo.find(fromKClass)
+
 	private var fromStr: String = ""
 	private var whereStr: String = ""
 	private var orderStr: String = ""
@@ -24,9 +30,10 @@ class KQuery(val db: SQLiteDatabase, val fromKClass: KClass<*>, vararg val other
 	private val args: ArrayList<Any> = ArrayList()
 
 	init {
-		var s = "FROM " + tableNameOf(fromKClass)
+		var s = "FROM " + modelInfo.tableName
 		for (c in otherKCls) {
-			s += "," + tableNameOf(c)
+			val mi = ModelInfo.find(c)
+			s += "," + mi.tableName
 		}
 		fromStr = s
 	}
@@ -155,5 +162,66 @@ class KQuery(val db: SQLiteDatabase, val fromKClass: KClass<*>, vararg val other
 		val argArr = Array<String>(args.size) { args[it].toString() }
 		val c = db.rawQuery(toCountSQL(), argArr) ?: return 0
 		return KCursorResult(c).resultCount()
+	}
+
+	fun <T> one(): T? {
+		limit(1)
+		val c = query()
+		c.closeAfter {
+			if (c.moveToNext()) {
+				return mapRow(c, modelInfo, modelInfo.createInstance()) as T
+			}
+		}
+		return null
+	}
+
+	fun <T> all(): ArrayList<T> {
+		val c = query()
+		val ls = ArrayList<T>(c.count + 8)
+		c.closeAfter {
+			while (c.moveToNext()) {
+				val m = mapRow(c, modelInfo, modelInfo.createInstance())
+				ls.add(m as T)
+			}
+		}
+		return ls
+	}
+
+
+	private fun mapRow(cursor: Cursor, modelInfo: ModelInfo, model: Any): Any {
+		for (name in cursor.columnNames) {
+			val pi = modelInfo.namePropMap[name] ?: continue
+			val convert = pi.convert
+			val index = cursor.getColumnIndex(name)
+			val ctype = cursor.getType(index)
+			if (ctype == Cursor.FIELD_TYPE_NULL) {
+				convert.fromSqlNull(model, pi.prop)
+			} else if (ctype == Cursor.FIELD_TYPE_INTEGER) {
+				if (convert.sqlType == SqliteType.INTEGER) {
+					convert.fromSqlInteger(model, pi.prop, cursor.getLong(index))
+				} else {
+					loge("数据库类型不匹配${pi.name}")
+				}
+			} else if (ctype == Cursor.FIELD_TYPE_STRING) {
+				if (convert.sqlType == SqliteType.TEXT) {
+					convert.fromSqlText(model, pi.prop, cursor.getString(index))
+				} else {
+					loge("数据库类型不匹配${pi.name}")
+				}
+			} else if (ctype == Cursor.FIELD_TYPE_FLOAT) {
+				if (convert.sqlType == SqliteType.REAL) {
+					convert.fromSqlReal(model, pi.prop, cursor.getDouble(index))
+				} else {
+					loge("数据库类型不匹配${pi.name}")
+				}
+			} else if (ctype == Cursor.FIELD_TYPE_BLOB) {
+				if (convert.sqlType == SqliteType.BLOB) {
+					convert.fromSqlBlob(model, pi.prop, cursor.getBlob(index))
+				} else {
+					loge("数据库类型不匹配${pi.name}")
+				}
+			}
+		}
+		return model
 	}
 }

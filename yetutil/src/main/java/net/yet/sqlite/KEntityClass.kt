@@ -1,19 +1,20 @@
 package net.yet.sqlite
 
-import net.yet.util.log.log
-
 /**
  * Created by entaoyang@163.com on 2017-03-07.
  */
 
 
 open class KEntityClass<out T> {
-	val entityCls: Class<*> = javaClass.enclosingClass as Class<T>
+	val modelKClass = javaClass.enclosingClass.kotlin
+	val modelClassJava: Class<*> = javaClass.enclosingClass as Class<T>
 
 	fun findByID(key: String): T? {
-		log("find()")
-		log("enclosingClass: ", javaClass.enclosingClass?.toString())
-		log("declaringClass: ", javaClass.declaringClass?.toString())
+		val session = KSession.current
+		val mi = ModelInfo.find(modelKClass)
+		val pkProp = mi.pkProp ?: return null
+		session.from(modelKClass).where(pkProp EQ key).query()
+
 		return null
 	}
 

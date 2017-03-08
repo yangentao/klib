@@ -1,4 +1,4 @@
-package net.yet.ext
+package net.yet.json
 
 import net.yet.util.MyDate
 import org.json.JSONArray

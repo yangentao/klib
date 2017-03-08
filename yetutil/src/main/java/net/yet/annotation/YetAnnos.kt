@@ -1,5 +1,8 @@
 package net.yet.annotation
 
+import net.yet.sqlite.convert.DataConvert
+import kotlin.reflect.KClass
+
 /**
  * Created by entaoyang@163.com on 2017-03-07.
  */
@@ -57,4 +60,10 @@ annotation class Uniques(vararg val value: String)
 enum class ExcludeFor {
 	ALL, SQL, JSON
 }
+
+
+@Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Convert(val value: KClass<out DataConvert>)
+
 

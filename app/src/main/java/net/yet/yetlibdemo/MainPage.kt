@@ -22,8 +22,6 @@ class MainPage : TitledPage() {
 			test()
 		}
 
-		val a = TagItem("a")
-
 	}
 
 	fun test() {

@@ -1,4 +1,4 @@
-package net.yet.ext
+package net.yet.json
 
 import org.json.JSONArray
 import org.json.JSONObject

@@ -2,7 +2,7 @@ package net.yet.util.app
 
 import android.widget.TextView
 import com.google.gson.JsonArray
-import net.yet.ext.eachObject
+import net.yet.json.eachObject
 import net.yet.ext.optString
 import net.yet.util.*
 import net.yet.util.database.GE

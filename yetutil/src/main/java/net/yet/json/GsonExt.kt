@@ -1,16 +1,18 @@
-package net.yet.ext
+package net.yet.json
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
+import net.yet.util.JsonUtil
 
 /**
- * Created by entaoyang@163.com on 16/5/12.
+ * Created by entaoyang@163.com on 2017-03-08.
  */
 
 
-
 ///==============gson================
+
+
 
 inline fun JsonArray.eachObject(block: (JsonObject) -> Unit) {
 	for (je in this) {
@@ -58,9 +60,10 @@ fun JsonObject.putArray(key: String, value: JsonArray) {
 }
 
 
-fun JsonObject.optString(key: String, failVal:String): String {
+fun JsonObject.optString(key: String, failVal: String): String {
 	return optString(key) ?: failVal
 }
+
 fun JsonObject.optString(key: String): String? {
 	val je = this.get(key)
 	if (je != null) {
@@ -90,6 +93,7 @@ fun JsonObject.optLong(key: String, value: Long = 0): Long {
 	}
 	return value
 }
+
 fun JsonObject.optDouble(key: String, value: Double = 0.0): Double {
 	val je = this.get(key)
 	if (je != null) {
@@ -99,6 +103,7 @@ fun JsonObject.optDouble(key: String, value: Double = 0.0): Double {
 	}
 	return value
 }
+
 fun JsonObject.optBool(key: String, value: Boolean = false): Boolean {
 	val je = this.get(key)
 	if (je != null) {

@@ -1,9 +1,9 @@
 package net.yet.database
 
 import com.google.gson.JsonObject
-import net.yet.ext.JSON
-import net.yet.ext.long
-import net.yet.ext.string
+import net.yet.json.JSON
+import net.yet.json.long
+import net.yet.json.string
 import net.yet.util.JsonUtil
 import net.yet.util.database.DBMap
 import org.json.JSONObject

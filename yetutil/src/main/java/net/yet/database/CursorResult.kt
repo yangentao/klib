@@ -3,10 +3,10 @@ package net.yet.util.database
 import android.database.Cursor
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import net.yet.ext.putDouble
-import net.yet.ext.putLong
-import net.yet.ext.putNull
-import net.yet.ext.putString
+import net.yet.json.putDouble
+import net.yet.json.putLong
+import net.yet.json.putNull
+import net.yet.json.putString
 import net.yet.util.Util
 import net.yet.util.log.xlog
 import java.util.*

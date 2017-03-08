@@ -49,7 +49,6 @@ fun <T> Set<T>?.empty(): Boolean {
 }
 
 
-
 inline fun Cursor?.eachRow(block: (Cursor) -> Unit) {
 	if (this != null) {
 		try {
@@ -245,5 +244,18 @@ fun sleep(ms: Long) {
 	try {
 		Thread.sleep(ms)
 	} catch (ex: Exception) {
+	}
+}
+
+inline fun <T : Closeable> T.closeAfter(block: (T) -> Unit): Unit {
+	try {
+		block(this)
+	} catch (e: Exception) {
+		e.printStackTrace()
+	} finally {
+		try {
+			this.close()
+		} catch (ex: Exception) {
+		}
 	}
 }
