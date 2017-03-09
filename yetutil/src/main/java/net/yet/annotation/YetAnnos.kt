@@ -20,28 +20,28 @@ annotation class Length(val value: Int)
 //是否非空
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class NotNull()
+annotation class NotNull
 
 //是否唯一约束
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Unique()
+annotation class Unique
 
 
 //是否在该列建索引
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Index()
+annotation class Index
 
 //主键
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class PrimaryKey()
+annotation class PrimaryKey
 
 //自增, 仅用于整形主键
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class AutoInc()
+annotation class AutoInc
 
 
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD)
@@ -50,7 +50,7 @@ annotation class Exclude(val value: ExcludeFor = ExcludeFor.ALL)
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class AutoAlterTable()
+annotation class AutoAlterTable(val value: Boolean = true)
 
 //是否唯一约束--联合--用于类
 @Target(AnnotationTarget.CLASS)

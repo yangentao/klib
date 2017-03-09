@@ -1,8 +1,10 @@
 package net.yet.sqlite
 
 import android.database.sqlite.SQLiteDatabase
+import net.yet.database.sqlite.Sqlite
 import net.yet.file.UserFile
 import net.yet.util.app.App
+import net.yet.util.log.xlog
 import java.io.Closeable
 import java.util.*
 import kotlin.reflect.KClass
@@ -13,6 +15,8 @@ import kotlin.reflect.KClass
 
 
 class KSession(val db: SQLiteDatabase) : Closeable {
+	val sqlite = Sqlite(db)
+
 	fun <R> asCurrent(block: () -> R): R {
 		push()
 		try {
@@ -20,7 +24,6 @@ class KSession(val db: SQLiteDatabase) : Closeable {
 		} finally {
 			pop()
 		}
-		this.use { }
 	}
 
 	fun <R> transaction(block: KSession.() -> R): R {
@@ -52,19 +55,65 @@ class KSession(val db: SQLiteDatabase) : Closeable {
 		stack.pop()
 	}
 
-	fun save(model: Any) {
-		TableCreator.check(this, model::class)
+	private fun existPK(mi: ModelInfo, pkValue: Any): Boolean {
+		if (mi.pk != null) {
+			return from(mi.cls).where(mi.pk.prop EQ pkValue.toString()).queryCount() > 0
+		}
+		return false
 	}
 
-	fun insertOrReplace(model: Any, replace: Boolean): Long {
-		TableCreator.check(this, model::class)
+	fun save(model: Any): Int {
 		val mi = ModelInfo.find(model::class)
+		TableCreator.check(db, mi)
+		if (mi.hasPK) {
+			val pkVal = mi.getPKValue(model)
+			if (pkVal != null) {
+				if (existPK(mi, pkVal)) {
+					return updateByPK(model)
+				}
+			}
+			val id = insert(model)
+			return if (id > 0) 1 else 0
+		}
+		val id = replace(model)
+		return if (id > 0) 1 else 0
+
+	}
+
+	fun updateByPK(model: Any): Int {
+		val mi = ModelInfo.find(model::class)
+		TableCreator.check(db, mi)
+		val values = mi.toContentValues(model)
+		if (mi.pk == null) {
+			xlog.e("没有找到主键" + mi.tableName)
+			return 0
+		}
+		val pkValue = values.get(mi.pk.shortName)
+		if (pkValue == null) {
+			xlog.e("主键没有值" + mi.tableName)
+			return 0
+		}
+		values.remove(mi.pk.shortName)
+		return db.update(mi.tableName, values, mi.pk.shortName + "=?", arrayOf(pkValue.toString()))
+	}
+
+	fun insert(model: Any): Long {
+		return insertOrReplace(model, false)
+	}
+
+	fun replace(model: Any): Long {
+		return insertOrReplace(model, true)
+	}
+
+	private fun insertOrReplace(model: Any, replace: Boolean): Long {
+		val mi = ModelInfo.find(model::class)
+		TableCreator.check(db, mi)
 		val values = mi.toContentValues(model)
 		var assignId = false
 		if (mi.pk?.autoInc ?: false) {//整形自增
-			val pkValue = values.get(mi.pk!!.name)
+			val pkValue = values.get(mi.pk!!.shortName)
 			if (pkValue == null || 0 == (pkValue as Number).toInt()) {
-				values.remove(mi.pk!!.name)
+				values.remove(mi.pk.shortName)
 				assignId = true
 			}
 		}
@@ -77,9 +126,9 @@ class KSession(val db: SQLiteDatabase) : Closeable {
 			try {
 				val type = mi.pk!!.prop.returnType
 				if (type.isInt) {
-					mi.pk!!.prop.setter.call(model, id.toInt())
+					mi.pk.prop.setter.call(model, id.toInt())
 				} else if (type.isLong) {
-					mi.pk!!.prop.setter.call(model, id)
+					mi.pk.prop.setter.call(model, id)
 				}
 			} catch (e: IllegalAccessException) {
 				e.printStackTrace()
@@ -91,18 +140,16 @@ class KSession(val db: SQLiteDatabase) : Closeable {
 
 	//Session.named("yang").from(Person::class).where(Person::name EQ "yang").orderBy(Person::name).one()
 	fun from(modelClass: KClass<*>): KQuery {
-		TableCreator.check(this, modelClass)
+		val mi = ModelInfo.find(modelClass)
+		TableCreator.check(db, mi)
 		return KQuery(db, modelClass)
 	}
 
-	fun existTable(name: String): Boolean {
-		val c = db.rawQuery("select count(*) from sqlite_master where type='table' AND name=$name", null) ?: return false
-		return KCursorResult(c).resultCount() > 0
-	}
 
 	override fun close() {
 		db.close()
 	}
+
 
 	companion object {
 		fun named(dbname: String): KSession {

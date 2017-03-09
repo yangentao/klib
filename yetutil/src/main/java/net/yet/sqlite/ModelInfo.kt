@@ -19,7 +19,10 @@ import kotlin.reflect.jvm.javaField
 
 
 class PropInfo(val prop: KMutableProperty<*>, val convert: DataConvert) {
-	val name: String = tableAndFieldNameOf(prop)
+	//table.field
+	val fullName: String = tableAndFieldNameOf(prop)
+	//field
+	val shortName:String = fieldNameOf(prop)
 	val length: Int = prop.findAnnotation<Length>()?.value ?: 0
 	val notNull: Boolean = prop.findAnnotation<NotNull>() != null
 	val unique: Boolean = prop.findAnnotation<Unique>() != null
@@ -29,6 +32,28 @@ class PropInfo(val prop: KMutableProperty<*>, val convert: DataConvert) {
 
 
 	init {
+	}
+
+	fun defineColumn(): String {
+		val sb = StringBuilder(64)
+		sb.append(shortName).append(" ").append(convert.sqlType.toString())
+		if (length > 0) {
+			sb.append("($length) ")
+		}
+		if (isPrimaryKey) {
+			sb.append(" PRIMARY KEY ")
+			if (autoInc) {
+				sb.append(" AUTOINCREMENT ")
+			}
+		} else {
+			if (notNull) {
+				sb.append(" NOT NULL ")
+			}
+			if (unique) {
+				sb.append(" UNIQUE ")
+			}
+		}
+		return sb.toString()
 	}
 
 
@@ -48,31 +73,41 @@ class PropInfo(val prop: KMutableProperty<*>, val convert: DataConvert) {
 }
 
 class ModelInfo(val cls: KClass<*>) {
-	var tableName: String = tableNameOf(cls)
-	var pk: PropInfo? = null
-
-	var allProp = ArrayList<PropInfo>()
-	var namePropMap = HashMap<String, PropInfo>(16)
+	val tableName: String = tableNameOf(cls)
+	val pk: PropInfo?
+	val allProp = ArrayList<PropInfo>()
+	val namePropMap = HashMap<String, PropInfo>(16)
+	val uniques = ArrayList<String>()
+	val autoAlterTable:Boolean
 
 	init {
 		val propList = cls.declaredMemberProperties.filter {
 			acceptProp(it)
 		}.map { it as KMutableProperty<*> }
 
+		val u = cls.findAnnotation<Uniques>()
+		if (u != null) {
+			uniques.addAll(u.value)
+		}
+		val at = cls.findAnnotation<AutoAlterTable>()
+		autoAlterTable = at?.value ?: true
+
+		var findPK = false
 		for (p in propList) {
 			val c = findConvertOf(p)
 			if (c != null) {
 				val pi = PropInfo(p, c)
-				namePropMap[tableAndFieldNameOf(p)] = pi
+				namePropMap[pi.shortName] = pi
 				allProp.add(pi)
 				if (pi.isPrimaryKey) {
-					if (pk != null) {
+					if (findPK) {
 						throw  RuntimeException("multi primay key declared @ ${tableName}")
 					}
-					pk = pi
+					findPK = true
 				}
 			}
 		}
+		pk = allProp.find { it.isPrimaryKey }
 	}
 
 	private fun findConvertOf(p: KMutableProperty<*>): DataConvert? {
@@ -107,40 +142,46 @@ class ModelInfo(val cls: KClass<*>) {
 		return false
 	}
 
-	fun toContentValues(model:Any):ContentValues{
+	val hasPK: Boolean get() = pk != null
+
+	fun getPKValue(model: Any): Any? {
+		return pk?.prop?.getter?.call(model)
+	}
+
+	fun toContentValues(model: Any): ContentValues {
 		val cv = ContentValues(allProp.size + 4)
 		for (pi in allProp) {
 			when (pi.convert.sqlType) {
 				SqliteType.TEXT -> {
 					val v: String? = pi.convert.toSqlText(model, pi.prop)
 					if (v == null) {
-						cv.putNull(pi.name)
+						cv.putNull(pi.shortName)
 					} else {
-						cv.put(pi.name, v)
+						cv.put(pi.shortName, v)
 					}
 				}
 				SqliteType.INTEGER -> {
 					val v: Long? = pi.convert.toSqlInteger(model, pi.prop)
 					if (v == null) {
-						cv.putNull(pi.name)
+						cv.putNull(pi.shortName)
 					} else {
-						cv.put(pi.name, v)
+						cv.put(pi.shortName, v)
 					}
 				}
 				SqliteType.REAL -> {
 					val v: Double? = pi.convert.toSqlReal(model, pi.prop)
 					if (v == null) {
-						cv.putNull(pi.name)
+						cv.putNull(pi.shortName)
 					} else {
-						cv.put(pi.name, v)
+						cv.put(pi.shortName, v)
 					}
 				}
 				SqliteType.BLOB -> {
 					val v: ByteArray? = pi.convert.toSqlBlob(model, pi.prop)
 					if (v == null) {
-						cv.putNull(pi.name)
+						cv.putNull(pi.shortName)
 					} else {
-						cv.put(pi.name, v)
+						cv.put(pi.shortName, v)
 					}
 				}
 			}

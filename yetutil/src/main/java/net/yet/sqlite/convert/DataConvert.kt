@@ -96,8 +96,9 @@ open class TextDataConvert : DataConvert() {
 		} else if (t.isKClass(JSONArray::class)) {
 			val ja = GSON.parseArray(value)
 			property.setter.call(model, ja)
+		} else {
+			throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} cannot assign from String:$value")
 		}
-		throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} cannot assign from String:$value")
 	}
 
 }
@@ -119,8 +120,9 @@ open class IntegerDataConvert : DataConvert() {
 			return v.toLong()
 		} else if (v is Date) {
 			return v.time
+		} else {
+			throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} (value=$v) cannot convert to Long")
 		}
-		throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} (value=$v) cannot convert to Long")
 	}
 
 	override fun fromSqlInteger(model: Any, property: KMutableProperty<*>, value: Long) {
@@ -154,8 +156,9 @@ open class RealDataConvert : DataConvert() {
 			return null
 		} else if (v is Number) {
 			return v.toDouble()
+		} else {
+			throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} (value=$v) cannot convert to Double")
 		}
-		throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} (value=$v) cannot convert to Double")
 	}
 
 	override fun fromSqlReal(model: Any, property: KMutableProperty<*>, value: Double) {
@@ -183,8 +186,9 @@ open class BlobDataConvert : DataConvert() {
 			return null
 		} else if (v is ByteArray) {
 			return v
+		} else {
+			throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} (value=$v) cannot convert to ByteArray")
 		}
-		throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} (value=$v) cannot convert to ByteArray")
 	}
 
 	override fun fromSqlBlob(model: Any, property: KMutableProperty<*>, value: ByteArray) {

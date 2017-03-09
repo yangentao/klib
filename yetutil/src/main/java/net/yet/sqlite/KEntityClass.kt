@@ -12,8 +12,8 @@ open class KEntityClass<out T> {
 	fun findByID(key: String): T? {
 		val session = KSession.current
 		val mi = ModelInfo.find(modelKClass)
-		val pkProp = mi.pkProp ?: return null
-		session.from(modelKClass).where(pkProp EQ key).query()
+		val pk = mi.pk ?: return null
+		session.from(modelKClass).where(pk.prop EQ key).query()
 
 		return null
 	}
