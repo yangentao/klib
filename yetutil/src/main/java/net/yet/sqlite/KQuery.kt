@@ -219,7 +219,7 @@ class KQuery(val db: SQLiteDatabase, val fromKClass: KClass<*>, vararg val other
 	//单表
 	private fun mapRow(cursor: Cursor, model: Any): Any {
 		for (name in cursor.columnNames) {
-			val pi = modelInfo.namePropMap[name] ?: continue
+			val pi = modelInfo.shortNamePropMap[name] ?: continue
 			val convert = pi.convert
 			val index = cursor.getColumnIndex(name)
 			val ctype = cursor.getType(index)

@@ -164,4 +164,9 @@ class Sqlite(val db: SQLiteDatabase) {
 		}
 		return all
 	}
+
+	fun dumpQuery(sql: String, vararg args: String) {
+		val c = db.rawQuery(sql, arrayOf(*args))
+		CursorResult(c).dump()
+	}
 }

@@ -18,11 +18,36 @@ import kotlin.reflect.jvm.javaField
  */
 
 
+fun tableNameOf(c: KClass<*>): String {
+	val a = c.findAnnotation<Name>()
+	if (a != null && a.value.isNotEmpty()) {
+		return a.value
+	}
+	return c.simpleName!!
+}
+
+fun fieldNameOf(p: KMutableProperty<*>): String {
+	val a = p.findAnnotation<Name>()
+	if (a != null && a.value.isNotEmpty()) {
+		return a.value
+	}
+	return p.name
+}
+
+fun tableNameOfField(p: KMutableProperty<*>): String {
+	return tableNameOf(p.javaField!!.declaringClass!!.kotlin)
+}
+
+fun tableAndFieldNameOf(p: KMutableProperty<*>): String {
+	return tableNameOfField(p) + "." + fieldNameOf(p)
+}
+
+
 class PropInfo(val prop: KMutableProperty<*>, val convert: DataConvert) {
 	//table.field
 	val fullName: String = tableAndFieldNameOf(prop)
 	//field
-	val shortName:String = fieldNameOf(prop)
+	val shortName: String = fieldNameOf(prop)
 	val length: Int = prop.findAnnotation<Length>()?.value ?: 0
 	val notNull: Boolean = prop.findAnnotation<NotNull>() != null
 	val unique: Boolean = prop.findAnnotation<Unique>() != null
@@ -76,9 +101,9 @@ class ModelInfo(val cls: KClass<*>) {
 	val tableName: String = tableNameOf(cls)
 	val pk: PropInfo?
 	val allProp = ArrayList<PropInfo>()
-	val namePropMap = HashMap<String, PropInfo>(16)
+	val shortNamePropMap = HashMap<String, PropInfo>(16)
 	val uniques = ArrayList<String>()
-	val autoAlterTable:Boolean
+	val autoAlterTable: Boolean
 
 	init {
 		val propList = cls.declaredMemberProperties.filter {
@@ -97,7 +122,7 @@ class ModelInfo(val cls: KClass<*>) {
 			val c = findConvertOf(p)
 			if (c != null) {
 				val pi = PropInfo(p, c)
-				namePropMap[pi.shortName] = pi
+				shortNamePropMap[pi.shortName] = pi
 				allProp.add(pi)
 				if (pi.isPrimaryKey) {
 					if (findPK) {

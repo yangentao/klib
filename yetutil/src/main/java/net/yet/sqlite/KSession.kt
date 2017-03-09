@@ -45,12 +45,12 @@ class KSession(val db: SQLiteDatabase) : Closeable {
 		}
 	}
 
-	private fun push() {
+	fun push() {
 		val stack = sessionThreadLocal.get()
 		stack.push(this)
 	}
 
-	private fun pop() {
+	fun pop() {
 		val stack = sessionThreadLocal.get()
 		stack.pop()
 	}
@@ -94,7 +94,7 @@ class KSession(val db: SQLiteDatabase) : Closeable {
 			return 0
 		}
 		values.remove(mi.pk.shortName)
-		return db.update(mi.tableName, values, mi.pk.shortName + "=?", arrayOf(pkValue.toString()))
+		return db.update(mi.tableName, values, mi.pk.fullName + "=?", arrayOf(pkValue.toString()))
 	}
 
 	fun insert(model: Any): Long {
