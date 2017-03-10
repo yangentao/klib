@@ -7,12 +7,12 @@ package net.yet.orm
 
 abstract class TableModel {
 
-	fun save() {
-		Session.peek.save(this)
+	open fun save(): Boolean {
+		return Session.peek.save(this) > 0
 	}
 
-	fun delete() {
-		Session.peek.deleteByPK(this)
+	open fun delete(): Int {
+		return Session.peek.deleteByPK(this)
 	}
 
 }

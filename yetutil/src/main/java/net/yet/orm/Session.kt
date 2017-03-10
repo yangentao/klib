@@ -15,7 +15,7 @@ import java.util.*
 class Session(val db: SQLiteDatabase) : Closeable {
 	val sqlite = Sqlite(db)
 
-	inline  fun <R> pushPop(block: () -> R): R {
+	inline fun <R> pushPop(block: () -> R): R {
 		push()
 		try {
 			return block.invoke()
@@ -35,7 +35,7 @@ class Session(val db: SQLiteDatabase) : Closeable {
 		stack.pop()
 	}
 
-	inline  fun <R> transaction(block: Session.() -> R): R {
+	inline fun <R> transaction(block: Session.() -> R): R {
 		push()
 		var ok = true
 		try {
@@ -83,7 +83,7 @@ class Session(val db: SQLiteDatabase) : Closeable {
 		val peek: Session get() {
 			val stack = sessionThreadLocal.get()
 			if (stack.isEmpty()) {
-				throw  RuntimeException("No Session find")
+				return global
 			}
 			return stack.peek()
 		}
