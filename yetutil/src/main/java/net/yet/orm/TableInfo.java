@@ -6,7 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.yet.orm.annotation.Column;
-import net.yet.orm.annotation.PrimaryKey;
+import net.yet.orm.annotation.PrimaryKeyOld;
 import net.yet.orm.annotation.Serializer;
 import net.yet.orm.annotation.Table;
 import net.yet.orm.serial.BigDecimalSerializer;
@@ -172,11 +172,11 @@ public final class TableInfo {
 	}
 
 	private String makeFieldName(Field field) {
-		if (field.isAnnotationPresent(PrimaryKey.class)) {
+		if (field.isAnnotationPresent(PrimaryKeyOld.class)) {
 			if (pkField != null) {
 				throw new IllegalArgumentException("主键已经存在");
 			}
-			PrimaryKey pk = field.getAnnotation(PrimaryKey.class);
+			PrimaryKeyOld pk = field.getAnnotation(PrimaryKeyOld.class);
 			pkField = field;
 			if (pk.autoIncrease()) {
 				Class<?> type = field.getType();

@@ -21,18 +21,33 @@ class Where(val value: String) {
 	}
 }
 
-infix fun Where.AND(value: Where): Where {
-	val w = Where("(" + this.toString() + ") AND (" + value.toString() + ")")
+infix fun Where.AND(other: Where): Where {
+	val w = Where("( ${this.value} ) AND ( ${other.value} )")
 	w.args.addAll(this.args)
-	w.args.addAll(value.args)
+	w.args.addAll(other.args)
 	return w
 }
 
-infix fun Where.OR(value: Where): Where {
-	val w = Where("(" + this.toString() + ") OR (" + value.toString() + ")")
+infix fun Where.OR(other: Where): Where {
+	val w = Where("( ${this.value} ) OR ( ${other.value} )")
 	w.args.addAll(this.args)
-	w.args.addAll(value.args)
+	w.args.addAll(other.args)
 	return w
+}
+
+fun IsNull(p: KMutableProperty<*>): Where {
+	val s = tableAndFieldNameOf(p)
+	return Where("$s IS NULL")
+}
+
+fun NotNull(p: KMutableProperty<*>): Where {
+	val s = tableAndFieldNameOf(p)
+	return Where("$s IS NOT NULL")
+}
+
+infix fun KMutableProperty<*>.LIKE(value: String): Where {
+	val s = tableAndFieldNameOf(this)
+	return Where("$s LIKE $value")
 }
 
 infix fun KMutableProperty<*>.EQ(value: String): Where {
@@ -64,8 +79,6 @@ infix fun KMutableProperty<*>.LT(value: String): Where {
 	val s = tableAndFieldNameOf(this)
 	return Where("$s<?").addArg(value)
 }
-
-
 
 
 infix fun KMutableProperty<*>.EQ(value: Int): Where {

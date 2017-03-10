@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.text.TextUtils;
 
 import net.yet.orm.annotation.Column;
-import net.yet.orm.annotation.PrimaryKey;
+import net.yet.orm.annotation.PrimaryKeyOld;
 import net.yet.orm.annotation.Table;
 import net.yet.util.Util;
 import net.yet.util.database.LiteBase;
@@ -74,7 +74,7 @@ class TableDefUtil {
 	private static void defIndex(LiteBase lb, TableInfo tableInfo) {
 		for (Field field : tableInfo.fieldSet) {
 			String name = tableInfo.fieldMap.get(field);
-			if (field.isAnnotationPresent(PrimaryKey.class)) {
+			if (field.isAnnotationPresent(PrimaryKeyOld.class)) {
 				continue;
 			}
 			Column column = field.getAnnotation(Column.class);
@@ -120,7 +120,7 @@ class TableDefUtil {
 		definition.append(" ");
 		definition.append(sqlType.toString());
 
-		PrimaryKey pk = field.getAnnotation(PrimaryKey.class);
+		PrimaryKeyOld pk = field.getAnnotation(PrimaryKeyOld.class);
 		if (pk != null) {
 			if (pk.length() > 0) {
 				definition.append("(");

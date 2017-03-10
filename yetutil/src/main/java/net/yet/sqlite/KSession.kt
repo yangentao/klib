@@ -1,7 +1,7 @@
 package net.yet.sqlite
 
 import android.database.sqlite.SQLiteDatabase
-import net.yet.database.sqlite.Sqlite
+import net.yet.database.Sqlite
 import net.yet.file.UserFile
 import net.yet.util.app.App
 import net.yet.util.log.xlog

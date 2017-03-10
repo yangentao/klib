@@ -1,6 +1,6 @@
 package net.yet.orm;
 
-import net.yet.orm.annotation.Exclude;
+import net.yet.orm.annotation.ExcludeOld;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -16,7 +16,7 @@ public final class ReflectionUtils {
 			if (Modifier.isStatic(mod) || Modifier.isFinal(mod) || Modifier.isTransient(mod)) {
 				continue;
 			}
-			if (field.isAnnotationPresent(Exclude.class)) {
+			if (field.isAnnotationPresent(ExcludeOld.class)) {
 				continue;
 			}
 			fieldSet.add(field);

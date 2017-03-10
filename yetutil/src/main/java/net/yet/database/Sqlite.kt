@@ -1,4 +1,4 @@
-package net.yet.database.sqlite
+package net.yet.database
 
 import android.database.sqlite.SQLiteDatabase
 import net.yet.util.JsonUtil
