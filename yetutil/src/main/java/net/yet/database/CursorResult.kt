@@ -146,6 +146,9 @@ class CursorResult(cursor: Cursor?) {
 		return longValue()?.toInt()
 	}
 
+	fun intValue(failVal: Int): Int {
+		return longValue()?.toInt() ?: failVal
+	}
 
 	/**
 	 * 忽略null, blob
@@ -174,6 +177,10 @@ class CursorResult(cursor: Cursor?) {
 			close()
 		}
 		return null
+	}
+
+	fun longValue(failVal: Long): Long {
+		return longValue() ?: failVal
 	}
 
 	// 失败返回nul;
