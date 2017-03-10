@@ -94,7 +94,7 @@ class Query(val db: SQLiteDatabase, vararg columns: String) {
 
 	fun queryCount(): Int {
 		val sql = buildCountSql()
-		return queryResult(sql, toArray(argList)).intValue(0)
+		return queryResult(sql, toArray(argList)).intValue() ?: 0
 	}
 
 	fun queryExist(): Boolean {
@@ -125,12 +125,12 @@ class Query(val db: SQLiteDatabase, vararg columns: String) {
 		return resultOne().strValue()
 	}
 
-	fun resultLong(failVal: Long): Long {
-		return resultOne().longValue(failVal)
+	fun resultLong(failVal: Long): Long? {
+		return resultOne().longValue()
 	}
 
-	fun resultLong(failVal: Int): Int {
-		return resultOne().intValue(failVal)
+	fun resultLong(): Int? {
+		return resultOne().intValue()
 	}
 
 	fun buildSql(): String {

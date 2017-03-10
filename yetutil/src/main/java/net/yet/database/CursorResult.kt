@@ -7,7 +7,6 @@ import net.yet.json.putDouble
 import net.yet.json.putLong
 import net.yet.json.putNull
 import net.yet.json.putString
-import net.yet.util.Util
 import net.yet.util.log.xlog
 import java.util.*
 
@@ -15,13 +14,9 @@ import java.util.*
  * Created by entaoyang@163.com on 16/5/13.
  */
 
-//除了count, 所有属性和方法, 都会关闭cursor
+//所有属性和方法, 都会关闭cursor
 class CursorResult(cursor: Cursor?) {
-	val c: Cursor
-
-	init {
-		c = cursor ?: SafeCursor(null)
-	}
+	val c: Cursor = cursor ?: SafeCursor(null)
 
 	inline fun each(block: (Cursor) -> Unit) {
 		try {
@@ -35,12 +30,7 @@ class CursorResult(cursor: Cursor?) {
 		}
 	}
 
-	/**
-	 * @return 行数
-	 */
-	val count: Int get() {
-		return c.count
-	}
+
 	/**
 	 * 是否存在符合条件的记录
 
@@ -55,9 +45,7 @@ class CursorResult(cursor: Cursor?) {
 	val columnNames: Set<String> get() {
 		val set = HashSet<String>(32)
 		try {
-			for (col in c.columnNames) {
-				set.add(col)
-			}
+			set += c.columnNames
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
@@ -154,8 +142,8 @@ class CursorResult(cursor: Cursor?) {
 	 * *
 	 * @return
 	 */
-	fun intValue(failVal: Int): Int {
-		return longValue(failVal.toLong()).toInt()
+	fun intValue(): Int? {
+		return longValue()?.toInt()
 	}
 
 
@@ -168,24 +156,24 @@ class CursorResult(cursor: Cursor?) {
 	 * *
 	 * @return
 	 */
-	fun longValue(failVal: Long): Long {
-		var v = failVal
+	fun longValue(): Long? {
 		try {
 			if (c.moveToNext()) {
 				val type = c.getType(0)
 				when (type) {
-					Cursor.FIELD_TYPE_INTEGER -> v = c.getLong(0)
-					Cursor.FIELD_TYPE_FLOAT -> v = c.getDouble(0).toLong()
-					Cursor.FIELD_TYPE_STRING -> v = Util.parseLong(c.getString(0), failVal)
+					Cursor.FIELD_TYPE_INTEGER -> return c.getLong(0)
+					Cursor.FIELD_TYPE_FLOAT -> return c.getDouble(0).toLong()
+					Cursor.FIELD_TYPE_STRING -> return c.getString(0)?.toLong()
 					else -> {
 					}
 				}
 			}
 		} catch (e: Throwable) {
 			e.printStackTrace()
+		} finally {
+			close()
 		}
-		close()
-		return v
+		return null
 	}
 
 	// 失败返回nul;
@@ -241,8 +229,9 @@ class CursorResult(cursor: Cursor?) {
 			}
 		} catch(e: Throwable) {
 			e.printStackTrace()
+		} finally {
+			close()
 		}
-		close()
 		return set
 	}
 
@@ -277,8 +266,9 @@ class CursorResult(cursor: Cursor?) {
 			}
 		} catch (e: Throwable) {
 			e.printStackTrace()
+		} finally {
+			close()
 		}
-		close()
 		return set
 	}
 
@@ -337,20 +327,22 @@ class CursorResult(cursor: Cursor?) {
 					Cursor.FIELD_TYPE_NULL -> set.add(null)
 					Cursor.FIELD_TYPE_INTEGER -> set.add(c.getLong(0))
 					Cursor.FIELD_TYPE_FLOAT -> set.add(c.getDouble(0).toLong())
-					Cursor.FIELD_TYPE_STRING -> try {
-						set.add(java.lang.Long.valueOf(c.getString(0)))
-					} catch (e: Exception) {
-						set.add(null)
+					Cursor.FIELD_TYPE_STRING -> {
+						try {
+							set.add(java.lang.Long.valueOf(c.getString(0)))
+						} catch (e: Exception) {
+							set.add(null)
+						}
 					}
-
 					else -> {
 					}
 				}
 			}
 		} catch (e: Throwable) {
 			e.printStackTrace()
+		} finally {
+			close()
 		}
-		close()
 		return set
 	}
 

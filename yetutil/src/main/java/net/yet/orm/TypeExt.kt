@@ -1,4 +1,4 @@
-package net.yet.sqlite
+package net.yet.orm
 
 import kotlin.reflect.KClass
 import kotlin.reflect.KType

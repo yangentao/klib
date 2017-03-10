@@ -1,6 +1,6 @@
 package net.yet.annotation
 
-import net.yet.sqlite.convert.DataConvert
+import net.yet.orm.DataConvert
 import kotlin.reflect.KClass
 
 /**

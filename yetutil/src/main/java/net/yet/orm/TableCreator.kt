@@ -1,4 +1,4 @@
-package net.yet.sqlite
+package net.yet.orm
 
 import android.database.sqlite.SQLiteDatabase
 import net.yet.database.Sqlite
@@ -8,7 +8,7 @@ import java.util.*
  * Created by entaoyang@163.com on 2017-03-07.
  */
 
-object TableCreator {
+internal  object TableCreator {
 	val checkedSet = HashSet<String>()
 	fun check(db: SQLiteDatabase, mi: ModelInfo) {
 		synchronized(checkedSet) {

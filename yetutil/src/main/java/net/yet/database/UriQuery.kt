@@ -135,12 +135,12 @@ class UriQuery(val uri: Uri) {
 		return resultOne().strValue()
 	}
 
-	fun resultInt(fallback: Int = 0): Int {
-		return resultOne().intValue(fallback)
+	fun resultInt(): Int? {
+		return resultOne().intValue()
 	}
 
-	fun resultLong(fallback: Long = 0): Long {
-		return resultOne().longValue(fallback)
+	fun resultLong(): Long? {
+		return resultOne().longValue()
 	}
 
 	fun resultCount(): Int {

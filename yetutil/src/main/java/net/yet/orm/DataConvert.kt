@@ -1,12 +1,14 @@
-package net.yet.sqlite.convert
+package net.yet.orm
 
+import android.net.Uri
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import net.yet.database.SQLType
 import net.yet.json.GSON
-import net.yet.orm.SqliteType
-import net.yet.sqlite.*
+import net.yet.orm.*
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
 import java.util.*
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KType
@@ -17,7 +19,7 @@ import kotlin.reflect.KType
 
 abstract class DataConvert {
 
-	abstract val sqlType: SqliteType
+	abstract val sqlType: SQLType
 
 	open fun toSqlText(model: Any, property: KMutableProperty<*>): String? {
 		throw RuntimeException("Not implement")
@@ -62,10 +64,18 @@ abstract class DataConvert {
 }
 
 open class TextDataConvert : DataConvert() {
-	final override val sqlType: SqliteType = SqliteType.TEXT
+	final override val sqlType: SQLType = SQLType.TEXT
 
 	fun accessModelType(t: KType): Boolean {
-		return t.isString || t.isChar || t.isKClass(JSONObject::class) || t.isKClass(JSONArray::class) || t.isKClass(JsonObject::class) || t.isKClass(JsonArray::class)
+		return t.isString ||
+				t.isChar ||
+				t.isKClass(JSONObject::class) ||
+				t.isKClass(JSONArray::class) ||
+				t.isKClass(JsonObject::class) ||
+				t.isKClass(JsonArray::class) ||
+				t.isKClass(Uri::class) ||
+				t.isKClass(File::class) ||
+				t.isKClass(UUID::class)
 	}
 
 	override fun toSqlText(model: Any, property: KMutableProperty<*>): String? {
@@ -93,9 +103,18 @@ open class TextDataConvert : DataConvert() {
 		} else if (t.isKClass(JsonObject::class)) {
 			val jo = GSON.parseObject(value)
 			property.setter.call(model, jo)
-		} else if (t.isKClass(JSONArray::class)) {
+		} else if (t.isKClass(JsonArray::class)) {
 			val ja = GSON.parseArray(value)
 			property.setter.call(model, ja)
+		} else if (t.isKClass(Uri::class)) {
+			val v = Uri.parse(value)
+			property.setter.call(model, v)
+		} else if (t.isKClass(File::class)) {
+			val v = File(value)
+			property.setter.call(model, v)
+		} else if (t.isKClass(UUID::class)) {
+			val v = UUID.fromString(value)
+			property.setter.call(model, v)
 		} else {
 			throw TypeDismatchException("Property ${model.javaClass.simpleName}.${property.name} cannot assign from String:$value")
 		}
@@ -104,7 +123,7 @@ open class TextDataConvert : DataConvert() {
 }
 
 open class IntegerDataConvert : DataConvert() {
-	final override val sqlType: SqliteType = SqliteType.INTEGER
+	final override val sqlType: SQLType = SQLType.INTEGER
 
 	fun accessModelType(t: KType): Boolean {
 		return t.isByte || t.isShort || t.isInt || t.isLong || t.isBoolean || t.isKClass(Date::class) || t.isKClass(java.sql.Date::class)
@@ -144,7 +163,7 @@ open class IntegerDataConvert : DataConvert() {
 }
 
 open class RealDataConvert : DataConvert() {
-	final override val sqlType: SqliteType = SqliteType.REAL
+	final override val sqlType: SQLType = SQLType.REAL
 
 	fun accessModelType(t: KType): Boolean {
 		return t.isFloat || t.isDouble
@@ -174,7 +193,7 @@ open class RealDataConvert : DataConvert() {
 }
 
 open class BlobDataConvert : DataConvert() {
-	final override val sqlType: SqliteType = SqliteType.BLOB
+	final override val sqlType: SQLType = SQLType.BLOB
 
 	fun accessModelType(t: KType): Boolean {
 		return t.isByteArray

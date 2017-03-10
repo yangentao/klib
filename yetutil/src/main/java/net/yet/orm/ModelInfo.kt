@@ -1,9 +1,8 @@
-package net.yet.sqlite
+package net.yet.orm
 
 import android.content.ContentValues
 import net.yet.annotation.*
-import net.yet.orm.SqliteType
-import net.yet.sqlite.convert.*
+import net.yet.database.SQLType
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty
@@ -57,6 +56,14 @@ class PropInfo(val prop: KMutableProperty<*>, val convert: DataConvert) {
 
 
 	init {
+	}
+
+	fun getValue(model: Any): Any? {
+		return prop.getter.call(model)
+	}
+
+	fun setValue(model: Any, value: Any?) {
+		prop.setter.call(model, value)
 	}
 
 	fun defineColumn(): String {
@@ -177,7 +184,7 @@ class ModelInfo(val cls: KClass<*>) {
 		val cv = ContentValues(allProp.size + 4)
 		for (pi in allProp) {
 			when (pi.convert.sqlType) {
-				SqliteType.TEXT -> {
+				SQLType.TEXT -> {
 					val v: String? = pi.convert.toSqlText(model, pi.prop)
 					if (v == null) {
 						cv.putNull(pi.shortName)
@@ -185,7 +192,7 @@ class ModelInfo(val cls: KClass<*>) {
 						cv.put(pi.shortName, v)
 					}
 				}
-				SqliteType.INTEGER -> {
+				SQLType.INTEGER -> {
 					val v: Long? = pi.convert.toSqlInteger(model, pi.prop)
 					if (v == null) {
 						cv.putNull(pi.shortName)
@@ -193,7 +200,7 @@ class ModelInfo(val cls: KClass<*>) {
 						cv.put(pi.shortName, v)
 					}
 				}
-				SqliteType.REAL -> {
+				SQLType.REAL -> {
 					val v: Double? = pi.convert.toSqlReal(model, pi.prop)
 					if (v == null) {
 						cv.putNull(pi.shortName)
@@ -201,7 +208,7 @@ class ModelInfo(val cls: KClass<*>) {
 						cv.put(pi.shortName, v)
 					}
 				}
-				SqliteType.BLOB -> {
+				SQLType.BLOB -> {
 					val v: ByteArray? = pi.convert.toSqlBlob(model, pi.prop)
 					if (v == null) {
 						cv.putNull(pi.shortName)

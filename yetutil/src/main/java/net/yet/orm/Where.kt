@@ -1,4 +1,4 @@
-package net.yet.sqlite
+package net.yet.orm
 
 import java.util.*
 import kotlin.reflect.KMutableProperty
@@ -18,6 +18,10 @@ class Where(val value: String) {
 
 	override fun toString(): String {
 		return value
+	}
+
+	val sqlArgs: Array<String> get() {
+		return args.map(Any::toString).toTypedArray()
 	}
 }
 

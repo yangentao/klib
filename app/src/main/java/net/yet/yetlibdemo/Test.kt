@@ -1,9 +1,9 @@
 package net.yet.yetlibdemo
 
 import net.yet.annotation.PrimaryKey
-import net.yet.sqlite.EntityClass
-import net.yet.sqlite.KSession
-import net.yet.sqlite.LE
+import net.yet.orm.TableClass
+import net.yet.orm.Session
+import net.yet.orm.LE
 import net.yet.util.JsonUtil
 import net.yet.util.log.logd
 
@@ -21,12 +21,12 @@ class Person {
 		return JsonUtil.toJson(this)
 	}
 
-	companion object : EntityClass<Person>()
+	companion object : TableClass<Person>()
 }
 
 
 fun testlite() {
-	KSession.named("test").asCurrent {
+	Session.named("test").pushPop {
 		//		val ls = Person.findAll()
 //		val ls = Person.find(Person::age GE 5)
 //		logd(ls)
