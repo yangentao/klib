@@ -15,13 +15,13 @@ import java.util.*
  */
 
 //所有属性和方法, 都会关闭cursor
-class CursorResult(cursor: Cursor?) {
-	val c: Cursor = cursor ?: SafeCursor(null)
+class CursorResult(c: Cursor?) {
+	val cursor: Cursor = c ?: SafeCursor(null)
 
 	inline fun each(block: (Cursor) -> Unit) {
 		try {
-			while (c.moveToNext()) {
-				block(c)
+			while (cursor.moveToNext()) {
+				block(cursor)
 			}
 		} catch(ex: Throwable) {
 			ex.printStackTrace()
@@ -37,7 +37,7 @@ class CursorResult(cursor: Cursor?) {
 	 * @return
 	 */
 	val exist: Boolean get () {
-		val n = c.count
+		val n = cursor.count
 		close()
 		return n > 0
 	}
@@ -45,7 +45,7 @@ class CursorResult(cursor: Cursor?) {
 	val columnNames: Set<String> get() {
 		val set = HashSet<String>(32)
 		try {
-			set += c.columnNames
+			set += cursor.columnNames
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
@@ -54,11 +54,11 @@ class CursorResult(cursor: Cursor?) {
 	}
 
 	fun close() {
-		c.close()
+		cursor.close()
 	}
 
 	fun countAndClose(): Int {
-		val n = c.count
+		val n = cursor.count
 		close()
 		return n
 	}
@@ -79,10 +79,10 @@ class CursorResult(cursor: Cursor?) {
 	fun columnTypes(): Map<String, Int> {
 		val map = HashMap<String, Int>(32)
 		try {
-			if (c.moveToNext()) {
-				for (i in 0..c.columnCount - 1) {
-					val name = c.getColumnName(i)
-					val type = c.getType(i)
+			if (cursor.moveToNext()) {
+				for (i in 0..cursor.columnCount - 1) {
+					val name = cursor.getColumnName(i)
+					val type = cursor.getType(i)
 					map.put(name!!, type)
 				}
 			}
@@ -103,8 +103,8 @@ class CursorResult(cursor: Cursor?) {
 	fun jsonObject(): JsonObject? {
 		var jo: JsonObject? = null
 		try {
-			if (c.moveToNext()) {
-				jo = mapOne(c)
+			if (cursor.moveToNext()) {
+				jo = mapOne(cursor)
 			}
 		} catch (e: Throwable) {
 			e.printStackTrace()
@@ -122,8 +122,8 @@ class CursorResult(cursor: Cursor?) {
 	fun jsonArray(): JsonArray {
 		val arr = JsonArray()
 		try {
-			while (c.moveToNext()) {
-				val jo = mapOne(c)
+			while (cursor.moveToNext()) {
+				val jo = mapOne(cursor)
 				arr.add(jo)
 			}
 		} catch (t: Throwable) {
@@ -161,12 +161,12 @@ class CursorResult(cursor: Cursor?) {
 	 */
 	fun longValue(): Long? {
 		try {
-			if (c.moveToNext()) {
-				val type = c.getType(0)
+			if (cursor.moveToNext()) {
+				val type = cursor.getType(0)
 				when (type) {
-					Cursor.FIELD_TYPE_INTEGER -> return c.getLong(0)
-					Cursor.FIELD_TYPE_FLOAT -> return c.getDouble(0).toLong()
-					Cursor.FIELD_TYPE_STRING -> return c.getString(0)?.toLong()
+					Cursor.FIELD_TYPE_INTEGER -> return cursor.getLong(0)
+					Cursor.FIELD_TYPE_FLOAT -> return cursor.getDouble(0).toLong()
+					Cursor.FIELD_TYPE_STRING -> return cursor.getString(0)?.toLong()
 					else -> {
 					}
 				}
@@ -187,8 +187,8 @@ class CursorResult(cursor: Cursor?) {
 	// 取第一行, 第一列的值
 	fun strValue(): String? {
 		try {
-			if (c.moveToNext()) {
-				return c.getString(0)
+			if (cursor.moveToNext()) {
+				return cursor.getString(0)
 			}
 		} catch (e: Throwable) {
 			e.printStackTrace()
@@ -223,13 +223,13 @@ class CursorResult(cursor: Cursor?) {
 	fun firstColumnValueSetWithNull(): Set<Any?> {
 		val set = HashSet<Any?>(32)
 		try {
-			while (c.moveToNext()) {
-				val type = c.getType(0)
+			while (cursor.moveToNext()) {
+				val type = cursor.getType(0)
 				when (type) {
 					Cursor.FIELD_TYPE_NULL -> set.add(null)
-					Cursor.FIELD_TYPE_INTEGER -> set.add(c.getLong(0))
-					Cursor.FIELD_TYPE_FLOAT -> set.add(c.getDouble(0))
-					Cursor.FIELD_TYPE_STRING -> set.add(c.getString(0))
+					Cursor.FIELD_TYPE_INTEGER -> set.add(cursor.getLong(0))
+					Cursor.FIELD_TYPE_FLOAT -> set.add(cursor.getDouble(0))
+					Cursor.FIELD_TYPE_STRING -> set.add(cursor.getString(0))
 					else -> {
 					}
 				}
@@ -260,13 +260,13 @@ class CursorResult(cursor: Cursor?) {
 	fun stringSetWithNull(): Set<String?> {
 		val set = HashSet<String?>(32)
 		try {
-			while (c.moveToNext()) {
-				val type = c.getType(0)
+			while (cursor.moveToNext()) {
+				val type = cursor.getType(0)
 				when (type) {
 					Cursor.FIELD_TYPE_NULL -> set.add(null)
-					Cursor.FIELD_TYPE_INTEGER -> set.add(c.getLong(0).toString())
-					Cursor.FIELD_TYPE_FLOAT -> set.add(c.getDouble(0).toString())
-					Cursor.FIELD_TYPE_STRING -> set.add(c.getString(0))
+					Cursor.FIELD_TYPE_INTEGER -> set.add(cursor.getLong(0).toString())
+					Cursor.FIELD_TYPE_FLOAT -> set.add(cursor.getDouble(0).toString())
+					Cursor.FIELD_TYPE_STRING -> set.add(cursor.getString(0))
 					else -> {
 					}
 				}
@@ -328,15 +328,15 @@ class CursorResult(cursor: Cursor?) {
 	fun longSetWithNull(): Set<Long?> {
 		val set = HashSet<Long?>(32)
 		try {
-			while (c.moveToNext()) {
+			while (cursor.moveToNext()) {
 				val type = Cursor.FIELD_TYPE_INTEGER
 				when (type) {
 					Cursor.FIELD_TYPE_NULL -> set.add(null)
-					Cursor.FIELD_TYPE_INTEGER -> set.add(c.getLong(0))
-					Cursor.FIELD_TYPE_FLOAT -> set.add(c.getDouble(0).toLong())
+					Cursor.FIELD_TYPE_INTEGER -> set.add(cursor.getLong(0))
+					Cursor.FIELD_TYPE_FLOAT -> set.add(cursor.getDouble(0).toLong())
 					Cursor.FIELD_TYPE_STRING -> {
 						try {
-							set.add(java.lang.Long.valueOf(c.getString(0)))
+							set.add(java.lang.Long.valueOf(cursor.getString(0)))
 						} catch (e: Exception) {
 							set.add(null)
 						}
