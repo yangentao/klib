@@ -107,8 +107,9 @@ open class BaseFragment : Fragment(), MsgListener {
 		dlg.show(activity)
 	}
 
-	fun itemSelect(items: Collection<String>, block: (String) -> Unit) {
+	fun itemSelect(items: Collection<String>, argS:String="", block: (String) -> Unit) {
 		val dlg = StringSelectDialog()
+		dlg.argS = argS
 		dlg.onSelectValue = {
 			block(it)
 		}
@@ -116,8 +117,9 @@ open class BaseFragment : Fragment(), MsgListener {
 		dlg.show(activity)
 	}
 
-	fun itemSelect(vararg items: String, block: (String) -> Unit) {
+	fun itemSelect(vararg items: String,  argS:String="",block: (String) -> Unit) {
 		val dlg = StringSelectDialog()
+		dlg.argS = argS
 		dlg.onSelectValue = {
 			block(it)
 		}
