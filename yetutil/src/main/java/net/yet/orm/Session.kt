@@ -15,7 +15,7 @@ import java.util.*
 class Session(val db: SQLiteDatabase) : Closeable {
 	val sqlite = Sqlite(db)
 
-	fun <R> pushPop(block: () -> R): R {
+	inline  fun <R> pushPop(block: () -> R): R {
 		push()
 		try {
 			return block.invoke()
@@ -35,7 +35,7 @@ class Session(val db: SQLiteDatabase) : Closeable {
 		stack.pop()
 	}
 
-	fun <R> transaction(block: Session.() -> R): R {
+	inline  fun <R> transaction(block: Session.() -> R): R {
 		push()
 		var ok = true
 		try {
