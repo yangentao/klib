@@ -139,8 +139,16 @@ class UriQuery(val uri: Uri) {
 		return resultOne().intValue()
 	}
 
+	fun resultInt(failVal: Int): Int {
+		return resultOne().intValue() ?: failVal
+	}
+
 	fun resultLong(): Long? {
 		return resultOne().longValue()
+	}
+
+	fun resultLong(failVal: Long): Long {
+		return resultOne().longValue() ?: failVal
 	}
 
 	fun resultCount(): Int {
