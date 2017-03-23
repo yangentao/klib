@@ -31,8 +31,9 @@ class EditTextX(context: Context) : EditText(context) {
 				fore{
 					Util.hideInputMethod(this@EditTextX)
 				}
+				return@OnTouchListener true
 			}
-			false
+			return@OnTouchListener false
 		})
 		this.addTextChangedListener(object : TextWatcher {
 
