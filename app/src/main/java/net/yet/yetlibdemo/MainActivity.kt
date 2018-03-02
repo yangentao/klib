@@ -1,7 +1,7 @@
 package net.yet.yetlibdemo
 
-import net.yet.ui.activities.PageActivity
-import net.yet.ui.page.BaseFragment
+import yet.ui.activities.PageActivity
+import yet.ui.page.BaseFragment
 
 class MainActivity : PageActivity() {
 

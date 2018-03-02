@@ -2,7 +2,7 @@ package net.yet.yetlibdemo
 
 import android.content.Context
 import android.widget.LinearLayout
-import net.yet.ui.page.TitledPage
+import yet.ui.page.TitledPage
 
 /**
  * Created by entaoyang@163.com on 2016-10-07.
@@ -25,7 +25,6 @@ class MainPage : TitledPage() {
 	}
 
 	fun test() {
-		testlite()
 	}
 
 

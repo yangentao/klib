@@ -1,6 +1,7 @@
 package net.yet.yetlibdemo
 
-import net.yet.util.app.YetApp
+import yet.util.app.YetApp
+
 
 /**
  * Created by entaoyang@163.com on 2016-08-06.
