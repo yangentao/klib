@@ -1,7 +1,5 @@
 package net.yet.util.log
 
-import net.yet.util.log.xlog
-
 /**
  * Created by entaoyang@163.com on 2016-10-28.
  */
@@ -22,4 +20,8 @@ fun loge(vararg args: Any?) {
 
 fun log(vararg args: Any?) {
 	xlog.d(*args)
+}
+
+fun logi(vararg args: Any?) {
+	xlog.i(*args)
 }
