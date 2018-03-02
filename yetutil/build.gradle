@@ -68,6 +68,6 @@ buildscript {
     }
 }
 repositories {
-    mavenCentral()
+    google()
 }
 
