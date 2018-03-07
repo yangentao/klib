@@ -4,7 +4,6 @@ import android.graphics.*
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.Bitmap.Config
 import android.graphics.drawable.BitmapDrawable
-import android.media.ExifInterface
 import android.net.Uri
 import android.util.DisplayMetrics
 import yet.file.SdAppFile
@@ -14,102 +13,10 @@ import java.io.*
 
 object BmpUtil {
 
-
-	fun fromAsset(path: String): Bitmap? {
-		return AssetUtil.bitmap(path)
-	}
-
 	fun fromRes(resId: Int): Bitmap? {
 		return BitmapFactory.decodeResource(App.resource, resId)
 	}
-
-	fun scaleTo(resId: Int, newWidth: Int, newHeight: Int): Bitmap? {
-		return scaleTo(fromRes(resId), newWidth, newHeight)
-	}
-
-	/**
-	 * @param old       非空, 高宽都大于0
-	 * *
-	 * @param newWidth  >0
-	 * *
-	 * @param newHeight >0
-	 * *
-	 * @return
-	 */
-	fun scaleTo(old: Bitmap?, newWidth: Int, newHeight: Int): Bitmap? {
-		if (old == null) {
-			return null
-		}
-		var width = old.width
-		var height = old.height
-		if (width == 0) {
-			width = 1
-		}
-		if (height == 0) {
-			height = 1
-		}
-		val scaleWidth = newWidth.toFloat() / width
-		val scaleHeight = newHeight.toFloat() / height
-		val matrix = Matrix()
-		matrix.postScale(scaleWidth, scaleHeight)
-		return Bitmap.createBitmap(old, 0, 0, width, height, matrix, true)
-	}
-
-	/**
-	 * 按比例缩小图片
-
-	 * @param old
-	 * *
-	 * @param scale 0-1.0之间, 0.5缩小 1倍
-	 * *
-	 * @return
-	 */
-	fun scale(old: Bitmap?, scale: Float): Bitmap? {
-		if (old == null) {
-			return null
-		}
-		val width = old.width
-		val height = old.height
-		if (width == 0 || height == 0) {
-			return null
-		}
-		val matrix = Matrix()
-		matrix.postScale(scale, scale)
-		return Bitmap.createBitmap(old, 0, 0, width, height, matrix, true)
-	}
-
-	fun rotate(old: Bitmap?, degree: Int): Bitmap? {
-		if (old == null) {
-			return null
-		}
-		val width = old.width
-		val height = old.height
-		if (width == 0 || height == 0) {
-			return null
-		}
-		val matrix = Matrix()
-		matrix.postRotate(degree.toFloat())
-		return Bitmap.createBitmap(old, 0, 0, width, height, matrix, true)
-	}
-
-	fun degress(file: File): Int {
-		val path = file.absolutePath
-		var degree = 0
-		try {
-			val exif = ExifInterface(path)
-			val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-			when (orientation) {
-				ExifInterface.ORIENTATION_ROTATE_90 -> degree = 90
-				ExifInterface.ORIENTATION_ROTATE_180 -> degree = 180
-				ExifInterface.ORIENTATION_ROTATE_270 -> degree = 270
-			}
-		} catch (e: IOException) {
-			e.printStackTrace()
-		}
-
-		return degree
-	}
-
+ 
 	fun line(width: Int, height: Int, color: Int): Bitmap {
 		val target = Bitmap.createBitmap(width, height, Config.ARGB_8888)
 		target.density = DisplayMetrics.DENSITY_HIGH
@@ -121,6 +28,7 @@ object BmpUtil {
 	fun lineDraw(width: Int, height: Int, color: Int): BitmapDrawable {
 		return BitmapDrawable(App.resource, line(width, height, color))
 	}
+
 	// 高和宽较最小的值做直径,
 	fun tint(source: Bitmap, color: Int): Bitmap {
 		val w = source.getScaledWidth(App.resource.displayMetrics)
@@ -137,6 +45,7 @@ object BmpUtil {
 		canvas.drawBitmap(source, rect2, rect2, paint)
 		return target
 	}
+
 	// 高和宽较最小的值做直径,
 	fun roundSqure(source: Bitmap?, cornerDp: Int): Bitmap? {
 		if (source == null) {

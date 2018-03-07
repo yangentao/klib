@@ -11,18 +11,7 @@ import yet.ui.res.ColorStated
  * Created by entaoyang@163.com on 2016-07-21.
  */
 
-fun Drawable.limit(maxEdge: Int): Drawable {
-	val h = this.intrinsicHeight
-	val w = this.intrinsicWidth
-	if (w > maxEdge || h > maxEdge) {
-		if (w > h) {
-			this.setBounds(0, 0, dp(maxEdge), dp(h * maxEdge / w))
-		} else {
-			this.setBounds(0, 0, dp(w * maxEdge / h), dp(maxEdge))
-		}
-	}
-	return this
-}
+
 
 fun Drawable.size(w: Int, h: Int = w): Drawable {
 //	if (this is GradientDrawable) {

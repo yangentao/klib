@@ -3,11 +3,7 @@ package yet.ui.widget.grid
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
-import yet.ext.size
+import android.widget.*
 import yet.theme.IconSize
 import yet.ui.ext.*
 
@@ -22,6 +18,7 @@ class GridItemView(context: Context) : RelativeLayout(context) {
 
 	init {
 		val ll = addLinearLayoutVer(rParam().wrap().centerInParent()) {}
+		ll.gravityCenter()
 		imageView = ll.addImageView(lParam().width(IconSize.Large).height(IconSize.Large).gravityBottomCenter()) {
 			scaleCenterInside()
 		}
@@ -29,6 +26,11 @@ class GridItemView(context: Context) : RelativeLayout(context) {
 			textSizeTiny()
 			textColorMinor()
 		}
+	}
+
+	fun imageSizeWrap() {
+		val p = imageView.layoutParams as LinearLayout.LayoutParams
+		p.widthWrap().heightWrap()
 	}
 
 	fun imageSize(w: Int, h: Int = w) {
