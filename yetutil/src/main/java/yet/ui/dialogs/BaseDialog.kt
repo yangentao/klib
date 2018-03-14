@@ -14,6 +14,7 @@ import yet.theme.InputSize
 import yet.theme.TextColor
 import yet.ui.ext.*
 import yet.ui.util.RectDrawable
+import yet.ui.viewcreator.*
 
 open class BaseDialog {
 	var cornerOfDialog = InputSize.DialogCorner

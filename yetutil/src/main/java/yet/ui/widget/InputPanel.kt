@@ -13,6 +13,7 @@ import yet.ui.res.ResConst
 import yet.ui.res.ResStr
 import yet.ui.util.RectDrawable
 import yet.ui.util.TimeDown
+import yet.ui.viewcreator.*
 import yet.util.ToastUtil
 import yet.util.Util
 import yet.util.app.SmsCodeFill
@@ -96,7 +97,7 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 
 
 	private fun makeEdit(hint: String, marginTop: Int): EditText {
-		val ed = context.createEditText().hint(hint)
+		val ed = context.createEdit().hint(hint)
 		ed.padding(5, 2, 5, 2)
 		linearParam().widthFill().height(INPUT_HEIGHT).margins(0, marginTop, 0, 0).set(ed)
 		return ed
@@ -169,12 +170,12 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 		val btnDisableDraw = RectDrawable(Colors.Disabled).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
 		val btnDraw = ImageStated(btnNormalDraw).pressed(btnPressDraw).enabled(btnDisableDraw, false).value
 
-		addLinearLayoutHor(lParam().widthFill().height(InputSize.EditHeight).margins(0, marginTop, 0, 0)) {
+		linearHor(lParam().widthFill().height(InputSize.EditHeight).margins(0, marginTop, 0, 0)) {
 			backDrawable(llDraw).padding(1)
-			codeEdit = addEditText(lParam().width(0).weight(1f).heightFill()) {
+			codeEdit = edit(lParam().width(0).weight(1f).heightFill()) {
 				hint("输入验证码").inputTypeNumber().backDrawable(editDraw).padding(15, 0, 15, 0)
 			}
-			codeButton = addButton(lParam().widthWrap().heightFill()) {
+			codeButton = button(lParam().widthWrap().heightFill()) {
 				text("获取验证码").backDrawable(btnDraw).textColorWhite()
 			}
 		}
@@ -198,7 +199,7 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 	}
 
 	fun addCheckbox(key: String, title: String, marginTop: Int = inputMarginTop) {
-		checkMap[key] = addCheckBox(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+		checkMap[key] = checkBox(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
 			padding(20, 5, 5, 5)
 			text = title
 			buttonDrawable = ResConst.checkbox()
@@ -206,24 +207,24 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 	}
 
 	fun addSafeButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-		buttonMap[key] = addButton(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
-			this.text = title
+		buttonMap[key] = button(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+			text = title
 			themeGreen()
 			setOnClickListener { _onButtonClick(key) }
 		}
 	}
 
 	fun addRedButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-		buttonMap[key] = addButton(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
-			this.text = title
+		buttonMap[key] = button(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+			text = title
 			themeRed()
 			setOnClickListener { _onButtonClick(key) }
 		}
 	}
 
 	fun addWhiteButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-		buttonMap[key] = addButton(lParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
-			this.text = title
+		buttonMap[key] = button(lParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+			text = title
 			themeWhite()
 			setOnClickListener { _onButtonClick(key) }
 		}

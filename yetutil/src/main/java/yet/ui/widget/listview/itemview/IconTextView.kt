@@ -10,6 +10,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import yet.theme.IconSize
 import yet.ui.ext.*
+import yet.ui.viewcreator.createImageView
+import yet.ui.viewcreator.createTextViewA
 
 /**
  * Created by entaoyang@163.com on 2016-12-27.

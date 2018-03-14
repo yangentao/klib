@@ -8,6 +8,8 @@ import android.widget.TextView
 import yet.ext.size
 import yet.theme.Colors
 import yet.ui.ext.*
+import yet.ui.viewcreator.createLinearHorizontal
+import yet.ui.viewcreator.createTextViewA
 import yet.ui.widget.Action
 import yet.ui.widget.listview.itemview.HorItemView
 import yet.ui.widget.listview.itemview.ItemViewCheckable

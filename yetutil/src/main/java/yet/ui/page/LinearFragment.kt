@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import yet.theme.Colors
-import yet.ui.ext.createLinearVertical
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.ext.fill
 import yet.ui.ext.linearParam
 import yet.ui.ext.set

@@ -7,6 +7,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import yet.theme.Space
 import yet.ui.ext.*
+import yet.ui.viewcreator.*
 import yet.util.BmpUtil
 
 /**

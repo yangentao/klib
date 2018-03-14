@@ -1,0 +1,116 @@
+package yet.ui.viewcreator
+
+import android.app.Fragment
+import android.content.Context
+import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import yet.ui.ext.*
+import yet.ui.res.ResConst
+import yet.ui.widget.EditTextX
+
+/**
+ * Created by entaoyang@163.com on 2018-03-14.
+ */
+
+
+//EditText
+fun <P : ViewGroup.LayoutParams> ViewGroup.edit(param: P, block: EditText.() -> Unit): EditText {
+	val v = this.createEdit()
+	this.addView(v, param)
+	v.block()
+	return v
+}
+
+fun <P : ViewGroup.LayoutParams> ViewGroup.edit(index: Int, param: P, block: EditText.() -> Unit): EditText {
+	val v = this.createEdit()
+	this.addView(v, index, param)
+	v.block()
+	return v
+}
+
+fun <P : ViewGroup.LayoutParams> ViewGroup.editBefore(ankor: View, param: P, block: EditText.() -> Unit): EditText {
+	return this.edit(this.indexOfChild(ankor), param, block)
+}
+
+fun View.createEdit(): EditText {
+	return this.context.createEdit()
+}
+
+fun Fragment.createEdit(): EditText {
+	return this.activity.createEdit()
+}
+
+fun Context.createEdit(): EditText {
+	val ed = EditText(this).genId().singleLine()
+	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)
+	return ed
+}
+
+
+//EditTextX
+fun <P : ViewGroup.LayoutParams> ViewGroup.editX(param: P, block: EditTextX.() -> Unit): EditTextX {
+	val v = this.createEditX()
+	this.addView(v, param)
+	v.block()
+	return v
+}
+
+fun <P : ViewGroup.LayoutParams> ViewGroup.editX(index: Int, param: P, block: EditTextX.() -> Unit): EditTextX {
+	val v = this.createEditX()
+	this.addView(v, index, param)
+	v.block()
+	return v
+}
+
+fun <P : ViewGroup.LayoutParams> ViewGroup.editXBefore(ankor: View, param: P, block: EditTextX.() -> Unit): EditTextX {
+	return this.editX(this.indexOfChild(ankor), param, block)
+}
+
+fun View.createEditX(): EditTextX {
+	return this.context.createEditX()
+}
+
+fun Fragment.createEditX(): EditTextX {
+	return this.activity.createEditX()
+}
+
+fun Context.createEditX(): EditTextX {
+	val ed = EditTextX(this).genId().singleLine()
+	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)
+	return ed
+}
+
+
+//EditArea
+fun <P : ViewGroup.LayoutParams> ViewGroup.editArea(param: P, block: EditText.() -> Unit): EditText {
+	val v = this.createEditArea()
+	this.addView(v, param)
+	v.block()
+	return v
+}
+
+fun <P : ViewGroup.LayoutParams> ViewGroup.editArea(index: Int, param: P, block: EditText.() -> Unit): EditText {
+	val v = this.createEditArea()
+	this.addView(v, index, param)
+	v.block()
+	return v
+}
+
+fun <P : ViewGroup.LayoutParams> ViewGroup.editAreaBefore(ankor: View, param: P, block: EditText.() -> Unit): EditText {
+	return this.editArea(this.indexOfChild(ankor), param, block)
+}
+
+fun View.createEditArea(): EditText {
+	return this.context.createEditArea()
+}
+
+fun Fragment.createEditArea(): EditText {
+	return this.activity.createEditArea()
+}
+
+fun Context.createEditArea(): EditText {
+	val ed = EditText(this).genId()
+	ed.textSizeB().gravityTopLeft().backDrawable(ResConst.input()).padding(10, 5, 10, 5).multiLine()
+	return ed
+}

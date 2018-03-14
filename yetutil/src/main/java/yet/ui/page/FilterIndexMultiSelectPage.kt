@@ -11,6 +11,8 @@ import yet.theme.Str
 import yet.ui.ext.*
 import yet.ui.res.Res
 import yet.ui.util.XTextWatcher
+import yet.ui.viewcreator.createEditX
+import yet.ui.viewcreator.createTextView
 import yet.ui.widget.Action
 import yet.ui.widget.ListIndexBar
 import yet.ui.widget.TitleBar
@@ -33,7 +35,7 @@ abstract class FilterIndexMultiSelectPage<T> : CheckListPage<T>() {
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		super.onCreateContent(context, contentView)
-		val searchEdit = context.createEditTextX().singleLine().imeDone{
+		val searchEdit = context.createEditX().singleLine().imeDone{
 			it.hideInputMethod()
 		}
 

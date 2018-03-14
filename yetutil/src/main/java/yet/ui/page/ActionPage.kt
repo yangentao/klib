@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.view.View
 import android.widget.*
 import yet.ui.ext.*
+import yet.ui.viewcreator.createButton
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.widget.*
 
 /**

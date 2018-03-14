@@ -8,6 +8,7 @@ import yet.ui.ext.*
 import yet.ui.res.ColorList
 import yet.ui.res.ColorStated
 import yet.ui.res.ResConst
+import yet.ui.viewcreator.*
 import java.util.*
 
 /**
@@ -128,7 +129,7 @@ class TabBar(context: Context) : LinearLayout(context), IActionPanel {
 			}
 
 			val marginRight = if (verLine) if (size == size - 1) 0 else 1 else 0
-			val panel = context.createRelativeLayout()
+			val panel = context.createRelative()
 			panel.addViewParam(tv) { fill() }
 			panel.addViewParam(indicateView) { parentRight().parentTop().margins(0, 5, 5, 0).size(15) }
 

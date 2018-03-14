@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes
 import android.widget.*
 import yet.theme.IconSize
 import yet.ui.ext.*
+import yet.ui.viewcreator.*
 
 /**
  * Created by entaoyang@163.com on 2016-08-24.
@@ -17,12 +18,12 @@ class GridItemView(context: Context) : RelativeLayout(context) {
 	val textView: TextView
 
 	init {
-		val ll = addLinearLayoutVer(rParam().wrap().centerInParent()) {}
+		val ll = linearVer(rParam().wrap().centerInParent()) {}
 		ll.gravityCenter()
-		imageView = ll.addImageView(lParam().width(IconSize.Large).height(IconSize.Large).gravityBottomCenter()) {
+		imageView = ll.imageView(lParam().width(IconSize.Large).height(IconSize.Large).gravityBottomCenter()) {
 			scaleCenterInside()
 		}
-		textView = ll.addTextView(lParam().wrap().gravityTopCenter()) {
+		textView = ll.textView(lParam().wrap().gravityTopCenter()) {
 			textSizeTiny()
 			textColorMinor()
 		}

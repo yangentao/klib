@@ -2,7 +2,7 @@ package yet.ui.activities
 
 import android.os.Bundle
 import android.widget.LinearLayout
-import yet.ui.ext.createLinearVertical
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.widget.Action
 import yet.ui.widget.TitleBar
 

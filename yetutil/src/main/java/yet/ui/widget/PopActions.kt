@@ -11,6 +11,8 @@ import yet.ext.size
 import yet.theme.Colors
 import yet.ui.ext.*
 import yet.ui.res.Img
+import yet.ui.viewcreator.createLinearVertical
+import yet.ui.viewcreator.createTextViewA
 import yet.util.fore
 import java.util.*
 

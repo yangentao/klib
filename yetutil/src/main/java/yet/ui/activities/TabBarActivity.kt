@@ -8,10 +8,11 @@ import android.widget.LinearLayout
 import yet.ui.ext.*
 import yet.ui.page.BaseFragment
 import yet.ui.util.FragmentHelper
+import yet.ui.viewcreator.createFrame
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.widget.Action
 import yet.ui.widget.TabBar
 import yet.ui.widget.add
-import yet.util.log.xlog
 import java.util.*
 
 /**
@@ -40,7 +41,7 @@ open class TabBarActivity : BaseActivity() {
 		rootView = this.createLinearVertical()
 		this.setContentView(rootView)
 
-		containerView = this.createFrameLayout()
+		containerView = this.createFrame()
 		rootView.addViewParam(containerView) {
 			widthFill().heightDp(0).weight(1f)
 		}

@@ -5,6 +5,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import yet.theme.Colors
 import yet.ui.ext.*
+import yet.ui.viewcreator.createTextViewB
 
 /**
  * Created by entaoyang@163.com on 2016-09-04.

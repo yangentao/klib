@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import yet.ui.ext.*
+import yet.ui.viewcreator.createButton
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.widget.Action
 import yet.ui.widget.ActionSetView
 import yet.ui.widget.add

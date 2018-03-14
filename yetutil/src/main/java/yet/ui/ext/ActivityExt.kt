@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Fragment
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import yet.util.app.OS
 import kotlin.reflect.KClass
 
@@ -31,3 +33,4 @@ fun <T : Activity> T.hasPermission(p: String): Boolean {
 	}
 	return true
 }
+

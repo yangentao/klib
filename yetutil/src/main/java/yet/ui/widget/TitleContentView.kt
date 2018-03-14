@@ -8,6 +8,7 @@ import yet.ext.color
 import yet.theme.Colors
 import yet.theme.TextColor
 import yet.ui.ext.*
+import yet.ui.viewcreator.textView
 import yet.ui.widget.listview.itemview.TextDetailView
 
 /**
@@ -24,7 +25,7 @@ class TitleContentView(context: Context) : LinearLayout(context) {
 		backFill(defaultBackColor, defaultBackCorner)
 
 
-		titleView = addTextView(lParam().widthFill().heightWrap().margins(0, 0, 0, 10)) {
+		titleView = textView(lParam().widthFill().heightWrap().margins(0, 0, 0, 10)) {
 			textColor(defaultTitleTextColor)
 			textSizeA()
 			gravityCenter()

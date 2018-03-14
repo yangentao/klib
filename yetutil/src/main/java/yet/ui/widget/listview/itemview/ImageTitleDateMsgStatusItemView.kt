@@ -11,6 +11,7 @@ import android.widget.TextView
 import yet.theme.IconSize
 import yet.ui.ext.*
 import yet.ui.util.ShapeUtil
+import yet.ui.viewcreator.imageView
 import yet.util.DateUtil
 
 /**
@@ -38,7 +39,7 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 
 	init {
 		padding(10, 0, 10, 0)
-		iconView = addImageView(lParam().size(IconSize.Small).gravityCenter().margins(0, 0, 5, 0) ){
+		iconView = imageView(lParam().size(IconSize.Small).gravityCenter().margins(0, 0, 5, 0) ){
 			scaleCenterCrop()
 		}
 

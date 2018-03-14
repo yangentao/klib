@@ -10,6 +10,8 @@ import yet.theme.TextSize
 import yet.ui.ext.*
 import yet.ui.res.Img
 import yet.ui.res.ResConst
+import yet.ui.viewcreator.createLinearHorizontal
+import yet.ui.viewcreator.createTextView
 import yet.ui.widget.listview.itemview.TextDetailView
 import java.util.*
 

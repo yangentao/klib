@@ -13,6 +13,7 @@ import yet.theme.Colors
 import yet.theme.InputSize
 import yet.ui.ext.*
 import yet.ui.util.RectDrawable
+import yet.ui.viewcreator.*
 
 class InputDialog {
 	var CORNER = InputSize.DialogCorner
@@ -143,7 +144,7 @@ class InputDialog {
 			ll.addView(textView) { widthFill().height(TITLE_HEIGHT).gravityLeftCenter() }
 		}
 
-		editText = context.createEditText()
+		editText = context.createEdit()
 		editText!!.setText(text)
 		editText!!.hint = hint
 		editText!!.inputType = inputType
@@ -251,7 +252,7 @@ class InputDialog {
 		alertDialog = dlg
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)
 		val view = createView(context)
-		val rootLayout = context.createRelativeLayout()
+		val rootLayout = context.createRelative()
 		rootLayout.addViewParam(view) {
 			widthFill().heightWrap().margins(MARGIN_HOR, 0, MARGIN_HOR, 0).centerInParent()
 		}

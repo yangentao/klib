@@ -8,6 +8,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import yet.theme.Colors
 import yet.ui.ext.*
+import yet.ui.viewcreator.createRelative
 import java.util.*
 
 /**
@@ -83,7 +84,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 			}
 			for (c in 0..columns - 1) {
 				val n = i + c
-				val rl = context.createRelativeLayout()
+				val rl = context.createRelative()
 				rl.backColor(colorNormal, colorPressed)
 				rl.tag = n
 				rl.setOnClickListener(this.onClickListener)

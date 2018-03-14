@@ -13,6 +13,7 @@ import android.widget.TextView
 import yet.ui.ext.*
 import yet.ui.util.LayerUtil
 import yet.ui.util.ShapeUtil
+import yet.ui.viewcreator.textView
 import yet.util.LazyTask
 import yet.util.TaskUtil
 import yet.util.Util
@@ -55,7 +56,7 @@ class ArrayListIndexBar(context: Context, feedbackParentView: RelativeLayout) : 
 
 	init {
 		orientationVertical().gravityCenterHorizontal().padding(0, 0, 0, 0).makeClickable()
-		feedbackView = feedbackParentView.addTextView(relativeParam().centerInParent().size(70)) {
+		feedbackView = feedbackParentView.textView(relativeParam().centerInParent().size(70)) {
 			textColor_(Color.WHITE).textSize_(50).gravityCenter().backDrawable(
 					ShapeUtil.round(10, Util.argb("#555"), 2, Util.argb("#ddd"))
 			).gone()
@@ -111,7 +112,7 @@ class ArrayListIndexBar(context: Context, feedbackParentView: RelativeLayout) : 
 		this.tagPosMap = tagPosMap
 		removeAllViews()
 		for (s in tagList) {
-			addTextView(lParam().width(40).height_(0).weight(1).gravityCenter()) {
+			textView(lParam().width(40).height_(0).weight(1).gravityCenter()) {
 				this.tag = s
 				text_(s.toString()).textSizeD().textColor(Color.BLACK).gravityCenter()
 			}

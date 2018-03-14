@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import yet.ui.ext.*
+import yet.ui.viewcreator.relative
+import yet.ui.viewcreator.createListView
 import yet.ui.widget.listview.*
 import yet.ui.widget.listview2.ArrayListAdapter
 import yet.ui.widget.listview2.ModelTypes
@@ -82,7 +84,7 @@ abstract class ArrayListPage : TitledPage(), ListViewClickListener, ListViewLong
 
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		listViewParent = contentView.addRelativeLayout(linearParam().widthFill().height(0).weight(1f)) { }
+		listViewParent = contentView.relative(linearParam().widthFill().height(0).weight(1f)) { }
 		listView = context.createListView()
 		onAddListView(context, listViewParent, listView)
 		createEmptyView(context)//listView添加进去之后再调用createEmptyView, 用到了getParent方法

@@ -8,6 +8,7 @@ import net.yet.R
 import yet.ext.size
 import yet.ui.ext.*
 import yet.ui.res.Img
+import yet.ui.viewcreator.textView
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -24,11 +25,11 @@ open class TextDetailView(context: Context) : HorItemView(context) {
 	init {
 		padding(20, 10, 20, 10).gravityCenterVertical()
 
-		textView = addTextView(lParam().widthWrap().heightWrap().gravityLeftCenter()) {
+		textView = textView(lParam().widthWrap().heightWrap().gravityLeftCenter()) {
 			textSizeB().textColorMajor().singleLine()
 		}
 		addFlex()
-		detailView = addTextView(lParam().wrap().gravityRightCenter()) {
+		detailView = textView(lParam().wrap().gravityRightCenter()) {
 			textSizeC().textColorMid().gravityRightCenter().multiLine()
 			maxLines(2)
 		}

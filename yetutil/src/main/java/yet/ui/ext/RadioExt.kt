@@ -7,6 +7,7 @@ import net.yet.R
 import yet.ext.size
 import yet.ui.res.ImageStated
 import yet.ui.res.Img
+import yet.ui.viewcreator.createRadioButton
 
 /**
  * Created by entaoyang@163.com on 2016-11-07.

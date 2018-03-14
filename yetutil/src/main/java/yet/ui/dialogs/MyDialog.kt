@@ -12,6 +12,7 @@ import yet.theme.InputSize
 import yet.theme.Str
 import yet.ui.ext.*
 import yet.ui.util.RectDrawable
+import yet.ui.viewcreator.*
 
 open class MyDialog {
 	var CORNER = InputSize.DialogCorner
@@ -177,7 +178,7 @@ open class MyDialog {
 		alertDialog = dlg
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)
 		val view = createView(context)
-		val rootLayout = context.createRelativeLayout()
+		val rootLayout = context.createRelative()
 		rootLayout.addViewParam(view) {
 			widthFill().heightWrap().margins(MARGIN_HOR, 0, MARGIN_HOR, 0).centerInParent()
 		}

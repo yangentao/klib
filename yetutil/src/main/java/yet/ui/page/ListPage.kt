@@ -6,6 +6,8 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import android.widget.*
 import yet.ui.ext.*
+import yet.ui.viewcreator.createListView
+import yet.ui.viewcreator.createRelative
 import yet.ui.widget.listview.*
 import yet.util.*
 import yet.util.app.Perm
@@ -96,7 +98,7 @@ abstract class ListPage<T> : TitledPage(), ListViewClickListener, ListViewLongCl
 	}
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		listViewParent = createRelativeLayout()
+		listViewParent = createRelative()
 		contentView.addView(listViewParent, linearParam().widthFill().height(0).weight(1f))
 		refreshLayout = SwipeRefreshLayout(context)
 		listViewParent.addView(refreshLayout, relativeParam().fill())

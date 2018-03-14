@@ -16,6 +16,8 @@ import yet.ui.activities.BaseActivity
 import yet.ui.ext.*
 import yet.ui.page.BaseFragment
 import yet.ui.util.FragmentHelper
+import yet.ui.viewcreator.createFrame
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.widget.Action
 import java.util.*
 
@@ -54,7 +56,7 @@ open class DrawerActivity : BaseActivity() {
 				this, drawerLayout, R.string.yet_navigation_drawer_open, R.string.yet_navigation_drawer_close)
 		drawerLayout.setDrawerListener(toggle)
 		toggle.syncState()
-		containerFrameLayout = createFrameLayout()
+		containerFrameLayout = createFrame()
 		rootLinearLayout.addViewParam(containerFrameLayout) {
 			widthFill().height(0).weight(1f)
 		}

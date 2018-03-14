@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import yet.ui.ext.*
+import yet.ui.viewcreator.createTextViewB
 import yet.ui.widget.recycler.*
 import java.util.*
 

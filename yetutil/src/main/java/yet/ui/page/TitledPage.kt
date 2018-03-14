@@ -8,6 +8,8 @@ import android.widget.*
 import yet.theme.Colors
 import yet.ui.MyColor
 import yet.ui.ext.*
+import yet.ui.viewcreator.editX
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.widget.*
 import yet.util.Progress
 import yet.util.app.OS
@@ -105,7 +107,7 @@ abstract class TitledPage : BaseFragment() {
 		}
 
 		if (withSearchEdit) {
-			searchEdit = contentView.addEditTextX(lParam().widthFill().heightEditSearch().margins(15, 5, 15, 5)) {
+			searchEdit = contentView.editX(lParam().widthFill().heightEditSearch().margins(15, 5, 15, 5)) {
 				styleSearch()
 				singleLine()
 				imeDone {

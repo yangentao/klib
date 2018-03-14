@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.LinearLayout
 import yet.theme.Colors
 import yet.ui.ext.*
+import yet.ui.viewcreator.linearHor
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -46,7 +47,7 @@ open class TablePanel(context: Context) : LinearLayout(context) {
 	 * @return
 	 */
 	fun addRow(heightDp: Int = rowHeight): LinearLayout {
-		return addLinearLayoutHor(lParam().widthFill().heightDp(heightDp).margins(0, if (rowCount == 0) 0 else verSpace, 0, 0)) {
+		return linearHor(lParam().widthFill().heightDp(heightDp).margins(0, if (rowCount == 0) 0 else verSpace, 0, 0)) {
 			backColorPage()
 		}
 	}

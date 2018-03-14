@@ -15,6 +15,8 @@ import yet.ui.activities.BaseActivity
 import yet.ui.ext.*
 import yet.ui.page.BaseFragment
 import yet.ui.util.FragmentHelper
+import yet.ui.viewcreator.createFrame
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.widget.Action
 import yet.ui.widget.TabBar
 import yet.ui.widget.add
@@ -63,7 +65,7 @@ class DrawerTabBarContainerActivity : BaseActivity() {
 				this, drawerLayout, net.yet.R.string.yet_navigation_drawer_open, net.yet.R.string.yet_navigation_drawer_close)
 		drawerLayout.setDrawerListener(toggle)
 		toggle.syncState()
-		containerView = createFrameLayout()
+		containerView = createFrame()
 		rootView.addViewParam(containerView) {
 			widthFill().height(0).weight(1f)
 		}

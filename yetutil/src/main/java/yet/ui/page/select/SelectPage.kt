@@ -9,6 +9,7 @@ import net.yet.R
 import yet.theme.Str
 import yet.ui.ext.*
 import yet.ui.page.TitledPage
+import yet.ui.viewcreator.listView
 import yet.ui.widget.Action
 import yet.ui.widget.TitleBar
 import yet.ui.widget.listview.*
@@ -101,7 +102,7 @@ abstract class SelectPage<T, V : View> : TitledPage(), ListViewClickListener {
 		} else {
 			titleBar.title = title
 		}
-		listView = contentView.addListView(lParam().widthFill().heightDp(0).weight(1)) {
+		listView = contentView.listView(lParam().widthFill().heightDp(0).weight(1)) {
 		}
 		listView.adapter = adapter
 

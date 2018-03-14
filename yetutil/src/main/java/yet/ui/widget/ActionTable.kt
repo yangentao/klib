@@ -11,6 +11,8 @@ import yet.theme.IconSize
 import yet.theme.TextSize
 import yet.ui.ext.*
 import yet.ui.res.ColorStated
+import yet.ui.viewcreator.createImageView
+import yet.ui.viewcreator.createTextViewC
 import yet.util.Util
 import yet.util.log.xlog
 import java.util.*

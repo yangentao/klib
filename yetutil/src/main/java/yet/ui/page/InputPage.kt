@@ -7,6 +7,7 @@ import yet.theme.InputSize
 import yet.ui.ext.*
 import yet.ui.res.CheckBoxDrawable
 import yet.ui.util.TimeDown
+import yet.ui.viewcreator.*
 import yet.ui.widget.listview.itemview.TextDetailView
 import yet.util.*
 import yet.util.app.SmsCodeFill
@@ -113,7 +114,7 @@ abstract class InputPage : TitledPage() {
 
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		inputLayout = contentView.addLinearLayoutVer(lParam().widthFill().heightWrap()) {
+		inputLayout = contentView.linearVer(lParam().widthFill().heightWrap()) {
 			padding(30, 25, 30, 20)
 		}
 	}
@@ -244,19 +245,19 @@ abstract class InputPage : TitledPage() {
 
 
 	fun addStatic(label: String, marginTop: Int = inputMarginTop): TextView {
-		return inputLayout.addTextView(lParam().widthFill().height(INPUT_HEIGHT).margins(0, marginTop, 0, 0)) {
+		return inputLayout.textView(lParam().widthFill().height(INPUT_HEIGHT).margins(0, marginTop, 0, 0)) {
 			text = label
 		}
 	}
 
 	fun addLabel(label: String, marginTop: Int = inputMarginTop): TextView {
-		return inputLayout.addTextView(lParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+		return inputLayout.textView(lParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
 			text = label
 		}
 	}
 
 	private fun makeEdit(hint: String, marginTop: Int): EditText {
-		val ed = createEditTextX().hint(hint)
+		val ed = createEditX().hint(hint)
 		ed.padding(5, 2, 5, 2)
 		linearParam().widthFill().height(INPUT_HEIGHT).margins(0, marginTop, 0, 0).set(ed)
 		return ed
@@ -361,7 +362,7 @@ abstract class InputPage : TitledPage() {
 
 	fun addVerifyCode(timeDownKey: String, phoneEditKey: String, marginTop: Int, block: (String) -> Unit) {
 		val verifyLayout = activity.createLinearHorizontal()
-		codeEdit = createEditText().hint("输入验证码")
+		codeEdit = createEdit().hint("输入验证码")
 		codeEdit?.inputTypeNumber()
 		verifyLayout.addView(codeEdit, linearParam().width(0).weight(1f).height(InputSize.EditHeight))
 		codeButton = createButton("获取验证码").themeWhite()

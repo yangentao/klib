@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import yet.ui.ext.*
+import yet.ui.viewcreator.createLinearVertical
 
 /**
  * Created by entaoyang@163.com on 2016-09-04.
