@@ -39,5 +39,7 @@ fun Fragment.createGrid(): GridView {
 }
 
 fun Context.createGrid(): GridView {
-	return GridView(this).genId()
+	val g =  GridView(this).genId()
+	g.numColumns = 3
+	return g
 }
