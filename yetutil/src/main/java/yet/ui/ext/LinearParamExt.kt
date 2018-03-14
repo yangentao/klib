@@ -12,6 +12,11 @@ fun <T : LinearLayout.LayoutParams> T.set(view: View) {
 	view.layoutParams = this
 }
 
+val LParam: LinearLayout.LayoutParams
+	get() {
+		return lParam()
+	}
+
 fun lParam(): LinearLayout.LayoutParams {
 	return linearParam()
 }
@@ -50,16 +55,33 @@ fun <T : LinearLayout.LayoutParams> T.gravityTop(): T {
 	return this
 }
 
+val <T : LinearLayout.LayoutParams> T.GravityTop: T
+	get() {
+		gravity = Gravity.TOP
+		return this
+	}
 
 fun <T : LinearLayout.LayoutParams> T.gravityTopCenter(): T {
 	gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
 	return this
 }
 
+val <T : LinearLayout.LayoutParams> T.GravityTopCenter: T
+	get() {
+		gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+		return this
+	}
+
 fun <T : LinearLayout.LayoutParams> T.gravityBottom(): T {
 	gravity = Gravity.BOTTOM
 	return this
 }
+
+val <T : LinearLayout.LayoutParams> T.GravityBottom: T
+	get() {
+		gravity = Gravity.BOTTOM
+		return this
+	}
 
 
 fun <T : LinearLayout.LayoutParams> T.gravityBottomCenter(): T {
@@ -67,52 +89,118 @@ fun <T : LinearLayout.LayoutParams> T.gravityBottomCenter(): T {
 	return this
 }
 
+val <T : LinearLayout.LayoutParams> T.GravityBottomCenter: T
+	get() {
+		gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+		return this
+	}
+
 fun <T : LinearLayout.LayoutParams> T.gravityLeft(): T {
 	gravity = Gravity.LEFT
 	return this
 }
+
+val <T : LinearLayout.LayoutParams> T.GravityLeft: T
+	get() {
+		gravity = Gravity.LEFT
+		return this
+	}
 
 fun <T : LinearLayout.LayoutParams> T.gravityLeftCenter(): T {
 	gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
 	return this
 }
 
+val <T : LinearLayout.LayoutParams> T.GravityLeftCenter: T
+	get() {
+		gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+		return this
+	}
+
 fun <T : LinearLayout.LayoutParams> T.gravityRight(): T {
 	gravity = Gravity.RIGHT
 	return this
 }
+
+val <T : LinearLayout.LayoutParams> T.GravityRight: T
+	get() {
+		gravity = Gravity.RIGHT
+		return this
+	}
 
 fun <T : LinearLayout.LayoutParams> T.gravityRightCenter(): T {
 	gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
 	return this
 }
 
+val <T : LinearLayout.LayoutParams> T.GravityRightCenter: T
+	get() {
+		gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+		return this
+	}
+
 fun <T : LinearLayout.LayoutParams> T.gravityFill(): T {
 	gravity = Gravity.FILL
 	return this
 }
+
+val <T : LinearLayout.LayoutParams> T.GravityFill: T
+	get() {
+		gravity = Gravity.FILL
+		return this
+	}
 
 fun <T : LinearLayout.LayoutParams> T.gravityFillVertical(): T {
 	gravity = Gravity.FILL_VERTICAL
 	return this
 }
 
+val <T : LinearLayout.LayoutParams> T.GravityFillVertical: T
+	get() {
+		gravity = Gravity.FILL_VERTICAL
+		return this
+	}
+
 fun <T : LinearLayout.LayoutParams> T.gravityFillHorizontal(): T {
 	gravity = Gravity.FILL_HORIZONTAL
 	return this
 }
+
+val <T : LinearLayout.LayoutParams> T.GravityFillHorizontal: T
+	get() {
+		gravity = Gravity.FILL_HORIZONTAL
+		return this
+	}
 
 fun <T : LinearLayout.LayoutParams> T.gravityCenterVertical(): T {
 	gravity = Gravity.CENTER_VERTICAL
 	return this
 }
 
+val <T : LinearLayout.LayoutParams> T.GravityCenterVertical: T
+	get() {
+		gravity = Gravity.CENTER_VERTICAL
+		return this
+	}
+
 fun <T : LinearLayout.LayoutParams> T.gravityCenterHorizontal(): T {
 	gravity = Gravity.CENTER_HORIZONTAL
 	return this
 }
 
+val <T : LinearLayout.LayoutParams> T.GravityCenterHorizontal: T
+	get() {
+		gravity = Gravity.CENTER_HORIZONTAL
+		return this
+	}
+
 fun <T : LinearLayout.LayoutParams> T.gravityCenter(): T {
 	gravity = Gravity.CENTER
 	return this
 }
+
+val <T : LinearLayout.LayoutParams> T.GravityCenter: T
+	get() {
+		gravity = Gravity.CENTER
+		return this
+	}
