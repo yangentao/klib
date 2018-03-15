@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.*
 import yet.ui.ext.*
 import yet.ui.widget.listview.SimpleBaseAdapter
+import yet.util.fore
 
 /**
  * Created by entaoyang@163.com on 2016-08-27.
@@ -12,6 +13,11 @@ import yet.ui.widget.listview.SimpleBaseAdapter
 
 open class SimpleGridView<T>(context: Context) : GridView(context) {
 	var heightMost = false
+	var autoColumn = false
+
+	//dp
+	var preferColumnWidth: Int = 64
+
 	val myAdapter = SimpleBaseAdapter<T>()
 	var onNewView: (context: Context, position: Int) -> View
 		get() {
@@ -63,7 +69,19 @@ open class SimpleGridView<T>(context: Context) : GridView(context) {
 	override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
 		super.onLayout(changed, l, t, r, b)
 		if (changed) {
-			onLayoutChanged(r - l, b - t)
+			val newWidth = r - l
+			if (autoColumn && preferColumnWidth > 0) {
+				val ww = newWidth - this.paddingLeft - this.paddingRight
+				var cols = (ww + this.horizontalSpacing) / (dp(preferColumnWidth) + this.horizontalSpacing)
+				if (cols < 1) {
+					cols = 1
+				}
+				fore {
+					this.numColumns = cols
+				}
+			}
+
+			onLayoutChanged(newWidth, b - t)
 		}
 	}
 
