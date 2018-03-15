@@ -12,21 +12,21 @@ import yet.ui.ext.*
  */
 
 //TextView
-fun <P : ViewGroup.LayoutParams> ViewGroup.textView(param: P, block: TextView.() -> Unit): TextView {
+fun  ViewGroup.textView(param:ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
 	val v = this.createTextView()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.textView(index: Int, param: P, block: TextView.() -> Unit): TextView {
+fun  ViewGroup.textView(index: Int, param:ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
 	val v = this.createTextView()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.textViewBefore(ankor: View, param: P, block: TextView.() -> Unit): TextView {
+fun  ViewGroup.textViewBefore(ankor: View, param:ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
 	return this.textView(this.indexOfChild(ankor), param, block)
 }
 

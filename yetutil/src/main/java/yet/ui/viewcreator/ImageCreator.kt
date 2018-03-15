@@ -14,21 +14,21 @@ import yet.ui.ext.genId
 
 //Image View
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.imageView(param: P, block: ImageView.() -> Unit): ImageView {
+fun ViewGroup.imageView(param: ViewGroup.LayoutParams, block: ImageView.() -> Unit): ImageView {
 	val v = this.createImageView()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.imageView(index: Int, param: P, block: ImageView.() -> Unit): ImageView {
+fun ViewGroup.imageView(index: Int, param: ViewGroup.LayoutParams, block: ImageView.() -> Unit): ImageView {
 	val v = this.createImageView()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.imageViewBefore(ankor: View, param: P, block: ImageView.() -> Unit): ImageView {
+fun ViewGroup.imageViewBefore(ankor: View, param: ViewGroup.LayoutParams, block: ImageView.() -> Unit): ImageView {
 	return this.imageView(this.indexOfChild(ankor), param, block)
 }
 
@@ -49,21 +49,21 @@ fun Context.createImageView(): ImageView {
 
 
 //image button
-fun <P : ViewGroup.LayoutParams> ViewGroup.imageButton(param: P, block: ImageButton.() -> Unit): ImageButton {
+fun ViewGroup.imageButton(param: ViewGroup.LayoutParams, block: ImageButton.() -> Unit): ImageButton {
 	val v = this.createImageButton()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.imageButton(index: Int, param: P, block: ImageButton.() -> Unit): ImageButton {
+fun ViewGroup.imageButton(index: Int, param: ViewGroup.LayoutParams, block: ImageButton.() -> Unit): ImageButton {
 	val v = this.createImageButton()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.imageButtonBefore(ankor: View, param: P, block: ImageButton.() -> Unit): ImageButton {
+fun ViewGroup.imageButtonBefore(ankor: View, param: ViewGroup.LayoutParams, block: ImageButton.() -> Unit): ImageButton {
 	return this.imageButton(this.indexOfChild(ankor), param, block)
 }
 

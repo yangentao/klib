@@ -9,28 +9,35 @@ import android.widget.ListView
 import yet.theme.Colors
 import yet.ui.ext.genId
 import yet.ui.res.Img
+import yet.ui.widget.listview.SimpleListView
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
 
+fun <D> ViewGroup.simpleListView(param: ViewGroup.LayoutParams, block: SimpleListView<D>.() -> Unit): SimpleListView<D> {
+	val lv = SimpleListView<D>(context)
+	this.addView(lv, param)
+	lv.block()
+	return lv
+}
 
 //List View
-fun <P : ViewGroup.LayoutParams> ViewGroup.listView(param: P, block: ListView.() -> Unit): ListView {
+fun ViewGroup.listView(param: ViewGroup.LayoutParams, block: ListView.() -> Unit): ListView {
 	val v = this.createListView()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.listView(index: Int, param: P, block: ListView.() -> Unit): ListView {
+fun ViewGroup.listView(index: Int, param: ViewGroup.LayoutParams, block: ListView.() -> Unit): ListView {
 	val v = this.createListView()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.listViewBefore(ankor: View, param: P, block: ListView.() -> Unit): ListView {
+fun ViewGroup.listViewBefore(ankor: View, param: ViewGroup.LayoutParams, block: ListView.() -> Unit): ListView {
 	return this.listView(this.indexOfChild(ankor), param, block)
 }
 

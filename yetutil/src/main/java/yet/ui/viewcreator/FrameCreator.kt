@@ -25,21 +25,21 @@ fun Fragment.frame(block: FrameLayout.() -> Unit): FrameLayout {
 }
 
 //FrameLayout
-fun <P : ViewGroup.LayoutParams> ViewGroup.frame(param: P, block: FrameLayout.() -> Unit): FrameLayout {
+fun  ViewGroup.frame(param:ViewGroup.LayoutParams, block: FrameLayout.() -> Unit): FrameLayout {
 	val v = this.createFrame()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.frame(index: Int, param: P, block: FrameLayout.() -> Unit): FrameLayout {
+fun  ViewGroup.frame(index: Int, param:ViewGroup.LayoutParams, block: FrameLayout.() -> Unit): FrameLayout {
 	val v = this.createFrame()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.frameBefore(ankor: View, param: P, block: FrameLayout.() -> Unit): FrameLayout {
+fun  ViewGroup.frameBefore(ankor: View, param:ViewGroup.LayoutParams, block: FrameLayout.() -> Unit): FrameLayout {
 	return this.frame(this.indexOfChild(ankor), param, block)
 }
 

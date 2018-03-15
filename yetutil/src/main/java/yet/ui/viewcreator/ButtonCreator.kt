@@ -12,21 +12,21 @@ import yet.ui.ext.*
  */
 
 //Button
-fun <P : ViewGroup.LayoutParams> ViewGroup.button(param: P, block: Button.() -> Unit): Button {
+fun ViewGroup.button(param: ViewGroup.LayoutParams, block: Button.() -> Unit): Button {
 	val v = this.createButton()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.button(index: Int, param: P, block: Button.() -> Unit): Button {
+fun ViewGroup.button(index: Int, param: ViewGroup.LayoutParams, block: Button.() -> Unit): Button {
 	val v = this.createButton()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.buttonBefore(ankor: View, param: P, block: Button.() -> Unit): Button {
+fun ViewGroup.buttonBefore(ankor: View, param: ViewGroup.LayoutParams, block: Button.() -> Unit): Button {
 	return this.button(this.indexOfChild(ankor), param, block)
 }
 

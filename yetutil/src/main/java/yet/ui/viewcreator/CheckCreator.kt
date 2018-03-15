@@ -13,21 +13,21 @@ import yet.ui.ext.genId
 
 
 //check box
-fun <P : ViewGroup.LayoutParams> ViewGroup.checkBox(param: P, block: CheckBox.() -> Unit): CheckBox {
+fun ViewGroup.checkBox(param: ViewGroup.LayoutParams, block: CheckBox.() -> Unit): CheckBox {
 	val v = this.createCheckBox()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.checkBox(index: Int, param: P, block: CheckBox.() -> Unit): CheckBox {
+fun ViewGroup.checkBox(index: Int, param: ViewGroup.LayoutParams, block: CheckBox.() -> Unit): CheckBox {
 	val v = this.createCheckBox()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.checkBoxBefore(ankor: View, param: P, block: CheckBox.() -> Unit): CheckBox {
+fun ViewGroup.checkBoxBefore(ankor: View, param: ViewGroup.LayoutParams, block: CheckBox.() -> Unit): CheckBox {
 	return this.checkBox(this.indexOfChild(ankor), param, block)
 }
 

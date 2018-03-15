@@ -26,21 +26,21 @@ fun Fragment.relative(block: RelativeLayout.() -> Unit): RelativeLayout {
 
 
 //RelativeLayout
-fun <P : ViewGroup.LayoutParams> ViewGroup.relative(param: P, block: RelativeLayout.() -> Unit): RelativeLayout {
+fun ViewGroup.relative(param: ViewGroup.LayoutParams, block: RelativeLayout.() -> Unit): RelativeLayout {
 	val v = this.createRelative()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.relative(index: Int, param: P, block: RelativeLayout.() -> Unit): RelativeLayout {
+fun ViewGroup.relative(index: Int, param: ViewGroup.LayoutParams, block: RelativeLayout.() -> Unit): RelativeLayout {
 	val v = this.createRelative()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.relativeBefore(ankor: View, param: P, block: RelativeLayout.() -> Unit): RelativeLayout {
+fun ViewGroup.relativeBefore(ankor: View, param: ViewGroup.LayoutParams, block: RelativeLayout.() -> Unit): RelativeLayout {
 	return this.relative(this.indexOfChild(ankor), param, block)
 }
 

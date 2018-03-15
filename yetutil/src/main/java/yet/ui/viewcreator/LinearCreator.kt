@@ -49,57 +49,57 @@ fun Fragment.linear(block: LinearLayout.() -> Unit): LinearLayout {
 
 
 //LinearLayout
-inline fun <P : ViewGroup.LayoutParams> ViewGroup.linear(param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linear(param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	val v = this.createLinear()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.linear(index: Int, param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linear(index: Int, param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	val v = this.createLinear()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.linearBefore(ankor: View, param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linearBefore(ankor: View, param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	return this.linear(this.indexOfChild(ankor), param, block)
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.linearHor(param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linearHor(param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	val v = this.context.createLinearHorizontal()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.linearHor(index: Int, param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linearHor(index: Int, param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	val v = this.context.createLinearHorizontal()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.linearHorBefore(ankor: View, param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linearHorBefore(ankor: View, param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	return this.linearHor(this.indexOfChild(ankor), param, block)
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.linearVer(param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linearVer(param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	val v = this.context.createLinearVertical()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.linearVer(index: Int, param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linearVer(index: Int, param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	val v = this.context.createLinearVertical()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.linearVerBefore(ankor: View, param: P, block: LinearLayout.() -> Unit): LinearLayout {
+fun ViewGroup.linearVerBefore(ankor: View, param: ViewGroup.LayoutParams, block: LinearLayout.() -> Unit): LinearLayout {
 	return this.linearVer(this.indexOfChild(ankor), param, block)
 }
 

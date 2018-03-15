@@ -28,7 +28,7 @@ fun genViewId(): Int {
 	}
 }
 
-fun < T : View> T.genId(): T {
+fun <T : View> T.genId(): T {
 	id = genViewId()
 	return this
 }
@@ -61,15 +61,16 @@ fun <T : View> T.isInvisiable(): Boolean {
 }
 
 
-fun < T : View> T.padding(left: Int, top: Int, right: Int, bottom: Int): T {
+fun <T : View> T.padding(left: Int, top: Int, right: Int, bottom: Int): T {
 	this.setPadding(dp(left), dp(top), dp(right), dp(bottom));
 	return this
 }
 
-fun < T : View> T.padding(p: Int): T {
+fun <T : View> T.padding(p: Int): T {
 	this.setPadding(dp(p), dp(p), dp(p), dp(p))
 	return this
 }
+
 fun <T : View> T.paddingNormal(): T {
 	this.padding(Space.Normal)
 	return this
@@ -100,30 +101,53 @@ fun <T : View> T.paddingTiny(): T {
 	return this
 }
 
- fun <T : View> T.backColor(color: Int): T {
+fun <T : View> T.padLeft(n: Int): T {
+	this.setPadding(dp(n), this.paddingTop, this.paddingRight, this.paddingBottom)
+	return this
+}
+
+fun <T : View> T.padTop(n: Int): T {
+	this.setPadding(this.paddingLeft, dp(n), this.paddingRight, this.paddingBottom)
+	return this
+}
+
+fun <T : View> T.padRight(n: Int): T {
+	this.setPadding(this.paddingLeft, this.paddingTop, dp(n), this.paddingBottom)
+	return this
+}
+
+fun <T : View> T.padBottom(n: Int): T {
+	this.setPadding(this.paddingLeft, this.paddingTop, this.paddingRight, dp(n))
+	return this
+}
+
+fun <T : View> T.backColor(color: Int): T {
 	setBackgroundColor(color)
 	return this
 }
 
-fun < T : View> T.backColor(color: Int, fadeColor: Int): T {
+fun <T : View> T.backColor(color: Int, fadeColor: Int): T {
 	//    background = colorDrawable(color, fadeColor)
 	setBackgroundDrawable(ColorDrawable(color, fadeColor))
 	return this
 }
 
 
-fun < T : View> T.backColorWhite(): T {
+fun <T : View> T.backColorWhite(): T {
 	setBackgroundColor(Colors.WHITE)
 	return this
 }
+
 fun <T : View> T.backColorTrans(): T {
 	setBackgroundColor(Colors.TRANS)
 	return this
 }
+
 fun <T : View> T.backColorWhiteFade(): T {
 	backColor(Colors.WHITE, Colors.Fade)
 	return this
 }
+
 fun <T : View> T.backColorTransFade(): T {
 	backColor(Colors.TRANS, Colors.Fade)
 	return this
@@ -133,6 +157,7 @@ fun <T : View> T.backColorPage(): T {
 	setBackgroundColor(Colors.PageGray)
 	return this
 }
+
 fun <T : View> T.backFillFade(fillColor: Int, corner: Int): T {
 	backDrawable(RectDrawable(fillColor).corner(corner).value, RectDrawable(Colors.Fade).corner(corner).value)
 	return this
@@ -149,18 +174,22 @@ fun <T : View> T.backStrike(fillColor: Int, corner: Int, borderWidth: Int, borde
 	backDrawable(d.value)
 	return this
 }
-fun <T : View> T.backDrawable(@DrawableRes resId:Int): T {
+
+fun <T : View> T.backDrawable(@DrawableRes resId: Int): T {
 	this.setBackgroundResource(resId)
 	return this
 }
+
 fun <T : View> T.backDrawable(d: Drawable): T {
 	this.setBackgroundDrawable(d)
 	return this
 }
+
 fun <T : View> T.backDrawable(normal: Drawable, pressed: Drawable): T {
 	this.setBackgroundDrawable(StateImage(normal).pressed(pressed).value)
 	return this
 }
+
 fun <T : View> T.backDrawable(@DrawableRes resId: Int, @DrawableRes pressed: Int): T {
 	this.setBackgroundDrawable(yet.ui.res.DrawablePressed(resId, pressed))
 	return this
@@ -170,6 +199,7 @@ fun View.makeClickable(): View {
 	this.isClickable = true
 	return this
 }
+
 fun View.clickable(): View {
 	this.isClickable = true
 	return this

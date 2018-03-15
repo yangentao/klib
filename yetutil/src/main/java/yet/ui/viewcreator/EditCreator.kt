@@ -15,21 +15,21 @@ import yet.ui.widget.EditTextX
 
 
 //EditText
-fun <P : ViewGroup.LayoutParams> ViewGroup.edit(param: P, block: EditText.() -> Unit): EditText {
+fun ViewGroup.edit(param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
 	val v = this.createEdit()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.edit(index: Int, param: P, block: EditText.() -> Unit): EditText {
+fun ViewGroup.edit(index: Int, param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
 	val v = this.createEdit()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.editBefore(ankor: View, param: P, block: EditText.() -> Unit): EditText {
+fun ViewGroup.editBefore(ankor: View, param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
 	return this.edit(this.indexOfChild(ankor), param, block)
 }
 
@@ -49,21 +49,21 @@ fun Context.createEdit(): EditText {
 
 
 //EditTextX
-fun <P : ViewGroup.LayoutParams> ViewGroup.editX(param: P, block: EditTextX.() -> Unit): EditTextX {
+fun ViewGroup.editX(param: ViewGroup.LayoutParams, block: EditTextX.() -> Unit): EditTextX {
 	val v = this.createEditX()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.editX(index: Int, param: P, block: EditTextX.() -> Unit): EditTextX {
+fun ViewGroup.editX(index: Int, param: ViewGroup.LayoutParams, block: EditTextX.() -> Unit): EditTextX {
 	val v = this.createEditX()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.editXBefore(ankor: View, param: P, block: EditTextX.() -> Unit): EditTextX {
+fun ViewGroup.editXBefore(ankor: View, param: ViewGroup.LayoutParams, block: EditTextX.() -> Unit): EditTextX {
 	return this.editX(this.indexOfChild(ankor), param, block)
 }
 
@@ -83,21 +83,21 @@ fun Context.createEditX(): EditTextX {
 
 
 //EditArea
-fun <P : ViewGroup.LayoutParams> ViewGroup.editArea(param: P, block: EditText.() -> Unit): EditText {
+fun ViewGroup.editArea(param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
 	val v = this.createEditArea()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.editArea(index: Int, param: P, block: EditText.() -> Unit): EditText {
+fun ViewGroup.editArea(index: Int, param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
 	val v = this.createEditArea()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.editAreaBefore(ankor: View, param: P, block: EditText.() -> Unit): EditText {
+fun ViewGroup.editAreaBefore(ankor: View, param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {
 	return this.editArea(this.indexOfChild(ankor), param, block)
 }
 

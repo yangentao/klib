@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.ListView
-import android.widget.TextView
 import yet.theme.Colors
+import yet.ui.ext.genId
 import yet.ui.res.Img
 
 /**
@@ -13,24 +13,33 @@ import yet.ui.res.Img
 class SimpleListView<T>(context: Context) : ListView(context) {
 
 
-	var newView: (context: Context, position: Int) -> View = { c, p -> TextView(c) }
-	var bindView: (itemView: View, item: T, position: Int) -> Unit = { v, item, p -> }
-
-	var myAdapter: XBaseAdapter<T> = object : XBaseAdapter<T>() {
-
-		override fun bindView(position: Int, itemView: View, item: T) {
-			this@SimpleListView.bindView(itemView, item, position)
+	val myAdapter = SimpleBaseAdapter<T>()
+	var onNewView: (context: Context, position: Int) -> View
+		get() {
+			return myAdapter.onNewView
+		}
+		set(value) {
+			myAdapter.onNewView = value
+		}
+	var onBindView: (itemView: View, item: T, position: Int) -> Unit
+		get() {
+			return myAdapter.onBindView
+		}
+		set(value) {
+			myAdapter.onBindView = value
 		}
 
-		override fun newView(context: Context, position: Int): View {
-			return this@SimpleListView.newView(context, position)
-		}
-	}
+	var onItemClick: (item: T) -> Unit = {}
+
 
 	init {
+		genId()
 		cacheColorHint = 0
 		selector = Img.colorStates(Color.TRANSPARENT, Colors.Fade)
 		setAdapter(myAdapter)
+		this.setOnItemClickListener { parent, view, position, id ->
+			onItemClick(getItem(position))
+		}
 	}
 
 	fun setItems(items: List<T>) {

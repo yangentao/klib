@@ -14,21 +14,21 @@ import yet.ui.ext.gravityLeftCenter
  */
 
 //RadioButton
-fun <P : ViewGroup.LayoutParams> ViewGroup.radio(param: P, block: RadioButton.() -> Unit): RadioButton {
+fun  ViewGroup.radio(param:ViewGroup.LayoutParams, block: RadioButton.() -> Unit): RadioButton {
 	val v = this.createRadioButton()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.radio(index: Int, param: P, block: RadioButton.() -> Unit): RadioButton {
+fun  ViewGroup.radio(index: Int, param:ViewGroup.LayoutParams, block: RadioButton.() -> Unit): RadioButton {
 	val v = this.createRadioButton()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.radioBefore(ankor: View, param: P, block: RadioButton.() -> Unit): RadioButton {
+fun  ViewGroup.radioBefore(ankor: View, param:ViewGroup.LayoutParams, block: RadioButton.() -> Unit): RadioButton {
 	val n = this.indexOfChild(ankor)
 	return this.radio(n, param, block)
 }
@@ -47,21 +47,21 @@ fun Context.createRadioButton(): RadioButton {
 
 
 //RadioGroup
-fun <P : ViewGroup.LayoutParams> ViewGroup.radioGroup(param: P, block: RadioGroup.() -> Unit): RadioGroup {
+fun  ViewGroup.radioGroup(param:ViewGroup.LayoutParams, block: RadioGroup.() -> Unit): RadioGroup {
 	val v = this.createRadioGroup()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.radioGroup(index: Int, param: P, block: RadioGroup.() -> Unit): RadioGroup {
+fun  ViewGroup.radioGroup(index: Int, param:ViewGroup.LayoutParams, block: RadioGroup.() -> Unit): RadioGroup {
 	val v = this.createRadioGroup()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun <P : ViewGroup.LayoutParams> ViewGroup.radioGroupBefore(ankor: View, param: P, block: RadioGroup.() -> Unit): RadioGroup {
+fun  ViewGroup.radioGroupBefore(ankor: View, param:ViewGroup.LayoutParams, block: RadioGroup.() -> Unit): RadioGroup {
 	return this.radioGroup(this.indexOfChild(ankor), param, block)
 }
 
