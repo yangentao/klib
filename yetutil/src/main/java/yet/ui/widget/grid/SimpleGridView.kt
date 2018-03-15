@@ -30,6 +30,8 @@ open class SimpleGridView<T>(context: Context) : GridView(context) {
 
 	var onItemClick: (item: T) -> Unit = {}
 
+	var onLayoutChanged: (w: Int, h: Int) -> Unit = { w, h -> }
+
 
 	init {
 		genId()
@@ -58,6 +60,12 @@ open class SimpleGridView<T>(context: Context) : GridView(context) {
 			return myAdapter.count
 		}
 
+	override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+		super.onLayout(changed, l, t, r, b)
+		if (changed) {
+			onLayoutChanged(r - l, b - t)
+		}
+	}
 
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 		if (!heightMost) {
