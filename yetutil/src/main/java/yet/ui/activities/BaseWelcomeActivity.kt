@@ -39,7 +39,6 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		statusBarColorFromTheme()
 		val first = Util.runOnceVer("ver-first-welcome", null)
 		val images = resImages ?: kotlin.IntArray(0)
 		isGuide = first   && images.isNotEmpty()

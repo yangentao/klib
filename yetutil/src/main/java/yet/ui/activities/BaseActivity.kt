@@ -4,26 +4,17 @@ import android.app.Activity
 import android.content.Intent
 import android.database.ContentObserver
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.Toast
 import yet.theme.Colors
 import yet.ui.MyColor
 import yet.ui.dialogs.OKDialog
 import yet.ui.page.BaseFragment
-import yet.util.Msg
-import yet.util.MsgCenter
-import yet.util.MsgListener
+import yet.util.*
 import yet.util.app.App
 import yet.util.app.Perm
-import yet.util.mergeAction
-import yet.util.fore
 import java.util.*
 
 /**
@@ -150,6 +141,7 @@ open class BaseActivity : AppCompatActivity(), MsgListener, PermContext {
 		this.setTheme(net.yet.R.style.yetTheme_NoActionBar)
 		requestWindowFeature(Window.FEATURE_NO_TITLE)
 		super.onCreate(savedInstanceState)
+		statusBarColorFromTheme()
 		MsgCenter.listenAll(this)
 	}
 
