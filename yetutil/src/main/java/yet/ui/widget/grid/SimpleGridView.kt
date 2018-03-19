@@ -2,7 +2,8 @@ package yet.ui.widget.grid
 
 import android.content.Context
 import android.view.View
-import android.widget.*
+import android.widget.AbsListView
+import android.widget.AdapterView
 import yet.ui.ext.*
 import yet.ui.widget.listview.SimpleBaseAdapter
 import yet.util.fore
@@ -11,7 +12,7 @@ import yet.util.fore
  * Created by entaoyang@163.com on 2016-08-27.
  */
 
-open class SimpleGridView<T>(context: Context) : GridView(context) {
+open class SimpleGridView<T>(context: Context) : LineGridView(context) {
 	var heightMost = false
 	var autoColumn = false
 

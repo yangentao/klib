@@ -3,9 +3,7 @@ package yet.ui.widget.grid
 import android.content.Context
 import android.view.View
 import android.widget.AdapterView
-import android.widget.GridView
 import android.widget.LinearLayout
-import yet.theme.Space
 import yet.ui.ext.*
 import yet.ui.page.TitledPage
 import yet.ui.widget.listview.XBaseAdapter
@@ -15,15 +13,14 @@ import yet.ui.widget.listview.XBaseAdapter
  */
 
 abstract class GridPage<T> : TitledPage() {
-	lateinit var gridView: GridView
+	lateinit var gridView: LineGridView
 	lateinit var adapter: XBaseAdapter<T>
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		gridView = GridView(context)
+		gridView = LineGridView(context)
 		gridView.numColumns = 2
-		gridView.padding(Space.Normal)
-		gridView.horizontalSpacing = dp(2)
-		gridView.verticalSpacing = dp(2)
+		gridView.horizontalSpacing = 0
+		gridView.verticalSpacing = 0
 		contentView.addViewParam(gridView) {
 			widthFill().height(0).weight(1)
 		}
@@ -36,7 +33,9 @@ abstract class GridPage<T> : TitledPage() {
 			}
 
 			override fun newView(context: Context, position: Int): View {
-				return GridItemView(context)
+				val v = GridItemView(context)
+				v.padding(10)
+				return v
 			}
 
 			override fun onRequestItems(): List<T> {
