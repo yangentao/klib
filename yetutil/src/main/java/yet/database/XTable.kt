@@ -56,7 +56,7 @@ class XTable(val table: String, block: (XTable) -> Unit) {
 	}
 
 	fun insert(vararg keyValues: Pair<String, String?>): Long {
-		return return lb.insert(table, *keyValues)
+		return lb.insert(table, *keyValues)
 	}
 
 	fun insert(values: Values): Long {

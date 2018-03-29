@@ -2,17 +2,12 @@ package yet.ui.page
 
 import android.content.Context
 import android.graphics.Color
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.util.IdGen
-import yet.util.RunTask
-import yet.util.TaskUtil
-import yet.util.Util
+import yet.util.*
 
 /**
  * Created by yet on 2015/10/20.
@@ -94,8 +89,8 @@ class Snack(context: Context) : LinearLayout(context) {
 		return this
 	}
 
-	fun show(seconds: Int = 0) {
-		var seconds = seconds
+	fun show(second: Int = 0) {
+		var seconds = second
 		this.visibility = View.VISIBLE
 		if (seconds >= 0) {
 			if (seconds == 0) {

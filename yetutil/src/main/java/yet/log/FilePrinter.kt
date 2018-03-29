@@ -1,9 +1,6 @@
 package yet.util.log
 
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
-import java.io.IOException
+import java.io.*
 
 /**
  * Created by entaoyang@163.com on 2016-10-28.
@@ -35,7 +32,7 @@ class FilePrinter(f: File , limit: Int = 4 * 1024 * 1024) : LogPrinter {
 		}
 	}
 
-	override fun println(priority: Int, tag: String, msg: String) {
+	override fun println(priority: LogLevel2, tag: String, msg: String) {
 		val w = writer ?: return
 		val s = formatMsg(priority, tag, msg)
 		try {

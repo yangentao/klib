@@ -21,7 +21,7 @@ class TreePrinter(vararg ps: LogPrinter) : LogPrinter {
 		}
 	}
 
-	override fun println(priority: Int, tag: String, msg: String) {
+	override fun println(priority: LogLevel2, tag: String, msg: String) {
 		for (p in ls) {
 			p.println(priority, tag, msg)
 		}

@@ -187,7 +187,7 @@ open class BaseActivity : AppCompatActivity(), MsgListener, PermContext {
 		if (visiableActivityCount <= 0) {
 			_topActivity = null
 			val app = App.app
-			if (app != null && app is AppVisibleListener) {
+			if ( app is AppVisibleListener) {
 				fore {
 					app.onEnterBackground()
 				}

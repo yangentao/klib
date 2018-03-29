@@ -8,10 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-import yet.file.AppFile;
-import yet.file.AppFileVer;
-import yet.util.log.xlog;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,6 +19,10 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import yet.file.AppFile;
+import yet.file.AppFileVer;
+import yet.util.log.xlog;
 
 /**
  * Type mapType = new TypeToken<HashMap<String, String>>() {

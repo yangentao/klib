@@ -4,6 +4,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import yet.anno.*
 import yet.json.GSON
+import yet.util.MyDate
 import kotlin.reflect.*
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.jvm.javaField
@@ -44,14 +45,25 @@ val KProperty<*>.isTypeEnum: Boolean get() {
 	return this.javaField?.type?.isEnum ?: false
 }
 
-fun KProperty0<*>.getValue(): Any? {
-	return this.getter.call()
+fun KProperty<*>.getValue(): Any? {
+	if (this.getter.parameters.isEmpty()) {
+		return this.getter.call()
+	}
+	return null
 }
 
-fun KProperty1<*, *>.getValue(inst: Any): Any? {
+fun KProperty<*>.getValue(inst: Any): Any? {
+	if (this.getter.parameters.isEmpty()) {
+		return this.getter.call()
+	}
 	return this.getter.call(inst)
 }
-
+fun KProperty<*>.getBindValue(): Any? {
+	if (this.getter.parameters.isEmpty()) {
+		return this.getter.call()
+	}
+	return null
+}
 fun KMutableProperty<*>.setValue(inst: Any, value: Any?) {
 	this.setter.call(inst, value)
 }
@@ -125,7 +137,22 @@ fun <V> strToV(v: String, property: KProperty<*>): V {
 	if (retType.isClass(JsonArray::class)) {
 		return GSON.parseArray(v) as V
 	}
-
+	if (retType.isClass(java.sql.Date::class)) {
+		val md = MyDate.parse(MyDate.FORMAT_DATE, v)
+		if (md != null) {
+			return java.sql.Date(md.time) as V
+		} else {
+			return null as V
+		}
+	}
+	if (retType.isClass(java.util.Date::class)) {
+		val md = MyDate.parse(MyDate.FORMAT_DATE, v)
+		if (md != null) {
+			return java.util.Date(md.time) as V
+		} else {
+			return null as V
+		}
+	}
 	throw IllegalArgumentException("不支持的类型${property.customNamePrefixClass}")
 }
 

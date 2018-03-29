@@ -4,12 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.Gravity
-import android.view.View
-import android.view.Window
-import yet.theme.Colors
-import yet.theme.InputSize
-import yet.theme.Str
+import android.view.*
+import yet.theme.*
 import yet.ui.ext.*
 import yet.ui.util.RectDrawable
 import yet.ui.viewcreator.*

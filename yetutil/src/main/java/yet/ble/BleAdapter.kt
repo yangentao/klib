@@ -6,9 +6,7 @@ import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import yet.util.app.App
-import yet.util.app.OS
-import yet.util.app.hasPerms
+import yet.util.app.*
 import yet.util.foreDelay
 import yet.util.log.log
 import yet.util.toast
@@ -45,7 +43,7 @@ object BleAdapter {
 		return true
 	}
 
-	fun checkPerms(context: Activity): Boolean {
+	fun checkPerms(): Boolean {
 		return hasPerms(blePermSet, false)
 	}
 
@@ -89,7 +87,7 @@ object BleAdapter {
 			toast("蓝牙已关闭")
 			return
 		}
-		val ad = adapter ?: return
+		if (null != adapter) return
 		if (isStateOn) {
 			log("蓝牙已经开启")
 			log("开始扫描")

@@ -3,11 +3,8 @@ package yet.ui.widget
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.CheckBox
-import android.widget.ImageView
+import android.widget.*
 import android.widget.ImageView.ScaleType
-import android.widget.LinearLayout
-import android.widget.TextView
 import yet.theme.Colors
 import yet.ui.ext.*
 import yet.ui.res.ResConst

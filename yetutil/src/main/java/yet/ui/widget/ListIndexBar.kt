@@ -2,9 +2,7 @@ package yet.ui.widget
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.*
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*

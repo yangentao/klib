@@ -3,11 +3,11 @@ package yet.ui.widget;
 import android.content.Context;
 import android.view.View;
 
-import yet.util.BackFore;
-import yet.util.TaskUtil;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import yet.util.BackFore;
+import yet.util.TaskUtil;
 
 /**
  * 类似ListView, 适合小数据.

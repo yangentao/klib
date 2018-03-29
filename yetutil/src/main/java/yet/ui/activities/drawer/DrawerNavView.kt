@@ -2,17 +2,12 @@ package yet.ui.activities.drawer
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.*
 import android.os.Build
 import android.view.View
-import android.widget.CompoundButton
-import android.widget.LinearLayout
-import android.widget.ScrollView
+import android.widget.*
 import yet.ext.size
-import yet.theme.Colors
-import yet.theme.IconSize
+import yet.theme.*
 import yet.theme.Space
 import yet.ui.ext.*
 import yet.ui.viewcreator.*
@@ -183,7 +178,7 @@ class DrawerNavView(context: Context) : LinearLayout(context) {
 				ll.addViewParam(sb) {
 					width(SwitchButton.WIDTH).height(SwitchButton.HEIGHT).gravityRightCenter()
 				}
-				sb.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+				sb.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, _ ->
 					val ac = buttonView.tag as Action
 					ac.checked = buttonView.isChecked
 					onActionCallback(ac)

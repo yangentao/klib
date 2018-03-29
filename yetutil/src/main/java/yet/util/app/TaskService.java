@@ -2,11 +2,11 @@ package yet.util.app;
 
 import android.content.Intent;
 
-import yet.util.RunTask;
-import yet.util.TaskUtil;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import yet.util.RunTask;
+import yet.util.TaskUtil;
 
 /**
  * 调用onProcess来处理任务, 调用finish任务来结束任务.

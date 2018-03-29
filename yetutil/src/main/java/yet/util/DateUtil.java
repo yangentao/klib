@@ -1,11 +1,11 @@
 package yet.util;
 
-import yet.util.log.xlog;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import yet.util.log.xlog;
 
 public class DateUtil {
 	public static final String FORMAT_DATE = "yyyy-MM-dd";

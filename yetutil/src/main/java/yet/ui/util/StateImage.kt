@@ -1,8 +1,6 @@
 package yet.ui.util
 
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.StateListDrawable
+import android.graphics.drawable.*
 
 /**
  * Created by entaoyang@163.com on 16/6/3.

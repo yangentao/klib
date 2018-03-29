@@ -1,8 +1,8 @@
 package yet.orm.convert
 
 import yet.database.SQLType
-import yet.orm.TypeDismatchException
 import yet.ext.isTypeByteArray
+import yet.orm.TypeDismatchException
 import kotlin.reflect.KMutableProperty
 
 /**

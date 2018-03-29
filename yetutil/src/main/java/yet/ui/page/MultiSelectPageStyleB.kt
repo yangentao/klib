@@ -2,10 +2,7 @@ package yet.ui.page
 
 import android.content.Context
 import android.widget.LinearLayout
-
-import yet.ui.widget.Action
-import yet.ui.widget.BottomBar
-import yet.ui.widget.TitleBar
+import yet.ui.widget.*
 
 /**
 

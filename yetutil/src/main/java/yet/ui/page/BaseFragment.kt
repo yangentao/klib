@@ -284,7 +284,7 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 	fun pickVideo(block: (Uri) -> Unit) {
 		val i = Intent(Intent.ACTION_PICK)
 		i.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, "video/*")
-		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
+		val onResult = PreferenceManager.OnActivityResultListener { _, resultCode, data ->
 			if (resultCode == Activity.RESULT_OK) {
 				if (data != null && data.data != null) {
 					block.invoke(data.data)
@@ -329,7 +329,7 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 	fun pickPhoto(width: Int, block: (Uri) -> Unit) {
 		val i = Intent(Intent.ACTION_PICK)
 		i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
+		val onResult = PreferenceManager.OnActivityResultListener { _, resultCode, data ->
 			if (resultCode == Activity.RESULT_OK) {
 				if (data != null && data.data != null) {
 					val f = SdAppFile.tempFile("PNG")
@@ -364,7 +364,7 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 		var outUri = UriFromSdFile(outputFile)
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri)
 		intent.putExtra("outputFormat", FMT)
-		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
+		val onResult = PreferenceManager.OnActivityResultListener { _, resultCode, _ ->
 			if (resultCode == Activity.RESULT_OK && outputFile.exists()) {
 				val f = SdAppFile.tempFile(FMT.toLowerCase())
 				val bmp = BmpUtil.fromFile(outputFile, width * width, Bitmap.Config.ARGB_8888)

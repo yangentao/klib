@@ -16,7 +16,7 @@ import yet.ui.util.makeRoundEdgeRectDrawable
 //width:60, height:30
 open class SwitchButton(context: Context) : CheckBox(context) {
 	private val onLayoutChange = View.OnLayoutChangeListener {
-		v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+		_, _, _, _, _, _, _, _, _ ->
 		this.post {
 			resetImage()
 		}

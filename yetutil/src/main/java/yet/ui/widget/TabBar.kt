@@ -5,9 +5,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import yet.ui.ext.*
-import yet.ui.res.ColorList
-import yet.ui.res.ColorStated
-import yet.ui.res.ResConst
+import yet.ui.res.*
 import yet.ui.viewcreator.*
 import java.util.*
 

@@ -2,9 +2,9 @@ package yet.util;
 
 import android.os.Handler;
 
-import yet.util.log.xlog;
-
 import java.util.concurrent.ExecutorService;
+
+import yet.util.log.xlog;
 
 public abstract class ForeBackTask extends RunTask {
 	private boolean first = true;

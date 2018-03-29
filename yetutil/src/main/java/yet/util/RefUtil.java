@@ -1,7 +1,5 @@
 package yet.util;
 
-import yet.util.log.xlog;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -10,6 +8,8 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
+
+import yet.util.log.xlog;
 
 public class RefUtil {
 

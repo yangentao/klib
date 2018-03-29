@@ -1,9 +1,7 @@
 package yet.util.app
 
 import android.app.DownloadManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import yet.util.database.CursorResult
 
 class DownloadReceiver : BroadcastReceiver() {

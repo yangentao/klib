@@ -4,9 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import yet.ui.ext.*
-import yet.ui.widget.AbstractViewPager
-import yet.ui.widget.SwitchItemView
-import yet.ui.widget.SwitchView
+import yet.ui.widget.*
 import java.util.*
 
 /**

@@ -1,9 +1,6 @@
 package yet.ui.res
 
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.StateListDrawable
+import android.graphics.drawable.*
 import android.support.annotation.DrawableRes
 import yet.theme.Colors
 import yet.util.BmpUtil

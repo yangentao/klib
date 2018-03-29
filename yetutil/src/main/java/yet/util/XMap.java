@@ -2,11 +2,11 @@ package yet.util;
 
 import com.google.gson.Gson;
 
-import yet.anno.NoProguard;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import yet.anno.NoProguard;
 
 @NoProguard
 public class XMap {

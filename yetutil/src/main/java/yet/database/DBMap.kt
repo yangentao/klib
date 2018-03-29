@@ -4,7 +4,6 @@ import yet.database.eachRow
 import yet.util.log.xlog
 import yet.util.runOnce
 import java.util.*
-import kotlin.reflect.KProperty
 
 
 class DBMap(val table: String) : MapLike<String> {

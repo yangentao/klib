@@ -2,11 +2,11 @@ package yet.ref;
 
 import android.support.annotation.Nullable;
 
-import yet.util.log.xlog;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
+import yet.util.log.xlog;
 
 /**
  * Created by entaoyang@163.com on 2017-03-13.

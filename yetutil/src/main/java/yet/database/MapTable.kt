@@ -27,13 +27,10 @@ class MapTable(val table: String) : MapLike<String> {
 
 	@Suppress("UNCHECKED_CAST", "NON_PUBLIC_CALL_FROM_PUBLIC_INLINE")
 	operator fun <V> getValue(thisRef: Any?, property: KProperty<*>): V {
-		val v = get(property.customName) ?: property.defaultValue
-		if (v == null) {
-			if (property.returnType.isMarkedNullable) {
-				return v as V
-			} else {
-				return defaultValueOfProperty(property)
-			}
+		val v = get(property.customName) ?: property.defaultValue ?: return if (property.returnType.isMarkedNullable) {
+			null as V
+		} else {
+			defaultValueOfProperty(property)
 		}
 		return strToV(v, property)
 	}

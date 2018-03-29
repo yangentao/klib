@@ -1,10 +1,10 @@
 package yet.util;
 
-import yet.util.log.xlog;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
+
+import yet.util.log.xlog;
 
 /**
  * 一种结果是执行完成, 另一个是被取消. 这两个都是结束状态

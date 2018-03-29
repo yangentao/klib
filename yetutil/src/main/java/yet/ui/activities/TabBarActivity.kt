@@ -10,9 +10,7 @@ import yet.ui.page.BaseFragment
 import yet.ui.util.FragmentHelper
 import yet.ui.viewcreator.createFrame
 import yet.ui.viewcreator.createLinearVertical
-import yet.ui.widget.Action
-import yet.ui.widget.TabBar
-import yet.ui.widget.add
+import yet.ui.widget.*
 import java.util.*
 
 /**

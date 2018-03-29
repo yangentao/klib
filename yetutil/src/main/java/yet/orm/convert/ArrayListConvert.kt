@@ -2,8 +2,8 @@ package yet.orm.convert
 
 import com.google.gson.reflect.TypeToken
 import yet.database.SQLType
-import yet.ref.FieldUtil
 import yet.ext.isTypeArrayList
+import yet.ref.FieldUtil
 import yet.util.JsonUtil
 import java.lang.reflect.Type
 import kotlin.reflect.KMutableProperty

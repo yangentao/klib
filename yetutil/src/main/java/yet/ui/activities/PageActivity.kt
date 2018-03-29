@@ -5,8 +5,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.FrameLayout
-import yet.ui.viewcreator.createFrame
 import yet.ui.page.BaseFragment
+import yet.ui.viewcreator.createFrame
 import yet.util.Msg
 
 /**

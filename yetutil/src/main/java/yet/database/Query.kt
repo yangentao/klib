@@ -2,7 +2,6 @@ package yet.util.database
 
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import yet.ext.len
 import yet.ext.toArray
 import java.util.*
 
@@ -125,11 +124,11 @@ class Query(val db: SQLiteDatabase, vararg columns: String) {
 		return resultOne().strValue()
 	}
 
-	fun resultLong(failVal: Long): Long? {
+	fun resultLong(): Long? {
 		return resultOne().longValue()
 	}
 
-	fun resultLong(): Int? {
+	fun resultInt(): Int? {
 		return resultOne().intValue()
 	}
 
@@ -139,13 +138,13 @@ class Query(val db: SQLiteDatabase, vararg columns: String) {
 		} else {
 			"SELECT $columnsStr FROM $fromStr "
 		}
-		if (whereStr.len > 0) {
+		if (whereStr?.length ?: 0 > 0) {
 			s += " WHERE $whereStr "
 		}
-		if (orderStr.len > 0) {
+		if (orderStr?.length ?: 0> 0) {
 			s += " ORDER BY $orderStr "
 		}
-		if (limitStr.len > 0) {
+		if (limitStr?.length ?: 0 > 0) {
 			s += " $limitStr "
 		}
 		return s
@@ -153,10 +152,10 @@ class Query(val db: SQLiteDatabase, vararg columns: String) {
 
 	private fun buildCountSql(): String {
 		var s = "SELECT COUNT(*) FROM $fromStr "
-		if (whereStr.len > 0) {
+		if (whereStr?.length ?: 0 > 0) {
 			s += " WHERE $whereStr "
 		}
-		if (limitStr.len > 0) {
+		if (limitStr?.length ?: 0 > 0) {
 			s += limitStr
 		}
 		return s

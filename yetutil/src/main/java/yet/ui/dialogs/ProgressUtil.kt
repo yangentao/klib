@@ -3,9 +3,9 @@ package yet.ui.dialogs
 import android.app.ProgressDialog
 import android.content.Context
 import net.yet.R
+import yet.ui.res.Res
 import yet.util.TaskUtil
 import yet.util.Util
-import yet.ui.res.Res
 
 class ProgressUtil {
 	private var context: Context? = null

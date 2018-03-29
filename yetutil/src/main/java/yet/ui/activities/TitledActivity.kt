@@ -23,7 +23,7 @@ abstract class TitledActivity : BaseActivity() {
 		titleBar.onAction = { bar, a ->
 			onTitleBarAction(a)
 		}
-		titleBar.onActionNav = { bar, a ->
+		titleBar.onActionNav = { _, a ->
 			onTitleBarActionNav(a)
 		}
 		onCreateContent(rootView)

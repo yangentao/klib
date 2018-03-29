@@ -23,12 +23,12 @@ abstract class ViewDialog {
 		val builder = AlertDialog.Builder(context)
 		builder.setTitle(title)
 		builder.setView(view)
-		builder.setPositiveButton(okText, DialogInterface.OnClickListener { dlg, arg1 ->
+		builder.setPositiveButton(okText, DialogInterface.OnClickListener { dlg, _ ->
 			isOK = true
 			dlg.dismiss()
 			onOK(view)
 		})
-		builder.setNegativeButton(cancelText, DialogInterface.OnClickListener { dlg, arg1 -> dlg.dismiss() })
+		builder.setNegativeButton(cancelText, DialogInterface.OnClickListener { dlg, _ -> dlg.dismiss() })
 		val dlg = builder.create()
 		dlg.setCanceledOnTouchOutside(true)
 		dlg.setCancelable(true)

@@ -173,7 +173,7 @@ abstract class ListSelectDialog<T, V : View> {
 			widthFill().height(0).weight(1)
 		}
 
-		listView.setOnItemClickListener({ parent, view, position, id ->
+		listView.setOnItemClickListener({ _, view, position, _ ->
 			if (multiSelect) {
 				val checkItemView = view as CheckItemView
 				checkItemView.toggle()

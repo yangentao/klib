@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import yet.ui.ext.*
-import yet.ui.viewcreator.relative
 import yet.ui.viewcreator.createListView
+import yet.ui.viewcreator.relative
 import yet.ui.widget.listview.*
 import yet.ui.widget.listview2.ArrayListAdapter
 import yet.ui.widget.listview2.ModelTypes

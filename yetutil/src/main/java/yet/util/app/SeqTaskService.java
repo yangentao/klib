@@ -2,12 +2,12 @@ package yet.util.app;
 
 import android.content.Intent;
 
+import java.util.LinkedList;
+
 import yet.util.RunTask;
 import yet.util.TaskUtil;
 import yet.util.Util;
 import yet.util.log.xlog;
-
-import java.util.LinkedList;
 
 /**
  * 直到一个任务处理完, 才进行下一个任务的处理.

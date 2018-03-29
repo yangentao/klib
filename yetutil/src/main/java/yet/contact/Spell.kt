@@ -1,7 +1,6 @@
 package yet.contact
 
-import yet.util.HanziToPinyin
-import java.util.*
+import yet.util.PinYin
 
 /**
  * Created by entaoyang@163.com on 2016-08-06.
@@ -9,19 +8,21 @@ import java.util.*
 
 
 object Spell {
-	val map = HashMap<String, String>(512)
-
+	val map = HashMap<String, String>(128)
 	fun get(ss: String?): String? {
 		val s = ss ?: return null
-		if (s.length == 0) {
-			return s
+		val v = map.get(s)
+		if (v != null) {
+			return v
 		}
-		var spell: String? = map[s]
-		if (spell == null) {
-			spell = HanziToPinyin.getPinyin(s)
-			map.put(s, spell)
+		val sb = StringBuilder(8)
+		for (ch in s) {
+			val c = PinYin.get(ch) ?: "#"
+			sb.append(c)
 		}
-		return spell
+		val value = sb.toString()
+		map[s] = value
+		return value
 	}
 
 }

@@ -1,13 +1,11 @@
 package yet.ble
 
 import android.bluetooth.*
-import yet.crypt.AES
 import yet.util.*
 import yet.util.app.App
 import yet.util.app.Lang
 import yet.util.log.log
 import yet.util.log.logd
-import yet.util.log.loge
 import java.util.*
 
 /**
@@ -60,7 +58,7 @@ class BleConnection(val mac: String) : BluetoothGattCallback() {
 		if (!TaskUtil.inMainThread()) {
 			debugThrow("必须在主线程中调用connect方法")
 		}
-		val bd = adapter?.getRemoteDevice(mac) ?: return false
+		val bd = adapter.getRemoteDevice(mac) ?: return false
 		gatt = bd.connectGatt(App.app, false, this)
 		foreDelay(DELAY) {
 			val g = gatt
@@ -122,7 +120,6 @@ class BleConnection(val mac: String) : BluetoothGattCallback() {
 	//protocol
 	fun writeData(bs: ByteArray) {
 		var arr = ByteArray(PKG_LEN) {
-			n ->
 			0.toByte()
 		}
 		for (i: Int in bs.indices) {
@@ -289,8 +286,8 @@ class BleConnection(val mac: String) : BluetoothGattCallback() {
 			return
 		}
 		log(mac, "设置读写通知")
-		var ok = gatt.setCharacteristicNotification(writeCh!!, true) && gatt.setCharacteristicNotification(readCh!!, true)
-		if (!ok) {
+		var okResult = gatt.setCharacteristicNotification(writeCh!!, true) && gatt.setCharacteristicNotification(readCh!!, true)
+		if (!okResult) {
 			log(mac, "设置")
 			fore {
 				close()

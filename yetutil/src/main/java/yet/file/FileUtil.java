@@ -1,12 +1,12 @@
 package yet.file;
 
-import yet.util.StreamUtil;
-import yet.util.Util;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import yet.util.StreamUtil;
+import yet.util.Util;
 
 public class FileUtil {
 

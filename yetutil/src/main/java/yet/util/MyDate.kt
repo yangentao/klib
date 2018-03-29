@@ -241,11 +241,39 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
 			return null
 		}
 
+		fun parseTime(s: String?): MyDate? {
+			if (s == null || s.length < 6) {
+				return null
+			}
+			return parse(FORMAT_TIME, s)
+		}
+
+		fun parseTimeX(s: String?): MyDate? {
+			if (s == null || s.length < 6) {
+				return null
+			}
+			return parse(FORMAT_TIME_X, s)
+		}
+
+		fun parseDate(s: String?): MyDate? {
+			if (s == null || s.length < 6) {
+				return null
+			}
+			return parse(FORMAT_DATE, s)
+		}
+
 		fun parseDateTime(s: String?): MyDate? {
 			if (s == null || s.length < 6) {
 				return null
 			}
 			return parse(FORMAT_DATE_TIME, s)
+		}
+
+		fun parseDateTimeX(s: String?): MyDate? {
+			if (s == null || s.length < 6) {
+				return null
+			}
+			return parse(FORMAT_DATE_TIME_X, s)
 		}
 	}
 }

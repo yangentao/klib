@@ -1,9 +1,6 @@
 package yet.util.app
 
-import android.app.ActivityManager
-import android.app.Application
-import android.app.DownloadManager
-import android.app.Service
+import android.app.*
 import android.content.*
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -16,16 +13,10 @@ import android.telephony.TelephonyManager
 import android.text.TextUtils
 import yet.ui.activities.AnimConf
 import yet.ui.ext.displayMetrics
-import yet.util.MsgCenter
-import yet.util.StrBuilder
-import yet.util.Util
+import yet.util.*
 import yet.util.database.Values
-import yet.util.log.logd
-import yet.util.log.loge
-import yet.util.log.xlog
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.InputStream
+import yet.util.log.*
+import java.io.*
 import java.lang.ref.WeakReference
 
 /**

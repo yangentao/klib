@@ -1,29 +1,24 @@
 package yet.util.log
 
 import yet.file.SdAppFile
-import yet.util.DateUtil
-import yet.util.debug
-import yet.util.mergeAction
+import yet.util.*
 
 /**
  * Created by entaoyang@163.com on 2016-10-28.
  */
 
 object xlog : LogPrinter {
-	var level = LogLevel.DEBUG
+	var tag: String = "xlog"
+	var level = LogLevel2.DEBUG
 	var printer: LogPrinter
 
 	init {
-		if (debug) {
-			level = LogLevel.ENABLE_ALL
+		level = if (debug) {
+			LogLevel2.ENABLE_ALL
 		} else {
-			level = LogLevel.INFO
+			LogLevel2.INFO
 		}
 		printer = TreePrinter(LogcatPrinter(), FilePrinter(SdAppFile.log(DateUtil.date() + ".txt")))
-	}
-
-	private fun enableLevel(level: Int): Boolean {
-		return level > 0 && level >= this.level
 	}
 
 	override fun flush() {
@@ -31,8 +26,8 @@ object xlog : LogPrinter {
 
 	}
 
-	override fun println(priority: Int, tag: String, msg: String) {
-		if (enableLevel(priority)) {
+	override fun println(priority: LogLevel2, tag: String, msg: String) {
+		if (priority.ge(this.level)) {
 			printer.println(priority, tag, msg)
 			mergeAction("xlog.flush", 1000) {
 				flush()

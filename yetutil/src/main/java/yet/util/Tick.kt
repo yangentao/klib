@@ -1,6 +1,5 @@
 package yet.util
 
-import yet.util.log.LogLevel
 import yet.util.log.xlog
 
 
@@ -9,7 +8,7 @@ import yet.util.log.xlog
  * entaoyang@163.com
  */
 class Tick {
-	val TAG = LogLevel.TAG
+	val TAG = xlog.tag
 	private var start_time: Long = System.currentTimeMillis()
 	private var end_time: Long = 0
 

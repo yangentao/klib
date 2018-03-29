@@ -2,9 +2,7 @@ package yet.ui.activities.drawer
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import yet.theme.Space
 import yet.ui.ext.*
 import yet.ui.viewcreator.*

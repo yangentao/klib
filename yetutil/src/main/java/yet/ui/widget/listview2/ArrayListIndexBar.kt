@@ -2,22 +2,15 @@ package yet.ui.widget
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.*
 import android.view.MotionEvent
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import yet.ui.ext.*
 import yet.ui.util.LayerUtil
 import yet.ui.util.ShapeUtil
 import yet.ui.viewcreator.textView
-import yet.util.LazyTask
-import yet.util.TaskUtil
-import yet.util.Util
-import yet.util.fore
+import yet.util.*
 import java.util.*
 
 /**

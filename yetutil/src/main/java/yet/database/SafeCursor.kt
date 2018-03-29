@@ -3,10 +3,7 @@ package yet.util.database
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.ContentResolver
-import android.database.CharArrayBuffer
-import android.database.ContentObserver
-import android.database.Cursor
-import android.database.DataSetObserver
+import android.database.*
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -56,7 +53,7 @@ class SafeCursor(val wrappedCursor: Cursor?) : Cursor {
 	}
 
 	override fun getColumnName(columnIndex: Int): String? {
-		return wrappedCursor?.getColumnName(columnIndex) ?: null
+		return wrappedCursor?.getColumnName(columnIndex)
 	}
 
 	override fun getColumnNames(): Array<String> {

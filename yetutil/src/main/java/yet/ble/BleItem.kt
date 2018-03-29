@@ -1,8 +1,6 @@
 package yet.ble
 
-import android.bluetooth.BluetoothGatt
-import android.bluetooth.BluetoothGattCharacteristic
-import android.bluetooth.BluetoothGattDescriptor
+import android.bluetooth.*
 import yet.util.Hex
 import yet.util.log.log
 
@@ -14,9 +12,7 @@ class BleItem(val data: ByteArray) {
 	var ch: BluetoothGattCharacteristic? = null
 	var desc: BluetoothGattDescriptor? = null
 
-	var onResult: (Boolean) -> Unit = { ok ->
-
-	}
+	var onResult: (Boolean) -> Unit = { }
 
 	constructor(ch: BluetoothGattCharacteristic, data: ByteArray) : this(data) {
 		this.ch = ch

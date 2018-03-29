@@ -5,17 +5,13 @@ import android.content.Context
 import android.widget.LinearLayout
 import android.widget.TextView
 import net.yet.R
-import yet.theme.Colors
-import yet.theme.InputSize
-import yet.theme.Str
+import yet.theme.*
 import yet.ui.ext.*
 import yet.ui.res.Res
 import yet.ui.util.XTextWatcher
 import yet.ui.viewcreator.createEditX
 import yet.ui.viewcreator.createTextView
-import yet.ui.widget.Action
-import yet.ui.widget.ListIndexBar
-import yet.ui.widget.TitleBar
+import yet.ui.widget.*
 import java.util.*
 
 @SuppressLint("UseSparseArrays")

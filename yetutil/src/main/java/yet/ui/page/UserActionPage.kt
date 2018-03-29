@@ -3,15 +3,11 @@ package yet.ui.page
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.ScrollView
+import android.widget.*
 import yet.ui.ext.*
 import yet.ui.viewcreator.createButton
 import yet.ui.viewcreator.createLinearVertical
-import yet.ui.widget.Action
-import yet.ui.widget.ActionSetView
-import yet.ui.widget.add
+import yet.ui.widget.*
 
 /**
  * Created by entaoyang@163.com on 16/3/13.

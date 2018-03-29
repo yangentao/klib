@@ -1,9 +1,9 @@
 package yet.orm.convert
 
 import yet.database.SQLType
-import yet.orm.TypeDismatchException
 import yet.ext.isTypeDouble
 import yet.ext.isTypeFloat
+import yet.orm.TypeDismatchException
 import kotlin.reflect.KMutableProperty
 
 /**

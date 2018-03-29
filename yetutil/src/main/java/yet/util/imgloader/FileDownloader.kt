@@ -2,11 +2,9 @@ package yet.util.imgloader
 
 import yet.file.SdAppFile
 import yet.net.Http
-import yet.util.MultiHashMap
+import yet.util.*
 import yet.util.database.DBMap
-import yet.util.fore
 import yet.util.log.xlog
-import yet.util.sleep
 import java.io.File
 import java.util.*
 import java.util.concurrent.ExecutorService

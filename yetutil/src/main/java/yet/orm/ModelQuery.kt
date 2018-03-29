@@ -3,7 +3,8 @@ package yet.orm
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import yet.database.SQLType
-import yet.ext.*
+import yet.ext.customName
+import yet.ext.customNamePrefixClass
 import yet.util.closeAfter
 import yet.util.database.CursorResult
 import yet.util.database.SafeCursor
@@ -50,7 +51,7 @@ class ModelQuery(val db: SQLiteDatabase, val fromKClass: KClass<*>, vararg val o
 		if (whereStr.isNotEmpty()) {
 			sb.append(whereStr).append(" ")
 		}
-		if (limitStr.len > 0) {
+		if (limitStr.isNotEmpty()) {
 			sb.append(limitStr).append(" ")
 		}
 		return sb.toString()
@@ -75,7 +76,7 @@ class ModelQuery(val db: SQLiteDatabase, val fromKClass: KClass<*>, vararg val o
 		if (orderArr.isNotEmpty()) {
 			sb.append("ORDER BY ").append(orderArr.joinToString(",")).append(" ")
 		}
-		if (limitStr.len > 0) {
+		if (limitStr.isNotEmpty()) {
 			sb.append(limitStr).append(" ")
 		}
 		return sb.toString()

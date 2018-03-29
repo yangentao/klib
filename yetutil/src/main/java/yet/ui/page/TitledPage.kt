@@ -8,8 +8,8 @@ import android.widget.*
 import yet.theme.Colors
 import yet.ui.MyColor
 import yet.ui.ext.*
-import yet.ui.viewcreator.editX
 import yet.ui.viewcreator.createLinearVertical
+import yet.ui.viewcreator.editX
 import yet.ui.widget.*
 import yet.util.Progress
 import yet.util.app.OS

@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.Gravity
-import android.view.KeyEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import yet.ui.activities.BaseActivity
@@ -17,9 +14,7 @@ import yet.ui.page.BaseFragment
 import yet.ui.util.FragmentHelper
 import yet.ui.viewcreator.createFrame
 import yet.ui.viewcreator.createLinearVertical
-import yet.ui.widget.Action
-import yet.ui.widget.TabBar
-import yet.ui.widget.add
+import yet.ui.widget.*
 import yet.util.log.xlog
 import java.util.*
 
@@ -74,7 +69,7 @@ class DrawerTabBarContainerActivity : BaseActivity() {
 		fragmentHelper = FragmentHelper(fragmentManager, fragLayoutId)
 
 		tabBar = TabBar(this)
-		tabBar.onSelect = { bar, action ->
+		tabBar.onSelect = { _, action ->
 			xlog.d("select ", action.tag)
 			val page = pages[action.tag]
 			fragmentHelper.showFragment(page!!, action.tag)

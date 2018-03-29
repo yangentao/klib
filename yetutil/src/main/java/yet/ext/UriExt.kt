@@ -5,9 +5,7 @@ import android.net.Uri
 import android.webkit.MimeTypeMap
 import yet.util.app.App
 import yet.util.app.MediaInfo
-import java.io.File
-import java.io.FileInputStream
-import java.io.InputStream
+import java.io.*
 
 /**
  * Created by entaoyang@163.com on 2017-03-19.

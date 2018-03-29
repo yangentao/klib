@@ -29,8 +29,8 @@ object MediaUtil {
 		playSound(context, file, ext)
 	}
 
-	fun playSound(context: Context, file: File, extType: String?) {
-		var extType = extType
+	fun playSound(context: Context, file: File, exT: String?) {
+		var extType = exT
 		val intent = Intent()
 		intent.action = android.content.Intent.ACTION_VIEW
 		intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
