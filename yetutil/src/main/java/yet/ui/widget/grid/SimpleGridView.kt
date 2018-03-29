@@ -1,10 +1,13 @@
 package yet.ui.widget.grid
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.AbsListView
 import android.widget.AdapterView
 import yet.ui.ext.*
+import yet.ui.res.Img
+import yet.ui.res.limit
 import yet.ui.widget.listview.SimpleBaseAdapter
 import yet.util.fore
 
@@ -18,6 +21,7 @@ open class SimpleGridView<T>(context: Context) : LineGridView(context) {
 
 	//dp
 	var preferColumnWidth: Int = 64
+	var imageMaxEdge: Int = 48
 
 	val myAdapter = SimpleBaseAdapter<T>()
 	var onNewView: (context: Context, position: Int) -> View
@@ -39,12 +43,28 @@ open class SimpleGridView<T>(context: Context) : LineGridView(context) {
 
 	var onLayoutChanged: (w: Int, h: Int) -> Unit = { w, h -> }
 
+	fun bindRes(block: (T) -> Pair<String, Int>) {
+		onBindView = { v, item , p->
+			val p = block.invoke(item)
+			val d = Img.res(p.second).limit(imageMaxEdge)
+			(v as GridItemView).setValues(p.first, d)
+		}
+	}
+
+	fun bindImage(block: (T) -> Pair<String, Drawable>) {
+		onBindView = { v, item , p ->
+			val p = block.invoke(item)
+			val d = p.second.limit(imageMaxEdge)
+			(v as GridItemView).setValues(p.first, d)
+		}
+	}
+
 
 	init {
 		genId()
 		padding(10)
 		numColumns = 3
-		verticalSpacing = dp(10)
+		backColorWhite()
 		super.setAdapter(myAdapter)
 		this.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, pos, id ->
 			val s = myAdapter.getItem(pos)

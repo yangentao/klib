@@ -27,6 +27,7 @@ class GridItemView(context: Context) : RelativeLayout(context) {
 			textSizeTiny()
 			textColorMinor()
 		}
+		backColorWhiteFade()
 	}
 
 	fun imageSizeWrap() {
