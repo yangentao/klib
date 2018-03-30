@@ -268,13 +268,6 @@ abstract class InputPage : TitledPage() {
 		}
 	}
 
-	fun isEmailFormat(s: String?): Boolean {
-		val ss = s ?: return false
-		val regex = "[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+\\.[a-zA-Z]+(\\.[a-zA-Z]+)?"
-		val p = Pattern.compile(regex)
-		val m = p.matcher(ss)
-		return m.find()
-	}
 
 	//中国的11位手机号码格式, 连续11位数字,1开头
 	fun isPhoneFormatCN11(s: String?): Boolean {
