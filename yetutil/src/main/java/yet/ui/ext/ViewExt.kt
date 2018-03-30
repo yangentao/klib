@@ -8,7 +8,7 @@ import yet.ext.ColorDrawable
 import yet.theme.Colors
 import yet.theme.Space
 import yet.ui.res.D
-import yet.ui.util.RectDrawable
+import yet.ui.res.RectDrawable
 import java.util.concurrent.atomic.AtomicInteger
 
 /**

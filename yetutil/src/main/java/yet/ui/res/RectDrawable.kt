@@ -1,4 +1,4 @@
-package yet.ui.util
+package yet.ui.res
 
 import android.graphics.drawable.GradientDrawable
 import yet.ui.ext.dp
@@ -9,25 +9,22 @@ import yet.ui.ext.dp
 
 
 class RectDrawable(fillColor: Int? = null) {
-	val drawable: GradientDrawable = GradientDrawable()
-
-	val value: GradientDrawable
-		get() = drawable
+	val value: GradientDrawable = GradientDrawable()
 
 	init {
-		drawable.setShape(GradientDrawable.RECTANGLE)
+		value.shape = GradientDrawable.RECTANGLE
 		if (fillColor != null) {
-			drawable.setColor(fillColor)
+			value.setColor(fillColor)
 		}
 	}
 
 	fun color(color: Int): RectDrawable {
-		drawable.setColor(color)
+		value.setColor(color)
 		return this
 	}
 
 	fun corner(corner: Int): RectDrawable {
-		drawable.setCornerRadius(dp(corner).toFloat())
+		value.cornerRadius = dp(corner).toFloat()
 		return this
 	}
 
@@ -38,17 +35,17 @@ class RectDrawable(fillColor: Int? = null) {
 		val f4 = dp(bottomLeft).toFloat()
 
 		val arr = floatArrayOf(f1, f1, f2, f2, f3, f3, f4, f4)
-		drawable.setCornerRadii(arr)
+		value.cornerRadii = arr
 		return this
 	}
 
 	fun stroke(width: Int, color: Int): RectDrawable {
-		drawable.setStroke(dp(width), color)
+		value.setStroke(dp(width), color)
 		return this
 	}
 
 	fun size(w: Int, h: Int = w): RectDrawable {
-		drawable.setSize(dp(w), dp(h))
+		value.setSize(dp(w), dp(h))
 		return this
 	}
 }

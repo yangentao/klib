@@ -12,7 +12,7 @@ import android.widget.TextView
 import yet.theme.Colors
 import yet.theme.InputSize
 import yet.ui.ext.*
-import yet.ui.util.RectDrawable
+import yet.ui.res.RectDrawable
 import yet.ui.viewcreator.*
 import yet.ui.widget.TitleBar
 import yet.ui.widget.listview.XBaseAdapter

@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import yet.theme.*
 import yet.ui.ext.*
-import yet.ui.util.RectDrawable
+import yet.ui.res.RectDrawable
 import yet.ui.viewcreator.*
 
 open class BaseDialog {

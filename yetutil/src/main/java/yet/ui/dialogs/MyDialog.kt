@@ -7,7 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.*
 import yet.theme.*
 import yet.ui.ext.*
-import yet.ui.util.RectDrawable
+import yet.ui.res.RectDrawable
 import yet.ui.viewcreator.*
 
 open class MyDialog {

@@ -8,7 +8,6 @@ import android.support.annotation.DrawableRes
 import net.yet.R
 import yet.ext.RGB
 import yet.theme.*
-import yet.ui.util.RectDrawable
 import yet.ui.widget.EditTextX
 import yet.util.app.App
 
