@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import yet.ui.ext.genId
+import yet.ui.ext.padding
 import yet.ui.res.D
 import yet.util.Util
 import yet.util.fore
@@ -17,6 +18,7 @@ class EditTextX(context: Context) : EditText(context) {
 
 	init {
 		genId()
+		padding(5, 2, 5, 2)
 		this.setOnTouchListener(View.OnTouchListener { v, event ->
 			if (this@EditTextX.compoundDrawables[2] == null) {
 				return@OnTouchListener false

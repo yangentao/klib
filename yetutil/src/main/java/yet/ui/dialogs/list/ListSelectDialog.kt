@@ -12,7 +12,7 @@ import android.widget.TextView
 import yet.theme.Colors
 import yet.theme.InputSize
 import yet.ui.ext.*
-import yet.ui.res.RectDrawable
+import yet.ui.res.RectDraw
 import yet.ui.viewcreator.*
 import yet.ui.widget.TitleBar
 import yet.ui.widget.listview.XBaseAdapter
@@ -141,23 +141,23 @@ abstract class ListSelectDialog<T, V : View> {
 		var listPadTop = 0
 		if (hasTitle()) {
 			val textView = context.createTextViewA().text(title).textColorWhite().textSizeTitle().padding(15, 0, 0, 0)
-			textView.backDrawable(RectDrawable(Colors.Theme).corners(corner, corner, 0, 0).value)
+			textView.backDrawable(RectDraw(Colors.Theme).corners(corner, corner, 0, 0).value)
 			ll.addViewParam(textView) {
 				widthFill().height(TitleBar.HEIGHT).gravityLeftCenter()
 			}
 			onConfigTitleView?.invoke(textView)
 			listPadTop = 0
 			if (multiSelect) {
-				bgList = RectDrawable(Colors.WHITE).value
+				bgList = RectDraw(Colors.WHITE).value
 			} else {
-				bgList = RectDrawable(Colors.WHITE).corners(0, 0, corner, corner).value
+				bgList = RectDraw(Colors.WHITE).corners(0, 0, corner, corner).value
 			}
 		} else {
 			listPadTop = corner
 			if (multiSelect) {
-				bgList = RectDrawable(Colors.WHITE).corners(corner, corner, 0, 0).value
+				bgList = RectDraw(Colors.WHITE).corners(corner, corner, 0, 0).value
 			} else {
-				bgList = RectDrawable(Colors.WHITE).corners(corner, corner, corner, corner).value
+				bgList = RectDraw(Colors.WHITE).corners(corner, corner, corner, corner).value
 			}
 		}
 
@@ -201,8 +201,8 @@ abstract class ListSelectDialog<T, V : View> {
 		val ll2 = context.createLinearHorizontal().divider()
 		val cancelView = context.createTextViewA().gravityCenter().text("取消").textColorMajor().textSizeA().padding(15, 10, 15, 10)
 		cancelView.backDrawable(
-				RectDrawable(Colors.WHITE).corners(0, 0, 0, corner).value,
-				RectDrawable(Colors.Fade).corners(0, 0, 0, corner).value
+				RectDraw(Colors.WHITE).corners(0, 0, 0, corner).value,
+				RectDraw(Colors.Fade).corners(0, 0, 0, corner).value
 		)
 
 		ll2.addViewParam(cancelView) {
@@ -211,8 +211,8 @@ abstract class ListSelectDialog<T, V : View> {
 		if (midListener != null && midButtonTitle != null) {
 			val midView = context.createTextViewA().text(midButtonTitle).textColorMajor().textSizeA().padding(15, 10, 15, 10).gravityCenter()
 			midView.backDrawable(
-					RectDrawable(Colors.WHITE).value,
-					RectDrawable(Colors.Fade).value
+					RectDraw(Colors.WHITE).value,
+					RectDraw(Colors.Fade).value
 			)
 
 			ll2.addViewParam(midView) {
@@ -224,8 +224,8 @@ abstract class ListSelectDialog<T, V : View> {
 
 		val okView = context.createTextViewA().text("确定").textColor(Colors.GreenMajor).textSizeA().padding(15, 10, 15, 10).gravityCenter()
 		okView.backDrawable(
-				RectDrawable(Colors.WHITE).corners(0, 0, corner, 0).value,
-				RectDrawable(Colors.Fade).corners(0, 0, corner, 0).value
+				RectDraw(Colors.WHITE).corners(0, 0, corner, 0).value,
+				RectDraw(Colors.Fade).corners(0, 0, corner, 0).value
 		)
 
 		ll2.addViewParam(okView) {

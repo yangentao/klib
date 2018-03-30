@@ -137,6 +137,10 @@ abstract class TitledPage : BaseFragment() {
 		searchEdit?.clearFocus()
 	}
 
+	fun titleBar(block:TitleBar.()->Unit) {
+		titleBar.block()
+	}
+
 	open fun onSearchTextChanged(s: String) {
 
 	}

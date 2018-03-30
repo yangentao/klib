@@ -7,7 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.*
 import yet.theme.*
 import yet.ui.ext.*
-import yet.ui.res.RectDrawable
+import yet.ui.res.RectDraw
 import yet.ui.viewcreator.*
 
 open class MyDialog {
@@ -80,7 +80,7 @@ open class MyDialog {
 		ll.divider()
 		if (title != null) {
 			val textView = context.createTextViewA()
-			val bgText = RectDrawable(Colors.Theme).corners(CORNER, CORNER, 0, 0).value
+			val bgText = RectDraw(Colors.Theme).corners(CORNER, CORNER, 0, 0).value
 			textView.setText(title)
 			textView.textColorWhite().textSizeTitle().backDrawable(bgText).padding(15, 0, 0, 0)
 			ll.addView(textView) { widthFill().height(TITLE_HEIGHT).gravityLeftCenter() }
@@ -91,9 +91,9 @@ open class MyDialog {
 			val vw = msgView.textColorMajor().padding(15, 10, 15, 10).gravityCenter()
 			vw.miniHeightDp(80)
 			if (title == null) {
-				vw.backDrawable(RectDrawable(Colors.WHITE).corners(CORNER, CORNER, 0, 0).value)
+				vw.backDrawable(RectDraw(Colors.WHITE).corners(CORNER, CORNER, 0, 0).value)
 			} else {
-				vw.backDrawable(RectDrawable(Colors.WHITE).value)
+				vw.backDrawable(RectDraw(Colors.WHITE).value)
 			}
 			ll.addView(msgView) { widthFill().heightWrap() }
 		}
@@ -112,8 +112,8 @@ open class MyDialog {
 			cancelView.textColorMajor()
 					.textSizeA()
 					.backDrawable(
-							RectDrawable(Colors.WHITE).corners(0, 0, cornerRight, CORNER).value,
-							RectDrawable(Colors.Fade).corners(0, 0, cornerRight, CORNER).value
+							RectDraw(Colors.WHITE).corners(0, 0, cornerRight, CORNER).value,
+							RectDraw(Colors.Fade).corners(0, 0, cornerRight, CORNER).value
 					)
 					.padding(15, 10, 15, 10)
 					.gravityCenter()
@@ -131,8 +131,8 @@ open class MyDialog {
 			midView.textColorMajor()
 					.textSizeA()
 					.backDrawable(
-							RectDrawable(Colors.WHITE).corners(0, 0, rightCorner, leftCorner).value,
-							RectDrawable(Colors.Fade).corners(0, 0, rightCorner, leftCorner).value
+							RectDraw(Colors.WHITE).corners(0, 0, rightCorner, leftCorner).value,
+							RectDraw(Colors.Fade).corners(0, 0, rightCorner, leftCorner).value
 					)
 					.padding(15, 10, 15, 10)
 					.gravityCenter()
@@ -150,8 +150,8 @@ open class MyDialog {
 			okView.textColor(OK_COLOR)
 					.textSizeA()
 					.backDrawable(
-							RectDrawable(Colors.WHITE).corners(0, 0, CORNER, leftCorner).value,
-							RectDrawable(Colors.Fade).corners(0, 0, CORNER, leftCorner).value
+							RectDraw(Colors.WHITE).corners(0, 0, CORNER, leftCorner).value,
+							RectDraw(Colors.Fade).corners(0, 0, CORNER, leftCorner).value
 					)
 					.padding(15, 10, 15, 10)
 					.gravityCenter()

@@ -72,13 +72,14 @@ open class TextDetailView(context: Context) : HorItemView(context) {
 	}
 }
 
-inline fun <P : ViewGroup.LayoutParams> ViewGroup.addTextDetailView(param: P, block: TextDetailView.() -> Unit): TextDetailView {
+fun ViewGroup.textDetail(param: ViewGroup.LayoutParams, block: TextDetailView.() -> Unit): TextDetailView {
 	val v = TextDetailView(this.context)
 	this.addView(v, param)
 	v.block()
 	return v
 }
-inline fun <P : ViewGroup.LayoutParams> ViewGroup.addTextDetailViewTrans(param: P, block: TextDetailView.() -> Unit): TextDetailView {
+
+fun ViewGroup.textDetailViewTrans(param: ViewGroup.LayoutParams, block: TextDetailView.() -> Unit): TextDetailView {
 	val v = TextDetailView(this.context)
 	this.addView(v, param)
 	v.backColorTrans()

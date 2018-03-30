@@ -1,6 +1,6 @@
 package yet.file
 
-import yet.util.DateUtil
+import yet.util.MyDate
 import yet.util.log.logd
 import java.io.File
 import java.io.IOException
@@ -41,7 +41,7 @@ interface AbsFile {
 				dotExt = "." + ext
 			}
 		}
-		return temp(DateUtil.tmpFile() + dotExt)
+		return temp(MyDate.tmpFile() + dotExt)
 	}
 
 	fun temp(file: String): File {

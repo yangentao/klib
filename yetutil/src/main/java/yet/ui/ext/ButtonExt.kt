@@ -10,7 +10,7 @@ import yet.ui.res.D
  */
 
 fun <T : Button> T.styleGreen(corner: Int = 2): T {
-	this.textSizeB().textColor(Colors.WHITE, Colors.Fade).backDrawable(D.buttonGreen(corner))
+	this.textSizeB().textColor(Colors.WHITE).backDrawable(D.buttonGreen(corner))
 	return this
 }
 

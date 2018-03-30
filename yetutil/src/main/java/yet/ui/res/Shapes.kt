@@ -20,22 +20,21 @@ object Shapes {
 		var fillColor: Int? = null
 		//0则是直角, px
 		var corner: Int = 0
-	}
 
-	class OvalOption : RectOption() {
 		var width: Int = 0
 		var height: Int = 0
 
-		fun diameterDp(n: Int) {
-			var nn = dp(n)
-			this.width = nn
-			this.height = nn
+		fun size(wDp: Int, hDp: Int = wDp) {
+			width = dp(wDp)
+			height = dp(hDp)
 		}
 	}
 
-	fun line(strokeWidth: Int, strokeColor: Int): GradientDrawable {
+	class OvalOption : RectOption()
+
+	fun line(strokeWidthDp: Int, strokeColor: Int): GradientDrawable {
 		return line {
-			this.strokeWidth = strokeWidth
+			this.strokeWidth = dp(strokeWidthDp)
 			this.strokeColor = strokeColor
 		}
 	}
@@ -64,6 +63,9 @@ object Shapes {
 		if (ro.strokeWidth > 0) {
 			gd.setStroke(ro.strokeWidth, ro.strokeColor)
 		}
+		if (ro.width > 0 && ro.height > 0) {
+			gd.setSize(ro.width, ro.height)
+		}
 		return gd
 	}
 
@@ -78,7 +80,9 @@ object Shapes {
 		if (oo.strokeWidth > 0) {
 			drawable.setStroke(oo.strokeWidth, oo.strokeColor)
 		}
-		drawable.setSize(oo.width, oo.height)
+		if (oo.width > 0 && oo.height > 0) {
+			drawable.setSize(oo.width, oo.height)
+		}
 		return drawable
 	}
 

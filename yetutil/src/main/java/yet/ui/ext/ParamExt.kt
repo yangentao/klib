@@ -29,17 +29,29 @@ fun <T : ViewGroup.LayoutParams> T.size(w: Int, h: Int = w): T {
 }
 
 fun <T : ViewGroup.LayoutParams> T.width_(w: Int): T {
-	this.width = dp(w)
+	if (w > 0) {
+		this.width = dp(w)
+	} else {
+		this.width = w
+	}
 	return this
 }
 
 fun <T : ViewGroup.LayoutParams> T.width(w: Int): T {
-	this.width = dp(w)
+	if (w > 0) {
+		this.width = dp(w)
+	} else {
+		this.width = w
+	}
 	return this
 }
 
 fun <T : ViewGroup.LayoutParams> T.widthDp(w: Int): T {
-	this.width = dp(w)
+	if (w > 0) {
+		this.width = dp(w)
+	} else {
+		this.width = w
+	}
 	return this
 }
 
@@ -77,17 +89,29 @@ fun <T : ViewGroup.LayoutParams> T.heightPx(h: Int): T {
 }
 
 fun <T : ViewGroup.LayoutParams> T.height(h: Int): T {
-	this.height = dp(h)
+	if (h > 0) {
+		this.height = dp(h)
+	} else {
+		this.height = h
+	}
 	return this
 }
 
 fun <T : ViewGroup.LayoutParams> T.height_(h: Int): T {
-	this.height = dp(h)
+	if (h > 0) {
+		this.height = dp(h)
+	} else {
+		this.height = h
+	}
 	return this
 }
 
 fun <T : ViewGroup.LayoutParams> T.heightDp(h: Int): T {
-	this.height = dp(h)
+	if (h > 0) {
+		this.height = dp(h)
+	} else {
+		this.height = h
+	}
 	return this
 }
 

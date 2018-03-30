@@ -12,7 +12,7 @@ import yet.theme.IconSize
 import yet.ui.ext.*
 import yet.ui.res.D
 import yet.ui.res.Shapes
-import yet.util.DateUtil
+import yet.util.MyDate
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -105,7 +105,7 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
 	}
 
 	fun date(date: Long): ImageTitleDateMsgStatusActionItemView {
-		dateView.text = DateUtil.shortString(date)
+		dateView.text = MyDate(date).formatShort()
 		return this
 	}
 
@@ -133,7 +133,7 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
 	}
 
 	fun setValues(icon: Drawable, title: String, date: Long, msg: String, status: String, subIcon: Drawable?, position: Int): ImageTitleDateMsgStatusActionItemView {
-		val s = if (date == 0L) "" else DateUtil.shortString(date)
+		val s = if (date == 0L) "" else MyDate(date).formatShort()
 		return setValues(icon, title, s, msg, status, subIcon, position)
 	}
 
@@ -178,7 +178,7 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
 		private val arrowRight = D.ArrowRight
 
 		private val redDrawable = Shapes.oval {
-			diameterDp(10)
+			size(10)
 			fillColor = RGB(255, 128, 0)
 		}
 

@@ -275,5 +275,12 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
 			}
 			return parse(FORMAT_DATE_TIME_X, s)
 		}
+
+		private var tmpFileN: Long = 1
+		fun tmpFile(): String {
+			var s = MyDate().format("yyyyMMdd_HHmmss_SSS")
+			++tmpFileN
+			return "$s-$tmpFileN"
+		}
 	}
 }

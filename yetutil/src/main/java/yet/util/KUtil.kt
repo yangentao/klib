@@ -15,8 +15,6 @@ private val PROGRESS_DELAY = 50
 val debug: Boolean by lazy { App.debug }
 
 
-
-
 fun debugThrow(msg: String) {
 	loge(msg)
 	if (debug) {
@@ -24,39 +22,9 @@ fun debugThrow(msg: String) {
 	}
 }
 
-fun inSet(value: Int, vararg ns: Int): Boolean {
-	for (n in ns) {
-		if (value == n) {
-			return true
-		}
-	}
-	return false
-}
-
-fun inSet(value: String, vararg ss: String): Boolean {
-	for (s in ss) {
-		if (value == s) {
-			return true
-		}
-	}
-	return false
-}
 
 fun <T> Set<T>?.empty(): Boolean {
 	return this?.isEmpty() ?: true
-}
-
-
-inline infix fun <T> T?.DO(block: (T) -> Unit) {
-	if (this != null) {
-		block.invoke(this)
-	}
-}
-
-inline infix fun Boolean?.DO(block: () -> Unit) {
-	if (this != null && this) {
-		block.invoke()
-	}
 }
 
 
@@ -249,9 +217,4 @@ fun FormatPhone(tel: String?): String? {
 
 fun UriFromSdFile(file: File): Uri {
 	return Uri.fromFile(file)
-//	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//		return FileProvider.getUriForFile(App.app, App.packageName + ".fileProvider", file)
-//	} else {
-//		return Uri.fromFile(file)
-//	}
 }

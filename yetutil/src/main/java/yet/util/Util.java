@@ -1035,13 +1035,6 @@ public class Util {
 		return null;
 	}
 
-	public static <T> String[] bridge(List<T> data, StringBridge<T> bridge) {
-		String[] arr = new String[data.size()];
-		for (int i = 0; i < data.size(); ++i) {
-			arr[i] = bridge.getString(data.get(i));
-		}
-		return arr;
-	}
 
 	public static void toast(final String... ss) {
 		TaskUtil.fore(new Runnable() {

@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import yet.theme.*
 import yet.ui.ext.*
-import yet.ui.res.RectDrawable
+import yet.ui.res.RectDraw
 import yet.ui.viewcreator.*
 
 open class BaseDialog {
@@ -99,7 +99,7 @@ open class BaseDialog {
 	protected fun createView(context: Context, rootLayout: LinearLayout, bodyView: View) {
 		if (title != null) {
 			val textView = context.createTextViewA().text(title)
-			val bgText = RectDrawable(Colors.Theme).corners(cornerOfDialog, cornerOfDialog, 0, 0).value
+			val bgText = RectDraw(Colors.Theme).corners(cornerOfDialog, cornerOfDialog, 0, 0).value
 			textView.textColorWhite().textSizeTitle().backDrawable(bgText).padding(15, 0, 0, 0)
 			rootLayout.addView(textView) { widthFill().height(titleHeight).gravityLeftCenter() }
 		}
@@ -107,15 +107,15 @@ open class BaseDialog {
 
 		val bg = if (title == null) {
 			if (buttonsView == null) {
-				RectDrawable(bodyBackColor).corners(cornerOfDialog, cornerOfDialog, cornerOfDialog, cornerOfDialog).value
+				RectDraw(bodyBackColor).corners(cornerOfDialog, cornerOfDialog, cornerOfDialog, cornerOfDialog).value
 			} else {
-				RectDrawable(bodyBackColor).corners(cornerOfDialog, cornerOfDialog, 0, 0).value
+				RectDraw(bodyBackColor).corners(cornerOfDialog, cornerOfDialog, 0, 0).value
 			}
 		} else {
 			if (buttonsView == null) {
-				RectDrawable(bodyBackColor).corners(0, 0, cornerOfDialog, cornerOfDialog).value
+				RectDraw(bodyBackColor).corners(0, 0, cornerOfDialog, cornerOfDialog).value
 			} else {
-				RectDrawable(bodyBackColor).value
+				RectDraw(bodyBackColor).value
 			}
 		}
 		bodyView.minimumHeight = dp(80)
@@ -136,8 +136,8 @@ open class BaseDialog {
 			val cancelView = context.createTextViewA().textColor(cancelColor).text(cancelButtonText).padding(15, 10, 15, 10).gravityCenter()
 			val cornerRight = if (midButtonText == null && okButtonText == null) cornerOfDialog else 0
 			cancelView.backDrawable(
-					RectDrawable(cancelBackColor).corners(0, 0, cornerRight, cornerOfDialog).value,
-					RectDrawable(Colors.Fade).corners(0, 0, cornerRight, cornerOfDialog).value
+					RectDraw(cancelBackColor).corners(0, 0, cornerRight, cornerOfDialog).value,
+					RectDraw(Colors.Fade).corners(0, 0, cornerRight, cornerOfDialog).value
 			)
 
 			ll2.addView(cancelView) { width(0).weight(1).heightFill().gravityCenter() }
@@ -151,8 +151,8 @@ open class BaseDialog {
 			val leftCorner = if (cancelButtonText == null) cornerOfDialog else 0
 			val rightCorner = if (okButtonText == null) cornerOfDialog else 0
 			midView.backDrawable(
-					RectDrawable(midBackColor).corners(0, 0, rightCorner, leftCorner).value,
-					RectDrawable(Colors.Fade).corners(0, 0, rightCorner, leftCorner).value
+					RectDraw(midBackColor).corners(0, 0, rightCorner, leftCorner).value,
+					RectDraw(Colors.Fade).corners(0, 0, rightCorner, leftCorner).value
 			)
 
 			ll2.addView(midView) { width(0).weight(1).heightFill().gravityCenter() }
@@ -166,8 +166,8 @@ open class BaseDialog {
 			val okView = context.createTextViewA().textColor(okColor).text(okButtonText).padding(15, 10, 15, 10).gravityCenter()
 			val leftCorner = if (cancelButtonText == null && midButtonText == null) cornerOfDialog else 0
 			okView.backDrawable(
-					RectDrawable(okBackColor).corners(0, 0, cornerOfDialog, leftCorner).value,
-					RectDrawable(Colors.Fade).corners(0, 0, cornerOfDialog, leftCorner).value
+					RectDraw(okBackColor).corners(0, 0, cornerOfDialog, leftCorner).value,
+					RectDraw(Colors.Fade).corners(0, 0, cornerOfDialog, leftCorner).value
 			)
 
 			ll2.addView(okView) { width(0).weight(1).heightFill().gravityCenter() }

@@ -1,6 +1,5 @@
 package yet.ext
 
-import yet.util.DO
 import yet.util.Util
 import java.io.Closeable
 import java.util.*
@@ -12,12 +11,7 @@ import java.util.*
 
 val chinaComparator = Comparator<String> { left, right -> Util.collatorChina.compare(left, right) }
 
-inline fun <T> T?.notNull(block: (T) -> Unit) {
-	if (this != null) {
-		block(this)
-	}
-	this.DO(block)
-}
+
 
 fun <T : Closeable> T?.closeSafe() {
 	try {

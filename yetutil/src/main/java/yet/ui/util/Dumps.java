@@ -8,8 +8,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
-import yet.util.DateUtil;
+import yet.util.MyDate;
 import yet.util.StrBuilder;
 import yet.util.log.xlog;
 
@@ -88,7 +89,7 @@ public class Dumps {
 		xlog.INSTANCE.d("RADIO", Build.RADIO);
 		xlog.INSTANCE.d("SERIAL", Build.SERIAL);
 		xlog.INSTANCE.d("TAGS", Build.TAGS);
-		xlog.INSTANCE.d("TIME", DateUtil.date(Build.TIME));
+		xlog.INSTANCE.d("TIME", new MyDate(Build.TIME, Locale.getDefault()).formatDate());
 		xlog.INSTANCE.d("TYPE", Build.TYPE);
 		xlog.INSTANCE.d("UNKNOWN", Build.UNKNOWN);
 		xlog.INSTANCE.d("USER", Build.USER);

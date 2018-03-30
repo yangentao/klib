@@ -22,21 +22,21 @@ object D {
 	val ArrowRight: Drawable get() = D.res(R.drawable.yet_arrow_right).sized(IconSize.Tiny)
 	val RedPoint: Drawable
 		get() = Shapes.oval {
-			diameterDp(10)
+			size(10)
 			fillColor = RGB(255, 128, 0)
 		}
 	val Input: Drawable
 		get() {
 			val corner: Int = InputSize.EditCorner
-			val normal = RectDrawable(Colors.WHITE).corner(corner).stroke(1, Colors.GRAY).value
-			val focused = RectDrawable(Colors.WHITE).corner(corner).stroke(1, Colors.EditFocus).value
+			val normal = RectDraw(Colors.WHITE).corner(corner).stroke(1, Colors.GRAY).value
+			val focused = RectDraw(Colors.WHITE).corner(corner).stroke(1, Colors.EditFocus).value
 			return focused(normal, focused)
 		}
 	val InputSearch: Drawable
 		get() {
 			val corner: Int = InputSize.EditHeightSearch / 2
-			val normal = RectDrawable(Colors.WHITE).corner(corner).stroke(1, Colors.GRAY).value
-			val focused = RectDrawable(Colors.WHITE).corner(corner).stroke(1, Colors.EditFocus).value
+			val normal = RectDraw(Colors.WHITE).corner(corner).stroke(1, Colors.GRAY).value
+			val focused = RectDraw(Colors.WHITE).corner(corner).stroke(1, Colors.EditFocus).value
 			return focused(normal, focused)
 		}
 
@@ -53,14 +53,14 @@ object D {
 	}
 
 	fun buttonColor(color: Int, corner: Int = InputSize.ButtonCorner): Drawable {
-		val normal = RectDrawable(color).corner(corner).value
-		val pressed = RectDrawable(Colors.Fade).corner(corner).value
-		val enableFalse = RectDrawable(Colors.Disabled).corner(corner).value
+		val normal = RectDraw(color).corner(corner).value
+		val pressed = RectDraw(Colors.Fade).corner(corner).value
+		val enableFalse = RectDraw(Colors.Disabled).corner(corner).value
 		return ImageStated(normal).pressed(pressed).enabled(enableFalse, false).value
 	}
 
 	fun panelBorder(color: Int = Colors.LightGray, corner: Int = InputSize.ButtonCorner): Drawable {
-		return RectDrawable(Color.WHITE).corner(corner).stroke(1, color).value
+		return RectDraw(Color.WHITE).corner(corner).stroke(1, color).value
 	}
 
 	fun res(@DrawableRes resId: Int): Drawable {

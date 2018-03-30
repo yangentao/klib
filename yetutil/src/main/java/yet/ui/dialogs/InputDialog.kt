@@ -10,7 +10,7 @@ import android.widget.EditText
 import yet.theme.Colors
 import yet.theme.InputSize
 import yet.ui.ext.*
-import yet.ui.res.RectDrawable
+import yet.ui.res.RectDraw
 import yet.ui.viewcreator.*
 
 class InputDialog {
@@ -136,7 +136,7 @@ class InputDialog {
 		ll.divider()
 		if (title != null) {
 			val textView = context.createTextViewA()
-			val bgText = RectDrawable(Colors.Theme).corners(CORNER, CORNER, 0, 0).value
+			val bgText = RectDraw(Colors.Theme).corners(CORNER, CORNER, 0, 0).value
 			textView.setText(title)
 			textView.textColorWhite().textSizeTitle().backDrawable(bgText).padding(15, 0, 0, 0)
 			ll.addView(textView) { widthFill().height(TITLE_HEIGHT).gravityLeftCenter() }
@@ -163,9 +163,9 @@ class InputDialog {
 
 		val vw = ll2.padding(15, 25, 15, 25).gravityCenter()
 		if (title == null) {
-			vw.backDrawable(RectDrawable(Colors.WHITE).corners(CORNER, CORNER, 0, 0).value)
+			vw.backDrawable(RectDraw(Colors.WHITE).corners(CORNER, CORNER, 0, 0).value)
 		} else {
-			vw.backDrawable(RectDrawable(Colors.WHITE).value)
+			vw.backDrawable(RectDraw(Colors.WHITE).value)
 		}
 
 		val buttonsView = createButtonsView(context)
@@ -183,8 +183,8 @@ class InputDialog {
 			cancelView.textColorMajor()
 					.textSizeA()
 					.backDrawable(
-							RectDrawable(Colors.WHITE).corners(0, 0, cornerRight, CORNER).value,
-							RectDrawable(Colors.Fade).corners(0, 0, cornerRight, CORNER).value
+							RectDraw(Colors.WHITE).corners(0, 0, cornerRight, CORNER).value,
+							RectDraw(Colors.Fade).corners(0, 0, cornerRight, CORNER).value
 					)
 					.padding(15, 10, 15, 10)
 					.gravityCenter()
@@ -202,8 +202,8 @@ class InputDialog {
 			midView.textColorMajor()
 					.textSizeA()
 					.backDrawable(
-							RectDrawable(Colors.WHITE).corners(0, 0, rightCorner, leftCorner).value,
-							RectDrawable(Colors.Fade).corners(0, 0, rightCorner, leftCorner).value
+							RectDraw(Colors.WHITE).corners(0, 0, rightCorner, leftCorner).value,
+							RectDraw(Colors.Fade).corners(0, 0, rightCorner, leftCorner).value
 					)
 					.padding(15, 10, 15, 10)
 					.gravityCenter()
@@ -221,8 +221,8 @@ class InputDialog {
 			okView.textColor(OK_COLOR)
 					.textSizeA()
 					.backDrawable(
-							RectDrawable(Colors.WHITE).corners(0, 0, CORNER, leftCorner).value,
-							RectDrawable(Colors.Fade).corners(0, 0, CORNER, leftCorner).value
+							RectDraw(Colors.WHITE).corners(0, 0, CORNER, leftCorner).value,
+							RectDraw(Colors.Fade).corners(0, 0, CORNER, leftCorner).value
 					)
 					.padding(15, 10, 15, 10)
 					.gravityCenter()

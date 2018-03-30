@@ -8,7 +8,7 @@ import yet.ext.ColorDrawable
 import yet.theme.Colors
 import yet.theme.Space
 import yet.ui.res.D
-import yet.ui.res.RectDrawable
+import yet.ui.res.RectDraw
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -159,18 +159,18 @@ fun <T : View> T.backColorPage(): T {
 }
 
 fun <T : View> T.backFillFade(fillColor: Int, corner: Int): T {
-	backDrawable(RectDrawable(fillColor).corner(corner).value, RectDrawable(Colors.Fade).corner(corner).value)
+	backDrawable(RectDraw(fillColor).corner(corner).value, RectDraw(Colors.Fade).corner(corner).value)
 	return this
 }
 
 fun <T : View> T.backFill(fillColor: Int, corner: Int): T {
-	val d = RectDrawable(fillColor).corner(corner)
+	val d = RectDraw(fillColor).corner(corner)
 	backDrawable(d.value)
 	return this
 }
 
 fun <T : View> T.backStrike(fillColor: Int, corner: Int, borderWidth: Int, borderColor: Int): T {
-	val d = RectDrawable(fillColor).corner(corner).stroke(borderWidth, borderColor)
+	val d = RectDraw(fillColor).corner(corner).stroke(borderWidth, borderColor)
 	backDrawable(d.value)
 	return this
 }

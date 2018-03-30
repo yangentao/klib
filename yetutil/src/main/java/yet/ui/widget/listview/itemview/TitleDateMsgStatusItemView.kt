@@ -6,7 +6,7 @@ import android.widget.TextView
 import yet.ext.RGB
 import yet.ui.ext.*
 import yet.ui.res.Shapes
-import yet.util.DateUtil
+import yet.util.MyDate
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -58,7 +58,7 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 	}
 
 	fun date(date: Long): TitleDateMsgStatusItemView {
-		dateView.text = DateUtil.shortString(date)
+		dateView.text = MyDate(date).formatShort()
 		return this
 	}
 
@@ -76,7 +76,7 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 	}
 
 	fun setValues(name: String, date: Long, msg: String, status: String?): TitleDateMsgStatusItemView {
-		val s = if (date == 0L) "" else DateUtil.shortString(date)
+		val s = if (date == 0L) "" else MyDate(date).formatShort()
 		return setValues(name, s, msg, status)
 	}
 
@@ -92,7 +92,7 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 		}
 
 		private val redDrawable = Shapes.oval {
-			diameterDp(10)
+			size(10)
 			fillColor = RGB(255, 128, 0)
 		}
 	}

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import yet.ui.ext.genId
+import yet.ui.res.D
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
@@ -40,7 +41,9 @@ fun Fragment.createCheckBox(): CheckBox {
 }
 
 fun Context.createCheckBox(): CheckBox {
-	return CheckBox(this).genId()
+	val cb =  CheckBox(this).genId()
+	cb.buttonDrawable = D.CheckBox
+	return cb
 }
 
 

@@ -8,7 +8,7 @@ import yet.ui.ext.dp
  */
 
 
-class RectDrawable(fillColor: Int? = null) {
+class RectDraw(fillColor: Int? = null) {
 	val value: GradientDrawable = GradientDrawable()
 
 	init {
@@ -18,17 +18,17 @@ class RectDrawable(fillColor: Int? = null) {
 		}
 	}
 
-	fun color(color: Int): RectDrawable {
+	fun color(color: Int): RectDraw {
 		value.setColor(color)
 		return this
 	}
 
-	fun corner(corner: Int): RectDrawable {
+	fun corner(corner: Int): RectDraw {
 		value.cornerRadius = dp(corner).toFloat()
 		return this
 	}
 
-	fun corners(topLeft: Int, topRight: Int, bottomRight: Int, bottomLeft: Int): RectDrawable {
+	fun corners(topLeft: Int, topRight: Int, bottomRight: Int, bottomLeft: Int): RectDraw {
 		val f1 = dp(topLeft).toFloat()
 		val f2 = dp(topRight).toFloat()
 		val f3 = dp(bottomRight).toFloat()
@@ -39,12 +39,12 @@ class RectDrawable(fillColor: Int? = null) {
 		return this
 	}
 
-	fun stroke(width: Int, color: Int): RectDrawable {
+	fun stroke(width: Int, color: Int): RectDraw {
 		value.setStroke(dp(width), color)
 		return this
 	}
 
-	fun size(w: Int, h: Int = w): RectDrawable {
+	fun size(w: Int, h: Int = w): RectDraw {
 		value.setSize(dp(w), dp(h))
 		return this
 	}

@@ -9,7 +9,7 @@ import yet.theme.InputSize
 import yet.ui.ext.*
 import yet.ui.page.BaseFragment
 import yet.ui.res.*
-import yet.ui.res.RectDrawable
+import yet.ui.res.RectDraw
 import yet.ui.util.TimeDown
 import yet.ui.viewcreator.*
 import yet.util.*
@@ -158,11 +158,11 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 	}
 
 	fun addVerifyCode(timeDownKey: String, phoneEditKey: String, marginTop: Int, block: (String) -> Unit) {
-		val llDraw = RectDrawable(Colors.TRANS).corner(InputSize.EditCorner).stroke(1, Colors.EditFocus).value
-		val editDraw = RectDrawable(Colors.WHITE).corners(InputSize.EditCorner, 0, 0, InputSize.EditCorner).value
-		val btnNormalDraw = RectDrawable(Colors.Theme).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
-		val btnPressDraw = RectDrawable(Colors.Fade).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
-		val btnDisableDraw = RectDrawable(Colors.Disabled).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
+		val llDraw = RectDraw(Colors.TRANS).corner(InputSize.EditCorner).stroke(1, Colors.EditFocus).value
+		val editDraw = RectDraw(Colors.WHITE).corners(InputSize.EditCorner, 0, 0, InputSize.EditCorner).value
+		val btnNormalDraw = RectDraw(Colors.Theme).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
+		val btnPressDraw = RectDraw(Colors.Fade).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
+		val btnDisableDraw = RectDraw(Colors.Disabled).corners(0, InputSize.EditCorner, InputSize.EditCorner, 0).value
 		val btnDraw = ImageStated(btnNormalDraw).pressed(btnPressDraw).enabled(btnDisableDraw, false).value
 
 		linearHor(lParam().widthFill().height(InputSize.EditHeight).margins(0, marginTop, 0, 0)) {

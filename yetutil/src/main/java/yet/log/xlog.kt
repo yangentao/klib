@@ -18,7 +18,7 @@ object xlog : LogPrinter {
 		} else {
 			LogLevel2.INFO
 		}
-		printer = TreePrinter(LogcatPrinter(), FilePrinter(SdAppFile.log(DateUtil.date() + ".txt")))
+		printer = TreePrinter(LogcatPrinter(), FilePrinter(SdAppFile.log(MyDate().formatDate() + ".txt")))
 	}
 
 	override fun flush() {
