@@ -3,9 +3,9 @@ package yet.ui.widget.recycler
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import yet.ext.size
 import yet.theme.IconSize
 import yet.ui.ext.*
+import yet.ui.res.sized
 
 /**
  * Created by yet on 2015/10/28.
@@ -21,7 +21,7 @@ class ImageItemAction(context: Context) : ImageView(context) {
 	}
 
 	fun icon(d: Drawable): ImageItemAction {
-		setImageDrawable(d.size(IconSize.Small))
+		setImageDrawable(d.sized(IconSize.Small))
 		return this
 	}
 }

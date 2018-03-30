@@ -6,9 +6,10 @@ import android.graphics.drawable.*
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import yet.ext.RGB
 import yet.ui.ext.*
+import yet.ui.res.Shapes
 import yet.ui.util.LayerUtil
-import yet.ui.util.ShapeUtil
 import yet.ui.viewcreator.textView
 import yet.util.*
 import java.util.*
@@ -20,7 +21,7 @@ class ArrayListIndexBar(context: Context, feedbackParentView: RelativeLayout) : 
 
 	private var selectView: View? = null
 	private val selectDrawable = bgDraw()
-	private val darkColor = Util.argb("#ccc")
+	private val darkColor = RGB("#ccc")
 	private val normalColor = Color.TRANSPARENT
 	private var feedbackView: TextView
 
@@ -51,7 +52,13 @@ class ArrayListIndexBar(context: Context, feedbackParentView: RelativeLayout) : 
 		orientationVertical().gravityCenterHorizontal().padding(0, 0, 0, 0).makeClickable()
 		feedbackView = feedbackParentView.textView(relativeParam().centerInParent().size(70)) {
 			textColor_(Color.WHITE).textSize_(50).gravityCenter().backDrawable(
-					ShapeUtil.round(10, Util.argb("#555"), 2, Util.argb("#ddd"))
+					Shapes.rect {
+						corner = dp(10)
+						fillColor = RGB("#555")
+						strokeWidth = dp(2)
+						strokeColor = RGB("#ddd")
+					}
+
 			).gone()
 		}
 		hideFeedbackRun = Runnable { feedbackView.gone() }

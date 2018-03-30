@@ -19,6 +19,7 @@ import yet.ui.activities.*
 import yet.ui.dialogs.*
 import yet.ui.dialogs.list.StringSelectDialog
 import yet.ui.dialogs.list.TextSelectDialog
+import yet.ui.res.*
 import yet.ui.widget.TabBar
 import yet.ui.widget.listview.itemview.TextItemView
 import yet.util.*
@@ -315,9 +316,9 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 			if (resultCode == Activity.RESULT_OK) {
 				if (data != null && data.data != null) {
 					val outputFile = SdAppFile.temp("" + System.currentTimeMillis() + ".jpg")
-					val bmp = BmpUtil.fromUri(data.data, width * width, Bitmap.Config.ARGB_8888)
+					val bmp = Bmp.uri(data.data, width , Bitmap.Config.ARGB_8888)
 					if (bmp != null) {
-						BmpUtil.saveJpg(bmp, outputFile)
+						bmp.saveJpg(outputFile)
 						block.invoke(outputFile)
 					}
 				}
@@ -333,9 +334,9 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 			if (resultCode == Activity.RESULT_OK) {
 				if (data != null && data.data != null) {
 					val f = SdAppFile.tempFile("PNG")
-					val bmp = BmpUtil.fromUri(data.data, width * width, Bitmap.Config.ARGB_8888)
+					val bmp = Bmp.uri(data.data, width , Bitmap.Config.ARGB_8888)
 					if (bmp != null) {
-						BmpUtil.savePng(bmp, f)
+						bmp.savePng( f)
 						if (f.exists()) {
 							block.invoke(Uri.fromFile(f))
 						}
@@ -367,12 +368,12 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 		val onResult = PreferenceManager.OnActivityResultListener { _, resultCode, _ ->
 			if (resultCode == Activity.RESULT_OK && outputFile.exists()) {
 				val f = SdAppFile.tempFile(FMT.toLowerCase())
-				val bmp = BmpUtil.fromFile(outputFile, width * width, Bitmap.Config.ARGB_8888)
+				val bmp = Bmp.file(outputFile, width , Bitmap.Config.ARGB_8888)
 				if (bmp != null) {
 					if (png) {
-						BmpUtil.savePng(bmp, f)
+						bmp.savePng( f)
 					} else {
-						BmpUtil.saveJpg(bmp, f)
+						bmp.saveJpg( f)
 					}
 					if (f.exists()) {
 						block(f)

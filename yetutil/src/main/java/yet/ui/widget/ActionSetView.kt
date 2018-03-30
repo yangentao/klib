@@ -4,12 +4,11 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
-import yet.ext.size
 import yet.theme.IconSize
 import yet.theme.TextSize
 import yet.ui.ext.*
-import yet.ui.res.Img
-import yet.ui.res.ResConst
+import yet.ui.res.D
+import yet.ui.res.sized
 import yet.ui.viewcreator.createLinearHorizontal
 import yet.ui.viewcreator.createTextView
 import yet.ui.widget.listview.itemview.TextDetailView
@@ -85,27 +84,27 @@ class ActionSetView(context: Context) : LinearLayout(context), IActionPanel {
 		view.detailView.setTextColor(item.subLabelColor)
 		var icon = item.icon
 		if (icon == null && hasIcon) {
-			icon = Img.color(Color.TRANSPARENT)
+			icon = D.color(Color.TRANSPARENT)
 		}
 		if (icon != null) {
 			view.textView.compoundDrawablePadding = dp(10)
-			view.textView.setCompoundDrawables(icon.size(iconSize), null, null, null)
+			view.textView.setCompoundDrawables(icon.sized(iconSize), null, null, null)
 		}
 		var subIcon = item.subIcon
 		if (item.num != 0) {
-			subIcon = ResConst.redPoint()
+			subIcon = D.RedPoint
 		}
 		if (subIcon == null && hasSubIcon) {
-			subIcon = Img.color(Color.TRANSPARENT)
+			subIcon = D.color(Color.TRANSPARENT)
 		}
 		if (subIcon != null) {
-			subIcon.size(subIconSize)
+			subIcon.sized(subIconSize)
 		}
 		val subIconLeft = item.subIconLeft
 		if (item.subIconLeftSize > 0) {
-			subIconLeft?.size(item.subIconLeftSize)
+			subIconLeft?.sized(item.subIconLeftSize)
 		} else {
-			subIconLeft?.size(subIconLeftSize)
+			subIconLeft?.sized(subIconLeftSize)
 		}
 		if (subIcon != null || subIconLeft != null) {
 			view.detailView.compoundDrawablePadding = dp(10)

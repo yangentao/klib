@@ -6,10 +6,10 @@ import android.graphics.drawable.*
 import android.os.Build
 import android.view.View
 import android.widget.*
-import yet.ext.size
 import yet.theme.*
 import yet.theme.Space
 import yet.ui.ext.*
+import yet.ui.res.sized
 import yet.ui.viewcreator.*
 import yet.ui.widget.Action
 import yet.util.fore
@@ -87,7 +87,7 @@ class DrawerNavView(context: Context) : LinearLayout(context) {
 			val textView = context.createTextViewB().textColorWhite().backColor(Color.TRANSPARENT, Colors.Fade).padding(5).text(a.label)
 			val d = a.icon
 			if (d != null) {
-				textView.leftImage(d.size(IconSize.Normal))
+				textView.leftImage(d.sized(IconSize.Normal))
 			}
 			bottomLayout.addViewParam(textView) {
 				widthWrap().heightFill().gravityRightCenter()
@@ -156,7 +156,7 @@ class DrawerNavView(context: Context) : LinearLayout(context) {
 			val tv = context.createTextViewB().textColorWhite().text(a.label)
 			if (needIcon) {
 				val d: Drawable = a.icon ?: ColorDrawable(Color.TRANSPARENT)
-				tv.leftImage(d.size(IconSize.Normal))
+				tv.leftImage(d.sized(IconSize.Normal))
 			}
 			val ll = context.createLinearHorizontal().backColor(Color.TRANSPARENT, Colors.Fade).padding(5)
 			ll.addViewParam(tv) {
@@ -165,7 +165,7 @@ class DrawerNavView(context: Context) : LinearLayout(context) {
 			if (a.subLabel != null || a.subIcon != null) {
 				val subTv = context.createTextViewC().text(a.subLabel)
 				if (a.subIcon != null) {
-					subTv.rightImage(a.subIcon!!.size(IconSize.Small))
+					subTv.rightImage(a.subIcon!!.sized(IconSize.Small))
 				}
 				ll.addViewParam(subTv) {
 					widthWrap().heightFill().gravityRightCenter()

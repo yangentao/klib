@@ -12,9 +12,9 @@ import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import yet.ext.ColorList
-import yet.ext.size
 import yet.theme.*
-import yet.ui.res.Img
+import yet.ui.res.D
+import yet.ui.res.sized
 import yet.ui.util.XTextWatcher
 import yet.util.HtmlText
 import yet.util.Util
@@ -309,7 +309,7 @@ fun <T : TextView> T.colorRed(): T {
 }
 
 fun <T : TextView> T.textColorMajorFade(): T {
-	setTextColor(Img.colorList(Colors.TextColor, Colors.Fade))
+	setTextColor(D.listColor(Colors.TextColor, Colors.Fade))
 	return this
 }
 
@@ -375,7 +375,7 @@ fun <T : TextView> T.linkifyAll(): T {
 }
 
 fun <T : TextView> T.leftImage(resId: Int, size: Int, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(Img.res(resId).size(size), null, null, null)
+	this.setCompoundDrawables(D.res(resId).sized(size), null, null, null)
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
@@ -387,7 +387,7 @@ fun <T : TextView> T.leftImage(d: Drawable?, margin: Int = Space.Small): T {
 }
 
 fun <T : TextView> T.rightImage(resId: Int, size: Int, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, null, Img.res(resId).size(size), null)
+	this.setCompoundDrawables(null, null, D.res(resId).sized(size), null)
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
@@ -399,7 +399,7 @@ fun <T : TextView> T.rightImage(d: Drawable, margin: Int = Space.Small): T {
 }
 
 fun <T : TextView> T.topImage(resId: Int, size: Int, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, Img.res(resId).size(size), null, null)
+	this.setCompoundDrawables(null, D.res(resId).sized(size), null, null)
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
@@ -411,7 +411,7 @@ fun <T : TextView> T.topImage(d: Drawable, margin: Int = Space.Small): T {
 }
 
 fun <T : TextView> T.bottomImage(resId: Int, size: Int, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, null, null, Img.res(resId).size(size))
+	this.setCompoundDrawables(null, null, null, D.res(resId).sized(size))
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }

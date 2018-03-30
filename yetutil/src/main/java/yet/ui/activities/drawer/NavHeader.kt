@@ -5,8 +5,8 @@ import android.graphics.Bitmap
 import android.widget.*
 import yet.theme.Space
 import yet.ui.ext.*
+import yet.ui.res.round
 import yet.ui.viewcreator.*
-import yet.util.BmpUtil
 
 /**
  * Created by entaoyang@163.com on 16/6/27.
@@ -36,8 +36,7 @@ class NavHeader(context: Context) : RelativeLayout(context) {
 	}
 
 	fun setBitmap(bmp: Bitmap) {
-		val b = BmpUtil.round(bmp)
-		imageView.setImageBitmap(b)
+		imageView.setImageBitmap(bmp.round())
 	}
 
 	fun setName(name: String) {

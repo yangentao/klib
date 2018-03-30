@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import yet.ui.ext.*
-import yet.ui.res.ResConst
+import yet.ui.res.D
 import yet.ui.widget.EditTextX
 
 /**
@@ -43,7 +43,7 @@ fun Fragment.createEdit(): EditText {
 
 fun Context.createEdit(): EditText {
 	val ed = EditText(this).genId().singleLine()
-	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)
+	ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
 	return ed
 }
 
@@ -77,7 +77,7 @@ fun Fragment.createEditX(): EditTextX {
 
 fun Context.createEditX(): EditTextX {
 	val ed = EditTextX(this).genId().singleLine()
-	ed.textSizeB().gravityLeftCenter().backDrawable(ResConst.input()).padding(8, 2, 8, 2)
+	ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
 	return ed
 }
 
@@ -111,6 +111,6 @@ fun Fragment.createEditArea(): EditText {
 
 fun Context.createEditArea(): EditText {
 	val ed = EditText(this).genId()
-	ed.textSizeB().gravityTopLeft().backDrawable(ResConst.input()).padding(10, 5, 10, 5).multiLine()
+	ed.textSizeB().gravityTopLeft().backDrawable(D.Input).padding(10, 5, 10, 5).multiLine()
 	return ed
 }

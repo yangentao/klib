@@ -4,10 +4,13 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.*
+import yet.ext.ARGB
 import yet.ui.ext.*
+import yet.ui.res.Shapes
 import yet.ui.viewcreator.createLinearVertical
 import yet.ui.viewcreator.createTextViewC
-import yet.util.*
+import yet.util.AmrRecord
+import yet.util.ToastUtil
 import yet.util.log.xlog
 import java.io.File
 import java.util.*
@@ -23,7 +26,7 @@ class VoicePanel(val parent: RelativeLayout) : AmrRecord.AMRRecordCallback {
 	lateinit var textView: TextView
 	private var callback: VoicePanelCallback? = null
 
-	val context:Context = parent.context
+	val context: Context = parent.context
 
 	var lastFile: File? = null
 		private set
@@ -31,7 +34,12 @@ class VoicePanel(val parent: RelativeLayout) : AmrRecord.AMRRecordCallback {
 	fun init() {
 		amrRecord = AmrRecord()
 
-		val bg = ShapeUtil.round(10, Util.argb("#8000"), 1, Util.argb("#ccc"))
+		val bg = Shapes.rect {
+			corner = dp(10)
+			fillColor = ARGB("#8000")
+			strokeWidth = dp(1)
+			strokeColor = ARGB("#ccc")
+		}
 		infoPanel = context.createLinearVertical().backDrawable(bg).padding(5).gone()
 
 		waveView = WaveView(context)
@@ -72,7 +80,7 @@ class VoicePanel(val parent: RelativeLayout) : AmrRecord.AMRRecordCallback {
 			file?.delete()
 			ToastUtil.show("小于2秒, 取消发送")
 		} else {
-			if(file != null) {
+			if (file != null) {
 				if (file.exists() && callback != null) {
 					lastFile = file
 					callback!!.onRecordOK(file)

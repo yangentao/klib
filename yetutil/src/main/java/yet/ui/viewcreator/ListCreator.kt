@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import yet.theme.Colors
 import yet.ui.ext.genId
-import yet.ui.res.Img
+import yet.ui.res.D
 import yet.ui.widget.listview.SimpleListView
 
 /**
@@ -53,6 +53,6 @@ fun Fragment.createListView(): ListView {
 fun Context.createListView(): ListView {
 	val lv = ListView(this).genId()
 	lv.cacheColorHint = 0
-	lv.selector = Img.colorStates(Color.TRANSPARENT, Colors.Fade)
+	lv.selector = D.lightColor(Color.TRANSPARENT, Colors.Fade)
 	return lv
 }

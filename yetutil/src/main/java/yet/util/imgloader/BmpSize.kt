@@ -5,10 +5,10 @@ package yet.util.imgloader
  */
 
 object BmpSize {
-	val SMALL64 = 64 * 64
-	val MID128 = 128 * 128
-	val BIG256 = 256 * 256
-	val LARGE480 = 480 * 800
-	val UPLOAD1000 = 1000 * 1000
+	val SMALL64 =  64
+	val MID128 =  128
+	val BIG256 =  256
+	val LARGE480 =  800
+	val UPLOAD1000 =  1000
 	val RAW = 0
 }

@@ -24,13 +24,7 @@ object Res {
 		}
 	}
 
-	fun image(resId: Int): Drawable {
-		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			App.resource.getDrawable(resId, App.app.theme)
-		} else {
-			App.resource.getDrawable(resId)
-		}
-	}
+
 
 	fun drawable(resId: Int): Drawable {
 		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.support.v4.app.NotificationCompat
 import android.util.SparseArray
+import yet.ui.res.Bmp
 import yet.util.*
 import yet.util.database.Values
 
@@ -50,7 +51,7 @@ class NotifyUtil(val id: Int) {
 	}
 
 	fun iconLarge(icon: Int): NotifyUtil {
-		return iconLarge(BmpUtil.fromRes(icon))
+		return iconLarge(Bmp.res(icon))
 	}
 
 	/**

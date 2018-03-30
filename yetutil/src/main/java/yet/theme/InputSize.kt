@@ -4,14 +4,14 @@ package yet.theme
  * Created by entaoyang@163.com on 16/7/21.
  */
 object InputSize {
-	val ButtonHeight = 46
-	val ButtonHeightSmall = 38
-	val ButtonCorner = 6
+	const val ButtonHeight = 46
+	const val ButtonHeightSmall = 38
+	const val ButtonCorner = 6
 
-	val EditHeight = 45
-	val EditHeightSmall = 38
-	val EditHeightSearch = 38
-	val EditCorner = 6
+	const val EditHeight = 45
+	const val EditHeightSmall = 38
+	const val EditHeightSearch = 38
+	const val EditCorner = 6
 
-	val DialogCorner = 6
+	const val DialogCorner = 6
 }

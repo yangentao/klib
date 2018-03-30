@@ -7,10 +7,10 @@ import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.PopupWindow
-import yet.ext.size
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.res.Img
+import yet.ui.res.D
+import yet.ui.res.sized
 import yet.ui.viewcreator.createLinearVertical
 import yet.ui.viewcreator.createTextViewA
 import yet.util.fore
@@ -32,9 +32,9 @@ class PopActions(private val context: Context) {
 		tv.text = item.label
 		var d = item.icon
 		if (d == null) {
-			d = Img.color(Color.TRANSPARENT)
+			d = D.color(Color.TRANSPARENT)
 		}
-		d = d.size(TitleBar.IMAGE_BOUNDS)
+		d = d.sized(TitleBar.IMAGE_BOUNDS)
 		tv.compoundDrawablePadding = dp(10)
 		tv.setCompoundDrawables(d, null, null, null)
 		tv.textColorWhite()

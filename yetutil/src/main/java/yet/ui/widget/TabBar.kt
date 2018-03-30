@@ -116,7 +116,7 @@ class TabBar(context: Context) : LinearLayout(context), IActionPanel {
 			}
 
 			val indicateView = context.createTextView()
-			indicateView.textColor(Color.WHITE).textSizeSp(10).gravityCenter().backDrawable(ResConst.redPoint()).gone()
+			indicateView.textColor(Color.WHITE).textSizeSp(10).gravityCenter().backDrawable(D.RedPoint).gone()
 			if (action.num > 0) {
 				indicateView.visiable().text("" + action.num)
 			} else if (action.num == 0) {

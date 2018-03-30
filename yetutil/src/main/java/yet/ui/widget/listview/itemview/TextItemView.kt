@@ -4,11 +4,11 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.widget.TextView
-import yet.ext.size
 import yet.theme.IconSize
 import yet.theme.Space
 import yet.ui.ext.*
-import yet.ui.res.Img
+import yet.ui.res.D
+import yet.ui.res.sized
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -19,22 +19,22 @@ class TextItemView(context: Context) : TextView(context) {
 	}
 
 	fun icon(d: Drawable?) {
-		d?.size(IconSize.Normal)
+		d?.sized(IconSize.Normal)
 		setCompoundDrawables(d, null, null, null)
 	}
 
 	fun icon(d: Drawable?, size: Int) {
-		d?.size(size)
+		d?.sized(size)
 		setCompoundDrawables(d, null, null, null)
 	}
 
 	fun icon(@DrawableRes resId: Int, size: Int) {
-		val d = Img.resSized(resId, size)
+		val d = D.sized(resId, size)
 		setCompoundDrawables(d, null, null, null)
 	}
 
 	fun icon(@DrawableRes resId: Int) {
-		val d = Img.res(resId)
+		val d = D.res(resId)
 		setCompoundDrawables(d, null, null, null)
 	}
 }

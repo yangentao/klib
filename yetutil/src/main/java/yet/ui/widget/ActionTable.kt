@@ -5,10 +5,10 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import yet.ext.size
 import yet.theme.*
 import yet.ui.ext.*
 import yet.ui.res.ColorStated
+import yet.ui.res.sized
 import yet.ui.viewcreator.createImageView
 import yet.ui.viewcreator.createTextViewC
 import yet.util.Util
@@ -125,7 +125,7 @@ class ActionTable(context: Context) : LinearLayout(context) {
 					} else {
 						//only  icon
 						val iv = context.createImageView()
-						iv.setImageDrawable(action.icon?.size(IMG_SIZE))
+						iv.setImageDrawable(action.icon?.sized(IMG_SIZE))
 						iv.scaleType = ImageView.ScaleType.CENTER_INSIDE
 						val itemBackDraw = ColorStated(Color.WHITE).pressed(Colors.Fade).value
 						iv.setBackgroundDrawable(itemBackDraw)

@@ -5,7 +5,8 @@ import android.content.Context
 import android.view.*
 import android.widget.LinearLayout
 import yet.theme.Colors
-import yet.util.BmpUtil
+import yet.ui.res.drawable
+import yet.ui.res.Bmp
 
 /**
  * Created by entaoyang@163.com on 16/3/12.
@@ -62,7 +63,7 @@ fun <T : LinearLayout> T.divider(block: Divider.() -> Unit): T {
 
 fun <T : LinearLayout> T.divider(ld: Divider): T {
 	if (ld.size > 0) {
-		val d = BmpUtil.lineDraw(ld.size, ld.size, ld.color)
+		val d = Bmp.line(ld.size, ld.size, ld.color).drawable
 		this.dividerDrawable = d
 		this.dividerPadding = dp(ld.pad)
 		var n = LinearLayout.SHOW_DIVIDER_NONE

@@ -7,7 +7,7 @@ import android.widget.*
 import android.widget.ImageView.ScaleType
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.res.ResConst
+import yet.ui.res.D
 import yet.ui.viewcreator.*
 
 /**
@@ -85,8 +85,7 @@ class LeftRightItemView(context: Context, marginBottom: Int) : LinearLayout(cont
 
 	fun addCheckBoxRight(marginLeft: Int): CheckBox {
 		val cb = context.createCheckBox()
-		val d = ResConst.checkbox()
-		cb.buttonDrawable = d
+		cb.buttonDrawable = D.CheckBox
 		linearParam().size(20).gravityRightCenter().margins(marginLeft, 0, 0, 0).set(cb)
 		this.addView(cb)
 		return cb

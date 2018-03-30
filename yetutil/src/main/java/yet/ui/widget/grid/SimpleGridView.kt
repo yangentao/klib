@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.AbsListView
 import android.widget.AdapterView
 import yet.ui.ext.*
-import yet.ui.res.Img
-import yet.ui.res.limit
+import yet.ui.res.D
+import yet.ui.res.limited
 import yet.ui.widget.listview.SimpleBaseAdapter
 import yet.util.fore
 
@@ -46,7 +46,7 @@ open class SimpleGridView<T>(context: Context) : LineGridView(context) {
 	fun bindRes(block: (T) -> Pair<String, Int>) {
 		onBindView = { v, item , p->
 			val p = block.invoke(item)
-			val d = Img.res(p.second).limit(imageMaxEdge)
+			val d = D.res(p.second).limited(imageMaxEdge)
 			(v as GridItemView).setValues(p.first, d)
 		}
 	}
@@ -54,7 +54,7 @@ open class SimpleGridView<T>(context: Context) : LineGridView(context) {
 	fun bindImage(block: (T) -> Pair<String, Drawable>) {
 		onBindView = { v, item , p ->
 			val p = block.invoke(item)
-			val d = p.second.limit(imageMaxEdge)
+			val d = p.second.limited(imageMaxEdge)
 			(v as GridItemView).setValues(p.first, d)
 		}
 	}

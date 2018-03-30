@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.widget.TextView
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.res.Img
+import yet.ui.res.D
 
 
 /**
@@ -50,7 +50,7 @@ class TextItemAction(context: Context) : TextView(context) {
 	}
 
 	fun backColor(normal: Int, pressed: Int): TextItemAction {
-		setBackgroundDrawable(Img.colorStates(normal, pressed))
+		setBackgroundDrawable(D.lightColor(normal, pressed))
 		return this
 	}
 

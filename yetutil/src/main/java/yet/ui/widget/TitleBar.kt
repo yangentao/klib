@@ -7,10 +7,10 @@ import android.view.View
 import android.widget.RelativeLayout
 import net.yet.R
 import yet.ext.notEmpty
-import yet.ext.size
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.res.Img
+import yet.ui.res.D
+import yet.ui.res.sized
 import yet.ui.viewcreator.*
 import java.util.*
 
@@ -158,7 +158,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 	private fun buildActionView(action: Action): View {
 		val view: View = if (action.icon != null) {
 			val icon = action.icon
-			icon?.size(IMAGE_BOUNDS)
+			icon?.sized(IMAGE_BOUNDS)
 			val iv = context.createImageView()
 			iv.padding(PAD_HOR, PAD_VER, PAD_HOR, PAD_VER)
 			if (navLargeIcon && isNavAction(action)) {
@@ -196,7 +196,7 @@ class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
 				onTitleClick(title ?: "")
 			}
 			if (titleStyleDropdown) {
-				val drop = Img.resSized(R.drawable.yet_dropdown, 15)
+				val drop = D.sized(R.drawable.yet_dropdown, 15)
 				titleView.setCompoundDrawables(null, null, drop, null)
 				titleView.compoundDrawablePadding = dp(5)
 			}

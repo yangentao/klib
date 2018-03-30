@@ -5,8 +5,8 @@ import android.graphics.drawable.Drawable
 import android.widget.LinearLayout
 import yet.ui.ext.*
 import yet.ui.page.TitledPage
-import yet.ui.res.Img
-import yet.ui.res.limit
+import yet.ui.res.D
+import yet.ui.res.limited
 import yet.ui.viewcreator.simpleGridView
 
 /**
@@ -36,7 +36,7 @@ open class GridSelectPage<T> : TitledPage() {
 	fun bindRes(block: (T) -> Pair<String, Int>) {
 		gridView.onBindView = { v, item, p ->
 			val p = block.invoke(item)
-			val d = Img.res(p.second).limit(imageMaxEdge)
+			val d = D.res(p.second).limited(imageMaxEdge)
 			(v as GridItemView).setValues(p.first, d)
 		}
 	}
@@ -44,7 +44,7 @@ open class GridSelectPage<T> : TitledPage() {
 	fun bindImage(block: (T) -> Pair<String, Drawable>) {
 		gridView.onBindView = { v, item, p ->
 			val p = block.invoke(item)
-			val d = p.second.limit(imageMaxEdge)
+			val d = p.second.limited(imageMaxEdge)
 			(v as GridItemView).setValues(p.first, d)
 		}
 	}

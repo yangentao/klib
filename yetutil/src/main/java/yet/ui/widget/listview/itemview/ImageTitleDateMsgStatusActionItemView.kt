@@ -6,11 +6,12 @@ import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.view.View
 import android.widget.*
+import yet.ext.RGB
 import yet.theme.Colors
 import yet.theme.IconSize
 import yet.ui.ext.*
-import yet.ui.res.ResConst
-import yet.ui.util.ShapeUtil
+import yet.ui.res.D
+import yet.ui.res.Shapes
 import yet.util.DateUtil
 
 /**
@@ -174,9 +175,12 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
 
 	companion object {
 
-		private val arrowRight = ResConst.arrowRight()
+		private val arrowRight = D.ArrowRight
 
-		private val redDrawable = ShapeUtil.oval(10, Color.rgb(255, 128, 0))
+		private val redDrawable = Shapes.oval {
+			diameterDp(10)
+			fillColor = RGB(255, 128, 0)
+		}
 
 		private val clickListener = View.OnClickListener { v ->
 			val iv = v.tag as? ImageTitleDateMsgStatusActionItemView
@@ -185,6 +189,7 @@ class ImageTitleDateMsgStatusActionItemView(context: Context) : HorItemView(cont
 					iv.callback!!.onImageItemAction(iv, iv.position)
 				}
 			}
+
 		}
 	}
 }

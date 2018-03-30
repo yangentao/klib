@@ -5,9 +5,9 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import yet.ext.size
 import yet.theme.Colors
 import yet.ui.ext.*
+import yet.ui.res.sized
 import yet.ui.viewcreator.createLinearHorizontal
 import yet.ui.viewcreator.createTextViewA
 import yet.ui.widget.Action
@@ -154,7 +154,7 @@ class XSwipeItemView(context: Context, val itemView: View) : HorItemView(context
 		}
 		if (action.icon != null) {
 			val d = action.icon
-			tv.setCompoundDrawables(d?.size(ICON_SIZE_DP), null, null, null)
+			tv.setCompoundDrawables(d?.sized(ICON_SIZE_DP), null, null, null)
 		}
 		action.setOnClickListener(this)
 		tv.tag = action

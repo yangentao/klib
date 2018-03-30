@@ -6,10 +6,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.res.ColorList
-import yet.ui.res.ImageStated
+import yet.ui.res.*
 import yet.ui.util.RectDrawable
-import yet.ui.util.ShapeUtil
 import yet.util.TaskUtil
 import java.util.*
 
@@ -28,7 +26,11 @@ class SwitchPanel(context: Context) : LinearLayout(context) {
 	init {
 		genId()
 		horizontal()
-		backDrawable(ShapeUtil.round(CORNER, Colors.WHITE))
+		backDrawable(Shapes.rect {
+			corner = CORNER
+			fillColor = Colors.WHITE
+		})
+
 	}
 
 	val selectText: String?

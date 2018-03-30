@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ListView
 import yet.theme.Colors
 import yet.ui.ext.genId
-import yet.ui.res.Img
+import yet.ui.res.D
 
 /**
  */
@@ -35,7 +35,7 @@ class SimpleListView<T>(context: Context) : ListView(context) {
 	init {
 		genId()
 		cacheColorHint = 0
-		selector = Img.colorStates(Color.TRANSPARENT, Colors.Fade)
+		selector = D.lightColor(Color.TRANSPARENT, Colors.Fade)
 		setAdapter(myAdapter)
 		this.setOnItemClickListener { parent, view, position, id ->
 			onItemClick(getItem(position))

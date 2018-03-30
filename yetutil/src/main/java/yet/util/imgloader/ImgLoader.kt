@@ -3,7 +3,8 @@ package yet.util.imgloader
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
-import yet.util.BmpUtil
+import yet.ui.res.Bmp
+import yet.ui.res.roundSqure
 import yet.util.fore
 import java.io.File
 import java.lang.ref.WeakReference
@@ -31,10 +32,9 @@ object ImgLoader {
 		fun bitmap(url: String, config: BmpConfig): Bitmap? {
 			val file = file(url) ?: return null
 			if (file.exists()) {
-				val bmp = BmpUtil.fromFile(file, config.maxSize, config.quility) ?: return null
+				val bmp = Bmp.file(file, config.maxEdge, config.quility) ?: return null
 				if (config.corner > 0) {
-//					return BmpUtil.round(bmp, config.corner)
-					return BmpUtil.roundSqure(bmp, config.corner)
+					return bmp.roundSqure(config.corner)
 				}else {
 					return bmp
 				}
@@ -57,7 +57,7 @@ object ImgLoader {
 		}
 		bmp = Local.bitmap(url, config)
 		if (bmp != null) {
-			if (config.maxSize < 480 * 800) {
+			if (config.maxEdge <=  800) {
 				cache.put(key, bmp)
 			}
 		}
@@ -100,10 +100,10 @@ object ImgLoader {
 		}
 		val key = uri.toString() + config.toString()
 		var bmpCache: Bitmap? = cache.get(key)
-		var bmp = bmpCache ?: BmpUtil.fromUri(uri, config.maxSize, config.quility)
+		var bmp = bmpCache ?: Bmp.uri(uri, config.maxEdge, config.quility)
 		if (bmp != null) {
 			imageView.setImageBitmap(bmp)
-			if (bmpCache == null && config.maxSize < 480 * 800) {
+			if (bmpCache == null && config.maxEdge <=  800) {
 				cache.put(key, bmp)
 			}
 		} else {

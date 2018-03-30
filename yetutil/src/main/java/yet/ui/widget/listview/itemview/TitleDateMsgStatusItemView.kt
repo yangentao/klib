@@ -1,11 +1,11 @@
 package yet.ui.widget.listview.itemview
 
 import android.content.Context
-import android.graphics.Color
 import android.widget.LinearLayout
 import android.widget.TextView
+import yet.ext.RGB
 import yet.ui.ext.*
-import yet.ui.util.ShapeUtil
+import yet.ui.res.Shapes
 import yet.util.DateUtil
 
 /**
@@ -91,7 +91,10 @@ class TitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 			return TitleDateMsgStatusItemView(context)
 		}
 
-		private val redDrawable = ShapeUtil.oval(10, Color.rgb(255, 128, 0))
+		private val redDrawable = Shapes.oval {
+			diameterDp(10)
+			fillColor = RGB(255, 128, 0)
+		}
 	}
 
 }

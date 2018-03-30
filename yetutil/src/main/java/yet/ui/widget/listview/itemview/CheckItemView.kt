@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.CheckedTextView
 import yet.ui.ext.*
-import yet.ui.res.ResConst
+import yet.ui.res.D
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -24,7 +24,7 @@ open class CheckItemView(context: Context, val itemView: View, listener: CheckIt
 		addViewParam(itemView, 0) { widthDp(0).weight(1f).heightWrap() }
 
 		checkView = CheckedTextView(context).genId().gone()
-		checkView.checkMarkDrawable = ResConst.checkbox()
+		checkView.checkMarkDrawable = D.CheckBox
 		addViewParam(checkView) { wrap().gravityRightCenter().margins(10, 0, MR, 0) }
 
 		if (this.listener == null && itemView is CheckStatusListener) {

@@ -1,14 +1,14 @@
 package yet.ui.widget.listview.itemview
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.view.ViewGroup
 import android.widget.*
+import yet.ext.RGB
 import yet.theme.IconSize
 import yet.ui.ext.*
-import yet.ui.util.ShapeUtil
+import yet.ui.res.Shapes
 import yet.ui.viewcreator.imageView
 import yet.util.DateUtil
 
@@ -37,7 +37,7 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 
 	init {
 		padding(10, 0, 10, 0)
-		iconView = imageView(lParam().size(IconSize.Small).gravityCenter().margins(0, 0, 5, 0) ){
+		iconView = imageView(lParam().size(IconSize.Small).gravityCenter().margins(0, 0, 5, 0)) {
 			scaleCenterCrop()
 		}
 
@@ -55,11 +55,13 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 		}
 		addViewParam(verticalLayout) { widthDp(0).weight(1f).heightWrap().margins(5, 10, 5, 5).gravityCenterVertical() }
 	}
+
 	fun setVerSpace(n: Int) {
 		val p = bottomView.layoutParams as MarginLayoutParams
 		p.margins(0, n, 0, 0)
 		bottomView.layoutParams = p
 	}
+
 	fun setSepratorSize(dp: Int) {
 		val p = topView.layoutParams as LinearLayout.LayoutParams
 		p.margins(p.leftMargin, p.topMargin, p.rightMargin, dp)
@@ -87,14 +89,17 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 		msgView.text = msg
 		return this
 	}
+
 	fun date(date: String): ImageTitleDateMsgStatusItemView {
 		dateView.text = date
 		return this
 	}
+
 	fun date(date: Long): ImageTitleDateMsgStatusItemView {
 		dateView.text = DateUtil.shortString(date)
 		return this
 	}
+
 	fun status(status: String): ImageTitleDateMsgStatusItemView {
 		statusView.text = status
 		return this
@@ -144,7 +149,10 @@ class ImageTitleDateMsgStatusItemView(context: Context) : HorItemView(context) {
 	}
 
 	companion object {
-		private val redDrawable = ShapeUtil.oval(10, Color.rgb(255, 128, 0))
+		private val redDrawable = Shapes.oval {
+			diameterDp(10)
+			fillColor = RGB(255, 128, 0)
+		}
 	}
 
 }

@@ -5,9 +5,9 @@ import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import android.widget.TextView
 import net.yet.R
-import yet.ext.size
 import yet.ui.ext.*
-import yet.ui.res.Img
+import yet.ui.res.D
+import yet.ui.res.sized
 import yet.ui.viewcreator.textView
 
 /**
@@ -67,7 +67,7 @@ open class TextDetailView(context: Context) : HorItemView(context) {
 	}
 
 	fun rightImageMore() {
-		val d = Img.res(R.drawable.yet_back).size(25)
+		val d = D.res(R.drawable.yet_back).sized(25)
 		setRightImage(d)
 	}
 }

@@ -3,14 +3,14 @@ package yet.ui.ext
 import android.widget.Button
 import android.widget.CheckBox
 import yet.theme.Colors
-import yet.ui.res.ResConst
+import yet.ui.res.D
 
 /**
  * Created by entaoyang@163.com on 16/4/28.
  */
 
 fun <T : Button> T.styleGreen(corner: Int = 2): T {
-	this.textSizeB().textColor(Colors.WHITE, Colors.Fade).backDrawable(ResConst.greenButton(corner))
+	this.textSizeB().textColor(Colors.WHITE, Colors.Fade).backDrawable(D.buttonGreen(corner))
 	return this
 }
 
@@ -19,7 +19,7 @@ fun <T : Button> T.themeGreen(corner: Int = 2): T {
 }
 
 fun <T : Button> T.styleRed(corner: Int = 2): T {
-	this.textSizeB().textColor(Colors.WHITE).backDrawable(ResConst.redButton(corner))
+	this.textSizeB().textColor(Colors.WHITE).backDrawable(D.buttonRed(corner))
 	return this
 }
 
@@ -28,7 +28,7 @@ fun <T : Button> T.themeRed(corner: Int = 2): T {
 }
 
 fun <T : Button> T.styleWhite(corner: Int = 2): T {
-	this.textSizeB().textColorMajor().backDrawable(ResConst.whiteButton(corner))
+	this.textSizeB().textColorMajor().backDrawable(D.buttonWhite(corner))
 	return this
 }
 

@@ -6,9 +6,10 @@ import android.graphics.drawable.*
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import yet.ext.RGB
 import yet.ui.ext.*
+import yet.ui.res.Shapes
 import yet.ui.util.LayerUtil
-import yet.ui.util.ShapeUtil
 import yet.util.*
 import java.util.*
 
@@ -20,12 +21,12 @@ abstract class ListIndexBar<T>(context: Context, feedbackParentView: RelativeLay
 	private var selectView: View? = null
 	private val selectDrawable = bgDraw()
 	private var tagList: ArrayList<Char>? = null
-	private val darkColor = Util.argb("#ccc")
+	private val darkColor = RGB("#ccc")
 	private val normalColor = Color.TRANSPARENT
 	private var feedbackView: TextView
 	private val tagPosMap = HashMap<Char, Int>(30)
 
-	val hideFeedbackRun:Runnable
+	val hideFeedbackRun: Runnable
 
 	private val touchListener = View.OnTouchListener { v, event ->
 		val action = event.actionMasked
@@ -47,7 +48,13 @@ abstract class ListIndexBar<T>(context: Context, feedbackParentView: RelativeLay
 		feedbackView = createTextView()
 		this.setOnTouchListener(touchListener)
 		hideFeedbackRun = Runnable { feedbackView.gone() }
-		val d = ShapeUtil.round(10, Util.argb("#555"), 2, Util.argb("#ddd"))
+
+		val d = Shapes.rect {
+			corner = dp(10)
+			fillColor = RGB("#555")
+			strokeWidth = dp(2)
+			strokeColor = RGB("#ddd")
+		}
 		feedbackView.textColor_(Color.WHITE).textSize_(50).gravityCenter().backDrawable(d).gone()
 		feedbackParentView.addView(feedbackView, relativeParam().centerInParent().size(70))
 

@@ -3,7 +3,6 @@ package yet.ext
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import yet.ui.ext.dp
 import yet.ui.res.ColorList
 import yet.ui.res.ColorStated
 
@@ -12,15 +11,37 @@ import yet.ui.res.ColorStated
  */
 
 
-
-fun Drawable.size(w: Int, h: Int = w): Drawable {
-//	if (this is GradientDrawable) {
-//		this.setSize(w, h)
-//	} else {
-	this.setBounds(0, 0, dp(w), dp(h))
-//	}
-	return this
+fun RGB(r: Int, g: Int, b: Int): Int {
+	return Color.rgb(r, g, b)
 }
+
+fun ARGB(a: Int, r: Int, g: Int, b: Int): Int {
+	return Color.argb(a, r, g, b)
+}
+
+fun ARGB(colorString: String): Int {
+	return RGB(colorString)
+}
+
+fun RGB(colorString: String): Int {
+	if (colorString.isEmpty()) {
+		return 0
+	}
+	if (colorString[0] == '#') {
+		val len = colorString.length
+		if (len == 4 || len == 5) {
+			val sb = StringBuffer(10)
+			sb.append('#')
+			for (i in 1 until len) {
+				sb.append(colorString[i])
+				sb.append(colorString[i])
+			}
+			return Color.parseColor(sb.toString())
+		}
+	}
+	return Color.parseColor(colorString)
+}
+
 
 fun ColorDrawable(normal: Int, pressed: Int): Drawable {
 	return ColorStated(normal).pressed(pressed).selected(pressed).focused(pressed).value
@@ -47,16 +68,18 @@ fun argb(colorString: String): Int {
 	return Color.parseColor(colorString)
 }
 
-val Long.color: Int get() {
-	if (this <= 0xffffff) {
-		val L = 0xff000000 or this
-		return L.toInt()
+val Long.color: Int
+	get() {
+		if (this <= 0xffffff) {
+			val L = 0xff000000 or this
+			return L.toInt()
+		}
+		if (this <= 0xffffffff) {
+			return toInt()
+		}
+		throw IllegalArgumentException("不是颜色值:${this.toString(16)}")
 	}
-	if (this <= 0xffffffff) {
-		return toInt()
+val Int.color: Int
+	get() {
+		return this.toLong().color
 	}
-	throw IllegalArgumentException("不是颜色值:${this.toString(16)}")
-}
-val Int.color: Int get() {
-	return this.toLong().color
-}

@@ -105,7 +105,7 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 		return ed
 	}
 
-	fun addPhone(key: String, hint: String = ResStr(R.string.yet_phone_input), marginTop: Int = inputMarginTop): EditText {
+	fun addPhone(key: String, hint: String = Res.str(R.string.yet_phone_input), marginTop: Int = inputMarginTop): EditText {
 		val ed = makeEdit(hint, marginTop)
 		ed.inputTypePhone()
 		addView(ed)
@@ -122,10 +122,10 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 	}
 
 	fun addPasswordAgain(key: String): EditText {
-		return addPassword(key, ResStr(R.string.yet_pwd_again), inputMarginTop)
+		return addPassword(key, Res.str(R.string.yet_pwd_again), inputMarginTop)
 	}
 
-	fun addPassword(key: String, hint: String = ResStr(R.string.yet_pwd_input), marginTop: Int = inputMarginTop): EditText {
+	fun addPassword(key: String, hint: String = Res.str(R.string.yet_pwd_input), marginTop: Int = inputMarginTop): EditText {
 		val ed = makeEdit(hint, marginTop)
 		ed.inputTypePassword()
 		addView(ed)
@@ -133,7 +133,7 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 		return ed
 	}
 
-	fun addPasswordNumber(key: String, hint: String = ResStr(R.string.yet_pwd_input), marginTop: Int = inputMarginTop): EditText {
+	fun addPasswordNumber(key: String, hint: String = Res.str(R.string.yet_pwd_input), marginTop: Int = inputMarginTop): EditText {
 		val ed = makeEdit(hint, marginTop)
 		ed.inputTypePasswordNumber()
 		addView(ed)
@@ -197,7 +197,7 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 		checkMap[key] = checkBox(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
 			padding(20, 5, 5, 5)
 			text = title
-			buttonDrawable = ResConst.checkbox()
+			buttonDrawable = D.CheckBox
 		}
 	}
 

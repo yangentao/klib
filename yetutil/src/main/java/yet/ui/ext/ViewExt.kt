@@ -7,8 +7,8 @@ import android.widget.LinearLayout
 import yet.ext.ColorDrawable
 import yet.theme.Colors
 import yet.theme.Space
+import yet.ui.res.D
 import yet.ui.util.RectDrawable
-import yet.ui.util.StateImage
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -186,12 +186,12 @@ fun <T : View> T.backDrawable(d: Drawable): T {
 }
 
 fun <T : View> T.backDrawable(normal: Drawable, pressed: Drawable): T {
-	this.setBackgroundDrawable(StateImage(normal).pressed(pressed).value)
+	this.setBackgroundDrawable(D.light(normal, pressed))
 	return this
 }
 
 fun <T : View> T.backDrawable(@DrawableRes resId: Int, @DrawableRes pressed: Int): T {
-	this.setBackgroundDrawable(yet.ui.res.DrawablePressed(resId, pressed))
+	this.setBackgroundDrawable(D.light(resId, pressed))
 	return this
 }
 

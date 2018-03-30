@@ -43,7 +43,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
-import yet.ui.util.DrawableListUtil;
 import yet.util.app.App;
 import yet.util.app.DownloadTask;
 import yet.util.log.xlog;
@@ -1453,83 +1452,10 @@ public class Util {
 		return val >= from && val <= to;
 	}
 
-	/**
-	 * val 属于区间[from, to)
-	 *
-	 * @param val
-	 * @param from
-	 * @param to
-	 * @return
-	 * @Description:
-	 * @see:
-	 * @since:
-	 * @author: yangentao
-	 * @date:2012-7-18
-	 */
 
-	public static boolean inRange10(int val, int from, int to) {
-		return val >= from && val < to;
-	}
 
-	/**
-	 * 将a-z的小写字符转换成A-Z的大写字符, 如果给定的字符不在[a,z]区间内, 则返回原字符
-	 *
-	 * @param ch
-	 * @return
-	 * @Description:
-	 * @see:
-	 * @since:
-	 * @author: yangentao
-	 * @date:2012-7-18
-	 */
 
-	public static char toUpper(char ch) {
-		if (inRange11(ch, 'a', 'z')) {
-			return (char) (ch - 'a' + 'A');
-		}
-		return ch;
-	}
 
-	/**
-	 * 参考android.graphics.Color.parseColor;
-	 * 扩展了#RGB, #ARGB
-	 * <p>
-	 * Parse the color string, and return the corresponding color-int.
-	 * If the string cannot be parsed, throws an IllegalArgumentException
-	 * exception. Supported formats are:
-	 * #RRGGBB
-	 * #AARRGGBB
-	 * 'red', 'blue', 'green', 'black', 'white', 'gray', 'cyan', 'magenta',
-	 * 'yellow', 'lightgray', 'darkgray', 'grey', 'lightgrey', 'darkgrey',
-	 * 'aqua', 'fuschia', 'lime', 'maroon', 'navy', 'olive', 'purple',
-	 * 'silver', 'teal'
-	 */
-	public static int argb(String colorString) {
-		if (colorString.charAt(0) == '#') {
-			int len = colorString.length();
-			if (len == 4 || len == 5) {
-				StringBuffer sb = new StringBuffer(10);
-				sb.append('#');
-				for (int i = 1; i < len; ++i) {
-					sb.append(colorString.charAt(i));
-					sb.append(colorString.charAt(i));
-				}
-				return Color.parseColor(sb.toString());
-			}
-		}
-		return Color.parseColor(colorString);
-	}
-
-	public static Drawable drawable(int normal, int pressed) {
-		Drawable d = App.INSTANCE.getApp().getResources().getDrawable(normal);
-		Drawable d2 = App.INSTANCE.getApp().getResources().getDrawable(pressed);
-		DrawableListUtil u = new DrawableListUtil();
-		u.addDrawable(d2, android.R.attr.state_pressed);
-		u.addDrawable(d2, android.R.attr.state_selected);
-		u.addDrawable(d2, android.R.attr.state_focused);
-		u.addDrawable(d);
-		return u.get();
-	}
 
 	public static Object getService(String name) {
 		return App.INSTANCE.getApp().getSystemService(name);

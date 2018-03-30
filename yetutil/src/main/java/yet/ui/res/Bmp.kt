@@ -1,132 +1,178 @@
 package yet.ui.res
 
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.media.ExifInterface
-import yet.util.Util
+import android.graphics.Bitmap.Config
+import android.graphics.drawable.StateListDrawable
+import android.net.Uri
+import android.support.annotation.DrawableRes
+import android.util.DisplayMetrics
+import yet.ext.closeSafe
+import yet.file.SdAppFile
+import yet.theme.Colors
+import yet.util.MySize
 import yet.util.app.App
 import java.io.*
 
-/**
- * Created by entaoyang@163.com on 2018-03-06.
- */
+object Bmp {
+	fun res(id: Int): Bitmap {
+		return BitmapFactory.decodeResource(App.resource, id)!!
+	}
 
-class Bmp(val bmp: Bitmap) {
-
-	val width: Int get() = bmp.width
-	val height: Int get() = bmp.height
-
-	val drawable: BitmapDrawable
-		get() {
-			return BitmapDrawable(App.resource, bmp)
+	fun uri(uri: Uri?): Bitmap? {
+		if (uri == null) {
+			return null
 		}
-
-	fun rotate(degree: Int): Bitmap? {
-		val matrix = Matrix()
-		matrix.postRotate(degree.toFloat())
-		return Bitmap.createBitmap(bmp, 0, 0, width, height, matrix, true)
-	}
-
-	//限制最大的高宽, 等比例缩放, 比如, 原图 300 * 400, limi(200,200)将会将图片变为原来的1/2, 150* 200
-	fun limit(maxWidth: Int, maxHeight: Int = maxWidth): Bmp {
-		if (width < maxWidth && height < maxHeight) {
-			return this
-		}
-		var fw = if (width > maxWidth) {
-			maxWidth * 1.0 / width
-		} else 1.0
-		var fh = if (height > maxHeight) {
-			maxHeight * 1.0 / height
-		} else 1.0
-		var f = Math.min(fw, fh).toFloat()
-		return scale(f)
-	}
-
-	fun scale(fWidth: Float, fHeight: Float): Bmp {
-		val matrix = Matrix()
-		matrix.postScale(fWidth, fHeight)
-		val b = Bitmap.createBitmap(bmp, 0, 0, bmp.width, bmp.height, matrix, true)
-		return Bmp(b)
-	}
-
-	fun scaleTo(newWidth: Int, newHeight: Int): Bmp {
-		val scaleWidth = newWidth.toFloat() / width
-		val scaleHeight = newHeight.toFloat() / height
-		return scale(scaleWidth, scaleHeight)
-	}
-
-	fun scale(scale: Float): Bmp {
-		return scale(scale)
-	}
-
-
-	fun savePng(saveTo: File): Boolean {
 		try {
-			val fos = FileOutputStream(saveTo)
-			return savePng(fos)
-		} catch (e: FileNotFoundException) {
-			e.printStackTrace()
+			return decodeStream(App.openStream(uri))
+		} catch (ex: Exception) {
+			ex.printStackTrace()
 		}
 
-		return false
+		return null
 	}
 
-	fun savePng(saveTo: OutputStream): Boolean {
+	//图片高或宽不超过maxEdge
+	fun uri(uri: Uri?, maxEdge: Int, config: Bitmap.Config): Bitmap? {
+		if (uri == null) {
+			return null
+		}
 		try {
-			return bmp.compress(Bitmap.CompressFormat.PNG, 100, saveTo)
-		} catch (e: Exception) {
-			e.printStackTrace()
-		} finally {
-			Util.close(saveTo)
-		}
-		return false
-	}
-
-	fun saveJpg(saveTo: File): Boolean {
-		try {
-			val fos = FileOutputStream(saveTo)
-			return saveJpg(fos)
-		} catch (e: FileNotFoundException) {
-			e.printStackTrace()
-		}
-
-		return false
-	}
-
-	fun saveJpg(saveTo: OutputStream): Boolean {
-		try {
-			return bmp.compress(Bitmap.CompressFormat.JPEG, 100, saveTo)
-		} catch (e: Exception) {
-			e.printStackTrace()
-		} finally {
-			Util.close(saveTo)
-		}
-		return false
-	}
-
-
-	companion object {
-		fun res(id: Int): Bmp {
-			val b = BitmapFactory.decodeResource(App.resource, id)!!
-			return Bmp(b)
-		}
-
-		fun degress(file: File): Int {
-			val path = file.absolutePath
-			var degree = 0
-			try {
-				val exif = ExifInterface(path)
-				val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-				when (orientation) {
-					ExifInterface.ORIENTATION_ROTATE_90 -> degree = 90
-					ExifInterface.ORIENTATION_ROTATE_180 -> degree = 180
-					ExifInterface.ORIENTATION_ROTATE_270 -> degree = 270
-				}
-			} catch (e: IOException) {
-				e.printStackTrace()
+			if (maxEdge < 1) {
+				return decodeStream(App.openStream(uri), 1, config)
 			}
-
-			return degree
+			val size = sizeOf(uri) ?: return null
+			val n = if (size.maxEdge() > maxEdge) {
+				Math.round(size.maxEdge() * 1.0f / maxEdge)
+			} else {
+				1
+			}
+			return decodeStream(App.openStream(uri), n, config)
+		} catch (ex: Exception) {
+			ex.printStackTrace()
 		}
+
+		return null
 	}
+
+	//高或宽不超过maxEdge
+	fun file(imageFile: File?, maxEdge: Int, config: Bitmap.Config): Bitmap? {
+		if (null == imageFile || !imageFile.exists()) {
+			return null
+		}
+		try {
+			if (maxEdge < 1) {
+				return decodeStream(FileInputStream(imageFile), 1, config)
+			}
+			val size = sizeOf(imageFile) ?: return null
+			val n = if (size.maxEdge() > maxEdge) {
+				Math.round(size.maxEdge() * 1.0f / maxEdge)
+			} else {
+				1
+			}
+			return decodeStream(FileInputStream(imageFile), n, config)
+		} catch (ex: Exception) {
+			ex.printStackTrace()
+		}
+		return null
+	}
+
+	fun line(width: Int, height: Int, color: Int): Bitmap {
+		val target = Bitmap.createBitmap(width, height, Config.ARGB_8888)
+		target.density = DisplayMetrics.DENSITY_HIGH
+		val canvas = Canvas(target)
+		canvas.drawColor(color)
+		return target
+	}
+
+	// 高和宽较最小的值做直径,
+	fun tint(res: Int, color: Int): Bitmap {
+		return res(res).tint(color)
+	}
+
+
+	fun tintTheme(@DrawableRes res: Int): StateListDrawable {
+		return tintLight(res, Colors.Unselected, Colors.Theme)
+	}
+
+	fun tintLight(@DrawableRes res: Int, normalColor: Int, lightColor: Int): StateListDrawable {
+		val bmp = res(res)
+		val d = bmp.tint(normalColor).drawable
+		val d2 = bmp.tint(lightColor).drawable
+		return ImageStated(d).pressed(d2).selected(d2).focused(d2).value
+	}
+
+	@Throws(FileNotFoundException::class)
+	fun sizeOf(uri: Uri): MySize? {
+		return sizeOfStream(App.openStream(uri))
+	}
+
+	@Throws(FileNotFoundException::class)
+	fun sizeOf(file: File): MySize? {
+		return sizeOfStream(FileInputStream(file))
+	}
+
+	//会关闭流
+	private fun sizeOfStream(inputStream: InputStream): MySize? {
+		try {
+			val opts = BitmapFactory.Options()
+			opts.inJustDecodeBounds = true
+			BitmapFactory.decodeStream(inputStream, null, opts)
+			return MySize(opts.outWidth, opts.outHeight)
+		} catch (ex: Exception) {
+			ex.printStackTrace()
+		} finally {
+			inputStream.closeSafe()
+		}
+		return null
+	}
+
+	//会关闭流
+	fun decodeStream(inputStream: InputStream, inSampleSize: Int, config: Bitmap.Config): Bitmap {
+		val opts = BitmapFactory.Options()
+		opts.inJustDecodeBounds = false
+		opts.inSampleSize = inSampleSize
+		opts.inPreferredConfig = config
+		opts.inInputShareable = true
+		opts.inPurgeable = true
+		val bmp = BitmapFactory.decodeStream(inputStream, null, opts)
+		inputStream.closeSafe()
+		return bmp
+	}
+
+	private fun decodeStream(inputStream: InputStream): Bitmap? {
+		val bmp = BitmapFactory.decodeStream(inputStream)
+		inputStream.closeSafe()
+		return bmp
+	}
+
+
+	fun compressJpg(from: Uri, maxEdge: Int): File? {
+		val bmp = uri(from, maxEdge, Config.ARGB_8888)
+		if (bmp != null) {
+			val tofile = SdAppFile.tempFile(".jpg")
+			val b = bmp.saveJpg(tofile)
+			if (b && tofile.exists()) {
+				return tofile
+			} else {
+				tofile.delete()
+			}
+		}
+		return null
+	}
+
+	fun compressPng(from: Uri, maxEdge: Int): File? {
+		val bmp = uri(from, maxEdge, Config.ARGB_8888)
+		if (bmp != null) {
+			val tofile = SdAppFile.tempFile(".png")
+			val b = bmp.savePng(tofile)
+			if (b && tofile.exists()) {
+				return tofile
+			} else {
+				tofile.delete()
+			}
+		}
+		return null
+	}
+
+
 }

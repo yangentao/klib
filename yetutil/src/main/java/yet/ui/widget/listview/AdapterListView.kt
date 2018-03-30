@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ListView
 import yet.theme.Colors
-import yet.ui.res.Img
+import yet.ui.res.D
 
 /**
  * 包含Adapter的listView
@@ -41,7 +41,7 @@ abstract class AdapterListView<T>(context: Context) : ListView(context) {
 
 	init {
 		cacheColorHint = 0
-		selector = Img.colorStates(Color.TRANSPARENT, Colors.Fade)
+		selector = D.lightColor(Color.TRANSPARENT, Colors.Fade)
 		onCreateHeaderFooter(context)
 		setAdapter(adapter)
 	}

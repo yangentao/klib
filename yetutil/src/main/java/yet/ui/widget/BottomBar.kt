@@ -5,11 +5,11 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import yet.ext.empty
-import yet.ext.size
 import yet.theme.Colors
 import yet.theme.IconSize
 import yet.ui.ext.*
 import yet.ui.res.ColorStated
+import yet.ui.res.sized
 import yet.ui.viewcreator.createImageView
 import yet.ui.viewcreator.createTextViewC
 import yet.util.Util
@@ -99,7 +99,7 @@ class BottomBar(context: Context) : TablePanel(context), IActionModeSupport {
 					throw IllegalArgumentException("neithor Label OR icon NOT SET")
 				} else {//only  icon
 					val iv = context.createImageView()
-					iv.setImageDrawable(action.icon?.size(IMG_SIZE))
+					iv.setImageDrawable(action.icon?.sized(IMG_SIZE))
 					iv.scaleType = ImageView.ScaleType.CENTER_INSIDE
 					iv.setBackgroundDrawable(ColorStated(BG_COLOR).pressed(BG_PRESSED).value)
 					iv

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.DisplayMetrics
+import yet.ext.closeSafe
 import yet.util.StreamUtil
 import yet.util.Util
 import yet.util.app.App
@@ -78,7 +79,7 @@ object Asset {
 			e.printStackTrace()
 			xlog.e(e)
 		} finally {
-			Util.close(inStream)
+			inStream.closeSafe()
 		}
 		return null
 	}
@@ -95,7 +96,7 @@ object Asset {
 			e.printStackTrace()
 			xlog.e(e)
 		} finally {
-			Util.close(inStream)
+			inStream.closeSafe()
 		}
 		return null
 	}

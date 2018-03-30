@@ -5,7 +5,7 @@ import android.widget.*
 import yet.theme.Colors
 import yet.theme.InputSize
 import yet.ui.ext.*
-import yet.ui.res.CheckBoxDrawable
+import yet.ui.res.D
 import yet.ui.util.TimeDown
 import yet.ui.viewcreator.*
 import yet.ui.widget.listview.itemview.TextDetailView
@@ -390,8 +390,7 @@ abstract class InputPage : TitledPage() {
 	fun addCheckbox(key: String, title: String, marginTop: Int = inputMarginTop) {
 		val cb = activity.createCheckBox()
 		cb.text = title
-		val d = CheckBoxDrawable()
-		cb.buttonDrawable = d
+		cb.buttonDrawable = D.CheckBox
 		cb.padding(20, 5, 5, 5)
 		inputLayout.addView(cb, linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0))
 		checkMap.put(key, cb)

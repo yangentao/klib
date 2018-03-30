@@ -11,6 +11,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import yet.ui.res.Asset;
+
 public class ZipUtil {
 	/**
 	 * 只解压第一个文件
@@ -52,12 +54,12 @@ public class ZipUtil {
 	}
 
 	public static void unzipAssetOneToDir(String assetFile, File toDir) throws IOException {
-		ZipInputStream zis = AssetUtil.INSTANCE.readZip(assetFile);
+		ZipInputStream zis = Asset.INSTANCE.streamZip(assetFile);
 		unzipOneToDir(zis, toDir);
 	}
 
 	public static void unzipAssetOneToFile(String assetFile, File toFile) throws IOException {
-		ZipInputStream zis = AssetUtil.INSTANCE.readZip(assetFile);
+		ZipInputStream zis = Asset.INSTANCE.streamZip(assetFile);
 		unzipOneToFile(zis, toFile);
 	}
 

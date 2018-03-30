@@ -5,8 +5,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.*
-import yet.ext.size
 import yet.ui.ext.*
+import yet.ui.res.sized
 import yet.ui.widget.listview.XBaseAdapter
 
 /**
@@ -17,7 +17,7 @@ open class GridPanel<T>(context: Context) : GridView(context) {
 
 	var onNewCallback: (view: GridItemView) -> Unit = {}
 	var onBindCallback: (view: GridItemView, item: T) -> Unit = { v, item ->
-		v.setValues("Item", ColorDrawable(Color.GREEN).size(60, 60))
+		v.setValues("Item", ColorDrawable(Color.GREEN).sized(60, 60))
 	}
 	var onItemClickCallback: (T) -> Unit = {}
 

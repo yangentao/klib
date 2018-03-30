@@ -6,7 +6,7 @@ import android.view.View
 import yet.theme.Colors
 import yet.theme.IconSize
 import yet.ui.res.ImageStated
-import yet.ui.res.Img
+import yet.ui.res.D
 import yet.util.Util
 import yet.util.fore
 import java.util.*
@@ -213,7 +213,7 @@ class Action(val tag: String) {
 	}
 
 	fun icon(@DrawableRes resId: Int): Action {
-		this.icon = Img.res(resId)
+		this.icon = D.res(resId)
 		return this
 	}
 	fun icon(@DrawableRes normalId:Int, @DrawableRes lightId:Int):Action {
@@ -254,7 +254,7 @@ class Action(val tag: String) {
 	}
 
 	fun subIcon(@DrawableRes res: Int): Action {
-		return subIcon(Img.res(res))
+		return subIcon(D.res(res))
 	}
 
 	fun subIcon(subIcon: Drawable?): Action {
@@ -263,12 +263,12 @@ class Action(val tag: String) {
 	}
 
 	fun more(arrow: Boolean = true): Action {
-		this.subIcon = if (arrow) Img.res(net.yet.R.drawable.yet_arrow_right) else null
+		this.subIcon = if (arrow) D.res(net.yet.R.drawable.yet_arrow_right) else null
 		return this
 	}
 
 	fun subIconLeft(@DrawableRes res: Int, size: Int = IconSize.Small): Action {
-		subIconLeft(Img.res(res))
+		subIconLeft(D.res(res))
 		this.subIconLeftSize = size
 		return this
 	}

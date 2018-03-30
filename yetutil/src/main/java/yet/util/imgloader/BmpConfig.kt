@@ -10,7 +10,7 @@ import yet.util.app.App
 
 class BmpConfig {
 	//最大高*宽
-	var maxSize: Int = BmpSize.MID128
+	var maxEdge: Int = BmpSize.MID128
 	var quility: Bitmap.Config = Bitmap.Config.RGB_565
 	//加载失败的图片
 	var failedResId: Int = R.drawable.yet_image_miss
@@ -21,7 +21,7 @@ class BmpConfig {
 	var corner = 0
 
 	override fun toString(): String {
-		return Integer.toString(maxSize) + "_" + quility.toString() + "_" + corner.toString()
+		return Integer.toString(maxEdge) + "_" + quility.toString() + "_" + corner.toString()
 	}
 
 	fun portrait():BmpConfig{
@@ -60,7 +60,7 @@ class BmpConfig {
 	}
 
 	fun maxSize(n: Int): BmpConfig {
-		maxSize = n
+		maxEdge = n
 		return this
 	}
 

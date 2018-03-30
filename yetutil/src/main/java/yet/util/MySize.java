@@ -21,4 +21,8 @@ public class MySize {
 	public int area() {
 		return width * height;
 	}
+
+	public int maxEdge() {
+		return Math.max(width, height);
+	}
 }
