@@ -32,7 +32,7 @@ abstract class InputPage : TitledPage() {
 	private val dateMap = HashMap<String, TextDetailView>()
 	private val dateFormatMap = HashMap<String, String>().withDefault { MyDate.FORMAT_DATE }
 	private val selectMap = HashMap<String, TextDetailView>()
-	private val validMap = HashMap<String, InputValid>()
+	private val validMap = LinkedHashMap<String, InputValid>()
 	private var codeEdit: EditText? = null
 	private var codeButton: Button? = null
 	private var timeDownKey: String? = null

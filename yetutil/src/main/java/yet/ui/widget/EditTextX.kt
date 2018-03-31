@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
+import yet.ui.ext.dp
 import yet.ui.ext.genId
 import yet.ui.ext.padding
 import yet.ui.res.D
@@ -27,10 +28,10 @@ class EditTextX(context: Context) : EditText(context) {
 				return@OnTouchListener false
 			}
 			if (event.x > this@EditTextX.width - this@EditTextX.paddingRight
-					- IMAGE_WIDTH) {
+					- IMAGE_WIDTH - dp(15)) {
 				this@EditTextX.setText("")
 				this@EditTextX.setCompoundDrawables(null, null, null, null)
-				fore{
+				fore {
 					Util.hideInputMethod(this@EditTextX)
 				}
 			}
@@ -53,6 +54,10 @@ class EditTextX(context: Context) : EditText(context) {
 
 			}
 		})
+	}
+
+	override fun performClick(): Boolean {
+		return super.performClick()
 	}
 
 	companion object {

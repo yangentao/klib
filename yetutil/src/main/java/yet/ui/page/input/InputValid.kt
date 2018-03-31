@@ -10,19 +10,27 @@ class InputValid {
 	val checkList = ArrayList<EditValid>()
 	var label: String = ""
 	var trimText: Boolean = false
+	var require: Boolean = false
+	var requireInfo = ""
 
 	fun checkAll(edit: EditText): String? {
 		var s = edit.text.toString()
 		if (trimText) {
 			s = s.trim()
-
+		}
+		if (require && s.isEmpty()) {
+			return if (requireInfo.isEmpty()) {
+				label + "不能为空"
+			} else {
+				requireInfo
+			}
 		}
 		for (c in checkList) {
 			if (!c.check(edit, s)) {
 				return c.why(label)
 			}
 		}
-		if(trimText) {
+		if (trimText) {
 			edit.setText(s)
 		}
 		return null
@@ -45,7 +53,8 @@ class InputValid {
 	}
 
 	fun notEmpty(info: String = "") {
-		checkList.add(NotEmptyValid(info))
+		require = true
+		requireInfo = info
 	}
 
 	fun require(info: String = "") {
