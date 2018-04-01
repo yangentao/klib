@@ -2,8 +2,10 @@ package yet.util.imgloader
 
 import yet.file.SdAppFile
 import yet.net.Http
-import yet.util.*
+import yet.util.MultiHashMap
+import yet.util.Sleep
 import yet.util.database.DBMap
+import yet.util.fore
 import yet.util.log.xlog
 import java.io.File
 import java.util.*
@@ -82,7 +84,7 @@ object FileDownloader {
 		var r = Http(url).download(file, null)
 		var ok = r.OK && file.exists() && file.length() > 0
 		if (!ok) {
-			sleep(300)
+			Sleep(300)
 			r = Http(url).download(file, null)
 			ok = r.OK && file.exists() && file.length() > 0
 		}

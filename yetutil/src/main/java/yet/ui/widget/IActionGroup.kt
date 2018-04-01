@@ -1,7 +1,6 @@
 package yet.ui.widget
 
 import net.yet.R
-import yet.util.Util
 import java.util.*
 
 /**
@@ -109,7 +108,7 @@ interface IActionGroup {
 
 
 fun  <T : IActionGroup> T.add(vararg ls: Action): T {
-	add(Util.asList(*ls))
+	add(listOf(*ls))
 	return this
 }
 

@@ -32,6 +32,10 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 	//毫秒
 	open var minTime: Long = 0
 
+	init {
+		fullScreen = true
+	}
+
 	/**
 	 * 进行app的初始化/预加载工作
 	 */
@@ -39,9 +43,9 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		val first = Util.runOnceVer("ver-first-welcome", null)
+		val first = versionFirst("ver-first-welcome")
 		val images = resImages ?: kotlin.IntArray(0)
-		isGuide = first   && images.isNotEmpty()
+		isGuide = first && images.isNotEmpty()
 		if (isGuide) {
 			val pager = ImageResPager(this)
 			setContentView(pager)
@@ -68,7 +72,7 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 			onBackTask()
 			val delta = t.end("")
 			if (delta < minTime) {
-				sleep(minTime - delta)
+				Sleep(minTime - delta)
 			}
 			fore {
 				if (!isGuide) {

@@ -5,7 +5,8 @@ import android.widget.TextView
 import com.google.gson.JsonArray
 import yet.json.eachObject
 import yet.json.optString
-import yet.util.*
+import yet.util.RepeatCallback
+import yet.util.TaskUtil
 import yet.util.database.GE
 import yet.util.database.UriQuery
 import java.util.regex.Pattern
@@ -27,8 +28,8 @@ object SmsCodeFill {
 				val ja = getSmsSince(sinceTime)
 				ja.eachObject {
 					val code = matchCode(it.optString("body"))
-					val n = Util.length(code)
-					if (n >= 4 && n <= 6) {
+					val n = code?.length ?:  0
+					if (n in 4..6) {
 						textView.text = code
 						return false
 					}

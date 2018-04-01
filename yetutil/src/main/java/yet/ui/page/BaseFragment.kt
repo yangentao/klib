@@ -276,7 +276,7 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 	 * @return
 	 */
 	val isVisiableToUser: Boolean
-		get() = this.isResumed && isVisible && !Util.getKeyguardManager().inKeyguardRestrictedInputMode()
+		get() = this.isResumed && isVisible && !App.keyguardManager.inKeyguardRestrictedInputMode()
 
 	fun takeViedo(sizeM: Int, block: (Uri) -> Unit) {
 		val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)

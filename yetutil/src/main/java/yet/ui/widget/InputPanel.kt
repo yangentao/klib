@@ -8,12 +8,16 @@ import yet.theme.Colors
 import yet.theme.InputSize
 import yet.ui.ext.*
 import yet.ui.page.BaseFragment
-import yet.ui.res.*
+import yet.ui.res.D
+import yet.ui.res.ImageStated
 import yet.ui.res.RectDraw
+import yet.ui.res.Res
 import yet.ui.util.TimeDown
 import yet.ui.viewcreator.*
-import yet.util.*
+import yet.util.ToastUtil
 import yet.util.app.SmsCodeFill
+import yet.util.back
+import yet.util.fore
 import java.util.*
 
 /**
@@ -176,13 +180,13 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 		}
 
 		this.timeDownKey = timeDownKey
-		if (Util.notEmpty(timeDownKey)) {
+		if (timeDownKey.isNotEmpty()) {
 			TimeDown.updateView(this.timeDownKey!!, codeButton!!)
 		}
 		codeButton!!.setOnClickListener(View.OnClickListener {
 			codeClickTime = System.currentTimeMillis()
 			val phone = getText(phoneEditKey)
-			if (Util.length(phone) < 11) {
+			if (phone.length < 11) {
 				ToastUtil.show("请输入正确的手机号")
 			} else {
 				startTimeDown(60)

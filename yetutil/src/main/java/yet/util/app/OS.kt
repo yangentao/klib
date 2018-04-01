@@ -2,7 +2,6 @@ package yet.util.app
 
 import android.os.Build
 import android.os.Build.VERSION
-import yet.util.Util
 import java.util.*
 
 object OS {
@@ -48,7 +47,7 @@ object OS {
 	}
 
 	fun isManufacturerEq(s: String): Boolean {
-		return Util.equalNoCase(Build.MANUFACTURER, s)
+		return Build.MANUFACTURER?.toLowerCase()  ==  s.toLowerCase()
 	}
 
 	fun isModel(s: String): Boolean {

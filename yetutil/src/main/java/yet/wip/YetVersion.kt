@@ -3,13 +3,16 @@ package yet.wip
 import android.app.Activity
 import com.google.gson.JsonObject
 import yet.database.MapTable
-import yet.json.*
+import yet.json.getValue
+import yet.json.int
+import yet.json.obj
 import yet.net.Http
 import yet.ui.dialogs.ConfirmDialog
 import yet.ui.dialogs.OKDialog
 import yet.ui.page.BaseFragment
-import yet.util.*
 import yet.util.app.App
+import yet.util.back
+import yet.util.fore
 
 /**
  * Created by entaoyang@163.com on 2017-06-13.
@@ -76,7 +79,7 @@ class YetVersion(val jo: JsonObject) {
 
 		fun installApk(resId: Int) {
 			val url = Http(SERVER_DOWN).arg("id", resId).buildGetUrl()
-			Util.installApk(App.app_name + ".apk", url)
+			App.installApk(App.app_name + ".apk", url)
 		}
 
 

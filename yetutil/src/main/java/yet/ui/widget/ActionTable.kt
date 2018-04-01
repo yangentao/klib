@@ -5,13 +5,14 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import yet.theme.*
+import yet.theme.Colors
+import yet.theme.IconSize
+import yet.theme.TextSize
 import yet.ui.ext.*
 import yet.ui.res.ColorStated
 import yet.ui.res.sized
 import yet.ui.viewcreator.createImageView
 import yet.ui.viewcreator.createTextViewC
-import yet.util.Util
 import yet.util.log.xlog
 import java.util.*
 
@@ -118,7 +119,7 @@ class ActionTable(context: Context) : LinearLayout(context) {
 			val items = visibleAcitons
 			for (action in items) {
 				var view: View? = null
-				if (Util.empty(action.label)) {
+				if (action.label.isEmpty()) {
 					if (action.icon == null) {
 						xlog.e("neithor Label OR icon NOT SET")
 						continue

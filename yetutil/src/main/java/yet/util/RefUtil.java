@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import yet.util.app.App;
 import yet.util.log.xlog;
 
 public class RefUtil {
@@ -60,7 +61,7 @@ public class RefUtil {
 
 	public static void dumpService(String name) {
 		xlog.INSTANCE.d("Dump Service ", name);
-		Object obj = Util.getService(name);
+		Object obj = App.INSTANCE.getApp().getSystemService(name);
 		dumpObject(obj);
 	}
 
@@ -335,7 +336,7 @@ public class RefUtil {
 	}
 
 	public static Object invokeServiceE(String service, String name, Class<?>[] argTypes, Object... args) throws Exception {
-		Object obj = Util.getService(service);
+		Object obj = App.INSTANCE.getApp().getSystemService(service);
 		return invokeObjectE(obj, name, argTypes, args);
 	}
 
@@ -344,7 +345,7 @@ public class RefUtil {
 	}
 
 	public static Object invokeService(String service, String name, Class<?>[] argTypes, Object... args) {
-		Object obj = Util.getService(service);
+		Object obj = App.INSTANCE.getApp().getSystemService(service);
 		if (obj != null) {
 			return invokeObject(obj, name, argTypes, args);
 		}
@@ -518,12 +519,6 @@ public class RefUtil {
 		f.set(null, value);
 	}
 
-	public static Object expectService(String serviceName, String className) {
-		Object obj = Util.getService(serviceName);
-		if (Util.sameClass(obj, className)) {
-			return obj;
-		}
-		return null;
-	}
+
 
 }

@@ -2,6 +2,8 @@ package net.yet.yetlibdemo
 
 import android.content.Context
 import android.widget.LinearLayout
+import yet.ext.putBool
+import yet.ui.activities.Pages
 import yet.ui.activities.openPage
 import yet.ui.page.TitledPage
 
@@ -27,7 +29,9 @@ class MainPage : TitledPage() {
 	}
 
 	fun test() {
-		openPage(LoginPage())
+		openPage(LoginPage()) {
+			putBool(Pages.FULL_SCREEN, true)
+		}
 
 	}
 

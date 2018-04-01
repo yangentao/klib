@@ -4,9 +4,10 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import com.google.gson.*
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import yet.json.*
-import yet.util.Util
 import yet.util.app.OS
 import yet.util.log.loge
 import yet.util.log.xlog
@@ -273,7 +274,7 @@ class Values(n: Int = 8) {
 		} else if (obj is Number) {
 			return obj.toInt() != 0
 		} else if (obj is String) {
-			return Util.equalStr("true", obj.toString())
+			return "true" == obj.toString()
 		}
 		return defVal
 	}
@@ -283,7 +284,7 @@ class Values(n: Int = 8) {
 		if (obj is Number) {
 			return obj.toInt()
 		} else if (obj is String) {
-			return Util.parseInt(obj, defVal)
+			return obj.toIntOrNull() ?: defVal
 		}
 		return defVal
 	}
@@ -293,7 +294,7 @@ class Values(n: Int = 8) {
 		if (obj is Number) {
 			return obj.toLong()
 		} else if (obj is String) {
-			return Util.parseLong(obj, defVal)
+			return obj.toLongOrNull() ?: defVal
 		}
 		return defVal
 	}

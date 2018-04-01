@@ -7,7 +7,6 @@ import yet.database.MapTable
 import yet.file.SdAppFile
 import yet.json.getValue
 import yet.json.setValue
-import yet.util.Util
 import yet.util.log.logd
 import java.io.File
 
@@ -24,7 +23,7 @@ class DownloadTask(val jo: JsonObject) {
 		val file = File(filepath)
 //		val file = File(di.localUri!!.path)
 		if (action == ACTION_INSTALLL) {
-			Util.installApk(file)
+			App.installApk(file)
 		}
 	}
 

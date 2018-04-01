@@ -9,28 +9,13 @@ import yet.ui.activities.Pages
 import yet.ui.ext.*
 import yet.ui.widget.Action
 import yet.ui.widget.TitleBar
-import yet.util.XMap
 
 class WebPage : TitledPage() {
 
-	lateinit  var webView: WebView
+	lateinit var webView: WebView
 	private var rootUrl: String? = null
 	private var title: String? = null
 
-	internal inner class WebStoreObject {
-		@JavascriptInterface
-		operator fun get(key: String): String {
-			val map = XMap.load("webstore")
-			return map.getString(key, null)
-		}
-
-		@JavascriptInterface
-		operator fun set(key: String, value: String) {
-			val map = XMap.load("webstore")
-			map.put(key, value)
-			map.save()
-		}
-	}
 
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
@@ -42,7 +27,6 @@ class WebPage : TitledPage() {
 		webView.settings.javaScriptEnabled = true
 		webView.settings.domStorageEnabled = true
 
-		webView.addJavascriptInterface(WebStoreObject(), "webstore")
 
 		webView.setWebViewClient(object : WebViewClient() {
 			override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {

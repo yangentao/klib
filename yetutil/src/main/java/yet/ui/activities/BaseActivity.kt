@@ -48,18 +48,7 @@ open class BaseActivity : Activity(), MsgListener, PermContext {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN)
 	}
 
-	fun paramBool(key:String):Boolean{
-		return intent.extras.getBoolean(key)
-	}
-	fun paramInt(key:String):Int{
-		return intent.extras.getInt(key)
-	}
-	fun paramLong(key:String):Long{
-		return intent.extras.getLong(key)
-	}
-	fun paramString(key:String):String{
-		return intent.extras.getString(key) ?: ""
-	}
+
 	fun unWatch(uri: Uri) {
 		val ob = watchMap[uri]
 		if (ob != null) {

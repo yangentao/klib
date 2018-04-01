@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
-import yet.util.Util
 import yet.util.log.xlog
 import java.io.File
 import java.io.IOException
@@ -30,11 +29,11 @@ object MediaUtil {
 	}
 
 	fun playSound(context: Context, file: File, exT: String?) {
-		var extType = exT
+		var extType = exT ?: ""
 		val intent = Intent()
 		intent.action = android.content.Intent.ACTION_VIEW
 		intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-		if (Util.empty(extType)) {
+		if (extType.isEmpty()) {
 			extType = "*"
 		}
 		intent.setDataAndType(Uri.fromFile(file), "audio/" + extType)

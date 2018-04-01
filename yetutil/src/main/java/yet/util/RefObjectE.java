@@ -1,5 +1,7 @@
 package yet.util;
 
+import yet.util.app.App;
+
 /**
  * 先判断hasObject是否返回true, 再调用其他方法
  * 
@@ -16,7 +18,7 @@ public class RefObjectE {
 	 * @return
 	 */
 	public static RefObjectE fromService(String name) {
-		Object obj = Util.getService(name);
+		Object obj = App.INSTANCE.getApp().getSystemService(name);
 		return new RefObjectE(obj);
 	}
 

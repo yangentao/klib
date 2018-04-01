@@ -1,9 +1,6 @@
 package yet.util.app
 
-import android.app.ActivityManager
-import android.app.Application
-import android.app.DownloadManager
-import android.app.Service
+import android.app.*
 import android.content.*
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -12,15 +9,17 @@ import android.database.sqlite.SQLiteDatabase
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
+import android.os.PowerManager
 import android.os.StrictMode
 import android.telephony.TelephonyManager
+import android.text.ClipboardManager
 import android.text.TextUtils
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import yet.theme.TextSize
 import yet.ui.activities.AnimConf
 import yet.ui.ext.displayMetrics
-import yet.util.MsgCenter
-import yet.util.StrBuilder
-import yet.util.Util
+import yet.util.*
 import yet.util.database.Values
 import yet.util.log.logd
 import yet.util.log.loge
@@ -106,9 +105,10 @@ object App {
 		return app.openOrCreateDatabase(name, 0, null)
 	}
 
-	val sdAppRoot: File get() {
-		return app.getExternalFilesDir(null)
-	}
+	val sdAppRoot: File
+		get() {
+			return app.getExternalFilesDir(null)
+		}
 
 
 	fun sp2px(spValue: Float): Int {
@@ -135,21 +135,23 @@ object App {
 	}
 
 	fun isForeground(): Boolean {
-		val am: ActivityManager = app.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager ?: return false
+		val am: ActivityManager = app.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
+				?: return false
 		val cn = am.getRunningTasks(1)[0].topActivity
 		val currentPackageName = cn.packageName
 		return !TextUtils.isEmpty(currentPackageName) && currentPackageName == packageName
 	}
 
 	fun isAppShowing(): Boolean {
-		return isForeground() && !Util.getKeyguardManager().inKeyguardRestrictedInputMode()
+		return isForeground() && !keyguardManager.inKeyguardRestrictedInputMode()
 	}
 
 	fun isAppTop(): Boolean {
-		if (Util.getKeyguardManager().inKeyguardRestrictedInputMode()) {
+		if (keyguardManager.inKeyguardRestrictedInputMode()) {
 			return false
 		}
-		val am: ActivityManager = app.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager ?: return false
+		val am: ActivityManager = app.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
+				?: return false
 		for (info in am.runningAppProcesses) {
 
 			if (info.processName == packageName) {
@@ -213,27 +215,122 @@ object App {
 		return getMetaValue(app, metaKey)
 	}
 
-	val imei: String? get() {
-		try {
-			val tm = app.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
-			return tm?.deviceId
-		} catch (ex: Exception) {
-			ex.printStackTrace()
+	val imei: String?
+		get() {
+			try {
+				val tm = app.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
+				return tm?.deviceId
+			} catch (ex: Exception) {
+				ex.printStackTrace()
+			}
+			return null
 		}
-		return null
-	}
 
 	// 单位兆M
 	val memLimit: Int by lazy {
 		(app.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).memoryClass
 	}
 
-	val isNetworkConnected: Boolean get() {
-		return (app.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager)?.activeNetworkInfo?.isConnected ?: false
+	val isNetworkConnected: Boolean
+		get() {
+			return (app.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager)?.activeNetworkInfo?.isConnected
+					?: false
+		}
+
+
+	fun systemService(name: String): Any? {
+		return app.getSystemService(name)
 	}
 
-	val downloadManager: DownloadManager get() {
-		return app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+	val downloadManager: DownloadManager
+		get() {
+			return app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+		}
+
+	val telephonyManager: TelephonyManager
+		get() {
+			return app.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+		}
+
+
+	val powerManager: PowerManager
+		get() {
+			return app.getSystemService(Context.POWER_SERVICE) as PowerManager
+		}
+
+	val getKeyguardManager: KeyguardManager
+		get() {
+			return app.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+		}
+
+	val connectivityManager: ConnectivityManager
+		get() {
+			return app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+		}
+
+	val keyguardManager: KeyguardManager
+		get() {
+			return app.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+		}
+
+	val notificationManager:NotificationManager get () {
+			return app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+	}
+
+	val clipText: String
+		get() {
+			val cm = app.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+			return cm.text.toString()
+		}
+
+
+	fun showInputMethod(view: View) {
+		val imm = app.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+		imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+	}
+
+	fun copyToClipboard(text: String) {
+		val clip = app.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+		clip.text = text
+		toast("内容已拷贝到剪贴板")
+	}
+
+	fun installShortcut(name: String, imageRes: Int, cls: Class<*>, exKey: String, exValue: String) {
+		val it = Intent(Intent.ACTION_MAIN)
+		it.addCategory(Intent.CATEGORY_LAUNCHER)
+		it.setClass(App.app, cls)
+		it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+		if (exKey.isNotEmpty()) {
+			it.putExtra(exKey, exValue)
+		}
+		installShortcut(name, imageRes, it)
+	}
+
+	private fun installShortcut(name: String, imageRes: Int, intent: Intent) {
+		val ACTION_INSTALL_SHORTCUT = "com.android.launcher.action.INSTALL_SHORTCUT"
+		val addShortcutIntent = Intent(ACTION_INSTALL_SHORTCUT)
+		// 不允许重复创建
+		addShortcutIntent.putExtra("duplicate", false)// 经测试不是根据快捷方式的名字判断重复的
+		// 应该是根据快链的Intent来判断是否重复的,即Intent.EXTRA_SHORTCUT_INTENT字段的value
+		// 但是名称不同时，虽然有的手机系统会显示Toast提示重复，仍然会建立快链
+		// 屏幕上没有空间时会提示
+		// 注意：重复创建的行为MIUI和三星手机上不太一样，小米上似乎不能重复创建快捷方式
+		addShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name)
+		addShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(App.app, imageRes))
+		addShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent)
+		app.sendBroadcast(addShortcutIntent)
+	}
+
+	fun installApk(title: String, url: String) {
+		DownloadTask.downloadAndInstall(url, title, ".apk", "")
+	}
+
+	fun installApk(apkFile: File) {
+		val intent = Intent()
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+		intent.action = Intent.ACTION_VIEW
+		intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive")
+		app.startActivity(intent)
 	}
 
 }

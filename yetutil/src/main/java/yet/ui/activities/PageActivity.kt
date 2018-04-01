@@ -15,7 +15,7 @@ import yet.util.Msg
 
 
 open class PageActivity : BaseActivity() {
-	lateinit var fragmentContainerView: FrameLayout
+	private lateinit var fragmentContainerView: FrameLayout
 	var currentFragment: BaseFragment? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +74,10 @@ open class PageActivity : BaseActivity() {
 		get() = fragmentContainerView.id
 
 	fun replaceFragment(fragment: BaseFragment) {
+		val p = currentFragment
+		if (p != null) {
+			Pages.removePage(p)
+		}
 		this.currentFragment = fragment
 		fragmentManager.beginTransaction().replace(fragmentContainerId, fragment).commitAllowingStateLoss()
 	}

@@ -8,7 +8,6 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import yet.ui.activities.Pages
 import yet.ui.widget.listview.itemview.TextDetailView
-import yet.util.Util
 import yet.util.app.App
 import yet.util.log.xlog
 import java.io.File
@@ -44,7 +43,7 @@ class FileSelectPage : ListPage<File>() {
 
 	override fun onRequestItems(): List<File> {
 		val files = dir.listFiles()
-		var ls: List<File> = Util.asList(*files).filter { !it.name.startsWith(".") }
+		var ls: List<File> = listOf(*files).filter { !it.name.startsWith(".") }
 		Collections.sort(ls) { lhs, rhs -> lhs.name.compareTo(rhs.name) }
 		return ls
 	}

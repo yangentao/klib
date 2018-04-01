@@ -2,12 +2,16 @@ package yet.ui.page
 
 import android.content.Context
 import android.graphics.Color
-import android.view.*
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.util.*
+import yet.util.IdGen
+import yet.util.RunTask
+import yet.util.TaskUtil
 
 /**
  * Created by yet on 2015/10/20.
@@ -81,7 +85,7 @@ class Snack(context: Context) : LinearLayout(context) {
 	fun action(action: String?, callback: SnackCallback?): Snack {
 		okButton.text = action
 		this.callback = callback
-		if (Util.empty(action) || callback == null) {
+		if (action == null || action.isEmpty() || callback == null) {
 			okButton.visibility = View.GONE
 		} else {
 			okButton.visibility = View.VISIBLE

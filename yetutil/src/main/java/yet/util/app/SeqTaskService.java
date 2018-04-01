@@ -6,7 +6,6 @@ import java.util.LinkedList;
 
 import yet.util.RunTask;
 import yet.util.TaskUtil;
-import yet.util.Util;
 import yet.util.log.xlog;
 
 /**
@@ -74,7 +73,7 @@ public abstract class SeqTaskService extends BaseTaskService {
 				protected void onRun() throws Exception {
 					onProcess(task.intent, task.startId);
 				}
-			}).addGroup(GROUP_TASK);
+			}).addGroup(getGROUP_TASK());
 		} else {
 			mayStopSelf();
 		}
@@ -86,7 +85,7 @@ public abstract class SeqTaskService extends BaseTaskService {
 			xlog.INSTANCE.e("没有正在执行的任务");
 			return;
 		}
-		Util.debugFail(lastRunningTask.startId != startId, "要结束的task和正在运行的不一样!");
+		xlog.INSTANCE.e(lastRunningTask.startId != startId, "要结束的task和正在运行的不一样!");
 
 		lastRunningTask = null;
 		dispatchTask();

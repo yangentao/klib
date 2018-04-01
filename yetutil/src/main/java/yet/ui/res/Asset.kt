@@ -6,12 +6,14 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.DisplayMetrics
+import yet.ext.UTF8
 import yet.ext.closeSafe
 import yet.util.StreamUtil
-import yet.util.Util
 import yet.util.app.App
 import yet.util.log.xlog
-import java.io.*
+import java.io.BufferedInputStream
+import java.io.IOException
+import java.io.InputStream
 import java.util.zip.ZipInputStream
 
 /**
@@ -54,7 +56,7 @@ object Asset {
 	}
 
 	// 读取assets目录下的utf8文件
-	fun text(path: String, encoding: String = Util.UTF8): String? {
+	fun text(path: String, encoding: String = UTF8): String? {
 		try {
 			val inStream = streamBuffered(path) ?: return null
 			return  StreamUtil.readString(inStream, encoding)

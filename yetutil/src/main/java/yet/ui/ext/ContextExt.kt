@@ -3,17 +3,69 @@ package yet.ui.ext
 import android.app.Activity
 import android.app.Fragment
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.preference.PreferenceManager
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import yet.util.app.App
 import java.io.Serializable
 
 /**
  * Created by yet on 2015-11-20.
  */
+
+
+fun Context.callPhone(phone: String) {
+	val ph = phone.trim()
+	if (ph.length >= 3) {
+		val uri = Uri.fromParts("tel", phone, null)
+		val i = Intent(Intent.ACTION_CALL, uri)
+		i.flags = Intent.FLAG_ACTIVITY_NEW_TASK// FLAG_RECEIVER_FOREGROUND
+		try {
+			this.startActivity(i)
+		} catch (e: Throwable) {
+		}
+	}
+}
+
+fun Context.dialPhone(phone: String) {
+	val ph = phone.trim()
+	if (ph.length >= 3) {
+		val uri = Uri.fromParts("tel", phone, null)
+		val i = Intent(Intent.ACTION_DIAL, uri)
+		i.flags = Intent.FLAG_ACTIVITY_NEW_TASK// FLAG_RECEIVER_FOREGROUND
+		try {
+			this.startActivity(i)
+		} catch (e: Throwable) {
+		}
+	}
+}
+
+
+fun Activity.hideInputMethod() {
+	val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+	val v = this.currentFocus ?: return
+	if (imm.isActive) {
+		imm.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+	}
+}
+
+
+fun Context.viewImage(uri: Uri) {
+	this.viewAction(uri, "image/*")
+}
+
+fun Context.viewAction(uri: Uri, dataType: String) {
+	val intent = Intent()
+	intent.action = android.content.Intent.ACTION_VIEW
+	intent.setDataAndType(uri, dataType)
+	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+	this.openActivity(intent)
+}
 
 val Context.defaultSharedPreferences: SharedPreferences
 	get() = PreferenceManager.getDefaultSharedPreferences(this)

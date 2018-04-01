@@ -11,7 +11,6 @@ import yet.ui.widget.Action
 import yet.ui.widget.TitleBar
 import yet.ui.widget.listview.itemview.TextDetailView
 import yet.util.OnValue
-import yet.util.Util
 import yet.util.app.App
 import yet.util.log.xlog
 import java.io.File
@@ -56,7 +55,7 @@ class DirSelectPage : ListPage<File>() {
 
 	override fun onRequestItems(): List<File> {
 		val files = file!!.listFiles()
-		var ls: List<File> = Util.asList(*files).filter { !it.name.startsWith(".") }
+		var ls: List<File> = listOf(*files).filter { !it.name.startsWith(".") }
 		Collections.sort(ls) { lhs, rhs -> lhs.name.compareTo(rhs.name) }
 		return ls
 	}

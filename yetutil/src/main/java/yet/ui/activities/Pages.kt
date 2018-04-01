@@ -5,15 +5,16 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import yet.ext.hasBits
+import yet.ext.extraBool
 import yet.ext.extraInt
+import yet.ext.hasBits
 import yet.ext.removeBits
 import yet.ui.page.BaseFragment
 import yet.util.InMainThread
 import yet.util.Msg
 import yet.util.log.xlog
-import java.lang.ref.WeakReference
 import kotlin.reflect.KClass
+import kotlin.reflect.full.createInstance
 
 /**
  * Created by entaoyang@163.com on 2016-07-26.
@@ -21,28 +22,38 @@ import kotlin.reflect.KClass
 
 object Pages {
 	private val KEY = "page.temp.key"
+	val FULL_SCREEN = "page.fullscreen"
+
 	private var order: Int = 1
-	private val pageList = ArrayList<Pair<Int, WeakReference<BaseFragment>>>()
+	private val pageList = ArrayList<Pair<Int, BaseFragment>>()
 
 	private val lastPageClass: KClass<*>?
 		get() {
-			pageList.removeAll { it.second.get() == null }
 			val p = pageList.lastOrNull() ?: return null
-			val pc = p.second.get() ?: return null
-			return pc::class
+			return p.second::class
 		}
+
+	fun removePage(p: BaseFragment) {
+		pageList.removeAll { it.second === p }
+	}
 
 	fun onCreate(act: BaseActivity): BaseFragment? {
 		val key: Int = act.intent.extraInt(KEY)
-		val p = pageList.find { it.first == key } ?: return null
-		return p.second.get()
+		val p = pageList.find { it.first == key }?.second
+		if (p != null) {
+			if (act.intent.extraBool(FULL_SCREEN)) {
+				act.setWindowFullScreen()
+			}
+		}
+
+		return p
 	}
 
 	fun onDestroy(page: BaseFragment) {
-		pageList.removeAll { it.second.get() == page || it.second.get() == null }
+		pageList.removeAll { it.second === page }
 	}
 
-	fun open(context: Context, fragment: BaseFragment, block:Intent.()->Unit = {}) {
+	fun open(context: Context, fragment: BaseFragment, block: Intent.() -> Unit = {}) {
 		assert(InMainThread)
 		var n = fragment.openFlag
 		if (n.hasBits(Intent.FLAG_ACTIVITY_SINGLE_TOP)) {
@@ -64,8 +75,8 @@ object Pages {
 		if (n != 0) {
 			intent.flags = n
 		}
-		var key = order++
-		pageList.add(Pair(key, WeakReference(fragment)) )
+		val key = order++
+		pageList.add(Pair(key, fragment))
 		intent.putExtra(KEY, key)
 		intent.block()
 		context.startActivity(intent)
@@ -75,9 +86,9 @@ object Pages {
 		}
 	}
 
-	fun open(context: Context, cls: KClass<out BaseFragment>, block:Intent.()->Unit = {}) {
+	fun open(context: Context, cls: KClass<out BaseFragment>, block: Intent.() -> Unit = {}) {
 		try {
-			val f = cls.java.newInstance()
+			val f = cls.createInstance()
 			Pages.open(context, f, block)
 		} catch (e: InstantiationException) {
 			e.printStackTrace()
@@ -90,10 +101,10 @@ object Pages {
 	}
 
 
-	val MSG_CLOSE_PAGE  = "pages.close"
+	val MSG_CLOSE_PAGE = "pages.close"
 
-	fun closePage(vararg classes: KClass<*>){
-		for(c in classes) {
+	fun closePage(vararg classes: KClass<*>) {
+		for (c in classes) {
 			Msg(MSG_CLOSE_PAGE).clazz(c).fire()
 		}
 	}

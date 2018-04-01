@@ -1,15 +1,16 @@
 package yet.ext
 
-import yet.util.Util
 import java.io.Closeable
+import java.text.Collator
 import java.util.*
 
 /**
  * Created by entaoyang@163.com on 16/7/20.
  */
 
-
-val chinaComparator = Comparator<String> { left, right -> Util.collatorChina.compare(left, right) }
+val UTF8 = "UTF-8"
+val collatorChina = Collator.getInstance(Locale.CHINA)
+val chinaComparator = Comparator<String> { left, right -> collatorChina.compare(left, right) }
 
 
 

@@ -34,7 +34,7 @@ class LoginPage : InputPage() {
 		}
 		checkbox {
 			key = "check"
-			hint = "自动登录"
+			value = "自动登录"
 		}
 		buttonSafe("login", "登录").backDrawable(D.buttonGreen(InputSize.ButtonHeight / 2))
 

@@ -5,7 +5,6 @@ import android.content.Context
 import net.yet.R
 import yet.ui.res.Res
 import yet.util.TaskUtil
-import yet.util.Util
 
 class ProgressUtil {
 	private var context: Context? = null
@@ -43,7 +42,7 @@ class ProgressUtil {
 			return this
 		}
 		progressDialog = ProgressDialog(context)
-		if (Util.notEmpty(msg)) {
+		if (msg.isNotEmpty()) {
 			progressDialog!!.setMessage(msg)
 		}
 		progressDialog!!.setCanceledOnTouchOutside(cancelOnTouchOutside)
@@ -60,7 +59,7 @@ class ProgressUtil {
 			return this
 		}
 		progressDialog = ProgressDialog(context)
-		if (Util.notEmpty(title)) {
+		if (title.isNotEmpty()) {
 			progressDialog!!.setTitle(title)
 		}
 		progressDialog!!.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)

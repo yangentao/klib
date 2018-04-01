@@ -5,7 +5,6 @@ import android.database.Cursor
 import android.net.Uri
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import yet.util.Util
 import yet.util.app.App
 import yet.util.log.logd
 import java.util.*
@@ -105,8 +104,8 @@ class UriQuery(val uri: Uri) {
 			}
 		}
 		try {
-			logd("UriQuery: $uri, $columns, $whereStr", Util.toStringArray(argList))
-			var c = App.contentResolver.query(uri, columns, whereStr, Util.toStringArray(argList), order)
+			logd("UriQuery: $uri, $columns, $whereStr", argList.map { it.toString() })
+			var c = App.contentResolver.query(uri, columns, whereStr, argList.map { it.toString() }.toTypedArray(), order)
 			if (c != null) {
 				return c
 			}

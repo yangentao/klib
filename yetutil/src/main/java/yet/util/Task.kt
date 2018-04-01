@@ -25,7 +25,7 @@ private fun uncaughtException(thread: Thread, ex: Throwable): Unit {
 
 private object ContextHelper {
 	val handler = Handler(Looper.getMainLooper())
-	val mainThread:Thread = Looper.getMainLooper().thread
+	val mainThread: Thread = Looper.getMainLooper().thread
 	val es: ExecutorService = Executors.newCachedThreadPool { r ->
 		val t = Thread(r)
 		t.isDaemon = false
@@ -34,6 +34,7 @@ private object ContextHelper {
 		t
 	}
 }
+
 fun mainThread(block: () -> Unit) {
 	if (InMainThread) {
 		block()
@@ -41,6 +42,7 @@ fun mainThread(block: () -> Unit) {
 		fore(block)
 	}
 }
+
 fun fore(callback: () -> Unit) {
 	ContextHelper.handler.post(callback)
 }
@@ -60,7 +62,7 @@ fun backDelay(delay: Long, callback: () -> Unit) {
 }
 
 
-val InMainThread:Boolean get() = Thread.currentThread().id == Looper.getMainLooper().thread.id
+val InMainThread: Boolean get() = Thread.currentThread().id == Looper.getMainLooper().thread.id
 
 fun debugMustInMainThread(msg: String = "必须在主线程调用") {
 	if (App.debug) {
@@ -101,6 +103,34 @@ fun foreOnce(key: String, block: () -> Unit) {
 	fore {
 		runOnce(key, block)
 	}
+}
+
+//每个版本只运行一次
+fun runOnceVer(key: String, block: () -> Unit): Boolean {
+	val fname = "once_${App.versionCode}"
+	val p = Prefer(fname)
+	if (p.getBool(key, false)) {
+		p.edit {
+			putBoolean(key, true)
+		}
+		block()
+		return true
+	}
+	return false
+
+}
+
+fun versionFirst(key: String): Boolean {
+	val fname = "once_${App.versionCode}"
+	val p = Prefer(fname)
+	if (p.getBool(key, false)) {
+		p.edit {
+			putBoolean(key, true)
+		}
+		return true
+	}
+	return false
+
 }
 
 //app的当前版本只执行一次

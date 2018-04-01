@@ -5,9 +5,8 @@ import android.support.annotation.DrawableRes
 import android.view.View
 import yet.theme.Colors
 import yet.theme.IconSize
-import yet.ui.res.ImageStated
 import yet.ui.res.D
-import yet.util.Util
+import yet.ui.res.ImageStated
 import yet.util.fore
 import java.util.*
 
@@ -63,7 +62,7 @@ class Action(val tag: String) {
 	/**
 	 * 标题文本
 	 */
-	var label: String? = null
+	var label: String = ""
 	/**
 	 * 图标, 大小会根据情况固定, 比如30dp
 	 */
@@ -123,7 +122,7 @@ class Action(val tag: String) {
 	}
 
 	init {
-		if (this.label == null) {
+		if (this.label.isEmpty()) {
 			this.label = this.tag
 		}
 	}
@@ -180,7 +179,7 @@ class Action(val tag: String) {
 
 
 	fun isLabel(label: String): Boolean {
-		return Util.equal(this.label, label)
+		return this.label  ==  label
 	}
 
 	fun commit() {

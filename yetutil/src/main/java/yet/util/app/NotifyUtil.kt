@@ -1,13 +1,15 @@
 package yet.util.app
 
-import android.app.*
-import android.content.Context
+import android.app.Activity
+import android.app.Notification
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Intent
 import android.graphics.Bitmap
 import android.support.v4.app.NotificationCompat
 import android.util.SparseArray
 import yet.ui.res.Bmp
-import yet.util.*
+import yet.util.TaskUtil
 import yet.util.database.Values
 
 /**
@@ -34,8 +36,7 @@ class NotifyUtil(val id: Int) {
 	}
 
 	fun cancel() {
-		val nm = Util.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-		nm.cancel(id)
+		App.notificationManager.cancel(id)
 	}
 
 	/**
@@ -382,8 +383,7 @@ class NotifyUtil(val id: Int) {
 			builder.setDefaults(defaults)
 		}
 		val n = builder.build()
-		val nm = Util.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-		nm.notify(id, n)
+		App.notificationManager.notify(id, n)
 	}
 
 	fun callback(callback: NotifyCallback): NotifyUtil {
@@ -442,8 +442,7 @@ class NotifyUtil(val id: Int) {
 		}
 
 		@JvmStatic fun cancel(id: Int) {
-			val nm = Util.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-			nm.cancel(id)
+			App.notificationManager.cancel(id)
 		}
 	}
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
-import yet.ext.empty
 import yet.theme.Colors
 import yet.theme.IconSize
 import yet.ui.ext.*
@@ -12,7 +11,6 @@ import yet.ui.res.ColorStated
 import yet.ui.res.sized
 import yet.ui.viewcreator.createImageView
 import yet.ui.viewcreator.createTextViewC
-import yet.util.Util
 import yet.util.log.logd
 import yet.util.log.xlog
 import java.util.*
@@ -81,7 +79,7 @@ class BottomBar(context: Context) : TablePanel(context), IActionModeSupport {
 		val items = visibleAcitons
 		var visibleCount = items.size
 		for (action in items) {
-			if (action.icon != null && Util.notEmpty(action.label)) {
+			if (action.icon != null && action.label.isNotEmpty()) {
 				needVLine = false
 			}
 		}
@@ -93,7 +91,7 @@ class BottomBar(context: Context) : TablePanel(context), IActionModeSupport {
 		logd("重建: ", items.size)
 		for (action in items) {
 			logd("Action构建", action.tag)
-			val view: View = if (action.label.empty()) {
+			val view: View = if (action.label.isEmpty()) {
 				if (action.icon == null) {
 					xlog.e("neithor Label OR icon NOT SET")
 					throw IllegalArgumentException("neithor Label OR icon NOT SET")

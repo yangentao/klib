@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import yet.ui.ext.genId
+import yet.ui.ext.textColorMajor
 import yet.ui.res.D
 
 /**
@@ -42,6 +43,7 @@ fun Fragment.createCheckBox(): CheckBox {
 
 fun Context.createCheckBox(): CheckBox {
 	val cb =  CheckBox(this).genId()
+	cb.textColorMajor()
 	cb.buttonDrawable = D.CheckBox
 	return cb
 }

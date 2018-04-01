@@ -9,9 +9,9 @@ import android.view.View
 import android.widget.EditText
 import yet.ui.ext.dp
 import yet.ui.ext.genId
+import yet.ui.ext.hideInputMethod
 import yet.ui.ext.padding
 import yet.ui.res.D
-import yet.util.Util
 import yet.util.fore
 
 class EditTextX(context: Context) : EditText(context) {
@@ -32,7 +32,7 @@ class EditTextX(context: Context) : EditText(context) {
 				this@EditTextX.setText("")
 				this@EditTextX.setCompoundDrawables(null, null, null, null)
 				fore {
-					Util.hideInputMethod(this@EditTextX)
+					this@EditTextX.hideInputMethod()
 				}
 			}
 			false

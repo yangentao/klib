@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import yet.ext.color
 import yet.ui.ext.*
 import yet.ui.res.D
 import yet.ui.widget.EditTextX
@@ -43,6 +44,7 @@ fun Fragment.createEdit(): EditText {
 
 fun Context.createEdit(): EditText {
 	val ed = EditText(this).genId().singleLine()
+	ed.setHintTextColor(0x808080.color)
 	ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
 	return ed
 }
@@ -77,6 +79,7 @@ fun Fragment.createEditX(): EditTextX {
 
 fun Context.createEditX(): EditTextX {
 	val ed = EditTextX(this).genId().singleLine()
+	ed.setHintTextColor(0x808080.color)
 	ed.textSizeB().gravityLeftCenter().backDrawable(D.Input).padding(8, 2, 8, 2)
 	return ed
 }
@@ -111,6 +114,7 @@ fun Fragment.createEditArea(): EditText {
 
 fun Context.createEditArea(): EditText {
 	val ed = EditText(this).genId()
+	ed.setHintTextColor(0x808080.color)
 	ed.textSizeB().gravityTopLeft().backDrawable(D.Input).padding(10, 5, 10, 5).multiLine()
 	return ed
 }

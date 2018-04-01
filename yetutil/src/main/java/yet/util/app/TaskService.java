@@ -29,7 +29,7 @@ public abstract class TaskService extends BaseTaskService {
             protected void onRun() throws Exception {
                 onProcess(intent, startId);
             }
-        }).addGroup(GROUP_TASK);
+        }).addGroup(getGROUP_TASK());
     }
 
     ;

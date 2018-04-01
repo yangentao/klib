@@ -2,12 +2,15 @@ package yet.ui.page
 
 import android.content.Context
 import android.view.View
-import android.widget.*
+import android.widget.AbsListView
+import android.widget.AdapterView
+import android.widget.LinearLayout
 import yet.theme.Str
-import yet.ui.widget.*
+import yet.ui.widget.Action
+import yet.ui.widget.BottomBar
+import yet.ui.widget.TitleBar
 import yet.ui.widget.listview.itemview.CheckItemView
 import yet.util.TaskUtil
-import yet.util.Util
 import java.util.*
 
 /**
@@ -111,7 +114,7 @@ abstract class CheckArrayListPage : ArrayListPage() {
 	 * @return 选中的项目
 	 */
 	val checkedItems: List<Any>
-		get() = Util.asList(selMap.values)
+		get() = selMap.values.toList()
 
 	fun clearCheckedItems() {
 		selMap.clear()

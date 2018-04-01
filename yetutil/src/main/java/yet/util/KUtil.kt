@@ -3,7 +3,11 @@ package yet.util
 import android.net.Uri
 import yet.util.app.App
 import yet.util.log.loge
+import yet.util.log.xlog
 import java.io.*
+import java.security.MessageDigest
+import java.util.*
+import kotlin.Comparator
 
 /**
  * Created by yangentao on 2015/11/21.
@@ -140,7 +144,7 @@ fun close(c: Closeable?) {
 fun toast(vararg args: Any?) {
 	val sb = StringBuffer(args.size * 8 + 8)
 	for (obj in args) {
-		sb.append(Util.toLogString(obj))
+		sb.append(xlog.toLogString(obj))
 	}
 	ToastUtil.show(sb.toString())
 }
@@ -173,16 +177,6 @@ fun ByteArray?.skip(n: Int): ByteArray {
 	return arr
 }
 
-fun sleep(ms: Int) {
-	sleep(ms.toLong())
-}
-
-fun sleep(ms: Long) {
-	try {
-		Thread.sleep(ms)
-	} catch (ex: Exception) {
-	}
-}
 
 inline fun <T : Closeable> T.closeAfter(block: (T) -> Unit): Unit {
 	try {
@@ -217,4 +211,61 @@ fun FormatPhone(tel: String?): String? {
 
 fun UriFromSdFile(file: File): Uri {
 	return Uri.fromFile(file)
+}
+
+fun Sleep(millSeconds: Long) {
+	try {
+		Thread.sleep(millSeconds)
+	} catch (e: InterruptedException) {
+		e.printStackTrace()
+	}
+
+}
+
+fun Sleep(ms: Int) {
+	Sleep(ms.toLong())
+}
+
+/**
+ * @param max
+ * @return [0-max]
+ */
+fun random(max: Int): Int {
+	return Random(System.nanoTime()).nextInt(max + 1)
+}
+
+/**
+ * @param min
+ * @param max
+ * @return [min, max]
+ */
+fun random(min: Int, max: Int): Int {
+	val max2 = max - min
+	val ret = random(max2)
+	return ret + min
+}
+
+
+val LongComparator: Comparator<Long> = Comparator<Long> { o1, o2 ->
+	if (o1 > o2) {
+		1
+	} else if (o1 < o2) {
+		-1
+	} else {
+		0
+	}
+}
+
+fun md5(value: String): String? {
+	try {
+		val md5 = MessageDigest.getInstance("MD5")
+		md5.update(value.toByteArray())
+		val m = md5.digest()// 加密
+		return Hex.encode(m)
+	} catch (e: Exception) {
+		e.printStackTrace()
+		xlog.e(e)
+	}
+
+	return null
 }

@@ -11,8 +11,11 @@ import yet.ui.util.TimeDown
 import yet.ui.viewcreator.*
 import yet.ui.widget.listview.itemview.TextDetailView
 import yet.ui.widget.listview.itemview.textDetail
-import yet.util.*
+import yet.util.MyDate
+import yet.util.ToastUtil
 import yet.util.app.SmsCodeFill
+import yet.util.back
+import yet.util.fore
 import java.util.regex.Pattern
 
 /**
@@ -150,9 +153,13 @@ abstract class InputPage : TitledPage() {
 		}
 		io.inputValid.label(io.hint)
 		val cb = inputLayout.checkBox(LParam.WidthFill.height(io.height).margins(io.marginLeft, io.marginTop, io.marginRight, io.marginBottom)) {
-			padding(20, 5, 5, 5)
-			hint = io.hint
-			text = io.value
+			padding(10, 5, 5, 5)
+			this.hint = io.hint
+			if (io.value.isEmpty()) {
+				this.text = io.hint
+			} else {
+				this.text = io.value
+			}
 		}
 		checkMap[io.key] = cb
 		validMap[io.key] = io.inputValid
@@ -352,7 +359,7 @@ abstract class InputPage : TitledPage() {
 		inputLayout.addView(verifyLayout, linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0))
 
 		this.timeDownKey = timeDownKey
-		if (Util.notEmpty(timeDownKey)) {
+		if (timeDownKey.isNotEmpty()) {
 			TimeDown.updateView(this.timeDownKey!!, codeButton!!)
 		}
 		codeButton!!.setOnClickListener({

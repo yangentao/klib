@@ -1,23 +1,28 @@
 package yet.ui.ext
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.text.*
+import android.text.Html
+import android.text.InputType
+import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import yet.ext.ColorList
-import yet.theme.*
+import yet.theme.Colors
+import yet.theme.Space
+import yet.theme.TextSize
 import yet.ui.res.D
 import yet.ui.res.sized
 import yet.ui.util.XTextWatcher
 import yet.util.HtmlText
-import yet.util.Util
 
 /**
  * Created by entaoyang@163.com on 16/3/12.
@@ -38,9 +43,14 @@ fun <T : TextView> T.setHtmlString(s: String) {
 	}
 }
 
-fun <T : TextView> T.hideInputMethod(): T {
-	Util.hideInputMethod(this)
-	return this
+
+fun TextView.hideInputMethod() {
+	if (this.isFocused) {
+		val imm = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+		if (imm.isActive) {
+			imm.hideSoftInputFromWindow(this.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+		}
+	}
 }
 
 fun <T : TextView> T.imeAction(action: Int, block: (TextView) -> Unit): T {
@@ -237,6 +247,7 @@ fun <T : TextView> T.textColorGreen(): T {
 fun <T : TextView> T.textColorRed(): T {
 	return this.textColor(Colors.RedMajor)
 }
+
 fun <T : TextView> T.textColor(color: Int): T {
 	this.setTextColor(color)
 	return this

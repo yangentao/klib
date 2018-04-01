@@ -1,5 +1,7 @@
 package yet.util;
 
+import yet.util.app.App;
+
 /**
  * 如果给定的obj是null , get和invoke方法会返回null, set方法会返回false
  * 
@@ -16,7 +18,7 @@ public class RefObject {
 	 * @return
 	 */
 	public static RefObject fromService(String name) {
-		Object obj = Util.getService(name);
+		Object obj = App.INSTANCE.getApp().getSystemService(name) ;
 		return new RefObject(obj);
 	}
 

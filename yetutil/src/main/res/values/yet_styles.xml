@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="yetTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+    <style name="yetTheme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>

@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
+import yet.util.app.App;
 import yet.util.log.xlog;
 
 public class TaskUtil {
@@ -195,6 +196,11 @@ public class TaskUtil {
 			}
 		});
 	}
+	public static void Assert(boolean b) {
+		if (!b && App.INSTANCE.getDebug()) {
+			xlog.INSTANCE.fatal("assert failed!");
+		}
+	}
 
 	/**
 	 * onRepeat总是在主线程回调
@@ -212,10 +218,10 @@ public class TaskUtil {
 	 *            每个值都>=0
 	 */
 	private static void repeatFore(final int fromIndex, final IRepeatCallback callback, final long... values) {
-		Util.Assert(fromIndex >= 0);
-		Util.Assert(callback != null);
+		Assert(fromIndex >= 0);
+		Assert(callback != null);
 		for (long v : values) {
-			Util.Assert(v >= 0);
+			Assert(v >= 0);
 		}
 
 		if (values.length == 0) {
@@ -274,10 +280,10 @@ public class TaskUtil {
 	 *            每个值都>=0
 	 */
 	private static void repeatBack(final int fromIndex, final IRepeatCallback callback, final long... values) {
-		Util.Assert(fromIndex >= 0);
-		Util.Assert(callback != null);
+		Assert(fromIndex >= 0);
+		Assert(callback != null);
 		for (long v : values) {
-			Util.Assert(v >= 0);
+			Assert(v >= 0);
 		}
 
 		if (values.length == 0) {
@@ -321,10 +327,10 @@ public class TaskUtil {
 	}
 
 	private static void repeatFore(final int current, final int times, final long delay, final IRepeatCallback callback) {
-		Util.Assert(current >= 0);
-		Util.Assert(times >= 0);
-		Util.Assert(delay >= 0);
-		Util.Assert(callback != null);
+		Assert(current >= 0);
+		Assert(times >= 0);
+		Assert(delay >= 0);
+		Assert(callback != null);
 
 		if (times <= 0) {
 			callback.onRepeatEnd();
@@ -364,10 +370,10 @@ public class TaskUtil {
 	}
 
 	private static void repeatBack(final int current, final int times, final long delay, final IRepeatCallback callback) {
-		Util.Assert(current >= 0);
-		Util.Assert(times >= 0);
-		Util.Assert(delay >= 0);
-		Util.Assert(callback != null);
+		Assert(current >= 0);
+		Assert(times >= 0);
+		Assert(delay >= 0);
+		Assert(callback != null);
 
 		if (times <= 0) {
 			callback.onRepeatEnd();

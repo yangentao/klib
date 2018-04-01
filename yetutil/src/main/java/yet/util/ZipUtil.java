@@ -1,5 +1,6 @@
 package yet.util;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -32,11 +33,18 @@ public class ZipUtil {
 			}
 
 		} finally {
-			Util.close(os);
-			Util.close(zis);
+			close(os);
+			close(zis);
 		}
 	}
-
+	public static void close(Closeable c) {
+		try {
+			if (c != null) {
+				c.close();
+			}
+		} catch (Exception e) {
+		}
+	}
 	public static void unzipOneToFile(ZipInputStream zis, File toFile) throws IOException {
 		OutputStream os = null;
 		try {
@@ -48,8 +56,8 @@ public class ZipUtil {
 			}
 
 		} finally {
-			Util.close(os);
-			Util.close(zis);
+			close(os);
+			close(zis);
 		}
 	}
 
@@ -73,8 +81,8 @@ public class ZipUtil {
 			zos.flush();
 			fos.flush();
 		} finally {
-			Util.close(zos);
-			Util.close(fos);
+			close(zos);
+			close(fos);
 			zos = null;
 			fos = null;
 		}
@@ -91,9 +99,9 @@ public class ZipUtil {
 			zos.flush();
 			fos.flush();
 		} finally {
-			Util.close(zos);
-			Util.close(fos);
-			Util.close(fis);
+			close(zos);
+			close(fos);
+			close(fis);
 			zos = null;
 			fos = null;
 			fis = null;
@@ -109,8 +117,8 @@ public class ZipUtil {
 			zos.flush();
 			fos.flush();
 		} finally {
-			Util.close(zos);
-			Util.close(fos);
+			close(zos);
+			close(fos);
 			zos = null;
 			fos = null;
 		}
@@ -126,9 +134,9 @@ public class ZipUtil {
 			zos.flush();
 			fos.flush();
 		} finally {
-			Util.close(zos);
-			Util.close(fos);
-			Util.close(fis);
+			close(zos);
+			close(fos);
+			close(fis);
 			zos = null;
 			fos = null;
 			fis = null;
@@ -137,7 +145,7 @@ public class ZipUtil {
 
 	public static String readGzipUtf8(File gzipFile) throws Exception {
 		byte[] buffer = readGzip(gzipFile);
-		return buffer == null ? null : new String(buffer, Util.UTF8);
+		return buffer == null ? null : new String(buffer, "UTF-8");
 	}
 
 	public static byte[] readGzip(File gzipFile) throws IOException {

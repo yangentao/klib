@@ -7,7 +7,9 @@ import android.util.Base64
 import yet.ext.head
 import yet.util.*
 import yet.util.app.App
-import yet.util.log.*
+import yet.util.log.log
+import yet.util.log.logd
+import yet.util.log.loge
 import java.io.*
 import java.net.*
 import java.nio.charset.Charset
@@ -409,7 +411,7 @@ class Http(val url: String) {
 		while (times > 0) {
 			times -= 1
 			if (delay > 0) {
-				sleep(delay)
+				Sleep(delay)
 			}
 			r = request2()
 			if (!retryBlock(r)) {

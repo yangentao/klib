@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -148,7 +149,7 @@ public class JsonUtil {
 	}
 
 	public static JsonObject parseObject(String s) {
-		if (Util.notEmpty(s)) {
+		if (!s.isEmpty()) {
 			try {
 				JsonParser p = new JsonParser();
 				JsonElement je = p.parse(s);
@@ -163,7 +164,7 @@ public class JsonUtil {
 	}
 
 	public static JsonArray parseArray(String s) {
-		if (Util.notEmpty(s)) {
+		if (!s.isEmpty()) {
 			try {
 				JsonParser p = new JsonParser();
 				JsonElement je = p.parse(s);
@@ -198,17 +199,24 @@ public class JsonUtil {
 	// 用于泛型, 如HashMap<String,String>, List<String>, 泛型不能通过getClass得到确切的类型, 所以需要type参数
 	public static void saveGeneric(OutputStream fos, Object data, Type type) {
 		try {
-			OutputStreamWriter writer = new OutputStreamWriter(fos, Util.UTF8);
+			OutputStreamWriter writer = new OutputStreamWriter(fos, "UTF-8");
 			gson.toJson(data, type, writer);
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			xlog.INSTANCE.e(e);
 		} finally {
-			Util.close(fos);
+			close(fos);
 		}
 	}
-
+	public static void close(Closeable c) {
+		try {
+			if (c != null) {
+				c.close();
+			}
+		} catch (Exception e) {
+		}
+	}
 	// 用于泛型, 如HashMap<String,String>, List<String>, 泛型不能通过getClass得到确切的类型, 所以需要type参数
 	public static void saveGeneric(File file, Object data, Type type) {
 		try {
@@ -227,13 +235,13 @@ public class JsonUtil {
 	// 用于一般的不是泛型的类, 如,自定义的Person, data是可以通过getClass得到确切类型的对象
 	public static void save(OutputStream fos, Object data) {
 		try {
-			OutputStreamWriter writer = new OutputStreamWriter(fos, Util.UTF8);
+			OutputStreamWriter writer = new OutputStreamWriter(fos, "UTF-8");
 			gson.toJson(data, writer);
 			writer.close();
 		} catch (Exception e) {
 			xlog.INSTANCE.e(e);
 		} finally {
-			Util.close(fos);
+			close(fos);
 		}
 	}
 
@@ -272,14 +280,14 @@ public class JsonUtil {
 	public static <T> T load(InputStream fis, Class<T> classOfT) {
 		T result = null;
 		try {
-			InputStreamReader reader = new InputStreamReader(fis, Util.UTF8);
+			InputStreamReader reader = new InputStreamReader(fis, "UTF-8");
 			result = gson.fromJson(reader, classOfT);
 			reader.close();
 		} catch (FileNotFoundException e) {
 		} catch (Exception e) {
 			xlog.INSTANCE.e(e);
 		} finally {
-			Util.close(fis);
+			close(fis);
 		}
 		return result;
 	}
@@ -325,13 +333,13 @@ public class JsonUtil {
 	public static <T> T loadGeneric(InputStream fis, Type typeOfT) {
 		T result = null;
 		try {
-			InputStreamReader reader = new InputStreamReader(fis, Util.UTF8);
+			InputStreamReader reader = new InputStreamReader(fis, "UTF-8");
 			result = gson.fromJson(reader, typeOfT);
 			reader.close();
 		} catch (Exception e) {
 			xlog.INSTANCE.e(e);
 		} finally {
-			Util.close(fis);
+			close(fis);
 		}
 		return result;
 	}
