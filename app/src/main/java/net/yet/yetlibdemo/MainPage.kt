@@ -2,6 +2,7 @@ package net.yet.yetlibdemo
 
 import android.content.Context
 import android.widget.LinearLayout
+import yet.ui.activities.openPage
 import yet.ui.page.TitledPage
 
 /**

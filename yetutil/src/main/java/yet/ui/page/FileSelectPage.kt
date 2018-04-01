@@ -6,7 +6,7 @@ import android.os.Environment
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ListView
-import yet.ui.activities.PageUtil
+import yet.ui.activities.Pages
 import yet.ui.widget.listview.itemview.TextDetailView
 import yet.util.Util
 import yet.util.app.App
@@ -114,7 +114,7 @@ class FileSelectPage : ListPage<File>() {
 			val page = FileSelectPage()
 			page.dir = dir
 			page.onValue = onValue
-			PageUtil.open(context, page)
+			Pages.open(context, page)
 		}
 	}
 

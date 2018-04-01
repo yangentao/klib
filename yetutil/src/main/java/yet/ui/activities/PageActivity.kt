@@ -20,7 +20,7 @@ open class PageActivity : BaseActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		currentFragment = OpenActivity.pop(intent)
+		currentFragment = Pages.onCreate(this)
 		if (currentFragment == null) {
 			currentFragment = getInitPage()
 		}
@@ -39,12 +39,12 @@ open class PageActivity : BaseActivity() {
 	}
 
 	override fun onMsg(msg: Msg) {
-		if (msg.isMsg(PageUtil.MSG_CLOSE_PAGE)) {
-			val frag = currentFragment
-			if (frag != null && frag::class == msg.cls) {
+		if (msg.isMsg(Pages.MSG_CLOSE_PAGE)) {
+			val frag = currentFragment ?: return
+			if (frag::class == msg.cls) {
 				finish()
-				return
 			}
+			return
 		}
 		super.onMsg(msg)
 	}
@@ -64,14 +64,14 @@ open class PageActivity : BaseActivity() {
 	}
 
 	override fun onBackPressed() {
-		if (currentFragment?.onBackPressed() ?: false) {
+		if (currentFragment?.onBackPressed() == true) {
 			return
 		}
 		super.onBackPressed()
 	}
 
-	val fragmentContainerId: Int
-		get() = fragmentContainerView!!.id
+	private val fragmentContainerId: Int
+		get() = fragmentContainerView.id
 
 	fun replaceFragment(fragment: BaseFragment) {
 		this.currentFragment = fragment
@@ -79,7 +79,7 @@ open class PageActivity : BaseActivity() {
 	}
 
 	override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-		if (currentFragment?.onKeyDown(keyCode, event) ?: false) {
+		if (currentFragment?.onKeyDown(keyCode, event) == true) {
 			return true
 		}
 		return super.onKeyDown(keyCode, event)

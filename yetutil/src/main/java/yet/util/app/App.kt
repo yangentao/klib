@@ -1,6 +1,9 @@
 package yet.util.app
 
-import android.app.*
+import android.app.ActivityManager
+import android.app.Application
+import android.app.DownloadManager
+import android.app.Service
 import android.content.*
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -9,14 +12,22 @@ import android.database.sqlite.SQLiteDatabase
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
+import android.os.StrictMode
 import android.telephony.TelephonyManager
 import android.text.TextUtils
+import yet.theme.TextSize
 import yet.ui.activities.AnimConf
 import yet.ui.ext.displayMetrics
-import yet.util.*
+import yet.util.MsgCenter
+import yet.util.StrBuilder
+import yet.util.Util
 import yet.util.database.Values
-import yet.util.log.*
-import java.io.*
+import yet.util.log.logd
+import yet.util.log.loge
+import yet.util.log.xlog
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.InputStream
 import java.lang.ref.WeakReference
 
 /**
@@ -55,6 +66,14 @@ object App {
 
 	fun setInstance(inst: Application) {
 		this.inst = WeakReference(inst)
+		val builder = StrictMode.VmPolicy.Builder()
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			builder.detectFileUriExposure().penaltyLog()
+		}
+		StrictMode.setVmPolicy(builder.build())
+		if (OS.HUAWEI) {
+			TextSize.addTextSize(-1)
+		}
 
 		Thread.setDefaultUncaughtExceptionHandler { thread, ex ->
 			val sb = StrBuilder(128)

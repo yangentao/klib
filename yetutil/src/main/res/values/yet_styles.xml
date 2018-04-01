@@ -1,21 +1,22 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="yetTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/yetColorPrimary</item>
-        <item name="colorPrimaryDark">@color/yetColorPrimaryDark</item>
-        <item name="colorAccent">@color/yetColorAccent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="actionModeBackground">@color/yetColorPrimaryDark</item>
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    <style name="yetTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="yetTheme.NoActionBar"/>
+    <style name="yetFullScreen" parent="yetTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
-    <style name="yetTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="yetTheme.Translucent" parent="yetTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 
-    <style name="yetTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="yetFullScreen.Translucent" parent="yetFullScreen">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

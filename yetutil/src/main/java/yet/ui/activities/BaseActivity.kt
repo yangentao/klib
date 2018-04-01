@@ -4,14 +4,18 @@ import android.app.Activity
 import android.content.Intent
 import android.database.ContentObserver
 import android.net.Uri
-import android.os.*
-import android.support.v7.app.AppCompatActivity
-import android.view.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import yet.theme.Colors
 import yet.ui.MyColor
 import yet.ui.dialogs.OKDialog
-import yet.ui.page.BaseFragment
 import yet.util.*
 import yet.util.app.App
 import yet.util.app.Perm
@@ -21,13 +25,41 @@ import java.util.*
  * Created by yangentao on 16/3/12.
  */
 
-open class BaseActivity : AppCompatActivity(), MsgListener, PermContext {
+open class BaseActivity : Activity(), MsgListener, PermContext {
 	val PERM_REQ = 79
 
+	var fullScreen = false
 
 	var permStack: Stack<Perm> = Stack()
 	val watchMap = HashMap<Uri, ContentObserver>()
 
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		this.setTheme(net.yet.R.style.yetTheme)
+		requestWindowFeature(Window.FEATURE_NO_TITLE)
+		if (fullScreen) {
+			setWindowFullScreen()
+		}
+		statusBarColorFromTheme()
+		MsgCenter.listenAll(this)
+	}
+	fun setWindowFullScreen(){
+		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN)
+	}
+
+	fun paramBool(key:String):Boolean{
+		return intent.extras.getBoolean(key)
+	}
+	fun paramInt(key:String):Int{
+		return intent.extras.getInt(key)
+	}
+	fun paramLong(key:String):Long{
+		return intent.extras.getLong(key)
+	}
+	fun paramString(key:String):String{
+		return intent.extras.getString(key) ?: ""
+	}
 	fun unWatch(uri: Uri) {
 		val ob = watchMap[uri]
 		if (ob != null) {
@@ -105,7 +137,7 @@ open class BaseActivity : AppCompatActivity(), MsgListener, PermContext {
 
 
 	override fun onMsg(msg: Msg) {
-		if (msg.isMsg(PageUtil.MSG_CLOSE_PAGE)) {
+		if (msg.isMsg(Pages.MSG_CLOSE_PAGE)) {
 			if (this::class == msg.cls) {
 				finish()
 				return
@@ -137,13 +169,6 @@ open class BaseActivity : AppCompatActivity(), MsgListener, PermContext {
 		}
 	}
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		this.setTheme(net.yet.R.style.yetTheme_NoActionBar)
-		requestWindowFeature(Window.FEATURE_NO_TITLE)
-		super.onCreate(savedInstanceState)
-		statusBarColorFromTheme()
-		MsgCenter.listenAll(this)
-	}
 
 	override fun onDestroy() {
 		super.onDestroy()
@@ -187,7 +212,7 @@ open class BaseActivity : AppCompatActivity(), MsgListener, PermContext {
 		if (visiableActivityCount <= 0) {
 			_topActivity = null
 			val app = App.app
-			if ( app is AppVisibleListener) {
+			if (app is AppVisibleListener) {
 				fore {
 					app.onEnterBackground()
 				}
@@ -197,10 +222,6 @@ open class BaseActivity : AppCompatActivity(), MsgListener, PermContext {
 		super.onStop()
 	}
 
-	fun <T : BaseFragment> openPage(page: T) {
-		PageUtil.open(this, page)
-	}
-
 	companion object {
 		val MsgEnterBackground = "enter_background"
 		val MsgEnterForeground = "enter_foreground"
@@ -208,12 +229,13 @@ open class BaseActivity : AppCompatActivity(), MsgListener, PermContext {
 			private set
 		private var _topActivity: BaseActivity? = null
 
-		val topVisibleActivity: BaseActivity? get() {
-			if (visiableActivityCount > 0) {
-				return _topActivity
+		val topVisibleActivity: BaseActivity?
+			get() {
+				if (visiableActivityCount > 0) {
+					return _topActivity
+				}
+				return null
 			}
-			return null
-		}
 
 	}
 

@@ -1,5 +1,5 @@
 <resources>>
-    <style name="yetTheme.NoActionBar">
+    <style name="yetTheme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/yetColorPrimaryDark</item>
     </style>

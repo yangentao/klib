@@ -1,31 +1,47 @@
 package yet.ui.page
 
-import android.app.*
+import android.app.Activity
+import android.app.DatePickerDialog
+import android.app.Fragment
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.database.ContentObserver
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.util.SparseArray
-import android.view.*
+import android.view.KeyEvent
+import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.DatePicker
+import android.widget.TimePicker
+import android.widget.Toast
 import yet.file.SdAppFile
 import yet.theme.Str
-import yet.ui.activities.*
-import yet.ui.dialogs.*
+import yet.ui.activities.AnimConf
+import yet.ui.activities.Pages
+import yet.ui.activities.PermContext
+import yet.ui.activities.TabBarActivity
+import yet.ui.dialogs.HorProgressDlg
+import yet.ui.dialogs.OKDialog
+import yet.ui.dialogs.SpinProgressDlg
 import yet.ui.dialogs.list.StringSelectDialog
 import yet.ui.dialogs.list.TextSelectDialog
-import yet.ui.res.*
+import yet.ui.res.Bmp
+import yet.ui.res.saveJpg
+import yet.ui.res.savePng
 import yet.ui.widget.TabBar
 import yet.ui.widget.listview.itemview.TextItemView
 import yet.util.*
 import yet.util.app.App
 import yet.util.app.Perm
-import yet.util.database.Values
 import yet.util.log.loge
 import java.io.File
 import java.util.*
@@ -43,7 +59,6 @@ import kotlin.reflect.KProperty
  */
 open class BaseFragment : Fragment(), MsgListener, PermContext {
 	val PERM_REQ = 78
-	val args = Values()
 	private val resultListeners = SparseArray<PreferenceManager.OnActivityResultListener>(8)
 	lateinit var spinProgressDlg: SpinProgressDlg
 	lateinit var horProgressDlg: HorProgressDlg
@@ -219,11 +234,6 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 		dlg.addItems(items)
 		dlg.show(activity)
 	}
-
-	fun openPage(page: BaseFragment) {
-		PageUtil.open(activity, page)
-	}
-
 
 	override fun onResume() {
 		super.onResume()
@@ -570,9 +580,7 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 		}
 		watchMap.clear()
 		MsgCenter.remove(this)
-		if (OpenActivity.lastPageClass == this.javaClass) {
-			OpenActivity.lastPageClass = null
-		}
+		Pages.onDestroy(this)
 		super.onDestroy()
 	}
 

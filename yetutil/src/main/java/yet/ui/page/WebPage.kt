@@ -5,7 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.webkit.*
 import android.widget.LinearLayout
-import yet.ui.activities.PageUtil
+import yet.ui.activities.Pages
 import yet.ui.ext.*
 import yet.ui.widget.Action
 import yet.ui.widget.TitleBar
@@ -94,7 +94,7 @@ class WebPage : TitledPage() {
 			val page = WebPage()
 			page.rootUrl = url
 			page.title = title
-			PageUtil.open(context, page)
+			Pages.open(context, page)
 			return page
 		}
 	}
