@@ -2,12 +2,16 @@ package yet.ui.res
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.*
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.support.annotation.DrawableRes
 import net.yet.R
 import yet.ext.RGB
-import yet.theme.*
+import yet.theme.Colors
+import yet.theme.IconSize
+import yet.theme.InputSize
 import yet.ui.widget.EditTextX
 import yet.util.app.App
 
@@ -77,6 +81,14 @@ object D {
 
 	fun limited(@DrawableRes resId: Int, edge: Int): Drawable {
 		return res(resId).limited(edge)
+	}
+
+	fun tintTheme(@DrawableRes res: Int): StateListDrawable {
+		return Bmp.tintTheme(res)
+	}
+
+	fun tintLight(@DrawableRes res: Int, normalColor: Int, lightColor: Int): StateListDrawable {
+		return Bmp.tintLight(res, normalColor, lightColor)
 	}
 
 	fun color(color: Int): ColorDrawable {
