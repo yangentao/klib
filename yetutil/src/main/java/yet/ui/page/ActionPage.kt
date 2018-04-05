@@ -3,11 +3,15 @@ package yet.ui.page
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import yet.ui.ext.*
 import yet.ui.viewcreator.createButton
 import yet.ui.viewcreator.createLinearVertical
-import yet.ui.widget.*
+import yet.ui.widget.Action
+import yet.ui.widget.ActionSetView
+import yet.ui.widget.add
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -46,7 +50,7 @@ abstract class ActionPage : TitledPage() {
 
 
 	fun addTailButton(text: String, onclick: (Button) -> Unit): Button {
-		val tailButton = scrollContentView.createButton(text).themeRed(20)
+		val tailButton = scrollContentView.createButton(text).styleRed(20)
 		scrollContentView.addViewParam(tailButton) {
 			widthDp(160).heightDp(40).gravityCenter().marginTB(20, 10)
 		}

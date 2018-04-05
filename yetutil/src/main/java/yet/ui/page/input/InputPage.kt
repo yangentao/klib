@@ -179,7 +179,7 @@ abstract class InputPage : TitledPage() {
 	}
 
 	fun button(key: String, title: String, marginTop: Int = buttonMarginTop): Button {
-		val b = inputLayout.button(LParam.WidthFill.HeightWrap.margins(0, marginTop, 0, 0)) {
+		val b = inputLayout.button(LParam.WidthFill.HeightButton.margins(0, marginTop, 0, 0)) {
 			setOnClickListener { _onButtonClick(key) }
 			text = title
 		}
@@ -187,15 +187,15 @@ abstract class InputPage : TitledPage() {
 	}
 
 	fun buttonSafe(key: String, title: String, marginTop: Int = buttonMarginTop): Button {
-		return button(key, title, marginTop).themeGreen()
+		return button(key, title, marginTop).styleGreen()
 	}
 
 	fun buttonRed(key: String, title: String, marginTop: Int = buttonMarginTop): Button {
-		return button(key, title, marginTop).themeRed()
+		return button(key, title, marginTop).styleRed()
 	}
 
 	fun buttonWhite(key: String, title: String, marginTop: Int = buttonMarginTop): Button {
-		return button(key, title, marginTop).themeWhite()
+		return button(key, title, marginTop).styleWhite()
 	}
 
 	fun textDetail(title: String, marginTop: Int = inputMarginTop): TextDetailView {
@@ -354,7 +354,7 @@ abstract class InputPage : TitledPage() {
 		codeEdit = createEdit().hint("输入验证码")
 		codeEdit?.inputTypeNumber()
 		verifyLayout.addView(codeEdit, linearParam().width(0).weight(1f).height(InputSize.EditHeight))
-		codeButton = createButton("获取验证码").themeWhite()
+		codeButton = createButton("获取验证码").styleWhite()
 		verifyLayout.addView(codeButton, linearParam().widthWrap().heightWrap().margins(3, 0, 0, 0))
 		inputLayout.addView(verifyLayout, linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0))
 

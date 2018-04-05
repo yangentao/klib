@@ -206,25 +206,25 @@ class InputPanel constructor(context: Context, private val fragment: BaseFragmen
 	}
 
 	fun addSafeButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-		buttonMap[key] = button(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+		buttonMap[key] = button(LParam.WidthFill.HeightButton.margins(0, marginTop, 0, 0)) {
 			text = title
-			themeGreen()
+			styleGreen()
 			setOnClickListener { _onButtonClick(key) }
 		}
 	}
 
 	fun addRedButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-		buttonMap[key] = button(linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+		buttonMap[key] = button(LParam.WidthFill.HeightButton.margins(0, marginTop, 0, 0)) {
 			text = title
-			themeRed()
+			styleRed()
 			setOnClickListener { _onButtonClick(key) }
 		}
 	}
 
 	fun addWhiteButton(key: String, title: String, marginTop: Int = buttonMarginTop) {
-		buttonMap[key] = button(lParam().widthFill().heightWrap().margins(0, marginTop, 0, 0)) {
+		buttonMap[key] = button(LParam.WidthFill.HeightButton.margins(0, marginTop, 0, 0)) {
 			text = title
-			themeWhite()
+			styleWhite()
 			setOnClickListener { _onButtonClick(key) }
 		}
 	}
