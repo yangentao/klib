@@ -1,6 +1,9 @@
 package yet.ui.res
 
 import android.graphics.drawable.Drawable
+import android.support.v4.graphics.drawable.DrawableCompat
+import yet.ext.ColorListLight
+import yet.theme.Colors
 import yet.ui.ext.dp
 
 /**
@@ -19,7 +22,25 @@ fun Drawable.limited(maxEdge: Int): Drawable {
 	}
 	return this
 }
+
 fun Drawable.sized(w: Int, h: Int = w): Drawable {
 	this.setBounds(0, 0, dp(w), dp(h))
 	return this
+}
+
+val Drawable.tintedWhite: Drawable
+	get() {
+		return this.tinted(Colors.WHITE)
+	}
+
+fun Drawable.tinted(color: Int): Drawable {
+	val dc = DrawableCompat.wrap(this)
+	DrawableCompat.setTint(dc, color)
+	return dc
+}
+
+fun Drawable.tinted(color: Int, light: Int): Drawable {
+	val dc = DrawableCompat.wrap(this)
+	DrawableCompat.setTintList(dc, ColorListLight(color, light))
+	return dc
 }

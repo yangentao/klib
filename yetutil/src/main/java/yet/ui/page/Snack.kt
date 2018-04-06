@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import yet.theme.Colors
 import yet.ui.ext.*
+import yet.ui.viewcreator.createTextViewB
 import yet.util.IdGen
 import yet.util.RunTask
 import yet.util.TaskUtil

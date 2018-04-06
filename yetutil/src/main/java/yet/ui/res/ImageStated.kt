@@ -1,6 +1,8 @@
 package yet.ui.res
 
-import android.graphics.drawable.*
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.StateListDrawable
 import android.support.annotation.DrawableRes
 
 /**

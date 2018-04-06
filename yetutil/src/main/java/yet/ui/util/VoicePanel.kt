@@ -3,7 +3,9 @@ package yet.ui.util
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import yet.ext.ARGB
 import yet.ui.ext.*
 import yet.ui.res.Shapes

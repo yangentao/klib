@@ -19,11 +19,13 @@ import android.view.inputmethod.InputMethodManager
 import yet.theme.TextSize
 import yet.ui.activities.AnimConf
 import yet.ui.ext.displayMetrics
-import yet.util.*
+import yet.util.MsgCenter
+import yet.util.StrBuilder
 import yet.util.database.Values
 import yet.util.log.logd
 import yet.util.log.loge
 import yet.util.log.xlog
+import yet.util.toast
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream

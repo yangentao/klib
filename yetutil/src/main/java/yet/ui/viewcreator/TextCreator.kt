@@ -67,25 +67,25 @@ fun Context.createTextViewB(): TextView {
 }
 
 fun View.createTextViewC(): TextView {
-	return this.createTextView().textSizeC()
+	return this.createTextView().textSizeC().textColorMinor()
 }
 
 fun Fragment.createTextViewC(): TextView {
-	return this.createTextView().textSizeC()
+	return this.createTextView().textSizeC().textColorMinor()
 }
 
 fun Context.createTextViewC(): TextView {
-	return this.createTextView().textSizeC()
+	return this.createTextView().textSizeC().textColorMinor()
 }
 
 fun View.createTextViewD(): TextView {
-	return this.createTextView().textSizeD()
+	return this.createTextView().textSizeD().textColorMinor()
 }
 
 fun Fragment.createTextViewD(): TextView {
-	return this.createTextView().textSizeD()
+	return this.createTextView().textSizeD().textColorMinor()
 }
 
 fun Context.createTextViewD(): TextView {
-	return this.createTextView().textSizeD()
+	return this.createTextView().textSizeD().textColorMinor()
 }

@@ -2,15 +2,23 @@ package yet.ui.activities.drawer
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.*
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.View
-import android.widget.*
-import yet.theme.*
+import android.widget.CompoundButton
+import android.widget.LinearLayout
+import android.widget.ScrollView
+import yet.theme.Colors
+import yet.theme.IconSize
 import yet.theme.Space
 import yet.ui.ext.*
 import yet.ui.res.sized
-import yet.ui.viewcreator.*
+import yet.ui.viewcreator.createLinearHorizontal
+import yet.ui.viewcreator.createLinearVertical
+import yet.ui.viewcreator.createTextViewB
+import yet.ui.viewcreator.createTextViewC
 import yet.ui.widget.Action
 import yet.util.fore
 import java.util.*

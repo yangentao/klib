@@ -4,12 +4,14 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import yet.ext.RGB
 import yet.theme.IconSize
 import yet.ui.ext.*
 import yet.ui.res.Shapes
-import yet.ui.viewcreator.imageView
+import yet.ui.viewcreator.*
 import yet.util.MyDate
 
 /**

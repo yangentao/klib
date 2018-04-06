@@ -1,6 +1,9 @@
 package yet.util.log
 
-import java.io.*
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 
 /**
  * Created by entaoyang@163.com on 2016-10-28.

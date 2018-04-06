@@ -1,6 +1,8 @@
 package yet.net
 
-import yet.util.*
+import yet.util.Msg
+import yet.util.Progress
+import yet.util.TaskQueue
 import java.io.File
 import java.util.*
 

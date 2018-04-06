@@ -5,8 +5,12 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import yet.ui.ext.*
-import yet.ui.res.*
-import yet.ui.viewcreator.*
+import yet.ui.res.ColorList
+import yet.ui.res.ColorStated
+import yet.ui.res.D
+import yet.ui.viewcreator.createRelative
+import yet.ui.viewcreator.createTextView
+import yet.ui.viewcreator.createTextViewD
 import java.util.*
 
 /**

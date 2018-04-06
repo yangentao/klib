@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import yet.ui.ext.*
+import yet.ui.viewcreator.createLinearVertical
+import yet.ui.viewcreator.createTextView
 
 /**
  * Created by entaoyang@163.com on 16/3/13.

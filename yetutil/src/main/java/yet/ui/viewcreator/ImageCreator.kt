@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import yet.ui.ext.genId
+import yet.ui.ext.scaleCenterCrop
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
@@ -43,7 +44,7 @@ fun Fragment.createImageView(): ImageView {
 fun Context.createImageView(): ImageView {
 	val b = ImageView(this).genId()
 	b.adjustViewBounds = true
-	b.scaleType = ImageView.ScaleType.CENTER_INSIDE
+	b.scaleCenterCrop()
 	return b
 }
 

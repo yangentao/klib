@@ -4,13 +4,19 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.*
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
-import yet.theme.*
+import yet.theme.Colors
+import yet.theme.InputSize
+import yet.theme.TextColor
 import yet.ui.ext.*
 import yet.ui.res.RectDraw
-import yet.ui.viewcreator.*
+import yet.ui.viewcreator.createLinearHorizontal
+import yet.ui.viewcreator.createLinearVertical
+import yet.ui.viewcreator.createTextViewA
 
 open class BaseDialog {
 	var cornerOfDialog = InputSize.DialogCorner

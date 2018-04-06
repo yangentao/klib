@@ -11,7 +11,10 @@ import yet.theme.Colors
 import yet.ui.ext.*
 import yet.ui.res.D
 import yet.ui.res.sized
-import yet.ui.viewcreator.*
+import yet.ui.viewcreator.createImageView
+import yet.ui.viewcreator.createLinearHorizontal
+import yet.ui.viewcreator.createTextViewA
+import yet.ui.viewcreator.createTextViewB
 import java.util.*
 
 /**

@@ -3,12 +3,17 @@ package yet.ui.page
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.widget.*
+import yet.ui.widget.Action
+import yet.ui.widget.BottomBar
+import yet.ui.widget.MyProgressBar
+import yet.ui.widget.TitleBar
 import yet.util.fore
 
 /**

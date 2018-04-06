@@ -5,7 +5,9 @@ import android.graphics.drawable.BitmapDrawable
 import yet.ext.closeSafe
 import yet.ui.ext.dp
 import yet.util.app.App
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 /**
  * Created by entang@163.com on 2018-03-06.

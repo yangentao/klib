@@ -6,6 +6,10 @@ import android.widget.TextView
 import yet.ext.RGB
 import yet.ui.ext.*
 import yet.ui.res.Shapes
+import yet.ui.viewcreator.createLinearHorizontal
+import yet.ui.viewcreator.createLinearVertical
+import yet.ui.viewcreator.createTextViewB
+import yet.ui.viewcreator.createTextViewC
 import yet.util.MyDate
 
 /**

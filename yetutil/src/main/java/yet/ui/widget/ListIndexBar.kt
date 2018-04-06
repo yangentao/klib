@@ -2,7 +2,9 @@ package yet.ui.widget
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.*
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
@@ -10,7 +12,11 @@ import yet.ext.RGB
 import yet.ui.ext.*
 import yet.ui.res.Shapes
 import yet.ui.util.LayerUtil
-import yet.util.*
+import yet.ui.viewcreator.createTextView
+import yet.util.LazyTask
+import yet.util.MultiHashMapArray
+import yet.util.TaskUtil
+import yet.util.fore
 import java.util.*
 
 /**

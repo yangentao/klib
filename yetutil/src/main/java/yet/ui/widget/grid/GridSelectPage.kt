@@ -3,7 +3,10 @@ package yet.ui.widget.grid
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.LinearLayout
-import yet.ui.ext.*
+import yet.ui.ext.LParam
+import yet.ui.ext.WidthFill
+import yet.ui.ext.height
+import yet.ui.ext.weight
 import yet.ui.page.TitledPage
 import yet.ui.res.D
 import yet.ui.res.limited

@@ -4,7 +4,10 @@ import android.content.Context
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import yet.ui.ext.*
+import yet.ui.ext.addViewParam
+import yet.ui.ext.height
+import yet.ui.ext.weight
+import yet.ui.ext.widthFill
 import yet.ui.viewcreator.createLinearVertical
 
 /**

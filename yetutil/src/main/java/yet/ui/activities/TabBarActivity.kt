@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import yet.ui.ext.*
+import yet.ui.ext.addViewParam
+import yet.ui.ext.heightDp
+import yet.ui.ext.weight
+import yet.ui.ext.widthFill
 import yet.ui.page.BaseFragment
 import yet.ui.util.FragmentHelper
 import yet.ui.viewcreator.createFrame
 import yet.ui.viewcreator.createLinearVertical
-import yet.ui.widget.*
+import yet.ui.widget.Action
+import yet.ui.widget.TabBar
+import yet.ui.widget.add
 import java.util.*
 
 /**

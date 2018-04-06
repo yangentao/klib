@@ -2,7 +2,9 @@ package yet.database
 
 import com.google.gson.JsonObject
 import org.json.JSONObject
-import yet.json.*
+import yet.json.JSON
+import yet.json.long
+import yet.json.string
 import yet.util.JsonUtil
 import yet.util.database.DBMap
 

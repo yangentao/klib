@@ -2,11 +2,15 @@ package yet.ui.activities.drawer
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.widget.*
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import yet.theme.Space
 import yet.ui.ext.*
 import yet.ui.res.round
-import yet.ui.viewcreator.*
+import yet.ui.viewcreator.createImageView
+import yet.ui.viewcreator.createTextViewA
+import yet.ui.viewcreator.createTextViewC
 
 /**
  * Created by entaoyang@163.com on 16/6/27.

@@ -8,6 +8,7 @@ import yet.ext.color
 import yet.theme.Colors
 import yet.theme.TextColor
 import yet.ui.ext.*
+import yet.ui.viewcreator.createTextView
 import yet.ui.viewcreator.textView
 import yet.ui.widget.listview.itemview.TextDetailView
 

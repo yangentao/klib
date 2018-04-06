@@ -4,8 +4,12 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
-import android.widget.*
-import yet.ui.ext.*
+import android.widget.AbsListView
+import android.widget.AdapterView
+import android.widget.GridView
+import yet.ui.ext.dp
+import yet.ui.ext.genId
+import yet.ui.ext.padding
 import yet.ui.res.sized
 import yet.ui.widget.listview.XBaseAdapter
 

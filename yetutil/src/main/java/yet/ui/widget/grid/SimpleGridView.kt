@@ -5,7 +5,10 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.AbsListView
 import android.widget.AdapterView
-import yet.ui.ext.*
+import yet.ui.ext.backColorWhite
+import yet.ui.ext.dp
+import yet.ui.ext.genId
+import yet.ui.ext.padding
 import yet.ui.res.D
 import yet.ui.res.limited
 import yet.ui.widget.listview.SimpleBaseAdapter

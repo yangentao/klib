@@ -2,11 +2,13 @@ package yet.ui.ext
 
 import android.app.Fragment
 import android.content.Context
-import android.view.*
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import yet.theme.Colors
-import yet.ui.res.drawable
 import yet.ui.res.Bmp
+import yet.ui.res.drawable
 
 /**
  * Created by entaoyang@163.com on 16/3/12.

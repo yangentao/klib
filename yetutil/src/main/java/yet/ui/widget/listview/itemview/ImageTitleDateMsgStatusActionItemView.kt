@@ -5,13 +5,16 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import yet.ext.RGB
 import yet.theme.Colors
 import yet.theme.IconSize
 import yet.ui.ext.*
 import yet.ui.res.D
 import yet.ui.res.Shapes
+import yet.ui.viewcreator.*
 import yet.util.MyDate
 
 /**

@@ -2,10 +2,14 @@ package yet.ui.page
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import yet.theme.Colors
-import yet.ui.ext.*
+import yet.ui.ext.fill
+import yet.ui.ext.linearParam
+import yet.ui.ext.set
 import yet.ui.viewcreator.createLinearVertical
 
 // vertical

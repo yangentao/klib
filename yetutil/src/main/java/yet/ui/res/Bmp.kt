@@ -1,7 +1,9 @@
 package yet.ui.res
 
-import android.graphics.*
+import android.graphics.Bitmap
 import android.graphics.Bitmap.Config
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.drawable.StateListDrawable
 import android.net.Uri
 import android.support.annotation.DrawableRes
@@ -11,7 +13,10 @@ import yet.file.SdAppFile
 import yet.theme.Colors
 import yet.util.MySize
 import yet.util.app.App
-import java.io.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.InputStream
 
 object Bmp {
 	fun res(id: Int): Bitmap {

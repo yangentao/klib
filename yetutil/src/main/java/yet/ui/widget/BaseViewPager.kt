@@ -2,7 +2,9 @@ package yet.ui.widget
 
 import android.content.Context
 import android.support.v4.view.ViewPager
-import android.view.*
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
 import yet.ui.ext.genId
 
 abstract class BaseViewPager<T>(context: Context) : ViewPager(context) {

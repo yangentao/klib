@@ -15,7 +15,7 @@ import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import yet.ext.ColorList
+import yet.ext.ColorListLight
 import yet.theme.Colors
 import yet.theme.Space
 import yet.theme.TextSize
@@ -260,7 +260,7 @@ fun <T : TextView> T.textColor_(color: Int): T {
 
 
 fun <T : TextView> T.textColor(color: Int, pressed: Int): T {
-	this.setTextColor(ColorList(color, pressed))
+	this.setTextColor(ColorListLight(color, pressed))
 	return this
 }
 

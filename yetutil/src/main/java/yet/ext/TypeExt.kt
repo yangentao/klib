@@ -1,6 +1,9 @@
 package yet.ext
 
-import kotlin.reflect.*
+import kotlin.reflect.KClass
+import kotlin.reflect.KType
+import kotlin.reflect.KTypeProjection
+import kotlin.reflect.KVariance
 
 /**
  * Created by entaoyang@163.com on 2017-04-16.

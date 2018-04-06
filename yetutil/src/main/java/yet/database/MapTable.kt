@@ -1,6 +1,9 @@
 package yet.database
 
-import yet.ext.*
+import yet.ext.customName
+import yet.ext.defaultValue
+import yet.ext.defaultValueOfProperty
+import yet.ext.strToV
 import yet.util.database.LiteBase
 import yet.util.database.MapLike
 import yet.util.log.logd

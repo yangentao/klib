@@ -6,7 +6,10 @@ import com.google.gson.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
 import yet.database.SQLType
-import yet.ext.*
+import yet.ext.isClass
+import yet.ext.isTypeChar
+import yet.ext.isTypeEnum
+import yet.ext.isTypeString
 import yet.json.GSON
 import yet.orm.TypeDismatchException
 import yet.ref.EnumUtil

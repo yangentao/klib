@@ -3,7 +3,10 @@ package yet.util.database
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.ContentResolver
-import android.database.*
+import android.database.CharArrayBuffer
+import android.database.ContentObserver
+import android.database.Cursor
+import android.database.DataSetObserver
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle

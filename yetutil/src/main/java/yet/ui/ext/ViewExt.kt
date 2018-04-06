@@ -142,7 +142,10 @@ fun <T : View> T.backColorTrans(): T {
 	setBackgroundColor(Colors.TRANS)
 	return this
 }
-
+fun <T : View> T.backColorThemeFade(): T {
+	backColor(Colors.Theme, Colors.Fade)
+	return this
+}
 fun <T : View> T.backColorWhiteFade(): T {
 	backColor(Colors.WHITE, Colors.Fade)
 	return this

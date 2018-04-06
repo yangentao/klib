@@ -3,12 +3,18 @@ package yet.ui.widget
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.ImageView.ScaleType
+import android.widget.LinearLayout
+import android.widget.TextView
 import yet.theme.Colors
 import yet.ui.ext.*
 import yet.ui.res.D
-import yet.ui.viewcreator.*
+import yet.ui.viewcreator.createCheckBox
+import yet.ui.viewcreator.createImageView
+import yet.ui.viewcreator.createTextViewA
+import yet.ui.viewcreator.createTextViewB
 
 /**
  * 左右对齐listview itemview

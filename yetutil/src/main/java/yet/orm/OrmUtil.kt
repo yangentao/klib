@@ -1,6 +1,8 @@
 package yet.orm
 
-import yet.ext.*
+import yet.ext.isExcluded
+import yet.ext.isPrimaryKey
+import yet.ext.isPublic
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.declaredMemberProperties
