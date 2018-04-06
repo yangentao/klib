@@ -9,37 +9,37 @@ import android.widget.LinearLayout
 import yet.theme.Colors
 import yet.ui.MyColor
 import yet.ui.activities.TabBarActivity
-import yet.ui.ext.HeightWrap
-import yet.ui.ext.LParam
-import yet.ui.ext.WidthFill
-import yet.ui.ext.height
+import yet.ui.ext.*
 import yet.ui.viewcreator.createLinearVertical
 import yet.ui.viewcreator.createScroll
 import yet.ui.widget.TitleBarX
 import yet.util.app.OS
 
 open class TitlePageX : BaseFragment() {
+	lateinit var rootView: LinearLayout
+		private set
 	lateinit var contentView: LinearLayout
 		private set
 	lateinit var titleBar: TitleBarX
 		private set
 
-	var autoStatusBarColor: Boolean = true
 	var enableContentScroll = false
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		super.onCreateView(inflater, container, savedInstanceState)
-		contentView = createLinearVertical()
+		rootView = createLinearVertical()
 		titleBar = TitleBarX(activity)
-		contentView.addView(titleBar, LParam.WidthFill.height(TitleBarX.HEIGHT))
+		rootView.addView(titleBar, LParam.WidthFill.height(TitleBarX.HEIGHT))
 
-		val rootView: View = if (enableContentScroll) {
+		contentView = createLinearVertical()
+		if (enableContentScroll) {
 			val scrollView = createScroll()
+			rootView.addView(scrollView, LParam.WidthFill.height(0).weight(1))
 			scrollView.addView(contentView, LParam.WidthFill.HeightWrap)
-			scrollView
 		} else {
-			contentView
+			rootView.addView(contentView, LParam.WidthFill.height(0).weight(1))
 		}
+
 
 		if (this.activity !is TabBarActivity) {
 			titleBar.showBack().onClick = {
@@ -49,11 +49,9 @@ open class TitlePageX : BaseFragment() {
 
 		onCreateContent(this.activity, contentView)
 		titleBar.commit()
-		if (autoStatusBarColor) {
-			if (OS.GE50) {
-				val c = MyColor(Colors.Theme)
-				statusBarColor(c.multiRGB(0.7))
-			}
+		if (OS.GE50) {
+			val c = MyColor(Colors.Theme)
+			statusBarColor(c.multiRGB(0.7))
 		}
 		onContentCreated()
 		return rootView

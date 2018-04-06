@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import yet.ui.ext.*
 import yet.ui.viewcreator.createButton
 import yet.ui.viewcreator.createLinearVertical
@@ -12,19 +11,20 @@ import yet.ui.viewcreator.createView
 import yet.ui.widget.listview.itemview.TextDetailView
 import yet.ui.widget.listview.itemview.TextItemView
 
-abstract class CmdPage : TitledPage() {
-	lateinit var scrollView: ScrollView
-	lateinit var scrollContentView: LinearLayout
+abstract class CmdPage : TitlePageX() {
 	var divider: Divider = Divider()
 	val cmdList = ArrayList<Cmd>()
+	lateinit var cmdPanel: LinearLayout
+
+	init {
+		enableContentScroll = true
+	}
 
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
-		contentView.setBackgroundColor(Color.WHITE)
-		scrollView = ScrollView(activity).genId()
-		contentView.addView(scrollView, LParam.WidthFill.height(0).weight(1))
-		scrollContentView = context.createLinearVertical()
-		scrollView.addView(scrollContentView, LParam.WidthFill.HeightWrap)
-		scrollContentView.divider(divider)
+		cmdPanel = createLinearVertical()
+		contentView.addView(cmdPanel, LParam.WidthFill.HeightWrap)
+		cmdPanel.setBackgroundColor(Color.WHITE)
+		cmdPanel.divider(divider)
 	}
 
 	override fun onContentCreated() {
@@ -33,9 +33,9 @@ abstract class CmdPage : TitledPage() {
 	}
 
 	fun commit() {
-		scrollContentView.removeAllViews()
+		cmdPanel.removeAllViews()
 		for (c in cmdList) {
-			scrollContentView.addView(c.view, c.param)
+			cmdPanel.addView(c.view, c.param)
 			c.view.tag = c
 			if (c.clickable) {
 				c.view.onClick {
