@@ -2,13 +2,13 @@ package yet.ui.widget
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.support.annotation.DrawableRes
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.view.ViewGroup
+import android.widget.*
 import yet.theme.Colors
 import yet.ui.ext.*
 import yet.ui.page.Cmd
@@ -18,7 +18,10 @@ import yet.ui.res.sized
 import yet.ui.res.tintedWhite
 import yet.ui.viewcreator.createImageView
 import yet.ui.viewcreator.createLinearHorizontal
+import yet.ui.viewcreator.createLinearVertical
 import yet.ui.viewcreator.createTextViewA
+import yet.util.fore
+import yet.util.log.logd
 
 
 class TitleBarX(context: Context) : RelativeLayout(context) {
@@ -28,8 +31,20 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 	var titleView: View? = null
 	var titleCenter = TitleBarX.TitleCenter
 
+	var popWindow: PopupWindow? = null
+
 	init {
 		backColor(Colors.Theme)
+	}
+
+	fun findCmd(block: (Cmd) -> Boolean): Cmd? {
+		return leftCmds.find(block) ?: rightCmds.find(block) ?: menuItems.find(block)
+	}
+
+	fun findCmd(cmd: String): Cmd? {
+		return findCmd {
+			it.cmd == cmd
+		}
 	}
 
 	fun build() {
@@ -67,18 +82,20 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 
 	}
 
-	fun title(text: String) {
+	fun title(text: String): TextView {
 		val tv = createTextViewA()
 		tv.textColorWhite()
 		tv.text = text
 		titleView = tv
+		return tv
 	}
 
-	fun titleImage(@DrawableRes resId: Int) {
+	fun titleImage(@DrawableRes resId: Int): ImageView {
 		val iv = createImageView()
 		iv.setImageResource(resId)
 		iv.scaleCenterCrop()
 		titleView = iv
+		return iv
 	}
 
 	fun showBack(): Cmd {
@@ -125,8 +142,56 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 		return c
 	}
 
+	fun popMenu() {
+		val menuCmd = findCmd(MENU) ?: return
+		val MIN_WIDTH = 150
+		val p = PopupWindow(context)
+		p.width = ViewGroup.LayoutParams.WRAP_CONTENT
+		p.height = ViewGroup.LayoutParams.WRAP_CONTENT
+		p.isFocusable = true
+		p.isOutsideTouchable = true
+		p.setBackgroundDrawable(ColorDrawable(0))
+
+		val linearPanel = LinearPanel(context)
+		linearPanel.backColor(Colors.TRANS)
+		linearPanel.minimumWidth = dp(MIN_WIDTH)
+		linearPanel.setItemHeight(45)
+
+		val itemList = ArrayList<Cmd>(menuItems)
+
+		for (c in itemList) {
+			linearPanel.addItemView(c.view)
+		}
+		val gd = GradientDrawable()
+		gd.cornerRadii = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, dp(4).toFloat(), dp(4).toFloat())
+		gd.setColor(Colors.Theme)
+		gd.setBounds(0, 0, 200, 300)
+		val popRootView = context.createLinearVertical()
+		popRootView.minimumWidth = dp(MIN_WIDTH)
+		popRootView.backDrawable(gd).padding(5)
+
+
+		popRootView.addView(linearPanel, LParam.Wrap)
+
+		p.contentView = popRootView
+		popWindow = p
+
+		p.setOnDismissListener {
+			linearPanel.removeAllViews()
+			popRootView.removeAllViews()
+			logd("PopWindow Dismiss")
+			popWindow = null
+		}
+		p.showAsDropDown(menuCmd.view, 0, 1)
+	}
+
 	fun menu(block: () -> Unit) {
-		imageCmd(MENU, Res.menu)
+		imageCmd(MENU, Res.menu).onClick = {
+			fore {
+				popMenu()
+			}
+		}
+
 		block()
 	}
 
@@ -142,6 +207,7 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 	fun menuItem(cmd: String, text: String, icon: Drawable?): Cmd {
 		val tv = context.createTextViewA()
 		tv.singleLine()
+		tv.backColorTransFade()
 		tv.gravityLeftCenter().padding(5, 5, 20, 5)
 		tv.text = text
 		var d = icon
@@ -156,8 +222,13 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 		val c = Cmd(cmd)
 		c.view = tv
 		tv.setOnClickListener {
-			c.onClick(c)
+			popWindow?.dismiss()
+			popWindow = null
+			fore {
+				c.onClick(c)
+			}
 		}
+		menuItems.add(c)
 		return c
 	}
 
