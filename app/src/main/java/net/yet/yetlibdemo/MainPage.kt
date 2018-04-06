@@ -24,7 +24,7 @@ class MainPage : TitledPage() {
 
 		titleBar.addAction("test").onAction {
 			//			test()
-			openPage(TitleXPage())
+			openPage(HelloPage())
 		}
 
 	}

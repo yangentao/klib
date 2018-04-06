@@ -47,7 +47,7 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 		}
 	}
 
-	fun build() {
+	fun commit() {
 		removeAllViews()
 		var leftLinear: LinearLayout? = null
 		if (leftCmds.isNotEmpty()) {
@@ -112,11 +112,11 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 		return c
 	}
 
-	fun imageCmd(cmd: String, resId: Int): Cmd {
-		return imageCmd(cmd, Res.drawable(resId))
+	fun cmdImage(cmd: String, resId: Int): Cmd {
+		return cmdImage(cmd, Res.drawable(resId))
 	}
 
-	fun imageCmd(cmd: String, d: Drawable): Cmd {
+	fun cmdImage(cmd: String, d: Drawable): Cmd {
 		val iv = createImageItemView()
 		iv.setImageDrawable(d.tintedWhite)
 		val c = Cmd(cmd)
@@ -129,7 +129,7 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 		return c
 	}
 
-	fun textCmd(cmd: String, text: String): Cmd {
+	fun cmdText(cmd: String, text: String): Cmd {
 		val tv = createTextItemView()
 		tv.text = text
 		val c = Cmd(cmd)
@@ -142,7 +142,7 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 		return c
 	}
 
-	fun popMenu() {
+	private fun popMenu() {
 		val menuCmd = findCmd(MENU) ?: return
 		val p = PopupWindow(context)
 		p.width = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -174,7 +174,7 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 	}
 
 	fun menu(block: () -> Unit) {
-		imageCmd(MENU, Res.menu).onClick = {
+		cmdImage(MENU, Res.menu).onClick = {
 			fore {
 				popMenu()
 			}
