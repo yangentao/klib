@@ -144,43 +144,31 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 
 	fun popMenu() {
 		val menuCmd = findCmd(MENU) ?: return
-		val MIN_WIDTH = 150
 		val p = PopupWindow(context)
 		p.width = ViewGroup.LayoutParams.WRAP_CONTENT
 		p.height = ViewGroup.LayoutParams.WRAP_CONTENT
 		p.isFocusable = true
 		p.isOutsideTouchable = true
 		p.setBackgroundDrawable(ColorDrawable(0))
-
-		val linearPanel = LinearPanel(context)
-		linearPanel.backColor(Colors.TRANS)
-		linearPanel.minimumWidth = dp(MIN_WIDTH)
-		linearPanel.setItemHeight(45)
-
-		val itemList = ArrayList<Cmd>(menuItems)
-
-		for (c in itemList) {
-			linearPanel.addItemView(c.view)
-		}
 		val gd = GradientDrawable()
 		gd.cornerRadii = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, dp(4).toFloat(), dp(4).toFloat())
 		gd.setColor(Colors.Theme)
 		gd.setBounds(0, 0, 200, 300)
 		val popRootView = context.createLinearVertical()
-		popRootView.minimumWidth = dp(MIN_WIDTH)
+		popRootView.minimumWidth = dp(150)
 		popRootView.backDrawable(gd).padding(5)
-
-
-		popRootView.addView(linearPanel, LParam.Wrap)
-
+		popRootView.divider()
+		val itemList = ArrayList<Cmd>(menuItems)
+		for (c in itemList) {
+			popRootView.addView(c.view, LParam.WidthFill.height(45))
+		}
 		p.contentView = popRootView
 		popWindow = p
 
 		p.setOnDismissListener {
-			linearPanel.removeAllViews()
-			popRootView.removeAllViews()
-			logd("PopWindow Dismiss")
+			(popWindow?.contentView as? ViewGroup)?.removeAllViews()
 			popWindow = null
+			logd("Pop Window Dismiss")
 		}
 		p.showAsDropDown(menuCmd.view, 0, 1)
 	}
@@ -196,12 +184,11 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 	}
 
 	fun menuItem(cmd: String, text: String, iconRes: Int): Cmd {
-		if (iconRes != 0) {
-			return menuItem(cmd, text, Res.drawable(iconRes))
+		return if (iconRes != 0) {
+			menuItem(cmd, text, Res.drawable(iconRes))
 		} else {
-			return menuItem(cmd, text, null)
+			menuItem(cmd, text, null)
 		}
-
 	}
 
 	fun menuItem(cmd: String, text: String, icon: Drawable?): Cmd {
@@ -223,7 +210,6 @@ class TitleBarX(context: Context) : RelativeLayout(context) {
 		c.view = tv
 		tv.setOnClickListener {
 			popWindow?.dismiss()
-			popWindow = null
 			fore {
 				c.onClick(c)
 			}
