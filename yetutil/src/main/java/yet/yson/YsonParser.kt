@@ -21,7 +21,24 @@ class YsonParser(val text: String) {
 	private val end: Boolean get() = current >= data.size
 	private val currentChar: Char get() = data[current]
 
-	fun parse(): YsonValue {
+	val leftString: String
+		get() {
+			if (current >= data.size) {
+				return ""
+			}
+			val sb = StringBuilder()
+			var n = 0
+			while (n < 20) {
+				if (current + n >= data.size) {
+					break
+				}
+				sb.append(data[current + n])
+				++n
+			}
+			return sb.toString()
+		}
+
+	fun parse(endParse:Boolean ): YsonValue {
 		skipWhite()
 		if (end) {
 			throw YsonError("空的字符串")
@@ -37,8 +54,11 @@ class YsonParser(val text: String) {
 			in NUM_START -> parseNumber()
 			else -> throw YsonError("")
 		}
-		if (!shouldEnd()) {
-			throw YsonError("应该结束")
+		skipWhite()
+		if(endParse) {
+			if(!this.end) {
+				throw IllegalArgumentException("应该结束解析:$leftString")
+			}
 		}
 		return v
 	}
@@ -56,7 +76,7 @@ class YsonParser(val text: String) {
 				next()
 				continue
 			}
-			val yv = parse()
+			val yv = parse(false)
 			ya.data.add(yv)
 		}
 		tokenc(']')
@@ -78,7 +98,7 @@ class YsonParser(val text: String) {
 			}
 			val key = parseString()
 			tokenc(':')
-			val yv = parse()
+			val yv = parse(false)
 			yo.data[key.data] = yv
 		}
 		tokenc('}')
@@ -181,11 +201,6 @@ class YsonParser(val text: String) {
 
 	private fun next() {
 		current += 1
-	}
-
-	private fun shouldEnd(): Boolean {
-		this.skipWhite()
-		return this.end
 	}
 
 	private fun skipWhite() {

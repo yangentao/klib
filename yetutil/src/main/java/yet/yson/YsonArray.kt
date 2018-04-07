@@ -5,7 +5,7 @@ class YsonArray(val data: ArrayList<YsonValue> = ArrayList(16)) : YsonValue(), M
 	constructor(capcity: Int) : this(ArrayList<YsonValue>(capcity))
 
 	constructor(json: String) : this() {
-		val v = YsonParser(json).parse()
+		val v = YsonParser(json).parse(true)
 		if (v is YsonArray) {
 			data.addAll(v.data)
 		}

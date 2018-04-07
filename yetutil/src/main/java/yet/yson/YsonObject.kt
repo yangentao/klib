@@ -11,7 +11,8 @@ class YsonObject(val data: LinkedHashMap<String, YsonValue> = LinkedHashMap(32))
 	constructor(capcity: Int) : this(LinkedHashMap<String, YsonValue>(capcity))
 
 	constructor(json: String) : this() {
-		val v = YsonParser(json).parse()
+		val p = YsonParser(json)
+		val v = p.parse(true)
 		if (v is YsonObject) {
 			data.putAll(v.data)
 		}

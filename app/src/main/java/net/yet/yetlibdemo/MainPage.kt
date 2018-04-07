@@ -2,10 +2,9 @@ package net.yet.yetlibdemo
 
 import android.content.Context
 import android.widget.LinearLayout
-import yet.ext.putBool
-import yet.ui.activities.Pages
-import yet.ui.activities.openPage
 import yet.ui.page.TitledPage
+import yet.util.log.logd
+import yet.yson.YsonObject
 
 /**
  * Created by entaoyang@163.com on 2016-10-07.
@@ -23,17 +22,35 @@ class MainPage : TitledPage() {
 		titleBar.title = "Test"
 
 		titleBar.addAction("test").onAction {
-			//			test()
-			openPage(HelloPage())
+			test()
+//			openPage(HelloPage())
 		}
 
 	}
 
 	fun test() {
-		openPage(LoginPage()) {
-			putBool(Pages.FULL_SCREEN, true)
-		}
-
+		val s = """
+			 {
+  "code": 0,
+  "msg": "操作成功",
+  "data": {
+    "token": "317c616e64726f69647c30",
+    "user": {
+      "admin": 0,
+      "birthdate": "1000-01-01",
+      "hide": 0,
+      "id": 1,
+      "info": "",
+      "name": "",
+      "phone": "15098760059",
+      "portrait": 0,
+      "sex": 0
+    }
+  }
+}
+			 """
+		val yo = YsonObject(s)
+		logd(yo.toString())
 	}
 
 
