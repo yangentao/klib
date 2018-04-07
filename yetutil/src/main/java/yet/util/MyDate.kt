@@ -17,6 +17,10 @@ class MyDate(time: Long = System.currentTimeMillis(), locale: Locale = Locale.ge
 		calendar.timeInMillis = time
 	}
 
+	val utilDate: java.util.Date get() = java.util.Date(time)
+	val sqlDate: java.sql.Date get() = java.sql.Date(time)
+	val sqlTime: java.sql.Time get() = java.sql.Time(time)
+
 	var time: Long
 		get() {
 			return calendar.timeInMillis
