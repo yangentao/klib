@@ -4,9 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.text.Html
-import android.text.InputType
-import android.text.TextUtils
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.util.TypedValue
@@ -16,9 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import yet.ext.ColorListLight
-import yet.theme.Colors
-import yet.theme.Space
-import yet.theme.TextSize
+import yet.theme.*
 import yet.ui.res.D
 import yet.ui.res.sized
 import yet.ui.util.XTextWatcher
@@ -386,49 +382,57 @@ fun <T : TextView> T.linkifyAll(): T {
 }
 
 fun <T : TextView> T.leftImage(resId: Int, size: Int, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(D.res(resId).sized(size), null, null, null)
+	val old = this.compoundDrawables
+	this.setCompoundDrawables(D.res(resId).sized(size), old[1], old[2], old[3])
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 
 fun <T : TextView> T.leftImage(d: Drawable?, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(d, null, null, null)
+	val old = this.compoundDrawables
+	this.setCompoundDrawables(d, old[1], old[2], old[3])
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 
 fun <T : TextView> T.rightImage(resId: Int, size: Int, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, null, D.res(resId).sized(size), null)
+	val old = this.compoundDrawables
+	this.setCompoundDrawables(old[0], old[1], D.res(resId).sized(size), old[3])
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 
 fun <T : TextView> T.rightImage(d: Drawable, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, null, d, null)
+	val old = this.compoundDrawables
+	this.setCompoundDrawables(old[0], old[1], d, old[3])
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 
 fun <T : TextView> T.topImage(resId: Int, size: Int, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, D.res(resId).sized(size), null, null)
+	val old = this.compoundDrawables
+	this.setCompoundDrawables(old[0], D.res(resId).sized(size), old[2], old[3])
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 
 fun <T : TextView> T.topImage(d: Drawable, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, d, null, null)
+	val old = this.compoundDrawables
+	this.setCompoundDrawables(old[0], d, old[2], old[3])
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 
 fun <T : TextView> T.bottomImage(resId: Int, size: Int, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, null, null, D.res(resId).sized(size))
+	val old = this.compoundDrawables
+	this.setCompoundDrawables(old[0], old[1], old[2], D.res(resId).sized(size))
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
 
 fun <T : TextView> T.bottomImage(d: Drawable, margin: Int = Space.Small): T {
-	this.setCompoundDrawables(null, null, null, d)
+	val old = this.compoundDrawables
+	this.setCompoundDrawables(old[0], old[1], old[2], d)
 	this.compoundDrawablePadding = dp(margin)
 	return this
 }
@@ -448,3 +452,6 @@ fun <T : TextView> T.onTextChanged(block: (String) -> Unit): T {
 	return this
 }
 
+fun TextView.moreArrow() {
+	this.rightImage(net.yet.R.drawable.yet_arrow_right, 16, 10)
+}

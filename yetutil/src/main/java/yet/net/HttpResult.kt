@@ -1,14 +1,12 @@
 package yet.net
 
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
+import com.google.gson.*
+import org.json.*
 import yet.ext.notEmpty
 import yet.util.close
 import yet.util.log.loge
+import yet.yson.YsonArray
+import yet.yson.YsonObject
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URLDecoder
@@ -41,21 +39,22 @@ class HttpResult {
 		return OK
 	}
 
-	val contentCharset: Charset? get() {
-		if (contentType != null) {
-			var ls: List<String> = contentType!!.split(";".toRegex()).dropLastWhile { it.isEmpty() }
-			for (item in ls) {
-				var ss = item.trim();
-				if (ss.startsWith("charset")) {
-					val charset = ss.substringAfterLast('=', "");
-					if (charset.length >= 2) {
-						return Charset.forName(charset)
+	val contentCharset: Charset?
+		get() {
+			if (contentType != null) {
+				var ls: List<String> = contentType!!.split(";".toRegex()).dropLastWhile { it.isEmpty() }
+				for (item in ls) {
+					var ss = item.trim();
+					if (ss.startsWith("charset")) {
+						val charset = ss.substringAfterLast('=', "");
+						if (charset.length >= 2) {
+							return Charset.forName(charset)
+						}
 					}
 				}
 			}
+			return null
 		}
-		return null
-	}
 
 	fun needDecode(): HttpResult {
 		this.needDecode = true
@@ -78,6 +77,28 @@ class HttpResult {
 	fun strISO8859_1(): String? = str(Charsets.ISO_8859_1)
 	fun strUtf8(): String? = str(Charsets.UTF_8)
 
+	fun <T> castText(block: (String) -> T?): T? {
+		if (OK()) {
+			val s = strUtf8()
+			if (s.notEmpty()) {
+				try {
+					return block(s!!)
+				} catch (e: Exception) {
+					e.printStackTrace()
+				}
+			}
+		}
+		return null
+	}
+
+	fun ysonObject(): YsonObject? {
+		return castText { YsonObject(it) }
+	}
+
+	fun ysonArray(): YsonArray? {
+		return castText { YsonArray(it) }
+	}
+
 	fun gsonArray(): JsonArray? {
 		if (OK()) {
 			val s = strUtf8()
@@ -85,7 +106,7 @@ class HttpResult {
 				try {
 					val parser = JsonParser()
 					return parser.parse(s) as JsonArray
-				} catch(e: Exception) {
+				} catch (e: Exception) {
 					e.printStackTrace();
 				}
 			}
@@ -100,7 +121,7 @@ class HttpResult {
 				try {
 					val parser = JsonParser()
 					return parser.parse(s) as JsonObject
-				} catch(e: Exception) {
+				} catch (e: Exception) {
 					e.printStackTrace()
 				}
 			}

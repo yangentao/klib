@@ -2,12 +2,11 @@ package yet.ui.page
 
 import android.content.Context
 import android.graphics.Color
+import android.support.annotation.DrawableRes
 import android.widget.Button
 import android.widget.LinearLayout
 import yet.ui.ext.*
-import yet.ui.viewcreator.createButton
-import yet.ui.viewcreator.createLinearVertical
-import yet.ui.viewcreator.createView
+import yet.ui.viewcreator.*
 import yet.ui.widget.listview.itemview.TextDetailView
 import yet.ui.widget.listview.itemview.TextItemView
 
@@ -15,6 +14,9 @@ abstract class CmdPage : TitlePageX() {
 	var divider: Divider = Divider()
 	val cmdList = ArrayList<Cmd>()
 	lateinit var cmdPanel: LinearLayout
+
+	var defaultItemHeight: Int = 50
+	var defaultIconSize: Int = 32
 
 	init {
 		enableContentScroll = true
@@ -49,6 +51,7 @@ abstract class CmdPage : TitlePageX() {
 	fun textItemView(block: TextItemView.() -> Unit): TextItemView {
 		val v = TextItemView(activity)
 		v.backColorWhiteFade()
+
 		v.block()
 		return v
 	}
@@ -77,6 +80,27 @@ abstract class CmdPage : TitlePageX() {
 		return a
 	}
 
+	fun cmdTextView(cmd: String, block: TextItemView.() -> Unit): Cmd {
+		return cmd(cmd) {
+			view = textItemView {
+				minimumHeight = dp(defaultItemHeight)
+				this.block()
+			}
+		}
+	}
+
+	fun cmdText(text: String, @DrawableRes leftIcon: Int = 0, @DrawableRes rightIcon: Int = 0, rightSize: Int = 16, cmd: String = text): Cmd {
+		val c = cmdTextView(cmd) {
+			this.text = text
+			if (leftIcon != 0) {
+				this.leftImage(leftIcon, defaultIconSize)
+			}
+			if (rightIcon != 0) {
+				this.rightImage(rightIcon, rightSize)
+			}
+		}
+		return c
+	}
 
 	fun sep(sepHeight: Int = 10): CmdPage {
 		val a = Cmd(Cmd.Sep)
