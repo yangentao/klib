@@ -2,11 +2,11 @@ package yet.orm
 
 import android.content.ContentValues
 import android.net.Uri
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
 import yet.ext.customName
+import yet.yson.YsonArray
+import yet.yson.YsonObject
 import java.io.File
 import java.util.*
 import kotlin.reflect.KMutableProperty
@@ -46,8 +46,8 @@ fun ContentValues.putAny(name: String, value: Any?) {
 			is ByteArray -> this.put(name, value)
 			is Char -> this.put(name, value.toString())
 			is String -> this.put(name, value )
-			is JsonArray -> this.put(name, value.toString())
-			is JsonObject -> this.put(name, value.toString())
+			is YsonArray -> this.put(name, value.toString())
+			is YsonObject -> this.put(name, value.toString())
 			is JSONArray -> this.put(name, value.toString())
 			is JSONObject -> this.put(name, value.toString())
 			is File -> this.put(name, value.absolutePath)

@@ -1,16 +1,21 @@
 package yet.net
 
-import com.google.gson.*
-import org.json.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import yet.ext.closeSafe
 import yet.ext.notEmpty
-import yet.util.close
 import yet.util.log.loge
 import yet.yson.YsonArray
 import yet.yson.YsonObject
 import java.io.File
 import java.io.FileOutputStream
+import java.net.NoRouteToHostException
+import java.net.SocketException
+import java.net.SocketTimeoutException
 import java.net.URLDecoder
 import java.nio.charset.Charset
+import java.util.concurrent.TimeoutException
 
 /**
  * Created by entaoyang@163.com on 16/4/29.
@@ -32,6 +37,19 @@ class HttpResult {
 
 	var needDecode: Boolean = false
 
+	val errorMsg: String?
+		get() {
+			val ex = exception
+			return when (ex) {
+				null -> httpMsgByCode(responseCode)
+				is NoRouteToHostException -> "网络不可达"
+				is TimeoutException -> "请求超时"
+				is SocketTimeoutException -> "请求超时"
+				is SocketException -> "网络错误"
+				else -> ex.message
+			}
+		}
+
 	var OK: Boolean = false
 		get() = responseCode >= 200 && responseCode < 300
 
@@ -42,9 +60,9 @@ class HttpResult {
 	val contentCharset: Charset?
 		get() {
 			if (contentType != null) {
-				var ls: List<String> = contentType!!.split(";".toRegex()).dropLastWhile { it.isEmpty() }
+				val ls: List<String> = contentType!!.split(";".toRegex()).dropLastWhile { it.isEmpty() }
 				for (item in ls) {
-					var ss = item.trim();
+					val ss = item.trim();
 					if (ss.startsWith("charset")) {
 						val charset = ss.substringAfterLast('=', "");
 						if (charset.length >= 2) {
@@ -97,36 +115,6 @@ class HttpResult {
 
 	fun ysonArray(): YsonArray? {
 		return castText { YsonArray(it) }
-	}
-
-	fun gsonArray(): JsonArray? {
-		if (OK()) {
-			val s = strUtf8()
-			if (s.notEmpty()) {
-				try {
-					val parser = JsonParser()
-					return parser.parse(s) as JsonArray
-				} catch (e: Exception) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return null
-	}
-
-	fun gsonObject(): JsonObject? {
-		if (OK()) {
-			val s = strUtf8()
-			if (s.notEmpty()) {
-				try {
-					val parser = JsonParser()
-					return parser.parse(s) as JsonObject
-				} catch (e: Exception) {
-					e.printStackTrace()
-				}
-			}
-		}
-		return null
 	}
 
 	fun jsonObject(): JSONObject? {
@@ -185,7 +173,7 @@ class HttpResult {
 			} catch (ex: Exception) {
 				ex.printStackTrace()
 			} finally {
-				close(fos)
+				fos.closeSafe()
 			}
 		}
 		return false

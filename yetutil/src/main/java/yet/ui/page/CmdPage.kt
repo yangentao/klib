@@ -5,18 +5,27 @@ import android.graphics.Color
 import android.support.annotation.DrawableRes
 import android.widget.Button
 import android.widget.LinearLayout
+import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.viewcreator.*
-import yet.ui.widget.listview.itemview.TextDetailView
-import yet.ui.widget.listview.itemview.TextItemView
+import yet.ui.list.views.TextDetailView
+import yet.ui.list.views.TextItemView
+import yet.ui.res.Res
+import yet.ui.res.sized
+import yet.ui.res.tinted
+import yet.ui.viewcreator.createButton
+import yet.ui.viewcreator.createLinearVertical
+import yet.ui.viewcreator.createView
+import yet.ui.widget.UserItemView
 
-abstract class CmdPage : TitlePageX() {
+abstract class CmdPage : TitlePage() {
 	var divider: Divider = Divider()
 	val cmdList = ArrayList<Cmd>()
 	lateinit var cmdPanel: LinearLayout
 
 	var defaultItemHeight: Int = 50
 	var defaultIconSize: Int = 32
+
+	var tintCmdIcon = true
 
 	init {
 		enableContentScroll = true
@@ -51,7 +60,8 @@ abstract class CmdPage : TitlePageX() {
 	fun textItemView(block: TextItemView.() -> Unit): TextItemView {
 		val v = TextItemView(activity)
 		v.backColorWhiteFade()
-
+		v.textSizeB()
+		v.textColorMajor()
 		v.block()
 		return v
 	}
@@ -93,13 +103,55 @@ abstract class CmdPage : TitlePageX() {
 		val c = cmdTextView(cmd) {
 			this.text = text
 			if (leftIcon != 0) {
-				this.leftImage(leftIcon, defaultIconSize)
+				if (tintCmdIcon) {
+					this.leftImage(Res.drawable(leftIcon).tinted(Colors.Theme).sized(defaultIconSize))
+				} else {
+					this.leftImage(leftIcon, defaultIconSize)
+				}
 			}
 			if (rightIcon != 0) {
 				this.rightImage(rightIcon, rightSize)
 			}
 		}
 		return c
+	}
+
+	fun cmdUser(cmd: String = "user"): Cmd {
+		return cmd("user") {
+			val iv = UserItemView(activity)
+			iv.bindValues("点击登录", "")
+			view = iv
+		}
+	}
+
+	fun cmdButtonRed(text: String): Cmd {
+		return cmd(text) {
+			view = buttonItemView {
+				styleRedRound()
+				textS = text
+			}
+			param = LParam.width(280).HeightButton.gravityCenter().margins(20)
+		}
+	}
+
+	fun cmdButtonGreen(text: String): Cmd {
+		return cmd(text) {
+			view = buttonItemView {
+				styleGreenRound()
+				textS = text
+			}
+			param = LParam.width(280).HeightButton.gravityCenter().margins(20)
+		}
+	}
+
+	fun cmdButtonWhite(text: String): Cmd {
+		return cmd(text) {
+			view = buttonItemView {
+				styleWhiteRound()
+				textS = text
+			}
+			param = LParam.width(280).HeightButton.gravityCenter().margins(20)
+		}
 	}
 
 	fun sep(sepHeight: Int = 10): CmdPage {

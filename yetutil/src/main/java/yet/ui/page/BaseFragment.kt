@@ -23,29 +23,24 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
-import yet.file.SdAppFile
+import yet.ext.getValue
+import yet.file.AppSD
 import yet.theme.Str
 import yet.ui.activities.AnimConf
 import yet.ui.activities.Pages
-import yet.ui.activities.PermContext
 import yet.ui.activities.TabBarActivity
+import yet.ui.dialogs.DialogX
 import yet.ui.dialogs.HorProgressDlg
-import yet.ui.dialogs.OKDialog
 import yet.ui.dialogs.SpinProgressDlg
-import yet.ui.dialogs.list.StringSelectDialog
-import yet.ui.dialogs.list.TextSelectDialog
 import yet.ui.res.Bmp
 import yet.ui.res.saveJpg
 import yet.ui.res.savePng
 import yet.ui.widget.TabBar
-import yet.ui.widget.listview.itemview.TextItemView
 import yet.util.*
 import yet.util.app.App
 import yet.util.app.Perm
 import yet.util.log.loge
 import java.io.File
-import java.util.*
-import kotlin.collections.HashMap
 import kotlin.reflect.KProperty
 
 /**
@@ -57,8 +52,7 @@ import kotlin.reflect.KProperty
  * 不要调用getActivity().finish(). 要调用finish(), finish处理了动画
  * fragment基类 公用方法在此处理
  */
-open class BaseFragment : Fragment(), MsgListener, PermContext {
-	val PERM_REQ = 78
+open class BaseFragment : Fragment(), MsgListener {
 	private val resultListeners = SparseArray<PreferenceManager.OnActivityResultListener>(8)
 	lateinit var spinProgressDlg: SpinProgressDlg
 	lateinit var horProgressDlg: HorProgressDlg
@@ -67,7 +61,7 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 
 	var openFlag: Int = 0
 
-	val activityAnim: AnimConf?
+	open val activityAnim: AnimConf?
 		get() {
 			if (tabBar == null) {
 				return App.animConfDefault
@@ -76,7 +70,6 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 
 		}
 
-	var permStack: Stack<Perm> = Stack()
 	val watchMap = HashMap<Uri, ContentObserver>()
 
 	fun smsTo(phoneSet: Set<String>, body: String = "") {
@@ -106,36 +99,11 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 		}
 	}
 
-	override fun getActivityContext(): Activity {
-		return activity
-	}
 
-	override fun reqPerm(req: Perm) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			req.checkSelf()
-			if (req.denyPerms.isEmpty()) {
-				req.onAllowed(false)
-			} else {
-				permStack.push(req)
-				requestPermissions(req.denyPerms.toTypedArray(), PERM_REQ)
-			}
-		} else {
-			req.onAllowed(true)
-		}
-	}
+
 
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-		if (requestCode == PERM_REQ) {
-			if (permStack.isNotEmpty()) {
-				val req = permStack.pop()
-				req.checkSelf()
-				if (req.denyPerms.isEmpty()) {
-					req.onAllowed(false)
-				} else {
-					req.onDeny()
-				}
-			}
-		}
+		Perm.onPermResult(requestCode, permissions, grantResults)
 	}
 
 
@@ -162,77 +130,28 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 		}
 	}
 
-	fun alert(title: String, msg: String, dismissBlock: () -> Unit = {}) {
-		if (activity != null) {
-			try {
-				val dlg = OKDialog()
-				dlg.onDismiss = dismissBlock
-				dlg.show(activity, title, msg)
-			} catch (ex: Exception) {
-				ex.printStackTrace()
-				toast(msg)
-			}
-		} else {
-			toast(msg)
-		}
-	}
-
-	fun alert(msg: String, dismissBlock: () -> Unit = {}) {
-		if (activity != null) {
-			try {
-				val dlg = OKDialog()
-				dlg.onDismiss = dismissBlock
-				dlg.show(activity, msg)
-			} catch (ex: Exception) {
-				ex.printStackTrace()
-				toast(msg)
-			}
-		} else {
-			toast(msg)
-		}
-	}
 
 	fun itemSelectN(items: Collection<String>, block: (Int) -> Unit) {
-		var dlg = StringSelectDialog()
-		dlg.onSelectIndex = {
-			block(it)
-		}
-		dlg.addItems(items)
-		dlg.show(activity)
+		DialogX.listStringN(activity, items.toList(), "", block)
 	}
 
-	fun itemSelect(items: Collection<String>, argS: String = "", block: (String) -> Unit) {
-		val dlg = StringSelectDialog()
-		dlg.argS = argS
-		dlg.onSelectValue = {
-			block(it)
-		}
-		dlg.addItems(items)
-		dlg.show(activity)
+	fun itemSelect(items: Collection<String>, block: (String) -> Unit) {
+		DialogX.listString(activity, items.toList(), "", block)
+
 	}
 
-	fun itemSelect(vararg items: String, argS: String = "", block: (String) -> Unit) {
-		val dlg = StringSelectDialog()
-		dlg.argS = argS
-		dlg.onSelectValue = {
-			block(it)
-		}
-		dlg.addItems(*items)
-		dlg.show(activity)
+	fun itemSelect(vararg items: String, block: (String) -> Unit) {
+		itemSelect(items.toList(), block)
 	}
 
 	fun <T> itemSelectT(items: List<T>, property: KProperty<*>, block: (T) -> Unit) {
-		val dlg = object : TextSelectDialog<T>() {
-			override fun onBindItemView(itemView: TextItemView, item: T) {
-				val label = property.getter.call(item)?.toString() ?: ""
-				itemView.text = label
-			}
+		val ls = ArrayList<Any>(items.size)
+		for (a in items) {
+			ls.add(a as Any)
 		}
-		dlg.onSelectValue = {
-			block(it)
+		DialogX.listText(activity, ls, "", { property.getValue(it)?.toString() ?: "" }) {
+			block(it as T)
 		}
-		dlg.addItems(items)
-		dlg.show(activity)
 	}
 
 	override fun onResume() {
@@ -319,14 +238,15 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 			}
 		}
 	}
+
 	fun pickJpg(width: Int, block: (File) -> Unit) {
 		val i = Intent(Intent.ACTION_PICK)
 		i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
 		val onResult = PreferenceManager.OnActivityResultListener { requestCode, resultCode, data ->
 			if (resultCode == Activity.RESULT_OK) {
 				if (data != null && data.data != null) {
-					val outputFile = SdAppFile.temp("" + System.currentTimeMillis() + ".jpg")
-					val bmp = Bmp.uri(data.data, width , Bitmap.Config.ARGB_8888)
+					val outputFile = AppSD.temp("" + System.currentTimeMillis() + ".jpg")
+					val bmp = Bmp.uri(data.data, width, Bitmap.Config.ARGB_8888)
 					if (bmp != null) {
 						bmp.saveJpg(outputFile)
 						block.invoke(outputFile)
@@ -337,16 +257,17 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 		}
 		startActivityForResult(PICK_PHOTO, i, onResult)
 	}
+
 	fun pickPhoto(width: Int, block: (Uri) -> Unit) {
 		val i = Intent(Intent.ACTION_PICK)
 		i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
 		val onResult = PreferenceManager.OnActivityResultListener { _, resultCode, data ->
 			if (resultCode == Activity.RESULT_OK) {
 				if (data != null && data.data != null) {
-					val f = SdAppFile.tempFile("PNG")
-					val bmp = Bmp.uri(data.data, width , Bitmap.Config.ARGB_8888)
+					val f = AppSD.tempFile("PNG")
+					val bmp = Bmp.uri(data.data, width, Bitmap.Config.ARGB_8888)
 					if (bmp != null) {
-						bmp.savePng( f)
+						bmp.savePng(f)
 						if (f.exists()) {
 							block.invoke(Uri.fromFile(f))
 						}
@@ -369,7 +290,7 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 
 	fun takePhoto(width: Int, png: Boolean, block: (File) -> Unit) {
 		val FMT = if (png) "PNG" else "JPEG"
-		val outputFile = SdAppFile.temp("" + System.currentTimeMillis() + "." + FMT)
+		val outputFile = AppSD.temp("" + System.currentTimeMillis() + "." + FMT)
 		val intent = Intent("android.media.action.IMAGE_CAPTURE")
 		intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0)
 		var outUri = UriFromSdFile(outputFile)
@@ -377,13 +298,13 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 		intent.putExtra("outputFormat", FMT)
 		val onResult = PreferenceManager.OnActivityResultListener { _, resultCode, _ ->
 			if (resultCode == Activity.RESULT_OK && outputFile.exists()) {
-				val f = SdAppFile.tempFile(FMT.toLowerCase())
-				val bmp = Bmp.file(outputFile, width , Bitmap.Config.ARGB_8888)
+				val f = AppSD.tempFile(FMT.toLowerCase())
+				val bmp = Bmp.file(outputFile, width, Bitmap.Config.ARGB_8888)
 				if (bmp != null) {
 					if (png) {
-						bmp.savePng( f)
+						bmp.savePng(f)
 					} else {
-						bmp.saveJpg( f)
+						bmp.saveJpg(f)
 					}
 					if (f.exists()) {
 						block(f)
@@ -470,7 +391,7 @@ open class BaseFragment : Fragment(), MsgListener, PermContext {
 	}
 
 	fun toast(vararg texts: Any) {
-		val s = StrBuilder.build(*texts)
+		val s = texts.map { it.toString() }.joinToString(", ")
 		fore {
 			if (activity != null) {
 				Toast.makeText(activity, s, Toast.LENGTH_LONG).show()

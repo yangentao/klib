@@ -36,21 +36,21 @@ open class SwitchButton(context: Context) : CheckBox(context) {
 	fun makeDrawDp(w: Int, h: Int): LayerDrawable {
 
 		val dd1 = Shapes.rect {
-			corner = dp(h / 2)
+			cornerPx = dp(h / 2)
 			fillColor = Colors.WHITE
-			strokeWidth = dp(1)
+			strokeWidthPx = dp(1)
 			strokeColor = Colors.LightGray
 			size(w, h)
 		}
 		val dd2 = Shapes.rect {
-			corner = dp(h / 2)
+			cornerPx = dp(h / 2)
 			fillColor = Colors.Safe
 			size(w, h)
 		}
 		val dd3 = Shapes.rect {
-			corner = dp(h / 2)
+			cornerPx = dp(h / 2)
 			fillColor = Colors.LightGray
-			strokeWidth = dp(1)
+			strokeWidthPx = dp(1)
 			strokeColor = Colors.WHITE
 			size(w, h)
 		}
@@ -65,7 +65,7 @@ open class SwitchButton(context: Context) : CheckBox(context) {
 			size(h2)
 			fillColor = Colors.WHITE
 			if (isChecked) {
-				strokeWidth = dp(1)
+				strokeWidthPx = dp(1)
 				strokeColor = Colors.LightGray
 			}
 		}

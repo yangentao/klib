@@ -1,9 +1,9 @@
 package yet.orm
 
-import com.google.gson.JsonObject
+import android.support.annotation.Keep
 import yet.anno.Exclude
 import yet.ext.*
-import yet.json.*
+import yet.yson.YsonObject
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
@@ -12,60 +12,61 @@ import kotlin.reflect.KProperty
  */
 
 
+@Keep
 abstract class Model {
 
-	fun toJson(vararg ps: KProperty<*>): JsonObject {
-		val jo = JsonObject()
+	fun toJson(vararg ps: KProperty<*>): YsonObject {
+		val jo = YsonObject()
 		if (ps.isEmpty()) {
 			for (p in _columnProperties) {
-				jo.putAny(p.customName, p.getter.call(this))
+				jo.any(p.customName, p.getter.call(this))
 			}
 		} else {
 			for (p in ps) {
-				jo.putAny(p.customName, p.getter.call(this))
+				jo.any(p.customName, p.getter.call(this))
 			}
 		}
 		return jo
 	}
 
-	fun fromJson(jo: JsonObject, vararg ps: KMutableProperty<*>) {
+	fun fromJson(jo: YsonObject, vararg ps: KMutableProperty<*>) {
 		if (ps.isNotEmpty()) {
 			for (p in ps) {
 				val name = p.customName
-				val value = jo.getAny(name)
+				val value = jo.any(name)
 				if (value != null) {
 					if (p.isTypeInt) {
-						p.setValue(this, jo.optInt(name, 0))
+						p.setValue(this, jo.int(name) ?: 0)
 					} else if (p.isTypeLong) {
-						p.setValue(this, jo.optLong(name, 0L))
+						p.setValue(this, jo.long(name) ?: 0L)
 					} else if (p.isTypeFloat) {
-						p.setValue(this, jo.optDouble(name, 0.0).toFloat())
+						p.setValue(this, (jo.real(name) ?: 0.0).toFloat())
 					} else if (p.isTypeDouble) {
-						p.setValue(this, jo.optDouble(name, 0.0))
+						p.setValue(this, jo.real(name) ?: 0.0)
 					} else if (p.isTypeString) {
-						p.setValue(this, jo.optString(name, ""))
+						p.setValue(this, jo.str(name) ?: "")
 					} else if (p.isTypeBoolean) {
-						p.setValue(this, jo.optBool(name, false))
+						p.setValue(this, jo.bool(name) ?: false)
 					}
 				}
 			}
 		} else {
 			for (p in _columnProperties) {
 				val name = p.customName
-				val value = jo.getAny(name)
+				val value = jo.any(name)
 				if (value != null) {
 					if (p.isTypeInt) {
-						p.setValue(this, jo.optInt(name, 0))
+						p.setValue(this, jo.int(name) ?: 0)
 					} else if (p.isTypeLong) {
-						p.setValue(this, jo.optLong(name, 0L))
+						p.setValue(this, jo.long(name) ?: 0L)
 					} else if (p.isTypeFloat) {
-						p.setValue(this, jo.optDouble(name, 0.0).toFloat())
+						p.setValue(this, (jo.real(name) ?: 0.0).toFloat())
 					} else if (p.isTypeDouble) {
-						p.setValue(this, jo.optDouble(name, 0.0))
+						p.setValue(this, jo.real(name) ?: 0.0)
 					} else if (p.isTypeString) {
-						p.setValue(this, jo.optString(name, ""))
+						p.setValue(this, jo.str(name) ?: "")
 					} else if (p.isTypeBoolean) {
-						p.setValue(this, jo.optBool(name, false))
+						p.setValue(this, jo.bool(name) ?: false)
 					}
 				}
 			}

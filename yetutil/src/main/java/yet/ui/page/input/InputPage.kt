@@ -4,29 +4,27 @@ import android.content.Context
 import android.view.ViewGroup
 import android.widget.*
 import yet.theme.Colors
-import yet.theme.InputSize
+import yet.theme.ViewSize
+import yet.ui.dialogs.alert
 import yet.ui.ext.*
-import yet.ui.page.TitledPage
+import yet.ui.page.TitlePage
 import yet.ui.util.TimeDown
 import yet.ui.viewcreator.*
-import yet.ui.widget.listview.itemview.TextDetailView
-import yet.ui.widget.listview.itemview.textDetail
-import yet.util.MyDate
-import yet.util.ToastUtil
+import yet.ui.list.views.TextDetailView
+import yet.ui.list.views.textDetail
+import yet.util.*
 import yet.util.app.SmsCodeFill
-import yet.util.back
-import yet.util.fore
 import java.util.regex.Pattern
 
 /**
  * Created by entaoyang@163.com on 2016-10-20.
  */
 
-abstract class InputPage : TitledPage() {
+abstract class InputPage : TitlePage() {
 
 	lateinit var inputLayout: LinearLayout
 
-	var INPUT_HEIGHT = InputSize.EditHeight
+	var INPUT_HEIGHT = ViewSize.EditHeight
 	var inputMarginTop = 10
 	var buttonMarginTop = 30
 
@@ -41,10 +39,14 @@ abstract class InputPage : TitledPage() {
 	private var timeDownKey: String? = null
 	private var codeClickTime: Long = 0
 
+	init {
+		enableContentScroll = true
+	}
+
 
 	fun edit(block: InputOption.() -> Unit = {}): EditText {
 		val io = InputOption()
-		io.height = InputSize.EditHeight
+		io.height = ViewSize.EditHeight
 		io.block()
 		if (io.inputValid.label.isEmpty()) {
 			io.inputValid.label(io.hint)
@@ -203,7 +205,7 @@ abstract class InputPage : TitledPage() {
 			padding(0, 0, 0, 0)
 			detailView.textSizeB().gravityCenter().padding(10, 5, 10, 5)
 			detailView.miniWidthDp(100)
-			detailView.miniHeightDp(InputSize.ButtonHeightSmall - 10)
+			detailView.miniHeightDp(ViewSize.ButtonHeightSmall - 10)
 			textView.text = title
 		}
 	}
@@ -353,7 +355,7 @@ abstract class InputPage : TitledPage() {
 		val verifyLayout = activity.createLinearHorizontal()
 		codeEdit = createEdit().hint("输入验证码")
 		codeEdit?.inputTypeNumber()
-		verifyLayout.addView(codeEdit, linearParam().width(0).weight(1f).height(InputSize.EditHeight))
+		verifyLayout.addView(codeEdit, linearParam().width(0).weight(1f).height(ViewSize.EditHeight))
 		codeButton = createButton("获取验证码").styleWhite()
 		verifyLayout.addView(codeButton, linearParam().widthWrap().heightWrap().margins(3, 0, 0, 0))
 		inputLayout.addView(verifyLayout, linearParam().widthFill().heightWrap().margins(0, marginTop, 0, 0))

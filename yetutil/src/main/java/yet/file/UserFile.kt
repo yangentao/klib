@@ -1,7 +1,7 @@
 package yet.file
 
+import yet.database.MapTable
 import yet.util.app.App
-import yet.util.database.DBMap
 import java.io.File
 
 /**
@@ -9,7 +9,7 @@ import java.io.File
  */
 
 object UserFile {
-	private val dbmap = DBMap("user_dir_map")
+	private val dbmap = MapTable("user_dir_map")
 
 	fun dir(userName: String): File {
 		var dirname = dbmap[userName]

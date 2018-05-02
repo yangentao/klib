@@ -11,19 +11,18 @@ import java.util.Collections;
 import java.util.Locale;
 
 import yet.util.MyDate;
-import yet.util.StrBuilder;
 import yet.util.log.xlog;
 
 public class Dumps {
 	/**
 	 * 打印一个类的所有方法
-	 * 
+	 *
 	 * @param cls
 	 */
 	public static void classMethod(Class<?> cls) {
 		ArrayList<String> all = new ArrayList<String>(64);
 		for (Method m : cls.getMethods()) {
-			StrBuilder sb = new StrBuilder(128);
+			StringBuilder sb = new StringBuilder(128);
 			sb.append(m.getName());
 			sb.append("(");
 			boolean first = true;

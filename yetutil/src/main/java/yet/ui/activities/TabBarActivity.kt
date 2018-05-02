@@ -1,22 +1,19 @@
 package yet.ui.activities
 
 import android.app.FragmentTransaction
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import yet.ui.ext.addViewParam
-import yet.ui.ext.heightDp
-import yet.ui.ext.weight
-import yet.ui.ext.widthFill
+import yet.ui.ext.*
 import yet.ui.page.BaseFragment
 import yet.ui.util.FragmentHelper
 import yet.ui.viewcreator.createFrame
 import yet.ui.viewcreator.createLinearVertical
-import yet.ui.widget.Action
 import yet.ui.widget.TabBar
-import yet.ui.widget.add
 import java.util.*
+import kotlin.collections.set
 
 /**
  * Created by entaoyang@163.com on 16/3/13.
@@ -35,7 +32,7 @@ open class TabBarActivity : BaseActivity() {
 	lateinit var fragmentHelper: FragmentHelper
 
 	fun selectTab(tag: String) {
-		tabBar.select(tag)
+		tabBar.select(tag, true)
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,36 +50,28 @@ open class TabBarActivity : BaseActivity() {
 		fragmentHelper = FragmentHelper(fragmentManager, fragLayoutId)
 
 		tabBar = TabBar(this)
-		tabBar.onUnselect = {
-			b, a ->
-			this@TabBarActivity.onXTabBarUnselect(b, a)
-		}
+
 		tabBar.onSelect = {
-			b, a ->
-			this@TabBarActivity.onXTabBarSelect(b, a)
+			this@TabBarActivity.onXTabBarSelect(it.text)
 		}
-		tabBar.onReselect = {
-			b, a ->
-			this@TabBarActivity.onXTabBarReselect(b, a)
-		}
+
 		rootView.addView(tabBar)
 	}
 
-	fun addTab(action: Action, page: BaseFragment): Action {
-		tabBar.add(action)
-		pages.put(action.tag, page)
-		return action
+
+	fun tab(text: String, icon: Int, page: BaseFragment) {
+		tabBar.tab(text, icon)
+		pages[text] = page
 	}
 
-	fun onXTabBarUnselect(bar: TabBar, action: Action) {
+	fun tab(text: String, drawable: Drawable, page: BaseFragment) {
+		tabBar.tab(text, drawable)
+		pages[text] = page
 	}
 
-	fun onXTabBarReselect(bar: TabBar, action: Action) {
-	}
-
-	fun onXTabBarSelect(bar: TabBar, action: Action) {
-		val page = pages[action.tag]
-		fragmentHelper.showFragment(page!!, action.tag)
+	fun onXTabBarSelect(text: String) {
+		val page = pages[text]
+		fragmentHelper.showFragment(page!!, text)
 	}
 
 	override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

@@ -1,10 +1,7 @@
 package yet.ui.ext
 
-import android.app.Fragment
-import android.content.Context
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import yet.theme.Colors
 import yet.ui.res.Bmp
@@ -15,6 +12,7 @@ import yet.ui.res.drawable
  */
 
 class Divider(var color: Int = Colors.LineGray) {
+	//px
 	var size: Int = 1
 	var begin: Boolean = false
 	var mid: Boolean = true
@@ -53,7 +51,11 @@ class Divider(var color: Int = Colors.LineGray) {
 
 }
 
-fun <T : LinearLayout> T.divider(color: Int = Colors.LineGray): T {
+fun <T : LinearLayout> T.divider(): T {
+	return this.divider(Divider(Colors.LineGray))
+}
+
+fun <T : LinearLayout> T.divider(color: Int): T {
 	return this.divider(Divider(color))
 }
 
@@ -83,50 +85,11 @@ fun <T : LinearLayout> T.divider(ld: Divider): T {
 	return this
 }
 
-
-//create
-fun Context.linearLayout(): LinearLayout {
-	val ll = LinearLayout(this)
-	return ll
+fun <T : LinearLayout> T.hideDivider(): T {
+	this.showDividers = LinearLayout.SHOW_DIVIDER_NONE
+	return this
 }
 
-fun Fragment.linearLayout(): LinearLayout {
-	return this.activity.linearLayout()
-}
-
-fun ViewGroup.linearLayout(): LinearLayout {
-	return this.context.linearLayout()
-}
-
-//create hor
-fun Context.linearHor(): LinearLayout {
-	val ll = LinearLayout(this)
-	ll.horizontal()
-	return ll
-}
-
-fun Fragment.linearHor(): LinearLayout {
-	return this.activity.linearHor()
-}
-
-fun ViewGroup.linearHor(): LinearLayout {
-	return this.context.linearHor()
-}
-
-//create ver
-fun Context.linearVer(): LinearLayout {
-	val ll = LinearLayout(this)
-	ll.vertical()
-	return ll
-}
-
-fun Fragment.linearVer(): LinearLayout {
-	return this.activity.linearVer()
-}
-
-fun ViewGroup.linearVer(): LinearLayout {
-	return this.context.linearVer()
-}
 
 fun <T : LinearLayout> T.orientationVertical(): T {
 	this.orientation = LinearLayout.VERTICAL

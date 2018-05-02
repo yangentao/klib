@@ -4,13 +4,12 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import com.google.gson.JsonArray
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import yet.json.*
 import yet.util.app.OS
 import yet.util.log.loge
 import yet.util.log.xlog
+import yet.yson.YsonArray
+import yet.yson.YsonObject
+import yet.yson.YsonValue
 import java.io.Serializable
 import java.util.*
 
@@ -80,8 +79,8 @@ class Values(n: Int = 8) {
 		return v
 	}
 
-	fun toJson(): JsonObject {
-		val jo = JsonObject()
+	fun toJson(): YsonObject {
+		val jo = YsonObject()
 		for ((key, value) in map) {
 			if (value == null) {
 				jo.putNull(key)
@@ -89,84 +88,84 @@ class Values(n: Int = 8) {
 			}
 			when (value) {
 				null -> jo.putNull(key)
-				is JsonElement -> jo.add(key, value)
-				is Values -> jo.add(key, value.toJson())
+				is YsonValue -> jo.any(key, value)
+				is Values -> jo.any(key, value.toJson())
 //				is Bundle -> jo.add(key, Values(value).toJson())
-				is String -> jo.putString(key, value)
-				is Boolean -> jo.putBool(key, value)
-				is Long -> jo.putLong(key, value)
-				is Int -> jo.putInt(key, value)
-				is Short -> jo.putInt(key, value.toInt())
-				is Byte -> jo.putInt(key, value.toInt())
-				is Double -> jo.putDouble(key, value)
-				is Float -> jo.putFloat(key, value)
-				is Char -> jo.putString(key, value.toString())
-				is CharSequence -> jo.putString(key, value.toString())
+				is String -> jo.any(key, value)
+				is Boolean -> jo.any(key, value)
+				is Long -> jo.any(key, value)
+				is Int -> jo.any(key, value)
+				is Short -> jo.any(key, value.toInt())
+				is Byte -> jo.any(key, value.toInt())
+				is Double -> jo.any(key, value)
+				is Float -> jo.any(key, value)
+				is Char -> jo.any(key, value.toString())
+				is CharSequence -> jo.any(key, value.toString())
 
 				is BooleanArray -> {
-					val jarr = JsonArray()
+					val jarr = YsonArray()
 					for (s in value) {
 						jarr.add(s)
 					}
-					jo.add(key, jarr)
+					jo.any(key, jarr)
 				}
 				is IntArray -> {
-					val jarr = JsonArray()
+					val jarr = YsonArray()
 					for (s in value) {
 						jarr.add(s)
 					}
-					jo.add(key, jarr)
+					jo.any(key, jarr)
 				}
 
 				is LongArray -> {
-					val jarr = JsonArray()
+					val jarr = YsonArray()
 					for (s in value) {
 						jarr.add(s)
 					}
-					jo.add(key, jarr)
+					jo.any(key, jarr)
 				}
 				is DoubleArray -> {
-					val jarr = JsonArray()
+					val jarr = YsonArray()
 					for (s in value) {
 						jarr.add(s)
 					}
-					jo.add(key, jarr)
+					jo.any(key, jarr)
 				}
 				is FloatArray -> {
-					val jarr = JsonArray()
+					val jarr = YsonArray()
 					for (s in value) {
 						jarr.add(s)
 					}
-					jo.add(key, jarr)
+					jo.any(key, jarr)
 				}
 				is ByteArray -> {
-					val jarr = JsonArray()
+					val jarr = YsonArray()
 					for (s in value) {
-						jarr.add(s)
+						jarr.add(s.toInt())
 					}
-					jo.add(key, jarr)
+					jo.any(key, jarr)
 				}
 
 				is ShortArray -> {
-					val jarr = JsonArray()
+					val jarr = YsonArray()
 					for (s in value) {
-						jarr.add(s)
+						jarr.add(s.toInt())
 					}
-					jo.add(key, jarr)
+					jo.any(key, jarr)
 				}
 
 				is Array<*> -> {
-					val jarr = JsonArray()
+					val jarr = YsonArray()
 					for (v in value) {
 						when (v) {
 							is String -> jarr.add(v)
-							is Number -> jarr.add(v)
+							is Number -> jarr.add(v.toDouble())
 							else -> {
 								loge("不能识别的数组")
 							}
 						}
 					}
-					jo.add(key, jarr)
+					jo.any(key, jarr)
 				}
 
 				else -> {
@@ -227,7 +226,7 @@ class Values(n: Int = 8) {
 		return b
 	}
 
-	fun jsonObject(): JsonObject {
+	fun jsonObject(): YsonObject {
 		return toJson()
 	}
 

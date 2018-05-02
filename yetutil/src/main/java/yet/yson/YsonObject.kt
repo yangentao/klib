@@ -84,8 +84,12 @@ class YsonObject(val data: LinkedHashMap<String, YsonValue> = LinkedHashMap(32))
 	}
 
 	fun int(key: String): Int? {
-		val a = get(key) as? YsonInt
-		return a?.data?.toInt()
+		val v = get(key)
+		return when (v) {
+			is YsonInt -> v.data.toInt()
+			is YsonString -> v.data.toIntOrNull()
+			else -> null
+		}
 	}
 
 	fun long(key: String, value: Long?) {
@@ -97,8 +101,12 @@ class YsonObject(val data: LinkedHashMap<String, YsonValue> = LinkedHashMap(32))
 	}
 
 	fun long(key: String): Long? {
-		val a = get(key) as? YsonInt
-		return a?.data
+		val v = get(key)
+		return when (v) {
+			is YsonInt -> v.data
+			is YsonString -> v.data.toLongOrNull()
+			else -> null
+		}
 	}
 
 	fun real(key: String, value: Double?) {
@@ -110,8 +118,13 @@ class YsonObject(val data: LinkedHashMap<String, YsonValue> = LinkedHashMap(32))
 	}
 
 	fun real(key: String): Double? {
-		val a = get(key) as? YsonReal
-		return a?.data
+		val v = get(key)
+		return when (v) {
+			is YsonInt -> v.data.toDouble()
+			is YsonReal -> v.data
+			is YsonString -> v.data.toDoubleOrNull()
+			else -> null
+		}
 	}
 
 	fun bool(key: String, value: Boolean?) {
@@ -123,8 +136,12 @@ class YsonObject(val data: LinkedHashMap<String, YsonValue> = LinkedHashMap(32))
 	}
 
 	fun bool(key: String): Boolean? {
-		val a = get(key) as? YsonBool
-		return a?.data
+		val v = get(key)
+		return when (v) {
+			is YsonBool -> v.data
+			is YsonString -> if (v.data == "true") true else if (v.data == "false") false else null
+			else -> null
+		}
 	}
 
 	fun obj(key: String, value: YsonObject?) {
@@ -158,5 +175,9 @@ class YsonObject(val data: LinkedHashMap<String, YsonValue> = LinkedHashMap(32))
 
 	fun any(key: String): Any? {
 		return get(key)
+	}
+
+	fun putNull(key:String) {
+		put(key, YsonNull.inst)
 	}
 }

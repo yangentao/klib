@@ -1,7 +1,7 @@
 package yet.file
 
+import yet.database.MapTable
 import yet.util.app.App
-import yet.util.database.DBMap
 import java.io.File
 
 /**
@@ -9,7 +9,7 @@ import java.io.File
  */
 
 object AppFile : AbsFile {
-	private val dbmap = DBMap("user_dir_map")
+	private val dbmap = MapTable("user_dir_map")
 
 	override val root: File
 		get() = App.app.filesDir

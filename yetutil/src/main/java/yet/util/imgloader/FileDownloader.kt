@@ -1,10 +1,10 @@
 package yet.util.imgloader
 
-import yet.file.SdAppFile
+import yet.database.MapTable
+import yet.file.AppSD
 import yet.net.Http
 import yet.util.MultiHashMap
 import yet.util.Sleep
-import yet.util.database.DBMap
 import yet.util.fore
 import yet.util.log.xlog
 import java.io.File
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors
 
 object FileDownloader {
 	//url->file
-	private val map = DBMap.tab("file_downloader")
+	private val map = MapTable("file_downloader")
 	//下载中的文件
 	private val processSet = HashSet<String>()
 
@@ -100,7 +100,7 @@ object FileDownloader {
 		if (!processSet.add(url)) {
 			return
 		}
-		val tmp = SdAppFile.tempFile()
+		val tmp = AppSD.tempFile()
 		val ok = httpDown(url, tmp)
 		if (ok) {
 			map[url] = tmp.absolutePath

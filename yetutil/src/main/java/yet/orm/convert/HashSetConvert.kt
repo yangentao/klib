@@ -1,14 +1,15 @@
 package yet.orm.convert
 
-import com.google.gson.reflect.TypeToken
 import yet.database.SQLType
 import yet.ext.firstGenericType
 import yet.ext.isTypeHashSet
-import yet.util.JsonUtil
 import yet.util.log.logd
-import java.lang.reflect.Type
+import yet.yson.TypeTake
+import yet.yson.Yson
+import yet.yson.YsonArray
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty
+import kotlin.reflect.KType
 
 /**
  * Created by entaoyang@163.com on 2017-03-11.
@@ -36,11 +37,7 @@ open class HashSetConvert : DataConvert() {
 	}
 
 	override fun toSqlText2(property: KMutableProperty<*>, value: Any): String? {
-		val argType = property.firstGenericType ?: return null
-
-//		val pcls = FieldUtil.getFirstFieldGenericParamType(property.javaField)
-		val t = map[argType]
-		return JsonUtil.toJsonGeneric(value, t)
+		return Yson.toYson(value).toString()
 	}
 
 	override fun fromSqlText(model: Any, property: KMutableProperty<*>, value: String) {
@@ -48,16 +45,21 @@ open class HashSetConvert : DataConvert() {
 //			val pcls = FieldUtil.getFirstFieldGenericParamType(property.javaField)
 			val argType = property.returnType.arguments.firstOrNull()?.type?.classifier!!
 			val t = map[argType]
+			if (t == null) {
+				fromSqlNull(model, property)
+				return
+			}
+			val yar = YsonArray(value)
 			val v = when (argType) {
-				String::class -> JsonUtil.fromJsonGeneric<HashSet<String>>(value, t)
-				java.lang.Character::class -> JsonUtil.fromJsonGeneric<HashSet<Char>>(value, t)
-				java.lang.Boolean::class -> JsonUtil.fromJsonGeneric<HashSet<Boolean>>(value, t)
-				java.lang.Byte::class -> JsonUtil.fromJsonGeneric<HashSet<Byte>>(value, t)
-				java.lang.Short::class -> JsonUtil.fromJsonGeneric<HashSet<Short>>(value, t)
-				java.lang.Integer::class -> JsonUtil.fromJsonGeneric<HashSet<Int>>(value, t)
-				java.lang.Long::class -> JsonUtil.fromJsonGeneric<HashSet<Long>>(value, t)
-				java.lang.Float::class -> JsonUtil.fromJsonGeneric<HashSet<Float>>(value, t)
-				java.lang.Double::class -> JsonUtil.fromJsonGeneric<HashSet<Double>>(value, t)
+				String::class -> Yson.toModelGeneric<HashSet<String>>(yar, t)
+				java.lang.Character::class -> Yson.toModelGeneric<HashSet<Char>>(yar, t)
+				java.lang.Boolean::class -> Yson.toModelGeneric<HashSet<Boolean>>(yar, t)
+				java.lang.Byte::class -> Yson.toModelGeneric<HashSet<Byte>>(yar, t)
+				java.lang.Short::class -> Yson.toModelGeneric<HashSet<Short>>(yar, t)
+				java.lang.Integer::class -> Yson.toModelGeneric<HashSet<Int>>(yar, t)
+				java.lang.Long::class -> Yson.toModelGeneric<HashSet<Long>>(yar, t)
+				java.lang.Float::class -> Yson.toModelGeneric<HashSet<Float>>(yar, t)
+				java.lang.Double::class -> Yson.toModelGeneric<HashSet<Double>>(yar, t)
 				else -> null
 			}
 			if (v == null) {
@@ -71,16 +73,16 @@ open class HashSetConvert : DataConvert() {
 	}
 
 	companion object {
-		val map: HashMap<KClass<*>, Type> = hashMapOf(
-				String::class to object : TypeToken<HashSet<String>>() {}.type,
-				java.lang.Character::class to object : TypeToken<HashSet<Char>>() {}.type,
-				java.lang.Boolean::class to object : TypeToken<HashSet<Boolean>>() {}.type,
-				java.lang.Byte::class to object : TypeToken<HashSet<Byte>>() {}.type,
-				java.lang.Short::class to object : TypeToken<HashSet<Short>>() {}.type,
-				java.lang.Integer::class to object : TypeToken<HashSet<Int>>() {}.type,
-				java.lang.Long::class to object : TypeToken<HashSet<Long>>() {}.type,
-				java.lang.Float::class to object : TypeToken<HashSet<Float>>() {}.type,
-				java.lang.Double::class to object : TypeToken<HashSet<Double>>() {}.type
+		val map: HashMap<KClass<*>, KType> = hashMapOf(
+				String::class to object : TypeTake<HashSet<String>>() {}.type,
+				java.lang.Character::class to object : TypeTake<HashSet<Char>>() {}.type,
+				java.lang.Boolean::class to object : TypeTake<HashSet<Boolean>>() {}.type,
+				java.lang.Byte::class to object : TypeTake<HashSet<Byte>>() {}.type,
+				java.lang.Short::class to object : TypeTake<HashSet<Short>>() {}.type,
+				java.lang.Integer::class to object : TypeTake<HashSet<Int>>() {}.type,
+				java.lang.Long::class to object : TypeTake<HashSet<Long>>() {}.type,
+				java.lang.Float::class to object : TypeTake<HashSet<Float>>() {}.type,
+				java.lang.Double::class to object : TypeTake<HashSet<Double>>() {}.type
 
 		)
 	}

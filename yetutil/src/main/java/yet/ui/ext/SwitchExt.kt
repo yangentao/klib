@@ -23,19 +23,19 @@ fun <T : Switch> T.themeSwitch(): T {
 	val h1 = 30
 
 	val d1 = Shapes.rect {
-		corner = dp(h1 / 2)
+		cornerPx = dp(h1 / 2)
 		fillColor = 0xFFCCCCCC.toInt()
 		size(w1, h1)
 	}
 	val d2 = Shapes.rect {
-		corner = dp(h1 / 2)
+		cornerPx = dp(h1 / 2)
 		fillColor = 0xFF4A90E2.toInt()
 		size(w1, h1)
 	}
 	val d3 = Shapes.rect {
-		corner = dp(h1 / 2)
+		cornerPx = dp(h1 / 2)
 		fillColor = Colors.LightGray
-		strokeWidth = dp(1)
+		strokeWidthPx = dp(1)
 		strokeColor = Colors.GrayMajor
 		size(w1, h1)
 	}
@@ -46,21 +46,21 @@ fun <T : Switch> T.themeSwitch(): T {
 	val w = 50
 	val h = 30
 	val dd1 = Shapes.rect {
-		corner = dp(h / 2)
+		cornerPx = dp(h / 2)
 		fillColor = Colors.WHITE
-		strokeWidth = dp(1)
+		strokeWidthPx = dp(1)
 		strokeColor = Colors.LightGray
 		size(w, h)
 	}
 	val dd2 = Shapes.rect {
-		corner = dp(h / 2)
+		cornerPx = dp(h / 2)
 		fillColor = Colors.Safe
 		size(w, h)
 	}
 	val dd3 = Shapes.rect {
-		corner = dp(h / 2)
+		cornerPx = dp(h / 2)
 		fillColor = Colors.LightGray
-		strokeWidth = dp(1)
+		strokeWidthPx = dp(1)
 		strokeColor = Colors.WHITE
 		size(w, h)
 	}

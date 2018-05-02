@@ -7,10 +7,8 @@ import android.webkit.*
 import android.widget.LinearLayout
 import yet.ui.activities.Pages
 import yet.ui.ext.*
-import yet.ui.widget.Action
-import yet.ui.widget.TitleBar
 
-class WebPage : TitledPage() {
+class WebPage : TitlePage() {
 
 	lateinit var webView: WebView
 	private var rootUrl: String? = null
@@ -20,7 +18,7 @@ class WebPage : TitledPage() {
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun onCreateContent(context: Context, contentView: LinearLayout) {
 		titleBar.showBack()
-		titleBar.title = title ?: ""
+		titleBar.title(title ?: "")
 		webView = WebView(context).genId()
 		contentView.addView(webView, linearParam().widthFill().heightDp(0).weight_(1))
 
@@ -28,7 +26,7 @@ class WebPage : TitledPage() {
 		webView.settings.domStorageEnabled = true
 
 
-		webView.setWebViewClient(object : WebViewClient() {
+		webView.webViewClient = object : WebViewClient() {
 			override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
 				view.loadUrl(url)
 				return true
@@ -42,12 +40,12 @@ class WebPage : TitledPage() {
 				//                hideProgress();
 			}
 
-		})
-		webView.setWebChromeClient(object : WebChromeClient() {
+		}
+		webView.webChromeClient = object : WebChromeClient() {
 			override fun onJsAlert(view: WebView, url: String, message: String, result: JsResult): Boolean {
 				return super.onJsAlert(view, url, message, result)
 			}
-		})
+		}
 
 		CookieSyncManager.createInstance(activity).sync()
 
@@ -56,9 +54,6 @@ class WebPage : TitledPage() {
 		}
 	}
 
-	override fun onTitleBarActionNav(bar: TitleBar, action: Action) {
-		finish()
-	}
 
 	override fun onBackPressed(): Boolean {
 		if (webView.canGoBack()) {

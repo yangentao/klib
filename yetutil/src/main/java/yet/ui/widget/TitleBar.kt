@@ -2,341 +2,344 @@ package yet.ui.widget
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.support.annotation.DrawableRes
 import android.view.View
-import android.widget.RelativeLayout
-import net.yet.R
-import yet.ext.notEmpty
+import android.view.ViewGroup
+import android.widget.*
 import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.res.D
-import yet.ui.res.sized
-import yet.ui.viewcreator.createImageView
-import yet.ui.viewcreator.createLinearHorizontal
-import yet.ui.viewcreator.createTextViewA
-import yet.ui.viewcreator.createTextViewB
-import java.util.*
-
-/**
- * Created by entaoyang@163.com on 16/3/13.
- */
+import yet.ui.page.Cmd
+import yet.ui.res.*
+import yet.ui.viewcreator.*
+import yet.util.fore
 
 
-class TitleBar(context: Context) : RelativeLayout(context), IActionModeSupport {
-	override val actionPanelView: View
-		get() = this
-	override var allActions: ArrayList<Action> = ArrayList<Action>()
-	override var modeName: String = ""
+class TitleBar(context: Context) : RelativeLayout(context) {
+	val leftCmds = ArrayList<Cmd>()
+	val rightCmds = ArrayList<Cmd>()
+	var titleView: View? = null
+	var titleCenter = TitleBar.TitleCenter
 
-	private val actionsBack = ArrayList<Action>()
-	private var titleBack: String? = null
-	private var navBack: Action? = null
+	var leftLinear: LinearLayout? = null
+	var rightLinear: LinearLayout? = null
 
-	var titleAlignCenter = titleCenter
-	var navLargeIcon = false
+	var pushModel: Boolean = false
+		private set
+	private var leftBack = ArrayList<Cmd>()
+	private var rightBack = ArrayList<Cmd>()
+	private var titleBack: View? = null
 
-	private var switchItems: List<String> = emptyList()
-	private var switchPanel: SwitchPanel? = null
-	private var switchItem: String = ""
-	private var switchListener: SwitchPanel.SwitchSelectChangeListener? = null
-
-	var title: String? = null
-	var titleImage: Drawable? = null
-	var titleImagePadTop: Int = 0
-	var titleImagePadBottom: Int = 0
-	var navAction: Action? = null
-
-	var onAction: (bar: TitleBar, action: Action) -> Unit = {
-		b, a ->
-	}
-	var onActionNav: (bar: TitleBar, action: Action) -> Unit = {
-		b, a ->
-	}
-	var onTitleClick: (title: String) -> Unit = {}
-
-	var titleStyleDropdown = false
-
-	var themeBackColor: Int = BG_COLOR
-		set(value) {
-			field = value
-			backColor(value)
-		}
+	var popWindow: PopupWindow? = null
 
 	init {
-		genId()
-		padding(0, 0, 0, 0).backColor(themeBackColor)
-		layoutParams = layoutParam().widthFill().height(HEIGHT)
+		backColor(Colors.Theme)
 	}
 
-	override fun onResotreDefault() {
-		allActions.clear()
-		allActions.addAll(actionsBack)
-		title = titleBack
-		navAction = navBack
-	}
+	fun push(block: TitleBar.() -> Unit) {
+		if (!pushModel) {
+			pushModel = true
 
-	override fun onBackupDefault() {
-		actionsBack.clear()
-		actionsBack.addAll(allActions)
-		titleBack = title
-		navBack = navAction
-	}
+			moveTo(leftCmds, leftBack)
+			moveTo(rightCmds, rightBack)
 
-	override fun onCleanData() {
-		allActions.clear()
-		navAction = null
-		title = null
-	}
+			titleBack = titleView
+			titleView = null
 
-	fun title(title: String?): TitleBar {
-		this.title = title
-		return this
-	}
-
-	fun setSwitchItems(vararg texts: String) {
-		val ls = ArrayList<String>()
-		for (s in texts) {
-			ls.add(s)
-		}
-		setSwitchItems(ls)
-	}
-
-	fun setSwitchItems(switchItems: List<String>) {
-		this.switchItems = switchItems
-	}
-
-	fun selectSwitch(switchItem: String) {
-		this.switchItem = switchItem
-		if (switchPanel != null) {
-			switchPanel!!.selectItem(switchItem)
+			this.block()
+			commit()
 		}
 	}
 
-	fun getSwitchText(): String {
-		return switchItem
-	}
+	fun pop() {
+		if (pushModel) {
+			pushModel = false
+			moveTo(leftBack, leftCmds)
+			moveTo(rightBack, rightCmds)
+			titleView = titleBack
+			titleBack = null
 
-	fun setSwitchListener(switchListener: SwitchPanel.SwitchSelectChangeListener) {
-		this.switchListener = switchListener
-	}
-
-	private val onClickListener = View.OnClickListener { v ->
-		val action = v.tag as Action
-		if (action.children.size > 0) {
-			val pa = PopActions(context)
-			pa.onPopAction = {
-				it.onAction(it)
-				onAction.invoke(this@TitleBar, it)
-			}
-			pa.addItems(action.children.filter { !it.hidden })
-			pa.showAsDropDown(v, 0, 1)
-		} else {
-			action.onAction(action)
-			if (isNavAction(action)) {
-				onActionNav.invoke(this@TitleBar, action)
-			} else {
-				onAction.invoke(this@TitleBar, action)
-			}
+			commit()
 		}
 	}
 
-
-	private fun buildSwitchView(): SwitchPanel {
-		val panel = SwitchPanel(context)
-		panel.setItems(this.switchItems)
-		if (switchItem.notEmpty()) {
-			panel.selectItem(switchItem)
-		}
-		panel.setSelectCallback(object : SwitchPanel.SwitchSelectChangeListener {
-			override fun onSwitchItemSelectChanged(text: String) {
-				switchItem = text
-				if (switchListener != null) {
-					switchListener!!.onSwitchItemSelectChanged(text)
-				}
-			}
-		})
-		return panel
+	private fun <T> moveTo(from: ArrayList<T>, dest: ArrayList<T>) {
+		dest.clear()
+		dest.addAll(from)
+		from.clear()
 	}
 
-	private fun buildActionView(action: Action): View {
-		val view: View = if (action.icon != null) {
-			val icon = action.icon
-			icon?.sized(IMAGE_BOUNDS)
-			val iv = context.createImageView()
-			iv.padding(PAD_HOR, PAD_VER, PAD_HOR, PAD_VER)
-			if (navLargeIcon && isNavAction(action)) {
-				iv.padding(4)
+	fun findMenuItem(cmd: String): ActionMenuItemInfo? {
+		for (c in leftCmds) {
+			val b = c.items.find {
+				it.cmd == cmd
 			}
-			iv.setImageDrawable(icon)
-			iv.scaleCenterInside()
-			iv
-		} else {
-			val tv = context.createTextViewB().textColor(TEXT_COLOR).miniWidthDp(HEIGHT).gravityCenter().text(action.label).padding(5, 0, 5, 0)
-			tv
+			if (b != null) {
+				return b
+			}
 		}
-		view.tag = action
-		view.setOnClickListener(this.onClickListener)
-		view.backColor(Color.TRANSPARENT, BG_PRESSED)
-		return view
+		for (c in rightCmds) {
+			val b = c.items.find {
+				it.cmd == cmd
+			}
+			if (b != null) {
+				return b
+			}
+		}
+		return null
 	}
 
-	private fun buildTitleView(): View {
-		if (titleImage != null) {
-			val iv = context.createImageView()
-			iv.setImageDrawable(titleImage)
-			iv.cropToPadding = true
-			iv.scaleCenterInside()
-			iv.onClick {
-				onTitleClick("")
-			}
-			return iv
-		} else {
-			val titleView = context.createTextViewA().textSizeTitle()
-			titleView.textColor(TEXT_COLOR).miniWidthDp(35).gravityLeftCenter().ellipsizeMarquee()
-			titleView.text(title)
-			titleView.maxLines = 2
-			titleView.onClick {
-				onTitleClick(title ?: "")
-			}
-			if (titleStyleDropdown) {
-				val drop = D.sized(R.drawable.yet_dropdown, 15)
-				titleView.setCompoundDrawables(null, null, drop, null)
-				titleView.compoundDrawablePadding = dp(5)
-			}
-			return titleView
+	fun find(block: (Cmd) -> Boolean): Cmd? {
+		return leftCmds.find(block) ?: rightCmds.find(block)
+	}
+
+	fun find(cmd: String): Cmd? {
+		return find {
+			it.cmd == cmd
 		}
 	}
 
-	private fun setViews(midCenter: Boolean, leftView: View?, midView: View, rightViews: List<View>) {
-		var rightView: View? = null
-		if (rightViews.isNotEmpty()) {
-			val ll = context.createLinearHorizontal()
-			addViewParam(ll) {
-				widthWrap().heightFill().parentRight().centerVertical()
-			}
-			for (v in rightViews) {
-				ll.addViewParam(v) {
-					widthWrap().heightFill().gravityCenterVertical()
-				}
-			}
-			rightView = ll
-		} else {
-			rightView = null
-		}
-		if (leftView != null) {
-			addViewParam(leftView) {
-				widthWrap().heightFill().parentLeft().centerVertical()
-			}
-		}
-
-
-		if (midCenter) {
-			if (switchItems.isNotEmpty()) {
-				val size = switchItems.size
-				var w = if (size <= 2) {
-					size * 100
-				} else {
-					size * 90
-				}
-				addViewParam(midView) {
-					width(w).heightFill().centerInParent().margins(20, 8, 20, 8)
-				}
-			} else {
-				midView.padding(HEIGHT, titleImagePadTop, HEIGHT, titleImagePadBottom)
-				addViewParam(midView) {
-					widthWrap().heightFill().centerInParent()
-				}
-			}
-		} else if (titleStyleDropdown) {
-			addViewParam(midView) {
-				if (leftView != null) {
-					toRightOf(leftView).margins(5, 2, 5, 2)
-				} else {
-					parentLeft().margins(20, 2, 5, 2)
-				}
-
-				widthWrap().heightFill().centerVertical()
-			}
-		} else {
-			addViewParam(midView) {
-				if (leftView != null) {
-					toRightOf(leftView).margins(5, 2, 5, 2)
-				} else {
-					parentLeft().margins(20, 2, 5, 2)
-				}
-				if (rightView != null) {
-					toLeftOf(rightView!!)
-				} else {
-					parentRight()
-				}
-				heightFill().centerVertical()
-			}
-		}
-
-		leftView?.bringToFront()
-		rightView?.bringToFront()
-
-	}
-
-	override fun onRebuild() {
+	fun commit() {
+		leftLinear?.removeAllViews()
+		rightLinear?.removeAllViews()
 		removeAllViews()
-		var leftView: View? = null
-		if (navAction != null) {
-			if (!navAction!!.hidden) {
-				leftView = buildActionView(navAction!!)
+
+		if (leftCmds.isNotEmpty()) {
+			val ll = this.createLinearHorizontal()
+			for (c in leftCmds) {
+				ll.addView(c.view, c.param)
+				if (c.items.isEmpty()) {
+					c.view.setOnClickListener {
+						c.onClick(c)
+					}
+				} else {
+					c.view.setOnClickListener {
+						popMenu(c)
+					}
+				}
+			}
+			addView(ll, RParam.ParentLeft.HeightFill.WidthWrap)
+			leftLinear = ll
+		}
+
+		if (rightCmds.isNotEmpty()) {
+			val ll = this.createLinearHorizontal()
+			for (c in rightCmds) {
+				ll.addView(c.view, c.param)
+				if (c.items.isEmpty()) {
+					c.view.setOnClickListener {
+						c.onClick(c)
+					}
+				} else {
+					c.view.setOnClickListener {
+						popMenu(c)
+					}
+				}
+			}
+			addView(ll, RParam.ParentRight.HeightFill.WidthWrap)
+			rightLinear = ll
+		}
+		val v = titleView
+		if (v != null) {
+			if (titleCenter) {
+				addView(v, RParam.CenterInParent.HeightFill.WidthWrap)
+			} else {
+				if (leftLinear == null) {
+					addView(v, RParam.CenterVertical.ParentLeft.HeightFill.WidthWrap.margins(15, 0, 0, 0))
+				} else {
+					addView(v, RParam.CenterVertical.toRightOf(leftLinear!!).HeightFill.WidthWrap.margins(15, 0, 0, 0))
+				}
 			}
 		}
-		var rightViews = ArrayList<View>()
-		for (a in visibleAcitons) {
-			val v = buildActionView(a)
-			rightViews.add(v)
+
+	}
+
+	fun title(text: String): TextView {
+		val tv = createTextViewA()
+		tv.textColorWhite()
+		tv.text = text
+		titleView = tv
+		return tv
+	}
+
+	fun titleImage(@DrawableRes resId: Int): ImageView {
+		val iv = createImageView()
+		iv.setImageResource(resId)
+		iv.scaleCenterCrop()
+		titleView = iv
+		return iv
+	}
+
+	fun onTitleClick(block: () -> Unit) {
+		titleView?.onClick {
+			block()
 		}
-		switchPanel = null
-		if (switchItems.isNotEmpty()) {
-			switchPanel = buildSwitchView()
-			setViews(true, leftView, switchPanel!!, rightViews)
+	}
+
+	fun removeBack() {
+		leftCmds.removeAll { it.cmd == BACK }
+	}
+
+	fun removeCmd(cmd: String) {
+		leftCmds.removeAll { it.cmd == cmd }
+		rightCmds.removeAll { it.cmd == cmd }
+	}
+
+
+	fun showBack(resId: Int = Res.back): Cmd {
+		leftCmds.removeAll { it.cmd == BACK }
+		val iv = createImageItemView()
+		val d = D.tinted(resId, Colors.WHITE)
+		iv.setImageDrawable(d)
+		val c = Cmd(BACK)
+		c.view = iv
+		c.param = LParam.size(HEIGHT)
+		leftCmds.add(c)
+		return c
+	}
+
+	fun actionImage(resId: Int, cmd: String = "$resId"): Cmd {
+		return actionImage(Res.drawable(resId), cmd)
+	}
+
+	fun actionImage(d: Drawable, cmd: String = Cmd.genCmd): Cmd {
+		val iv = createImageItemView()
+		iv.setImageDrawable(d.tintedWhite)
+		val c = Cmd(cmd)
+		c.view = iv
+		c.param = LParam.heightFill().width(HEIGHT)
+		rightCmds.add(c)
+		return c
+	}
+
+	fun actionText(text: String, cmd: String = text): Cmd {
+		val tv = createTextItemView()
+		tv.text = text
+		val c = Cmd(cmd)
+		c.view = tv
+		c.param = LParam.HeightFill.WidthWrap
+		rightCmds.add(c)
+		return c
+	}
+
+	fun leftImage(resId: Int, cmd: String = "$resId"): Cmd {
+		return leftImage(Res.drawable(resId), cmd)
+	}
+
+	fun leftImage(d: Drawable, cmd: String = Cmd.genCmd): Cmd {
+		val iv = createImageItemView()
+		iv.setImageDrawable(d.tintedWhite)
+		val c = Cmd(cmd)
+		c.view = iv
+		c.param = LParam.heightFill().width(HEIGHT)
+		leftCmds.add(c)
+		return c
+	}
+
+	fun leftText(text: String, cmd: String = text): Cmd {
+		val tv = createTextItemView()
+		tv.text = text
+		val c = Cmd(cmd)
+		c.view = tv
+		c.param = LParam.HeightFill.WidthWrap
+		leftCmds.add(c)
+		return c
+	}
+
+	private fun popMenu(cmd: Cmd) {
+		val p = PopupWindow(context)
+		p.width = ViewGroup.LayoutParams.WRAP_CONTENT
+		p.height = ViewGroup.LayoutParams.WRAP_CONTENT
+		p.isFocusable = true
+		p.isOutsideTouchable = true
+		p.setBackgroundDrawable(ColorDrawable(0))
+		val gd = Shapes.rect {
+			fillColor = Colors.Theme
+			cornerListDp(0, 0, 2, 2)
+		}
+		val popRootView = context.createLinearVertical()
+		popRootView.minimumWidth = dp(150)
+		popRootView.backDrawable(gd).padding(5)
+		popRootView.divider()
+		val itemList = ArrayList<ActionMenuItemInfo>(cmd.items)
+		for (c in itemList) {
+			val v = menuItemView(c)
+			popRootView.addView(v, LParam.WidthFill.height(45))
+			v.setOnClickListener {
+				popWindow?.dismiss()
+				fore {
+					c.onClick(c.cmd)
+				}
+			}
+		}
+		p.contentView = popRootView
+		popWindow = p
+
+		p.setOnDismissListener {
+			(popWindow?.contentView as? ViewGroup)?.removeAllViews()
+			popWindow = null
+		}
+		p.showAsDropDown(cmd.view, 0, 1)
+	}
+
+	fun menu(block: Cmd.() -> Unit) {
+		val m = find(MENU) ?: actionImage(Res.menu, MENU)
+		m.block()
+	}
+
+	fun menu(resId: Int, block: Cmd.() -> Unit) {
+		val m = find(MENU) ?: actionImage(resId, MENU)
+		m.block()
+	}
+
+	private fun menuItemView(item: ActionMenuItemInfo): View {
+		val tv = context.createTextViewB()
+		tv.singleLine()
+		tv.backColorTransFade()
+		tv.gravityLeftCenter().padding(5, 5, 20, 5)
+		tv.text = item.text
+
+		var d: Drawable = if (item.drawable != null) {
+			item.drawable!!.mutate()
+		} else if (item.resIcon != 0) {
+			Res.drawable(item.resIcon).mutate()
 		} else {
-			setViews(titleAlignCenter, leftView, buildTitleView(), rightViews)
+			D.color(Color.TRANSPARENT)
 		}
-
+		d = d.tintedWhite.sized(TitleBar.ImgSize)
+		tv.compoundDrawablePadding = dp(10)
+		tv.setCompoundDrawables(d, null, null, null)
+		tv.textColorWhite()
+		return tv
 	}
 
-	fun hideNav(): TitleBar {
-		navAction = null
-		return this
+	fun createImageItemView(): ImageView {
+		val iv = ImageView(context)
+		iv.scaleCenterCrop()
+		iv.backColorTransFade()
+		iv.padding(PAD_HOR, PAD_VER, PAD_HOR, PAD_VER)
+		return iv
 	}
 
-	fun showBack(): TitleBar {
-		setNavAction(Action(BACK_TAG).icon(R.drawable.yet_back))
-		return this
-	}
-
-	fun isBack(action: Action): Boolean {
-		return action.isTag(BACK_TAG)
-	}
-
-	fun setNavAction(action: Action): TitleBar {
-		this.navAction = action
-		return this
-	}
-
-	fun isNavAction(action: Action): Boolean {
-		return this.navAction == action
+	fun createTextItemView(): TextView {
+		val iv = createTextViewB()
+		iv.backColorTransFade()
+		iv.textColorWhite()
+		iv.gravityCenter()
+		iv.minimumWidth = dp(HEIGHT)
+		iv.padding(5, 0, 5, 0)
+		return iv
 	}
 
 
 	companion object {
-		var titleCenter = false
-		var TEXT_COLOR = Colors.Title
-		var BG_COLOR = Colors.Theme
-		var BG_PRESSED = Colors.Fade
-
-		val HEIGHT = 50// dp
-		val IMAGE_BOUNDS = 24// dp
-		val PAD_VER = (HEIGHT - IMAGE_BOUNDS) / 2// pad top and bottom
-		val PAD_HOR = (HEIGHT - IMAGE_BOUNDS) / 2// pad left-right
-
-		val BACK_TAG = "title.back"
+		const val BACK = "back"
+		const val MENU = "menu"
+		const val ImgSize = 24
+		const val HEIGHT = 50// dp
+		const val PAD_VER = (HEIGHT - ImgSize) / 2
+		const val PAD_HOR = (HEIGHT - ImgSize) / 2
+		var TitleCenter = true
 	}
-
 }

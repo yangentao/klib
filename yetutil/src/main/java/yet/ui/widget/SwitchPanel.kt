@@ -29,7 +29,7 @@ class SwitchPanel(context: Context) : LinearLayout(context) {
 		genId()
 		horizontal()
 		backDrawable(Shapes.rect {
-			corner = CORNER
+			cornerPx = CORNER
 			fillColor = Colors.WHITE
 		})
 

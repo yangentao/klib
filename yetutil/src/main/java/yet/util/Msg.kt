@@ -1,6 +1,6 @@
 package yet.util
 
-import yet.anno.NoProguard
+import android.support.annotation.Keep
 import java.lang.ref.WeakReference
 import kotlin.reflect.KClass
 
@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
  * Created by yangentao on 16/3/12.
  */
 
-@NoProguard
+@Keep
 class Msg(val msg: String) {
 	var result = ArrayList<Any>()
 	var n1: Long = 0
@@ -39,10 +39,12 @@ class Msg(val msg: String) {
 		}
 		return false
 	}
-	fun clazz(c:KClass<*>):Msg{
+
+	fun clazz(c: KClass<*>): Msg {
 		this.cls = c
 		return this
 	}
+
 	fun isMsg(vararg msgs: String): Boolean {
 		return this.msg in msgs
 	}
@@ -120,11 +122,10 @@ interface MsgListener {
 	fun onMsg(msg: Msg)
 }
 
-@NoProguard
+@Keep
 object MsgCenter {
 	private val allList = ArrayList<WeakReference<MsgListener>>()
 
-	@JvmStatic
 	@Synchronized
 	fun listenAll(listener: MsgListener) {
 		for (wl in allList) {
@@ -137,13 +138,13 @@ object MsgCenter {
 
 
 	@Synchronized
-	@JvmStatic fun remove(listener: MsgListener) {
+	fun remove(listener: MsgListener) {
 		allList.removeAll { it.get() == null || it.get() == listener }
 	}
 
 
-	@JvmStatic fun fireCurrent(msg: Msg): ArrayList<Any> {
-		var ls2 = ArrayList<MsgListener>()
+	fun fireCurrent(msg: Msg): ArrayList<Any> {
+		val ls2 = ArrayList<MsgListener>()
 		sync(this) {
 			val ls = allList.filter { it.get() != null }.map { it.get() }
 			allList.retainAll { it.get() != null }
@@ -156,17 +157,17 @@ object MsgCenter {
 		return msg.result
 	}
 
-	@JvmStatic fun fire(msg: Msg) {
+	fun fire(msg: Msg) {
 		fore {
 			fireCurrent(msg)
 		}
 	}
 
-	@JvmStatic fun fire(msg: String) {
+	fun fire(msg: String) {
 		fire(Msg(msg))
 	}
 
-	@JvmStatic fun fire(cls: Class<*>) {
+	fun fire(cls: Class<*>) {
 		fire(Msg(cls))
 	}
 

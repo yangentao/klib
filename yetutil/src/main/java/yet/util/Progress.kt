@@ -5,9 +5,9 @@ package yet.util
  */
 
 interface Progress {
-	fun onStart(total: Int)
+	fun onProgressStart(total: Int)
 
 	fun onProgress(current: Int, total: Int, percent: Int)
 
-	fun onFinish()
+	fun onProgressFinish()
 }

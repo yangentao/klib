@@ -2,8 +2,15 @@ package net.yet.kutil.ui.activities
 
 import android.os.Bundle
 import android.widget.ImageView
+import yet.ext.ARGB
+import yet.ext.RGB
 import yet.ui.activities.BaseActivity
-import yet.ui.widget.ImageResPager
+import yet.ui.ext.*
+import yet.ui.res.Shapes
+import yet.ui.viewcreator.createRelative
+import yet.ui.viewcreator.imageView
+import yet.ui.viewcreator.textView
+import yet.ui.widget.pager.IndicatorPager
 import yet.util.*
 
 /**
@@ -12,25 +19,28 @@ import yet.util.*
 
 
 abstract class BaseWelcomeActivity : BaseActivity() {
-	private var isGuide = false
+
 
 	/**
 	 * 欢迎页的图片
 
 	 * @return
 	 */
-	protected abstract val resDrawable: Int
+	var welDrawable: Int = 0
 
 	/**
 	 * 介绍页的图片, 只在第一次运行时展示
 
 	 * @return
 	 */
-	protected abstract val resImages: IntArray?
-
+	var guideImages: List<Int> = ArrayList<Int>()
 
 	//毫秒
-	open var minTime: Long = 0
+	var minTime: Long = 1000
+
+	var showSkip = true
+
+	private var isGuide = false
 
 	init {
 		fullScreen = true
@@ -43,25 +53,62 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		val first = versionFirst("ver-first-welcome")
-		val images = resImages ?: kotlin.IntArray(0)
-		isGuide = first && images.isNotEmpty()
+		val rootRelView = createRelative()
+		setContentView(rootRelView)
+		val first = isVersionFirst("ver-first-welcome")
+		isGuide = first && guideImages.isNotEmpty()
 		if (isGuide) {
-			val pager = ImageResPager(this)
-			setContentView(pager)
-			pager.setItems(images.asList())
-			pager.onLastPageClick = {
-				onNextPage()
-				finish()
+			val ip = IndicatorPager(this)
+			ip.onNewView = { c, p ->
+				val item = ip.getItem(p)
+				val relView = c.createRelative()
+				relView.imageView(RParam.Fill) {
+					scaleCenterCrop()
+					setImageResource(item as Int)
+
+				}
+				relView.textView(RParam.Wrap.ParentTop.ParentRight.margins(0, 20, 20, 0)) {
+					textS = "跳过"
+					padding(15, 5, 15, 5)
+					backDrawable(Shapes.rect {
+						fillColor = ARGB(100, 80, 80, 80)
+						strokeColor = RGB(80, 80, 80)
+						strokeWidthPx = 2
+					})
+					onClick {
+						goNext()
+					}
+				}
+				relView
 			}
+			ip.onPageClick = { _, p ->
+				if (p == ip.getCount()) {
+					goNext()
+				}
+			}
+			rootRelView.addView(ip, RParam.Fill)
+			ip.setItems(guideImages)
 			return
 		} else {
 			val iv = ImageView(this)
-			iv.setImageResource(resDrawable)
+			iv.setImageResource(welDrawable)
 			iv.adjustViewBounds = true
 			iv.scaleType = ImageView.ScaleType.FIT_XY
-			this.setContentView(iv)
+			rootRelView.addView(iv, RParam.Fill)
+			rootRelView.textView(RParam.Wrap.ParentTop.ParentRight.margins(0, 20, 20, 0)) {
+				textS = "跳过"
+				padding(15, 5, 15, 5)
+				backDrawable(Shapes.rect {
+					fillColor = ARGB(100, 80, 80, 80)
+					strokeColor = RGB(80, 80, 80)
+					strokeWidthPx = 2
+				})
+				onClick {
+					goNext()
+				}
+			}
 		}
+
 
 	}
 
@@ -76,10 +123,18 @@ abstract class BaseWelcomeActivity : BaseActivity() {
 			}
 			fore {
 				if (!isGuide) {
-					onNextPage()
-					finish()
+					goNext()
 				}
 			}
+		}
+	}
+
+	private var nextInvoked = false
+	private fun goNext() {
+		if (!nextInvoked) {
+			nextInvoked = true
+			onNextPage()
+			finish()
 		}
 	}
 

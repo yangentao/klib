@@ -6,14 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridView
 import yet.ui.ext.genId
-import yet.ui.widget.grid.SimpleGridView
+import yet.ui.grid.SimpleGridView
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
 
-fun <D> ViewGroup.simpleGridView(param: ViewGroup.LayoutParams, block: SimpleGridView<D>.() -> Unit): SimpleGridView<D> {
-	val lv = SimpleGridView<D>(context)
+fun ViewGroup.simpleGridView(index: Int, param: ViewGroup.LayoutParams, block: SimpleGridView.() -> Unit): SimpleGridView {
+	val lv = SimpleGridView(context)
+	this.addView(lv, index, param)
+	lv.block()
+	return lv
+}
+
+fun ViewGroup.simpleGridView(param: ViewGroup.LayoutParams, block: SimpleGridView.() -> Unit): SimpleGridView {
+	val lv = SimpleGridView(context)
 	this.addView(lv, param)
 	lv.block()
 	return lv

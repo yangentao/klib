@@ -3,7 +3,7 @@ package yet.ui.ext
 import android.widget.Button
 import android.widget.CheckBox
 import yet.theme.Colors
-import yet.theme.InputSize
+import yet.theme.ViewSize
 import yet.ui.res.D
 
 /**
@@ -16,7 +16,7 @@ fun <T : Button> T.styleGreen(corner: Int = 2): T {
 }
 
 fun <T : Button> T.styleGreenRound(): T {
-	this.textSizeB().textColor(Colors.WHITE).backDrawable(D.buttonGreen(InputSize.ButtonHeight / 2))
+	this.textSizeB().textColor(Colors.WHITE).backDrawable(D.buttonGreen(ViewSize.ButtonHeight / 2))
 	return this
 }
 
@@ -27,7 +27,7 @@ fun <T : Button> T.styleRed(corner: Int = 2): T {
 }
 
 fun <T : Button> T.styleRedRound(): T {
-	this.textSizeB().textColor(Colors.WHITE).backDrawable(D.buttonRed(InputSize.ButtonHeight / 2))
+	this.textSizeB().textColor(Colors.WHITE).backDrawable(D.buttonRed(ViewSize.ButtonHeight / 2))
 	return this
 }
 
@@ -37,7 +37,7 @@ fun <T : Button> T.styleWhite(corner: Int = 2): T {
 }
 
 fun <T : Button> T.styleWhiteRound(): T {
-	this.textSizeB().textColorMajor().backDrawable(D.buttonWhite(InputSize.ButtonHeight / 2))
+	this.textSizeB().textColorMajor().backDrawable(D.buttonWhite(ViewSize.ButtonHeight / 2))
 	return this
 }
 

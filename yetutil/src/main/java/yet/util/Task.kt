@@ -5,6 +5,7 @@ package yet.util
 
 import android.os.Handler
 import android.os.Looper
+import yet.database.MapTable
 import yet.util.app.App
 import yet.util.log.xlog
 import java.util.*
@@ -120,17 +121,14 @@ fun runOnceVer(key: String, block: () -> Unit): Boolean {
 
 }
 
-fun versionFirst(key: String): Boolean {
-	val fname = "once_${App.versionCode}"
-	val p = Prefer(fname)
-	if (p.getBool(key, false)) {
-		p.edit {
-			putBoolean(key, true)
-		}
+fun isVersionFirst(key: String): Boolean {
+	val newKey = "${key}_${App.versionCode}"
+	val v = MapTable.config.getBool(newKey) ?: false
+	if (!v) {
+		MapTable.config.put(newKey, true)
 		return true
 	}
 	return false
-
 }
 
 //app的当前版本只执行一次

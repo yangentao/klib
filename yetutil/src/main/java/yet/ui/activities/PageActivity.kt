@@ -56,7 +56,6 @@ open class PageActivity : BaseActivity() {
 	override fun finish() {
 		super.finish()
 		val ac = currentFragment?.activityAnim
-
 		if (ac != null) {
 			this.overridePendingTransition(ac.finishEnter, ac.finishExit)
 		}

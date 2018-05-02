@@ -4,22 +4,26 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
 object Yson {
+	fun toYson(v: Any?): YsonValue {
+		return YsonEncoder.encode(v, null)
+	}
 
-	fun toYson(v: Any?, config: ToYsonConfig? = null): YsonValue {
+	fun toYson(v: Any?, config: ToYsonConfig?): YsonValue {
 		return YsonEncoder.encode(v, config)
 	}
 
-	inline fun <reified T : Any> fromYson(yson: YsonValue, config: FromYsonConfig? = null): T? {
+	inline fun <reified T : Any> toModel(yson: YsonValue, config: FromYsonConfig? = null): T? {
 		return YsonDecoder.decodeByClass(yson, T::class, config) as T?
 	}
 
-	fun fromYsonClass(yson: YsonValue, cls: KClass<*>, config: FromYsonConfig? = null): Any? {
+	fun toModelClass(yson: YsonValue, cls: KClass<*>, config: FromYsonConfig? = null): Any? {
 		return YsonDecoder.decodeByClass(yson, cls, config)
 	}
 
-	inline fun <reified T : Any> fromYsonGeneric(yson: YsonValue, ktype: KType, config: FromYsonConfig? = null): T? {
+	inline fun <reified T : Any> toModelGeneric(yson: YsonValue, ktype: KType, config: FromYsonConfig? = null): T? {
 		return YsonDecoder.decodeByType(yson, ktype, config) as T?
 	}
+
 
 	object Types {
 		val ArrayListString: KType by lazy { object : TypeTake<ArrayList<String>>() {}.type }

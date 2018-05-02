@@ -4,9 +4,7 @@ import android.graphics.drawable.Drawable
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import net.yet.R
-import yet.ui.res.D
-import yet.ui.res.ImageStated
-import yet.ui.res.sized
+import yet.ui.res.*
 import yet.ui.viewcreator.createRadioButton
 
 /**
@@ -39,23 +37,17 @@ fun <T : RadioButton> T.styleImageTextCheck(leftDraw: Drawable?, rightNormal: Dr
 }
 
 
-fun <T : RadioGroup> T.addRadioButton(title: String, block: RadioGroup.LayoutParams.() -> RadioGroup.LayoutParams): RadioButton {
+fun RadioGroup.addRadioButton(title: String, block: RadioGroup.LayoutParams.() -> RadioGroup.LayoutParams): RadioButton {
 	val view = this.context.createRadioButton()
 	view.text = title
-	val lp = radioParam()
-	lp.heightButton().widthFill()
+	val lp = RadioParam.HeightButton.WidthFill
 	lp.block()
 	this.addView(view, lp)
 	return view
 }
 
 
-fun radioParam(): RadioGroup.LayoutParams {
-	return RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT)
-}
-
-fun radioParam(f: RadioGroup.LayoutParams.() -> RadioGroup.LayoutParams): RadioGroup.LayoutParams {
-	var lp = RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT)
-	lp.f()
-	return lp
-}
+val RadioParam: RadioGroup.LayoutParams
+	get() {
+		return RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT)
+	}

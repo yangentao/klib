@@ -3,9 +3,7 @@ package yet.ui.widget
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import android.widget.RelativeLayout
-import android.widget.TableLayout
-import android.widget.TableRow
+import android.widget.*
 import yet.theme.Colors
 import yet.ui.ext.*
 import yet.ui.viewcreator.createRelative
@@ -74,7 +72,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 		var i = 0
 		while (i < viewList.size) {
 			val row = TableRow(context).genId()
-			addView(row, tableParam().widthFill().height(0).weight(1f))
+			addView(row, TParam.widthFill().height(0).weight(1f))
 			if (verDivider != null) {
 				row.divider(verDivider!!)
 			} else {
@@ -88,7 +86,7 @@ open class TableFair(context: Context) : TableLayout(context) {
 				rl.backColor(colorNormal, colorPressed)
 				rl.tag = n
 				rl.setOnClickListener(this.onClickListener)
-				row.addView(rl, rowParam().width(0).weight(1f).heightFill().gravityCenter())
+				row.addView(rl, RowParam.width(0).weight(1f).heightFill().gravityCenter())
 				if (n < viewList.size) {
 					val view = viewList[n]
 					rl.addView(view, cellLayoutParam)

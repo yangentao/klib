@@ -11,9 +11,7 @@ import yet.ext.closeSafe
 import yet.util.StreamUtil
 import yet.util.app.App
 import yet.util.log.xlog
-import java.io.BufferedInputStream
-import java.io.IOException
-import java.io.InputStream
+import java.io.*
 import java.util.zip.ZipInputStream
 
 /**
@@ -23,11 +21,15 @@ import java.util.zip.ZipInputStream
 object Asset {
 	val manager: AssetManager get() = App.app.assets
 
-	fun streamBuffered(name: String): InputStream? {
+	fun reader(name: String): BufferedReader {
+		return BufferedReader(InputStreamReader(stream(name)))
+	}
+
+	fun streamBuffered(name: String): InputStream {
 		return manager.open(name, AssetManager.ACCESS_BUFFER)
 	}
 
-	fun stream(name: String): InputStream? {
+	fun stream(name: String): InputStream {
 		return manager.open(name, AssetManager.ACCESS_STREAMING)
 	}
 

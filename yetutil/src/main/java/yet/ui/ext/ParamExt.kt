@@ -2,17 +2,29 @@ package yet.ui.ext
 
 import android.view.View
 import android.view.ViewGroup
-import yet.theme.InputSize
 import yet.theme.Space
+import yet.theme.ViewSize
 
 /**
  * Created by yangentao on 2015/11/21.
  * entaoyang@163.com
  */
 
+
+val Param: ViewGroup.LayoutParams
+	get() {
+		return ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+	}
+val MParam: ViewGroup.MarginLayoutParams
+	get() {
+		return ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.WRAP_CONTENT, ViewGroup.MarginLayoutParams.WRAP_CONTENT)
+	}
+
+
 fun <T : ViewGroup.LayoutParams> T.set(view: View) {
 	view.layoutParams = this
 }
+
 
 val VGParam: ViewGroup.LayoutParams
 	get() {
@@ -164,49 +176,50 @@ val <T : ViewGroup.LayoutParams> T.Fill: T
 	}
 
 
-fun <T : ViewGroup.LayoutParams> T.heightButton(): T {
-	return heightDp(InputSize.ButtonHeight)
-}
-
 val <T : ViewGroup.LayoutParams> T.HeightButton: T
 	get() {
-		return heightDp(InputSize.ButtonHeight)
+		return heightDp(ViewSize.ButtonHeight)
+	}
+
+val <T : ViewGroup.LayoutParams> T.HeightBar: T
+	get() {
+		return heightDp(ViewSize.BarHeight)
 	}
 
 fun <T : ViewGroup.LayoutParams> T.heightButtonSmall(): T {
-	return heightDp(InputSize.ButtonHeightSmall)
+	return heightDp(ViewSize.ButtonHeightSmall)
 }
 
 val <T : ViewGroup.LayoutParams> T.HeightButtonSmall: T
 	get() {
-		return heightDp(InputSize.ButtonHeightSmall)
+		return heightDp(ViewSize.ButtonHeightSmall)
 	}
 
 fun <T : ViewGroup.LayoutParams> T.heightEdit(): T {
-	return heightDp(InputSize.EditHeight)
+	return heightDp(ViewSize.EditHeight)
 }
 
 val <T : ViewGroup.LayoutParams> T.HeightEdit: T
 	get() {
-		return heightDp(InputSize.EditHeight)
+		return heightDp(ViewSize.EditHeight)
 	}
 
 fun <T : ViewGroup.LayoutParams> T.heightEditSmall(): T {
-	return heightDp(InputSize.EditHeightSmall)
+	return heightDp(ViewSize.EditHeightSmall)
 }
 
 val <T : ViewGroup.LayoutParams> T.HeightEditSmall: T
 	get() {
-		return heightDp(InputSize.EditHeightSmall)
+		return heightDp(ViewSize.EditHeightSmall)
 	}
 
 fun <T : ViewGroup.LayoutParams> T.heightEditSearch(): T {
-	return heightDp(InputSize.EditHeightSearch)
+	return heightDp(ViewSize.EditHeightSearch)
 }
 
 val <T : ViewGroup.LayoutParams> T.HeightEditSearch: T
 	get() {
-		return heightDp(InputSize.EditHeightSearch)
+		return heightDp(ViewSize.EditHeightSearch)
 	}
 
 

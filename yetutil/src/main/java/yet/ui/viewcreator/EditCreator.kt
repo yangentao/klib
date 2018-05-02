@@ -14,6 +14,12 @@ import yet.ui.widget.EditTextX
  * Created by entaoyang@163.com on 2018-03-14.
  */
 
+fun ViewGroup.edit(block: EditText.() -> Unit): EditText {
+	val v = this.createEdit()
+	this.addView(v)
+	v.block()
+	return v
+}
 
 //EditText
 fun ViewGroup.edit(param: ViewGroup.LayoutParams, block: EditText.() -> Unit): EditText {

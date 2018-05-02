@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="yet_pop_anim_style_right_in_right_out">
-        <item name="android:windowEnterAnimation">@anim/yet_slide_in_right</item>
-        <item name="android:windowExitAnimation">@anim/yet_slide_out_right</item>
-    </style>
-</resources>

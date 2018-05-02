@@ -12,6 +12,11 @@ val UTF8 = "UTF-8"
 val collatorChina = Collator.getInstance(Locale.CHINA)
 val chinaComparator = Comparator<String> { left, right -> collatorChina.compare(left, right) }
 
+class ChinaComparator<T>(val block: (T) -> String) : Comparator<T> {
+	override fun compare(o1: T, o2: T): Int {
+		return chinaComparator.compare(block(o1), block(o2))
+	}
+}
 
 
 fun <T : Closeable> T?.closeSafe() {

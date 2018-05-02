@@ -1,8 +1,5 @@
 package yet.ext
 
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import yet.json.GSON
 import yet.util.MyDate
 import yet.yson.YsonArray
 import yet.yson.YsonObject
@@ -40,13 +37,11 @@ val TextConverts = mapOf<KClassifier, ITextConvert>(
 		java.lang.Float::class to FloatText,
 		Double::class to DoubleText,
 		java.lang.Double::class to DoubleText,
-		YsonObject::class to YsonObjectText,
-		YsonArray::class to YsonArrayText,
 		java.sql.Date::class to SQLDateText,
 		java.sql.Time::class to SQLTimeText,
 		java.util.Date::class to UtilDateText,
-		JsonObject::class to JsonObjectText,
-		JsonArray::class to JsonArrayText
+		YsonObject::class to YsonObjectText,
+		YsonArray::class to YsonArrayText
 
 )
 
@@ -127,19 +122,6 @@ object YsonArrayText : ITextConvert {
 	}
 }
 
-object JsonObjectText : ITextConvert {
-	override val defaultValue: Any = JsonObject()
-	override fun fromText(text: String): Any? {
-		return GSON.parseObject(text)
-	}
-}
-
-object JsonArrayText : ITextConvert {
-	override val defaultValue: Any = YsonArray()
-	override fun fromText(text: String): Any? {
-		return GSON.parseArray(text)
-	}
-}
 
 //yyy-MM-dd
 object SQLDateText : ITextConvert {

@@ -1,14 +1,12 @@
 package yet.ui.activities.drawer
 
 import android.app.FragmentTransaction
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.Gravity
-import android.view.KeyEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import yet.ui.activities.BaseActivity
@@ -19,8 +17,6 @@ import yet.ui.viewcreator.createFrame
 import yet.ui.viewcreator.createLinearVertical
 import yet.ui.widget.Action
 import yet.ui.widget.TabBar
-import yet.ui.widget.add
-import yet.util.log.xlog
 import java.util.*
 
 class DrawerTabBarContainerActivity : BaseActivity() {
@@ -38,7 +34,7 @@ class DrawerTabBarContainerActivity : BaseActivity() {
 	lateinit var navView: DrawerNavView
 
 	fun selectTab(tag: String) {
-		tabBar.select(tag)
+		tabBar.select(tag, true)
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,10 +70,9 @@ class DrawerTabBarContainerActivity : BaseActivity() {
 		fragmentHelper = FragmentHelper(fragmentManager, fragLayoutId)
 
 		tabBar = TabBar(this)
-		tabBar.onSelect = { _, action ->
-			xlog.d("select ", action.tag)
-			val page = pages[action.tag]
-			fragmentHelper.showFragment(page!!, action.tag)
+		tabBar.onSelect = {
+			val page = pages[it.text]
+			fragmentHelper.showFragment(page!!, it.text)
 		}
 		rootView.addView(tabBar)
 	}
@@ -108,17 +103,21 @@ class DrawerTabBarContainerActivity : BaseActivity() {
 
 	val currentPage: BaseFragment?
 		get() {
-			val a = tabBar.selectedAction
+			val a = tabBar.selectedItem
 			if (a != null) {
-				return pages[a.tag]
+				return pages[a.text]
 			}
 			return null
 		}
 
-	fun addTab(action: Action, page: BaseFragment): Action {
-		tabBar.add(action)
-		pages.put(action.tag, page)
-		return action
+	fun tab(text: String, icon: Int, page: BaseFragment) {
+		tabBar.tab(text, icon)
+		pages[text] = page
+	}
+
+	fun tab(text: String, drawable: Drawable, page: BaseFragment) {
+		tabBar.tab(text, drawable)
+		pages[text] = page
 	}
 
 

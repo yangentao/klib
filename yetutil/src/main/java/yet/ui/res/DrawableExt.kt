@@ -34,13 +34,13 @@ val Drawable.tintedWhite: Drawable
 	}
 
 fun Drawable.tinted(color: Int): Drawable {
-	val dc = DrawableCompat.wrap(this)
+	val dc = DrawableCompat.wrap(this.mutate())
 	DrawableCompat.setTint(dc, color)
 	return dc
 }
 
 fun Drawable.tinted(color: Int, light: Int): Drawable {
-	val dc = DrawableCompat.wrap(this)
+	val dc = DrawableCompat.wrap(this.mutate())
 	DrawableCompat.setTintList(dc, ColorListLight(color, light))
 	return dc
 }

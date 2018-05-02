@@ -20,7 +20,6 @@ import yet.theme.TextSize
 import yet.ui.activities.AnimConf
 import yet.ui.ext.displayMetrics
 import yet.util.MsgCenter
-import yet.util.StrBuilder
 import yet.util.database.Values
 import yet.util.log.logd
 import yet.util.log.loge
@@ -56,7 +55,7 @@ object App {
 	val contentResolver: ContentResolver  by lazy { app.contentResolver }
 	val resource: Resources by lazy { app.resources }
 
-	var animConfDefault = AnimConf()
+	var animConfDefault = AnimConf.RightIn
 
 	val screenWidthPx: Int by lazy {
 		app.displayMetrics.widthPixels
@@ -77,8 +76,6 @@ object App {
 		}
 
 		Thread.setDefaultUncaughtExceptionHandler { thread, ex ->
-			val sb = StrBuilder(128)
-			sb.append("uncaughtException:", thread.id, " ", thread.name)
 			ex.printStackTrace()
 			loge(ex)
 			xlog.flush()
@@ -217,16 +214,6 @@ object App {
 		return getMetaValue(app, metaKey)
 	}
 
-	val imei: String?
-		get() {
-			try {
-				val tm = app.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
-				return tm?.deviceId
-			} catch (ex: Exception) {
-				ex.printStackTrace()
-			}
-			return null
-		}
 
 	// 单位兆M
 	val memLimit: Int by lazy {
@@ -275,9 +262,10 @@ object App {
 			return app.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
 		}
 
-	val notificationManager:NotificationManager get () {
+	val notificationManager: NotificationManager
+		get () {
 			return app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-	}
+		}
 
 	val clipText: String
 		get() {
@@ -323,16 +311,13 @@ object App {
 		app.sendBroadcast(addShortcutIntent)
 	}
 
-	fun installApk(title: String, url: String) {
-		DownloadTask.downloadAndInstall(url, title, ".apk", "")
-	}
-
 	fun installApk(apkFile: File) {
-		val intent = Intent()
+		val intent = Intent(Intent.ACTION_VIEW)
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-		intent.action = Intent.ACTION_VIEW
 		intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive")
 		app.startActivity(intent)
 	}
+
+
 
 }

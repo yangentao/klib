@@ -3,10 +3,10 @@ package yet.util.database
 import android.content.ContentUris
 import android.database.Cursor
 import android.net.Uri
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import yet.util.app.App
 import yet.util.log.logd
+import yet.yson.YsonArray
+import yet.yson.YsonObject
 import java.util.*
 
 /**
@@ -128,11 +128,11 @@ class UriQuery(val uri: Uri) {
 		return CursorResult(queryOne())
 	}
 
-	fun resultJsonObject(): JsonObject? {
+	fun resultYsonObject(): YsonObject? {
 		return resultOne().jsonObject()
 	}
 
-	fun resultJsonArray(): JsonArray {
+	fun resultYsonArray(): YsonArray {
 		return result().jsonArray()
 	}
 

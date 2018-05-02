@@ -71,7 +71,7 @@ private fun Session.insertOrReplace(model: Any, replace: Boolean): Long {
 	TableCreator.check(db, mi)
 	val values = mi.toContentValues(model)
 	var assignId = false
-	if (mi.pk?.autoInc ?: false) {//整形自增
+	if (mi.pk?.autoInc == true) {//整形自增
 		val pkValue = values.get(mi.pk!!.shortName)
 		if (pkValue == null || 0 == (pkValue as Number).toInt()) {
 			values.remove(mi.pk!!.shortName)

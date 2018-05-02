@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteDatabase.CursorFactory
 import android.database.sqlite.SQLiteOpenHelper
 import android.text.TextUtils
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
+import yet.yson.YsonArray
+import yet.yson.YsonObject
 import java.util.concurrent.Callable
 
 class SQLiteHelper(context: Context, name: String, factory: CursorFactory, version: Int) : SQLiteOpenHelper(context, name, factory, version) {
@@ -172,8 +172,8 @@ class SQLiteHelper(context: Context, name: String, factory: CursorFactory, versi
 		return db.query(table, columns, selection, selectionArgs, null, null, null)
 	}
 
-	protected fun mapOne(c: Cursor): JsonObject {
-		val js = JsonObject()
+	protected fun mapOne(c: Cursor): YsonObject {
+		val js = YsonObject()
 		val names = c.columnNames
 
 		for (name in names) {
@@ -184,10 +184,10 @@ class SQLiteHelper(context: Context, name: String, factory: CursorFactory, versi
 					when (type) {
 						Cursor.FIELD_TYPE_BLOB -> throw IllegalArgumentException("blob field can not fill to JsonObject!")
 					// break;
-						Cursor.FIELD_TYPE_FLOAT -> js.addProperty(name, c.getDouble(index))
-						Cursor.FIELD_TYPE_INTEGER -> js.addProperty(name, c.getLong(index))
-						Cursor.FIELD_TYPE_NULL -> js.addProperty(name, null as String?)
-						Cursor.FIELD_TYPE_STRING -> js.addProperty(name, c.getString(index))
+						Cursor.FIELD_TYPE_FLOAT -> js.any(name, c.getDouble(index))
+						Cursor.FIELD_TYPE_INTEGER -> js.any(name, c.getLong(index))
+						Cursor.FIELD_TYPE_NULL -> js.any(name, null as String?)
+						Cursor.FIELD_TYPE_STRING -> js.any(name, c.getString(index))
 						else -> throw IllegalArgumentException("Unknown field type!")
 					}
 				} catch (e: Exception) {
@@ -203,9 +203,9 @@ class SQLiteHelper(context: Context, name: String, factory: CursorFactory, versi
 	/**
 	 * 只支持double/long/String
 	 */
-	fun queryTableOne(table: String, where: String, vararg args: String): JsonObject? {
+	fun queryTableOne(table: String, where: String, vararg args: String): YsonObject? {
 		val c = queryTable(table, where, *args)
-		var js: JsonObject? = null
+		var js: YsonObject? = null
 		if (c.moveToFirst()) {
 			js = mapOne(c)
 		}
@@ -216,10 +216,10 @@ class SQLiteHelper(context: Context, name: String, factory: CursorFactory, versi
 	/**
 	 * 只支持double/long/String
 	 */
-	fun queryTableMulti(table: String, where: String, vararg args: String): JsonArray {
+	fun queryTableMulti(table: String, where: String, vararg args: String): YsonArray {
 		val c = queryTable(table, where, *args)
 		// c.getCount();
-		val arr = JsonArray()
+		val arr = YsonArray()
 		while (c.moveToNext()) {
 			val js = mapOne(c)
 			arr.add(js)
@@ -231,9 +231,9 @@ class SQLiteHelper(context: Context, name: String, factory: CursorFactory, versi
 	/**
 	 * 只支持double/long/String, 没找到返回null
 	 */
-	fun queryOne(sql: String, vararg args: String): JsonObject? {
+	fun queryOne(sql: String, vararg args: String): YsonObject? {
 		val c = querySql(sql, *args)
-		var js: JsonObject? = null
+		var js: YsonObject? = null
 		if (c.moveToFirst()) {
 			js = mapOne(c)
 		}
@@ -244,10 +244,10 @@ class SQLiteHelper(context: Context, name: String, factory: CursorFactory, versi
 	/**
 	 * 只支持double/long/String
 	 */
-	fun queryMulti(sql: String, vararg args: String): JsonArray {
+	fun queryMulti(sql: String, vararg args: String): YsonArray {
 		val c = querySql(sql, *args)
 		// c.getCount();
-		val arr = JsonArray()
+		val arr = YsonArray()
 		while (c.moveToNext()) {
 			val js = mapOne(c)
 			arr.add(js)

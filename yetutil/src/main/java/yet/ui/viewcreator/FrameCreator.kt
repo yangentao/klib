@@ -1,6 +1,5 @@
 package yet.ui.viewcreator
 
-import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.view.View
@@ -12,17 +11,6 @@ import yet.ui.ext.genId
  * Created by entaoyang@163.com on 2018-03-14.
  */
 
-fun Activity.frame(block: FrameLayout.() -> Unit): FrameLayout {
-	val rl = FrameLayout(this).genId()
-	rl.block()
-	return rl
-}
-
-fun Fragment.frame(block: FrameLayout.() -> Unit): FrameLayout {
-	val rl = FrameLayout(this.activity).genId()
-	rl.block()
-	return rl
-}
 
 //FrameLayout
 fun  ViewGroup.frame(param:ViewGroup.LayoutParams, block: FrameLayout.() -> Unit): FrameLayout {

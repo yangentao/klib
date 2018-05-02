@@ -37,9 +37,9 @@ class VoicePanel(val parent: RelativeLayout) : AmrRecord.AMRRecordCallback {
 		amrRecord = AmrRecord()
 
 		val bg = Shapes.rect {
-			corner = dp(10)
+			cornerPx = dp(10)
 			fillColor = ARGB("#8000")
-			strokeWidth = dp(1)
+			strokeWidthPx = dp(1)
 			strokeColor = ARGB("#ccc")
 		}
 		infoPanel = context.createLinearVertical().backDrawable(bg).padding(5).gone()

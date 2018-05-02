@@ -4,14 +4,15 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import yet.theme.Colors
 import yet.ui.ext.dp
+import yet.ui.ext.px2dp
 
 /**
- * TODO 阴影
+ *
  */
 object Shapes {
 	open class LineOption {
 		//px
-		var strokeWidth: Int = 1
+		var strokeWidthPx: Int = 0
 		var strokeColor: Int = Colors.BLACK
 	}
 
@@ -19,14 +20,34 @@ object Shapes {
 		//null则不填充
 		var fillColor: Int? = null
 		//0则是直角, px
-		var corner: Int = 0
+		var cornerPx: Int = 0
 
-		var width: Int = 0
-		var height: Int = 0
+		var widthPx: Int = 0
+		var heightPx: Int = 0
+
+		//4个角, 左上, 右上, 右下, 左下
+		// 8个值, 单位px
+		var cornerListPx: List<Int> = emptyList()
+
+		var cornerDp: Int
+			get() = px2dp(cornerPx)
+			set(value) {
+				cornerPx = dp(value)
+			}
 
 		fun size(wDp: Int, hDp: Int = wDp) {
-			width = dp(wDp)
-			height = dp(hDp)
+			widthPx = dp(wDp)
+			heightPx = dp(hDp)
+		}
+
+		fun cornerListPx(leftTop: Int, rightTop: Int, rightBottom: Int, leftBottom: Int) {
+			cornerListPx = listOf(leftTop, leftTop, rightTop, rightTop,
+					rightBottom, rightBottom, leftBottom, leftBottom)
+		}
+
+		fun cornerListDp(leftTop: Int, rightTop: Int, rightBottom: Int, leftBottom: Int) {
+			cornerListPx = listOf(dp(leftTop), dp(leftTop), dp(rightTop), dp(rightTop),
+					dp(rightBottom), dp(rightBottom), dp(leftBottom), dp(leftBottom))
 		}
 	}
 
@@ -34,7 +55,7 @@ object Shapes {
 
 	fun line(strokeWidthDp: Int, strokeColor: Int): GradientDrawable {
 		return line {
-			this.strokeWidth = dp(strokeWidthDp)
+			this.strokeWidthPx = dp(strokeWidthDp)
 			this.strokeColor = strokeColor
 		}
 	}
@@ -44,7 +65,7 @@ object Shapes {
 		lo.block()
 		val gd = GradientDrawable()
 		gd.shape = GradientDrawable.LINE
-		gd.setStroke(lo.strokeWidth, lo.strokeColor)
+		gd.setStroke(lo.strokeWidthPx, lo.strokeColor)
 		return gd
 	}
 
@@ -54,17 +75,24 @@ object Shapes {
 		ro.block()
 		val gd = GradientDrawable()
 		gd.shape = GradientDrawable.RECTANGLE
-		if (ro.corner > 0) {
-			gd.cornerRadius = ro.corner.toFloat()
+		if (ro.cornerListPx.isNotEmpty()) {
+			val farr = FloatArray(8)
+			for (n in 0..7) {
+				val v = ro.cornerListPx[n]
+				farr[n] = v.toFloat()
+			}
+			gd.cornerRadii = farr
+		} else if (ro.cornerPx > 0) {
+			gd.cornerRadius = ro.cornerPx.toFloat()
 		}
 		if (ro.fillColor != null) {
 			gd.setColor(ro.fillColor!!)
 		}
-		if (ro.strokeWidth > 0) {
-			gd.setStroke(ro.strokeWidth, ro.strokeColor)
+		if (ro.strokeWidthPx > 0) {
+			gd.setStroke(ro.strokeWidthPx, ro.strokeColor)
 		}
-		if (ro.width > 0 && ro.height > 0) {
-			gd.setSize(ro.width, ro.height)
+		if (ro.widthPx > 0 && ro.heightPx > 0) {
+			gd.setSize(ro.widthPx, ro.heightPx)
 		}
 		return gd
 	}
@@ -77,11 +105,11 @@ object Shapes {
 		if (oo.fillColor != null) {
 			drawable.setColor(oo.fillColor!!)
 		}
-		if (oo.strokeWidth > 0) {
-			drawable.setStroke(oo.strokeWidth, oo.strokeColor)
+		if (oo.strokeWidthPx > 0) {
+			drawable.setStroke(oo.strokeWidthPx, oo.strokeColor)
 		}
-		if (oo.width > 0 && oo.height > 0) {
-			drawable.setSize(oo.width, oo.height)
+		if (oo.widthPx > 0 && oo.heightPx > 0) {
+			drawable.setSize(oo.widthPx, oo.heightPx)
 		}
 		return drawable
 	}

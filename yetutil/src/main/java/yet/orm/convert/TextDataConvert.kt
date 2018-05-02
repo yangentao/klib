@@ -1,8 +1,6 @@
 package yet.orm.convert
 
 import android.net.Uri
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
 import yet.database.SQLType
@@ -10,9 +8,10 @@ import yet.ext.isClass
 import yet.ext.isTypeChar
 import yet.ext.isTypeEnum
 import yet.ext.isTypeString
-import yet.json.GSON
 import yet.orm.TypeDismatchException
 import yet.ref.EnumUtil
+import yet.yson.YsonArray
+import yet.yson.YsonObject
 import java.io.File
 import java.util.*
 import kotlin.reflect.KMutableProperty
@@ -31,8 +30,8 @@ open class TextDataConvert : DataConvert() {
 				p.isTypeChar ||
 				p.isClass(JSONObject::class) ||
 				p.isClass(JSONArray::class) ||
-				p.isClass(JsonObject::class) ||
-				p.isClass(JsonArray::class) ||
+				p.isClass(YsonObject::class) ||
+				p.isClass(YsonArray::class) ||
 				p.isClass(Uri::class) ||
 				p.isClass(File::class) ||
 				p.isClass(UUID::class) ||
@@ -54,10 +53,10 @@ open class TextDataConvert : DataConvert() {
 			JSONObject(value)
 		} else if (p.isClass(JSONArray::class)) {
 			JSONArray(value)
-		} else if (p.isClass(JsonObject::class)) {
-			GSON.parseObject(value)
-		} else if (p.isClass(JsonArray::class)) {
-			GSON.parseArray(value)
+		} else if (p.isClass(YsonObject::class)) {
+			YsonObject(value)
+		} else if (p.isClass(YsonArray::class)) {
+			YsonArray(value)
 		} else if (p.isClass(Uri::class)) {
 			Uri.parse(value)
 		} else if (p.isClass(File::class)) {

@@ -1,6 +1,7 @@
 package yet.database
 
-import yet.util.JsonUtil
+import yet.yson.Yson
+
 
 /**
  * Created by entaoyang@163.com on 2017-03-10.
@@ -20,6 +21,6 @@ class TableInfoItem {
 	var pk: Boolean = false
 
 	override fun toString(): String {
-		return JsonUtil.toJson(this)
+		return Yson.toYson(this).toString()
 	}
 }

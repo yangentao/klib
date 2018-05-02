@@ -67,7 +67,7 @@ public class RefUtil {
 
 	public static void dumpClass(Class<?> cls) {
 		xlog.INSTANCE.d("Dump Class Methods: ", cls.getName());
-		StrBuilder sb = new StrBuilder(128);
+		StringBuilder sb = new StringBuilder(128);
 		Field[] fs = cls.getDeclaredFields();
 		Arrays.sort(fs, new Comparator<Field>() {
 
@@ -103,7 +103,7 @@ public class RefUtil {
 			}
 		});
 		for (Field f : fs) {
-			sb.clear();
+			sb.setLength(0);
 			int mod = f.getModifiers();
 			if (Modifier.isPublic(mod)) {
 				sb.append("public ");
@@ -116,23 +116,23 @@ public class RefUtil {
 			if (isStatic) {
 				sb.append("static ");
 			}
-			sb.append(f.getType().getSimpleName(), " ");
+			sb.append(f.getType().getSimpleName()).append( " ");
 			sb.append(f.getName());
 			if (isStatic) {
-				sb.append(" = ", getStatic(cls, f.getName()));
+				sb.append(" = ").append(getStatic(cls, f.getName()));
 			}
 			xlog.INSTANCE.d(sb.toString());
 		}
 
 		for (Method m : ms) {
-			sb.clear();
+			sb.setLength(0);
 			if (Modifier.isPublic(m.getModifiers())) {
 				sb.append("public ");
 			}
 			if (Modifier.isStatic(m.getModifiers())) {
 				sb.append("static ");
 			}
-			sb.append(m.getReturnType().getSimpleName(), " ");
+			sb.append(m.getReturnType().getSimpleName()).append( " ");
 			sb.append(m.getName());
 			sb.append("(");
 			boolean first = true;

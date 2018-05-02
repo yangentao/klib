@@ -17,6 +17,7 @@ val LParam: LinearLayout.LayoutParams
 		return lParam()
 	}
 
+
 fun lParam(): LinearLayout.LayoutParams {
 	return linearParam()
 }
@@ -31,6 +32,24 @@ fun linearParam(f: LinearLayout.LayoutParams.() -> LinearLayout.LayoutParams): L
 	return lp
 }
 
+
+val <T : LinearLayout.LayoutParams> T.FlexHor: T
+	get() {
+		return this.WidthFlex
+	}
+val <T : LinearLayout.LayoutParams> T.WidthFlex: T
+	get() {
+		return this.width(0).weight(1)
+	}
+
+val <T : LinearLayout.LayoutParams> T.FlexVer: T
+	get() {
+		return this.HeightFlex
+	}
+val <T : LinearLayout.LayoutParams> T.HeightFlex: T
+	get() {
+		return this.height(0).weight(1)
+	}
 
 fun <T : LinearLayout.LayoutParams> T.weight_(w: Int): T {
 	return weight(w.toFloat())
@@ -50,11 +69,6 @@ fun <T : LinearLayout.LayoutParams> T.weight(w: Float): T {
 }
 
 
-fun <T : LinearLayout.LayoutParams> T.gravityTop(): T {
-	gravity = Gravity.TOP
-	return this
-}
-
 val <T : LinearLayout.LayoutParams> T.GravityTop: T
 	get() {
 		gravity = Gravity.TOP
@@ -72,10 +86,6 @@ val <T : LinearLayout.LayoutParams> T.GravityTopCenter: T
 		return this
 	}
 
-fun <T : LinearLayout.LayoutParams> T.gravityBottom(): T {
-	gravity = Gravity.BOTTOM
-	return this
-}
 
 val <T : LinearLayout.LayoutParams> T.GravityBottom: T
 	get() {
@@ -95,10 +105,6 @@ val <T : LinearLayout.LayoutParams> T.GravityBottomCenter: T
 		return this
 	}
 
-fun <T : LinearLayout.LayoutParams> T.gravityLeft(): T {
-	gravity = Gravity.LEFT
-	return this
-}
 
 val <T : LinearLayout.LayoutParams> T.GravityLeft: T
 	get() {
@@ -117,10 +123,6 @@ val <T : LinearLayout.LayoutParams> T.GravityLeftCenter: T
 		return this
 	}
 
-fun <T : LinearLayout.LayoutParams> T.gravityRight(): T {
-	gravity = Gravity.RIGHT
-	return this
-}
 
 val <T : LinearLayout.LayoutParams> T.GravityRight: T
 	get() {

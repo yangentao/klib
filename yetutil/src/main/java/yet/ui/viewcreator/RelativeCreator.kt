@@ -1,6 +1,5 @@
 package yet.ui.viewcreator
 
-import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.view.View
@@ -11,18 +10,6 @@ import yet.ui.ext.genId
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
-
-fun Activity.relative(block: RelativeLayout.() -> Unit): RelativeLayout {
-	val rl = RelativeLayout(this).genId()
-	rl.block()
-	return rl
-}
-
-fun Fragment.relative(block: RelativeLayout.() -> Unit): RelativeLayout {
-	val rl = RelativeLayout(this.activity).genId()
-	rl.block()
-	return rl
-}
 
 
 //RelativeLayout

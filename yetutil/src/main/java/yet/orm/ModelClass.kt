@@ -1,6 +1,7 @@
 package yet.orm
 
 import android.content.ContentValues
+import android.support.annotation.Keep
 import yet.ext.getValue
 import java.util.*
 import kotlin.reflect.KMutableProperty
@@ -10,7 +11,7 @@ import kotlin.reflect.KMutableProperty0
  * Created by entaoyang@163.com on 2017-03-07.
  */
 
-
+@Keep
 open class ModelClass<T : Model> {
 	val modelClass = javaClass.enclosingClass.kotlin
 	val MSG_RELOAD = "${modelClass.simpleName}.reload"
@@ -39,6 +40,7 @@ open class ModelClass<T : Model> {
 	open fun update(cv: ContentValues, where: Where?): Int {
 		return Session.peek.update(modelClass, cv, where)
 	}
+
 
 	open fun findAll(w: Where?, block: ModelQuery.() -> Unit = {}): ArrayList<T> {
 		val q = Session.peek.from(modelClass)
@@ -79,7 +81,8 @@ open class ModelClass<T : Model> {
 	open fun exist(w: Where): Boolean {
 		return findOne(w) != null
 	}
-	open fun count(w:Where?):Int {
+
+	open fun count(w: Where?): Int {
 		return Session.peek.from(modelClass).where(w).queryCount()
 	}
 

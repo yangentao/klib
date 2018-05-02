@@ -28,7 +28,13 @@ object Colors {
 
 	var GreenMajor = 0xFF5ABA39.color
 	var RedMajor = 0xFFD83B31.color
+	var OrangeMajor = 0xFFF5A623.color
+	var CyanMajor = 0xFF50E3C2.color
+	var PinkMajor = 0xFFFD6691.color
+
+
 	var Warning = 0xFFF3A407.color
+
 
 
 	var Theme = 0xFF34C4AA.color

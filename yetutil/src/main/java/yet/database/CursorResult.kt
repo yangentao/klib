@@ -1,15 +1,12 @@
 package yet.util.database
 
 import android.database.Cursor
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
-import yet.json.putDouble
-import yet.json.putLong
 import yet.json.putNull
-import yet.json.putString
 import yet.util.log.xlog
+import yet.yson.YsonArray
+import yet.yson.YsonObject
 import java.util.*
 
 /**
@@ -102,8 +99,8 @@ class CursorResult(c: Cursor?) {
 
 	 * @return
 	 */
-	fun jsonObject(): JsonObject? {
-		var jo: JsonObject? = null
+	fun jsonObject(): YsonObject? {
+		var jo: YsonObject? = null
 		try {
 			if (cursor.moveToNext()) {
 				jo = mapOne(cursor)
@@ -133,8 +130,8 @@ class CursorResult(c: Cursor?) {
 
 	 * @return
 	 */
-	fun jsonArray(): JsonArray {
-		val arr = JsonArray()
+	fun jsonArray(): YsonArray {
+		val arr = YsonArray()
 		try {
 			while (cursor.moveToNext()) {
 				val jo = mapOne(cursor)
@@ -388,16 +385,16 @@ class CursorResult(c: Cursor?) {
 	 * *
 	 * @return 不会返回null
 	 */
-	fun mapOne(c: Cursor): JsonObject {
-		val jo = JsonObject()
-		for (i in 0..c.columnCount - 1) {
+	fun mapOne(c: Cursor): YsonObject {
+		val jo = YsonObject()
+		for (i in 0 until c.columnCount) {
 			val key = c.getColumnName(i)
 			val type = c.getType(i)
 			when (type) {
-				Cursor.FIELD_TYPE_INTEGER -> jo.putLong(key, c.getLong(i))
-				Cursor.FIELD_TYPE_FLOAT -> jo.putDouble(key, c.getDouble(i))
-				Cursor.FIELD_TYPE_STRING -> jo.putString(key, c.getString(i))
-				Cursor.FIELD_TYPE_NULL -> jo.putNull(key)
+				Cursor.FIELD_TYPE_INTEGER -> jo.any(key, c.getLong(i))
+				Cursor.FIELD_TYPE_FLOAT -> jo.any(key, c.getDouble(i))
+				Cursor.FIELD_TYPE_STRING -> jo.any(key, c.getString(i))
+				Cursor.FIELD_TYPE_NULL -> jo.any(key, null )
 				Cursor.FIELD_TYPE_BLOB -> {
 				}
 				else -> {
@@ -408,7 +405,7 @@ class CursorResult(c: Cursor?) {
 	}
 	fun mapOne2(c: Cursor): JSONObject {
 		val jo = JSONObject()
-		for (i in 0..c.columnCount - 1) {
+		for (i in 0 until c.columnCount) {
 			val key = c.getColumnName(i)
 			val type = c.getType(i)
 			when (type) {

@@ -15,7 +15,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import yet.theme.Colors
 import yet.ui.MyColor
-import yet.ui.dialogs.OKDialog
 import yet.util.*
 import yet.util.app.App
 import yet.util.app.Perm
@@ -25,12 +24,10 @@ import java.util.*
  * Created by yangentao on 16/3/12.
  */
 
-open class BaseActivity : Activity(), MsgListener, PermContext {
-	val PERM_REQ = 79
+open class BaseActivity : Activity(), MsgListener {
 
 	var fullScreen = false
 
-	var permStack: Stack<Perm> = Stack()
 	val watchMap = HashMap<Uri, ContentObserver>()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +40,8 @@ open class BaseActivity : Activity(), MsgListener, PermContext {
 		statusBarColorFromTheme()
 		MsgCenter.listenAll(this)
 	}
-	fun setWindowFullScreen(){
+
+	fun setWindowFullScreen() {
 		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN)
 	}
@@ -79,36 +77,10 @@ open class BaseActivity : Activity(), MsgListener, PermContext {
 	}
 
 
-	override fun getActivityContext(): Activity {
-		return this
-	}
 
-	override fun reqPerm(req: Perm) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			req.checkSelf()
-			if (req.denyPerms.isEmpty()) {
-				req.onAllowed(false)
-			} else {
-				permStack.push(req)
-				requestPermissions(req.denyPerms.toTypedArray(), PERM_REQ)
-			}
-		} else {
-			req.onAllowed(true)
-		}
-	}
 
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-		if (requestCode == PERM_REQ) {
-			if (permStack.isNotEmpty()) {
-				val req = permStack.pop()
-				req.checkSelf()
-				if (req.denyPerms.isEmpty()) {
-					req.onAllowed(false)
-				} else {
-					req.onDeny()
-				}
-			}
-		}
+		Perm.onPermResult(requestCode, permissions, grantResults)
 	}
 
 
@@ -134,15 +106,6 @@ open class BaseActivity : Activity(), MsgListener, PermContext {
 		}
 	}
 
-	fun alert(title: String, msg: String) {
-		val dlg = OKDialog()
-		dlg.show(this, title, msg)
-	}
-
-	fun alert(msg: String) {
-		val dlg = OKDialog()
-		dlg.show(this, msg)
-	}
 
 	override fun startActivity(intent: Intent) {
 		super.startActivity(intent)

@@ -1,6 +1,7 @@
 package yet.util
 
 import android.net.Uri
+import yet.ext.closeSafe
 import yet.util.app.App
 import yet.util.log.loge
 import yet.util.log.xlog
@@ -86,7 +87,7 @@ fun AND(vararg objs: Any?): Boolean {
 @Throws(IOException::class)
 fun copyStream(input: InputStream, closeIs: Boolean, os: OutputStream, closeOs: Boolean, total: Int, progress: Progress?) {
 	try {
-		progress?.onStart(total)
+		progress?.onProgressStart(total)
 
 		val buf = ByteArray(4096)
 		var pre = System.currentTimeMillis()
@@ -109,12 +110,12 @@ fun copyStream(input: InputStream, closeIs: Boolean, os: OutputStream, closeOs: 
 		progress?.onProgress(recv, total, if (total > 0) recv * 100 / total else 0)
 	} finally {
 		if (closeIs) {
-			close(input)
+			input.closeSafe()
 		}
 		if (closeOs) {
-			close(os)
+			os.closeSafe()
 		}
-		progress?.onFinish()
+		progress?.onProgressFinish()
 	}
 }
 
@@ -131,14 +132,6 @@ class SizeStream : OutputStream() {
 		this.size += size
 	}
 
-}
-
-fun close(c: Closeable?) {
-	try {
-		c?.close()
-	} catch (e: Exception) {
-		e.printStackTrace()
-	}
 }
 
 fun toast(vararg args: Any?) {

@@ -10,6 +10,13 @@ import yet.ui.res.ColorStated
  * Created by entaoyang@163.com on 2016-07-21.
  */
 
+fun GRAY(g: Int): Int {
+	return RGB(g, g, g)
+}
+
+fun AGRAY(alpha: Int, g: Int): Int {
+	return ARGB(alpha, g, g, g)
+}
 
 fun RGB(r: Int, g: Int, b: Int): Int {
 	return Color.rgb(r, g, b)

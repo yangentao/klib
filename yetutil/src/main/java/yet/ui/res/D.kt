@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.support.annotation.DrawableRes
@@ -11,7 +12,8 @@ import net.yet.R
 import yet.ext.RGB
 import yet.theme.Colors
 import yet.theme.IconSize
-import yet.theme.InputSize
+import yet.theme.ViewSize
+import yet.ui.ext.dp
 import yet.ui.widget.EditTextX
 import yet.util.app.App
 
@@ -31,39 +33,46 @@ object D {
 		}
 	val Input: Drawable
 		get() {
-			val corner: Int = InputSize.EditCorner
+			val corner: Int = ViewSize.EditCorner
 			val normal = RectDraw(Colors.WHITE).corner(corner).stroke(1, Colors.GRAY).value
 			val focused = RectDraw(Colors.WHITE).corner(corner).stroke(1, Colors.EditFocus).value
 			return focused(normal, focused)
 		}
 	val InputSearch: Drawable
 		get() {
-			val corner: Int = InputSize.EditHeightSearch / 2
+			val corner: Int = ViewSize.EditHeightSearch / 2
 			val normal = RectDraw(Colors.WHITE).corner(corner).stroke(1, Colors.GRAY).value
 			val focused = RectDraw(Colors.WHITE).corner(corner).stroke(1, Colors.EditFocus).value
 			return focused(normal, focused)
 		}
 
-	fun buttonGreen(corner: Int = InputSize.ButtonCorner): Drawable {
+	val InputRect: Drawable
+		get() {
+			val normal = RectDraw(Colors.WHITE).corner(2).stroke(1, Colors.GRAY).value
+			val focused = RectDraw(Colors.WHITE).corner(2).stroke(1, Colors.EditFocus).value
+			return focused(normal, focused)
+		}
+
+	fun buttonGreen(corner: Int = ViewSize.ButtonCorner): Drawable {
 		return buttonColor(Colors.Safe, corner)
 	}
 
-	fun buttonRed(corner: Int = InputSize.ButtonCorner): Drawable {
+	fun buttonRed(corner: Int = ViewSize.ButtonCorner): Drawable {
 		return buttonColor(Colors.RedMajor, corner)
 	}
 
-	fun buttonWhite(corner: Int = InputSize.ButtonCorner): Drawable {
-		return buttonColor(Color.rgb(245, 245, 245), corner)
+	fun buttonWhite(corner: Int = ViewSize.ButtonCorner): Drawable {
+		return buttonColor(Color.rgb(230, 230, 230), corner)
 	}
 
-	fun buttonColor(color: Int, corner: Int = InputSize.ButtonCorner): Drawable {
+	fun buttonColor(color: Int, corner: Int = ViewSize.ButtonCorner): Drawable {
 		val normal = RectDraw(color).corner(corner).value
 		val pressed = RectDraw(Colors.Fade).corner(corner).value
 		val enableFalse = RectDraw(Colors.Disabled).corner(corner).value
 		return ImageStated(normal).pressed(pressed).enabled(enableFalse, false).value
 	}
 
-	fun panelBorder(color: Int = Colors.LightGray, corner: Int = InputSize.ButtonCorner): Drawable {
+	fun panelBorder(color: Int = Colors.LightGray, corner: Int = ViewSize.ButtonCorner): Drawable {
 		return RectDraw(Color.WHITE).corner(corner).stroke(1, color).value
 	}
 
@@ -81,6 +90,10 @@ object D {
 
 	fun limited(@DrawableRes resId: Int, edge: Int): Drawable {
 		return res(resId).limited(edge)
+	}
+
+	fun tinted(@DrawableRes res: Int, color: Int): Drawable {
+		return D.res(res).tinted(color)
 	}
 
 	fun tintTheme(@DrawableRes res: Int): StateListDrawable {
@@ -121,5 +134,23 @@ object D {
 
 	fun focused(normal: Drawable, focusedImage: Drawable): StateListDrawable {
 		return ImageStated(normal).focused(focusedImage).value
+	}
+
+	fun layerOval(resId: Int, tintColor: Int, ovalColor: Int, inset: Int): LayerDrawable {
+		return layerOval(Res.drawable(resId).tinted(tintColor), ovalColor, inset)
+	}
+
+	fun layerOval(resId: Int, ovalColor: Int, inset: Int): LayerDrawable {
+		return layerOval(Res.drawable(resId), ovalColor, inset)
+	}
+
+	fun layerOval(drawable: Drawable, ovalColor: Int, inset: Int): LayerDrawable {
+		val bg = Shapes.oval {
+			fillColor = ovalColor
+		}
+		val ld = LayerDrawable(arrayOf(bg, drawable))
+		val n = dp(inset)
+		ld.setLayerInset(1, n, n, n, n)
+		return ld
 	}
 }

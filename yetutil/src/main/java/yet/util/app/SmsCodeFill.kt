@@ -2,13 +2,11 @@ package yet.util.app
 
 import android.net.Uri
 import android.widget.TextView
-import com.google.gson.JsonArray
-import yet.json.eachObject
-import yet.json.optString
 import yet.util.RepeatCallback
 import yet.util.TaskUtil
 import yet.util.database.GE
 import yet.util.database.UriQuery
+import yet.yson.YsonArray
 import java.util.regex.Pattern
 
 /**
@@ -17,8 +15,8 @@ import java.util.regex.Pattern
 object SmsCodeFill {
 	private val INBOX_SMS_URI = Uri.parse("content://sms/inbox")
 
-	fun getSmsSince(time: Long): JsonArray {
-		return UriQuery(INBOX_SMS_URI).where("date" GE time).desc("date").resultJsonArray();
+	fun getSmsSince(time: Long): YsonArray {
+		return UriQuery(INBOX_SMS_URI).where("date" GE time).desc("date").resultYsonArray();
 	}
 
 	fun searchSmsCode(textView: TextView, sinceTime: Long = System.currentTimeMillis()) {
@@ -27,8 +25,8 @@ object SmsCodeFill {
 			override fun onRepeat(index: Int, value: Long): Boolean {
 				val ja = getSmsSince(sinceTime)
 				ja.eachObject {
-					val code = matchCode(it.optString("body"))
-					val n = code?.length ?:  0
+					val code = matchCode(it.str("body"))
+					val n = code?.length ?: 0
 					if (n in 4..6) {
 						textView.text = code
 						return false

@@ -11,22 +11,29 @@ import yet.ui.ext.*
  * Created by entaoyang@163.com on 2018-03-14.
  */
 
+fun ViewGroup.textView(block: TextView.() -> Unit): TextView {
+	val v = this.createTextView()
+	this.addView(v)
+	v.block()
+	return v
+}
+
 //TextView
-fun  ViewGroup.textView(param:ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
+fun ViewGroup.textView(param: ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
 	val v = this.createTextView()
 	this.addView(v, param)
 	v.block()
 	return v
 }
 
-fun  ViewGroup.textView(index: Int, param:ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
+fun ViewGroup.textView(index: Int, param: ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
 	val v = this.createTextView()
 	this.addView(v, index, param)
 	v.block()
 	return v
 }
 
-fun  ViewGroup.textViewBefore(ankor: View, param:ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
+fun ViewGroup.textViewBefore(ankor: View, param: ViewGroup.LayoutParams, block: TextView.() -> Unit): TextView {
 	return this.textView(this.indexOfChild(ankor), param, block)
 }
 

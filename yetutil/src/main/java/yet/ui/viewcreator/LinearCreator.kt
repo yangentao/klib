@@ -5,49 +5,11 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import yet.ui.ext.genId
-import yet.ui.ext.horizontal
-import yet.ui.ext.vertical
+import yet.ui.ext.*
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
-
-fun Context.linearVer(block: LinearLayout.() -> Unit): LinearLayout {
-	val ll = LinearLayout(this).genId().vertical()
-	ll.block()
-	return ll
-}
-
-fun Context.linearHor(block: LinearLayout.() -> Unit): LinearLayout {
-	val ll = LinearLayout(this).genId().horizontal()
-	ll.block()
-	return ll
-}
-
-fun Context.linear(block: LinearLayout.() -> Unit): LinearLayout {
-	val ll = LinearLayout(this).genId()
-	ll.block()
-	return ll
-}
-
-fun Fragment.linearVer(block: LinearLayout.() -> Unit): LinearLayout {
-	val ll = LinearLayout(this.activity).genId().vertical()
-	ll.block()
-	return ll
-}
-
-fun Fragment.linearHor(block: LinearLayout.() -> Unit): LinearLayout {
-	val ll = LinearLayout(this.activity).genId().horizontal()
-	ll.block()
-	return ll
-}
-
-fun Fragment.linear(block: LinearLayout.() -> Unit): LinearLayout {
-	val ll = LinearLayout(this.activity).genId()
-	ll.block()
-	return ll
-}
 
 
 //LinearLayout

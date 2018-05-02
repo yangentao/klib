@@ -9,14 +9,14 @@ import android.widget.ListView
 import yet.theme.Colors
 import yet.ui.ext.genId
 import yet.ui.res.D
-import yet.ui.widget.listview.SimpleListView
+import yet.ui.list.SimpleListView
 
 /**
  * Created by entaoyang@163.com on 2018-03-14.
  */
 
-fun <D> ViewGroup.simpleListView(param: ViewGroup.LayoutParams, block: SimpleListView<D>.() -> Unit): SimpleListView<D> {
-	val lv = SimpleListView<D>(context)
+fun  ViewGroup.simpleListView(param: ViewGroup.LayoutParams, block: SimpleListView.() -> Unit): SimpleListView {
+	val lv = SimpleListView(context)
 	this.addView(lv, param)
 	lv.block()
 	return lv

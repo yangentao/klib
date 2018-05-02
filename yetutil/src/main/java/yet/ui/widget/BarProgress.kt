@@ -6,17 +6,17 @@ import yet.util.Progress
  * Created by entaoyang@163.com on 16/6/18.
  */
 
-class BarProgress(val bar: MyProgressBar) : Progress {
-	override fun onStart(total: Int) {
-		bar.postShow(100)
+class BarProgress(val bar: TopProgressBar) : Progress {
+	override fun onProgressStart(total: Int) {
+		bar.show(100)
 	}
 
 	override fun onProgress(current: Int, total: Int, percent: Int) {
-		bar.postProgress(percent)
+		bar.setProgress(percent)
 	}
 
-	override fun onFinish() {
-		bar.postHide()
+	override fun onProgressFinish() {
+		bar.hide()
 	}
 
 }

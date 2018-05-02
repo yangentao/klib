@@ -6,11 +6,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import yet.ext.color
 import yet.theme.Colors
-import yet.theme.TextColor
 import yet.ui.ext.*
 import yet.ui.viewcreator.createTextView
 import yet.ui.viewcreator.textView
-import yet.ui.widget.listview.itemview.TextDetailView
+import yet.ui.list.views.TextDetailView
 
 /**
  * Created by entaoyang@163.com on 2017-05-20.
@@ -53,12 +52,12 @@ class TitleContentView(context: Context) : LinearLayout(context) {
 	}
 
 	companion object {
-		var defaultTitleTextColor: Int = TextColor.Primary
+		var defaultTitleTextColor: Int = Colors.TextColorMajor
 		var defaultHasLine = true
 		var defaultLineColor = Colors.WHITE
 		var defaultBackColor = 0xeeeeee.color
 		var defaultBackCorner = 4
-		var defaultTextColor = TextColor.Primary
+		var defaultTextColor = Colors.TextColorMajor
 	}
 }
 inline fun <P : ViewGroup.LayoutParams> ViewGroup.addTitleContentView(param: P, block: TitleContentView.() -> Unit): TitleContentView {

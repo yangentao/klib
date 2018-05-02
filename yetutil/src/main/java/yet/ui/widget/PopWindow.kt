@@ -192,8 +192,4 @@ open class PopWindow {
 		}
 	}
 
-
-	companion object {
-		var ANIM_RIGHT_IN = net.yet.R.style.yet_pop_anim_style_right_in_right_out
-	}
 }

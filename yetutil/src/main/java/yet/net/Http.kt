@@ -4,6 +4,7 @@ package yet.net
 import android.net.Uri
 import android.os.NetworkOnMainThreadException
 import android.util.Base64
+import yet.ext.closeSafe
 import yet.ext.head
 import yet.util.*
 import yet.util.app.App
@@ -37,12 +38,12 @@ class Http(val url: String) {
 	private var method: HttpMethod = HttpMethod.GET
 
 	private val headerMap = HashMap<String, String>()
-	private val argMap = HashMap<String, String>()
+	val argMap = HashMap<String, String>()
 
 	private val fileList = ArrayList<FileParam>()
 
-	private var timeoutConnect = 10000
-	private var timeoutRead = 10000
+	private var timeoutConnect = 20000
+	private var timeoutRead = 20000
 	//	private var rawData: ByteArray? = null
 	private var rawData: ByteArray? = null
 
@@ -182,6 +183,15 @@ class Http(val url: String) {
 		return this
 	}
 
+	fun arg(key: String, value: Double): Http {
+		argMap.put(key, "" + value)
+		return this
+	}
+
+	fun arg(key: String, value: Boolean): Http {
+		argMap.put(key, "" + value)
+		return this
+	}
 
 	fun args(vararg args: Pair<String, String>): Http {
 		for ((k, v) in args) {
@@ -290,7 +300,7 @@ class Http(val url: String) {
 				val total = fis.available()
 				if (os is SizeStream) {
 					os.incSize(total)
-					close(fis)
+					fis.closeSafe()
 				} else {
 					copyStream(fis, true, os, false, total, progress)
 				}
@@ -396,7 +406,7 @@ class Http(val url: String) {
 			}
 			os.flush()
 		} finally {
-			close(os)
+			os.closeSafe()
 		}
 	}
 

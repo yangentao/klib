@@ -98,6 +98,10 @@ class YsonArray(val data: ArrayList<YsonValue> = ArrayList(16)) : YsonValue(), M
 		return this.map { (it as YsonString).data }
 	}
 
+	fun toObjectList(): List<YsonObject> {
+		return this.map { it as YsonObject }
+	}
+
 	fun add(value: String?) {
 		if (value == null) {
 			add(YsonNull.inst)
@@ -166,5 +170,11 @@ class YsonArray(val data: ArrayList<YsonValue> = ArrayList(16)) : YsonValue(), M
 			else -> add(value.toString())
 		}
 
+	}
+
+	inline fun eachObject(block:(YsonObject)->Unit) {
+		for(item in this) {
+			block(item as YsonObject)
+		}
 	}
 }

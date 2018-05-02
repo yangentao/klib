@@ -67,31 +67,6 @@ fun Context.viewAction(uri: Uri, dataType: String) {
 	this.openActivity(intent)
 }
 
-val Context.defaultSharedPreferences: SharedPreferences
-	get() = PreferenceManager.getDefaultSharedPreferences(this)
-
-val Fragment.defaultSharedPreferences: SharedPreferences
-	get() = PreferenceManager.getDefaultSharedPreferences(activity)
-
-val Fragment.act: Activity
-	get() = activity
-
-val Fragment.ctx: Context
-	get() = activity
-
-val Context.ctx: Context
-	get() = this
-
-val Activity.act: Activity
-	get() = this
-
-inline fun <reified T : View> View.find(id: Int): T = findViewById(id) as T
-inline fun <reified T : View> Activity.find(id: Int): T = findViewById(id) as T
-inline fun <reified T : View> Fragment.find(id: Int): T = view?.findViewById(id) as T
-
-inline fun <reified T : View> View.findOptional(id: Int): T? = findViewById(id) as? T
-inline fun <reified T : View> Activity.findOptional(id: Int): T? = findViewById(id) as? T
-inline fun <reified T : View> Fragment.findOptional(id: Int): T? = view?.findViewById(id) as? T
 
 fun <T : Fragment> T.withArguments(vararg params: Pair<String, Any>): T {
 	arguments = bundleOf(*params)

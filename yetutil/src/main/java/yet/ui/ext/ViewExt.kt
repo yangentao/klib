@@ -7,8 +7,7 @@ import android.widget.LinearLayout
 import yet.ext.ColorDrawable
 import yet.theme.Colors
 import yet.theme.Space
-import yet.ui.res.D
-import yet.ui.res.RectDraw
+import yet.ui.res.*
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -142,10 +141,17 @@ fun <T : View> T.backColorTrans(): T {
 	setBackgroundColor(Colors.TRANS)
 	return this
 }
+
+fun <T : View> T.backColorTheme(): T {
+	backColor(Colors.Theme)
+	return this
+}
+
 fun <T : View> T.backColorThemeFade(): T {
 	backColor(Colors.Theme, Colors.Fade)
 	return this
 }
+
 fun <T : View> T.backColorWhiteFade(): T {
 	backColor(Colors.WHITE, Colors.Fade)
 	return this
@@ -185,6 +191,11 @@ fun <T : View> T.backDrawable(@DrawableRes resId: Int): T {
 
 fun <T : View> T.backDrawable(d: Drawable): T {
 	this.setBackgroundDrawable(d)
+	return this
+}
+
+fun <T : View> T.backDrawable(block: Shapes.RectOption.() -> Unit): T {
+	this.background = Shapes.rect(block)
 	return this
 }
 

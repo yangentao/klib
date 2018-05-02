@@ -7,83 +7,124 @@ import android.widget.FrameLayout
  * Created by entaoyang@163.com on 2016-10-29.
  */
 
-fun fParam(): FrameLayout.LayoutParams {
-	return frameParam()
-}
-fun frameParam(): FrameLayout.LayoutParams {
-	val p = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
-	return p
-}
+
+val FParam: FrameLayout.LayoutParams
+	get() {
+		return FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+	}
 
 
-fun <T : FrameLayout.LayoutParams> T.gravityTop(): T {
-	gravity = Gravity.TOP
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityTop: T
+	get() {
+		gravity = Gravity.TOP
+		return this
+	}
 
 
-fun <T : FrameLayout.LayoutParams> T.gravityTopCenter(): T {
-	gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityTopCenter: T
+	get() {
+		gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityBottom(): T {
-	gravity = Gravity.BOTTOM
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityTopLeft: T
+	get() {
+		gravity = Gravity.TOP or Gravity.LEFT
+		return this
+	}
+val <T : FrameLayout.LayoutParams> T.GravityTopRight: T
+	get() {
+		gravity = Gravity.TOP or Gravity.RIGHT
+		return this
+	}
+val <T : FrameLayout.LayoutParams> T.GravityBottom: T
+	get() {
+		gravity = Gravity.BOTTOM
+		return this
+	}
 
 
-fun <T : FrameLayout.LayoutParams> T.gravityBottomCenter(): T {
-	gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityBottomCenter: T
+	get() {
+		gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityLeft(): T {
-	gravity = Gravity.LEFT
-	return this
-}
 
-fun <T : FrameLayout.LayoutParams> T.gravityLeftCenter(): T {
-	gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityBottomLeft: T
+	get() {
+		gravity = Gravity.BOTTOM or Gravity.LEFT
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityRight(): T {
-	gravity = Gravity.RIGHT
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityBottomRight: T
+	get() {
+		gravity = Gravity.BOTTOM or Gravity.RIGHT
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityRightCenter(): T {
-	gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityLeft: T
+	get() {
+		gravity = Gravity.LEFT
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityFill(): T {
-	gravity = Gravity.FILL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityLeftCenter: T
+	get() {
+		gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityFillVertical(): T {
-	gravity = Gravity.FILL_VERTICAL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityRight: T
+	get() {
+		gravity = Gravity.RIGHT
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityFillHorizontal(): T {
-	gravity = Gravity.FILL_HORIZONTAL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityRightCenter: T
+	get() {
+		gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityCenterVertical(): T {
-	gravity = Gravity.CENTER_VERTICAL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityFill: T
+	get() {
+		gravity = Gravity.FILL
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityCenterHorizontal(): T {
-	gravity = Gravity.CENTER_HORIZONTAL
-	return this
-}
+val <T : FrameLayout.LayoutParams> T.GravityFillVertical: T
+	get() {
+		gravity = Gravity.FILL_VERTICAL
+		return this
+	}
 
-fun <T : FrameLayout.LayoutParams> T.gravityCenter(): T {
-	gravity = Gravity.CENTER
+val <T : FrameLayout.LayoutParams> T.GravityFillHorizontal: T
+	get() {
+		gravity = Gravity.FILL_HORIZONTAL
+		return this
+	}
+
+val <T : FrameLayout.LayoutParams> T.GravityCenterVertical: T
+	get() {
+		gravity = Gravity.CENTER_VERTICAL
+		return this
+	}
+
+val <T : FrameLayout.LayoutParams> T.GravityCenterHorizontal: T
+	get() {
+		gravity = Gravity.CENTER_HORIZONTAL
+		return this
+	}
+
+val <T : FrameLayout.LayoutParams> T.GravityCenter: T
+	get() {
+		gravity = Gravity.CENTER
+		return this
+	}
+
+
+fun <T : FrameLayout.LayoutParams> T.gravity(g: Int): T {
+	gravity = g
 	return this
 }

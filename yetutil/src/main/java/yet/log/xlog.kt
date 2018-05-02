@@ -1,9 +1,8 @@
 package yet.util.log
 
-import yet.file.SdAppFile
-import yet.util.MyDate
-import yet.util.debug
-import yet.util.mergeAction
+import yet.file.AppSD
+import yet.util.*
+import yet.yson.YsonValue
 import java.io.PrintWriter
 import java.io.StringWriter
 
@@ -22,7 +21,7 @@ object xlog : LogPrinter {
 		} else {
 			LogLevel2.INFO
 		}
-		printer = TreePrinter(LogcatPrinter(), FilePrinter(SdAppFile.log(MyDate().formatDate() + ".txt")))
+		printer = TreePrinter(LogcatPrinter(), FilePrinter(AppSD.log(MyDate().formatDate() + ".txt")))
 	}
 
 	override fun flush() {
@@ -45,6 +44,9 @@ object xlog : LogPrinter {
 		}
 		if (obj is String) {
 			return obj
+		}
+		if (obj is YsonValue) {
+			return obj.toString()
 		}
 		if (obj.javaClass.isPrimitive) {
 			return obj.toString()

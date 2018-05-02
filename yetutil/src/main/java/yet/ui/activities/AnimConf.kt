@@ -7,8 +7,8 @@ import net.yet.R
  */
 class AnimConf {
 	var startEnter = R.anim.yet_slide_in_right
-	var startExit = R.anim.yet_out_alpha
-	var finishEnter = 0
+	var startExit = R.anim.yet_slide_out_left
+	var finishEnter = R.anim.yet_slide_in_left
 	var finishExit = R.anim.yet_slide_out_right
 
 	fun onStart(enter: Int, exit: Int): AnimConf {
@@ -21,5 +21,10 @@ class AnimConf {
 		finishEnter = enter
 		finishExit = exit
 		return this
+	}
+
+	companion object {
+		val RightIn = AnimConf()
+		val LeftIn = AnimConf().onStart(R.anim.yet_slide_in_left, R.anim.yet_slide_out_right).onFinish(R.anim.yet_slide_in_right, R.anim.yet_slide_out_left)
 	}
 }

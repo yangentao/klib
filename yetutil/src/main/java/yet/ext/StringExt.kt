@@ -1,12 +1,8 @@
 package yet.ext
 
 import android.util.Base64
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import yet.net.IP
 import yet.util.FormatPhone
-import yet.util.JsonUtil
-import yet.util.StrBuilder
 import java.util.*
 
 /**
@@ -89,34 +85,6 @@ val String?.isIP: Boolean
 		return IP.isIP4(this)
 	}
 
-fun List<String>.join(sep: String): String {
-	val sb = StrBuilder(this.size * 10 + 8, sep)
-	for (s in this) {
-		sb.appendS(s)
-	}
-	return sb.toString()
-}
-
-fun Array<String>.join(sep: String): String {
-	val sb = StrBuilder(this.size * 10 + 8, sep)
-	sb.appendS(*this)
-	return sb.toString()
-}
-
-
-fun String?.toJsonObject(): JsonObject? {
-	if (this != null) {
-		return JsonUtil.parseObject(this)
-	}
-	return null
-}
-
-fun String?.toJsonArray(): JsonArray? {
-	if (this != null) {
-		return JsonUtil.parseArray(this)
-	}
-	return null
-}
 
 //"abcd=defg-123".substringBetween('=','-') => "defg"
 //"abcd=defg=123".substringBetween('=','=') => "defg"

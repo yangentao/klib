@@ -1,153 +1,140 @@
 package yet.ui.widget
 
 import android.content.Context
-import android.graphics.Color
-import android.view.View
+import android.graphics.drawable.Drawable
 import android.widget.LinearLayout
+import yet.theme.Colors
 import yet.ui.ext.*
-import yet.ui.res.ColorList
-import yet.ui.res.ColorStated
-import yet.ui.res.D
-import yet.ui.viewcreator.createRelative
-import yet.ui.viewcreator.createTextView
-import yet.ui.viewcreator.createTextViewD
-import java.util.*
+
 
 /**
- * Created by entaoyang@163.com on 16/3/13.
+ * Created by entaoyang@163.com on 2018-04-18.
  */
 
-/**
- * tabbar是有select状态的.
- */
-class TabBar(context: Context) : LinearLayout(context), IActionPanel {
-	override var allActions: ArrayList<Action> = ArrayList<Action>()
+class TabBar(context: Context) : LinearLayout(context) {
+	val itemList = ArrayList<TabBarItemView>()
+	var autoTintDrawable = true
 
+	var pushModel: Boolean = false
+		private set
 
-	override val actionPanelView: View
-		get() = this
+	private var itemBack = ArrayList<TabBarItemView>()
 
+	var onUnselect: (TabBarItemView) -> Unit = {
 
-	private var verLine = false
-	val style = TabBarStyle()
-	var HEIGHT = 50
-		get() {
-			return field
-		}
-		set(value) {
-			field = value
-			layoutParam().widthFill().height(HEIGHT).set(this)
-		}
-
+	}
+	var onReselect: (TabBarItemView) -> Unit = {
+	}
+	var onSelect: (TabBarItemView) -> Unit = {
+	}
 
 	init {
-		this.horizontal()
-		backColor(style.lineColor).gravityCenter()
-		layoutParam().widthFill().height(HEIGHT).set(this)
+		genId()
+		horizontal()
+		backColor(Colors.WHITE)
+		this.layoutParams = Param.WidthFill.HeightBar
+	}
+
+	fun push(block: TabBar.() -> Unit) {
+		if (!pushModel) {
+			pushModel = true
+			moveTo(itemList, itemBack)
+			this.block()
+			commit()
+		}
+	}
+
+	fun pop() {
+		if (pushModel) {
+			pushModel = false
+			moveTo(itemBack, itemList)
+			commit()
+		}
+	}
+
+	private fun <T> moveTo(from: ArrayList<T>, dest: ArrayList<T>) {
+		dest.clear()
+		dest.addAll(from)
+		from.clear()
 	}
 
 
-	var onUnselect: (TabBar, Action) -> Unit = {
-		b, a ->
-	}
-	var onReselect: (TabBar, Action) -> Unit = {
-		b, a ->
-	}
-	var onSelect: (TabBar, Action) -> Unit = {
-		b, a ->
+	fun find(block: (TabBarItemView) -> Boolean): TabBarItemView? {
+		return itemList.find(block)
 	}
 
-	val selectedAction: Action? get() {
-		for (a in visibleAcitons) {
-			if (a.selected) {
-				return a
+	fun find(text: String): TabBarItemView? {
+		return find {
+			it.textView.textS == text
+		}
+	}
+
+	fun commit() {
+		removeAllViews()
+		for (v in itemList) {
+			this.addView(v, LParam.WidthFlex.HeightFill)
+			v.onClick { clickTab(it, true) }
+		}
+		if (selectedItem == null) {
+			val v = itemList.firstOrNull()
+			if (v != null) {
+				clickTab(v, true)
 			}
 		}
-		return null
 	}
 
-	private val onClickListener = View.OnClickListener { v ->
-		val action = v.tag as Action
-		action.onAction(action)
-		select(action.tag)
+	val selectedItem: TabBarItemView?
+		get() {
+			return find {
+				it.isSelected
+			}
+		}
+
+	fun select(text: String, fire: Boolean) {
+		val v = itemList.find { it.text == text }
+		if (v != null) {
+			clickTab(v, fire)
+		}
 	}
 
-
-	fun select(tag: String) {
-		for (a in visibleAcitons) {
-			if (a.selected && !a.isTag(tag)) {
-				a.selected(false)
-				onUnselect.invoke(this@TabBar, a)
-			}
-		}
-		for (a in visibleAcitons) {
-			if (a.isTag(tag)) {
-				if (a.selected) {
-					onReselect.invoke(this@TabBar, a)
-				} else {
-					a.selected(true)
-					onSelect.invoke(this@TabBar, a)
-				}
-			}
-		}
-		rebuild()
-	}
-
-	override fun onRebuild() {
-		this.removeAllViews()
-		this.backColor(style.lineColor)
-		val items = visibleAcitons
-		val selAct = selectedAction
-		if (selAct == null) {
-			val a = items.firstOrNull()
-			if (a != null) {
-				a.selected(true)
-				onSelect.invoke(this@TabBar, a)
-			}
-		}
-		var size = items.size
-		for (action in items) {
-			val tv = context.createTextViewD()
-			val csl = ColorList(style.textColor).pressed(style.textPressedColor).selected(style.textSelectedColor).get()
-			tv.textColor(csl).gravityCenter().padding(1, 4, 1, 1)
-			val backDraw = ColorStated(style.backColor).pressed(style.backPressedColor).selected(style.backSelectedColor).value
-			tv.backDrawable(backDraw)//.miniHeightTV(TabBar.HEIGHT_MIN);
-			tv.text(action.label)
-			if (action.icon != null) {
-				action.icon?.setBounds(0, 0, dp(style.imageSize), dp(style.imageSize))
-				tv.compoundDrawablePadding = 0
-				tv.setCompoundDrawables(null, action.icon, null, null)
-			}
-
-			val indicateView = context.createTextView()
-			indicateView.textColor(Color.WHITE).textSizeSp(10).gravityCenter().backDrawable(D.RedPoint).gone()
-			if (action.num > 0) {
-				indicateView.visiable().text("" + action.num)
-			} else if (action.num == 0) {
-				indicateView.gone()
+	private fun clickTab(v: TabBarItemView, fire: Boolean) {
+		val old = itemList.find { it.isSelected }
+		if (old != null) {
+			if (old == v) {
+				onReselect(old)
+				return
 			} else {
-				// n < 0
-				indicateView.visiable().text("")
+				onUnselect(old)
 			}
-
-			val marginRight = if (verLine) if (size == size - 1) 0 else 1 else 0
-			val panel = context.createRelative()
-			panel.addViewParam(tv) { fill() }
-			panel.addViewParam(indicateView) { parentRight().parentTop().margins(0, 5, 5, 0).size(15) }
-
-			this.addViewParam(panel) { width(0).weight(1f).heightFill().gravityCenter().margins(0, 1, marginRight, 0) }
-
-			if (action.selected) {
-				panel.isSelected = true
-			}
-			panel.setOnClickListener(onClickListener)
-			panel.tag = action
+		}
+		itemList.forEach {
+			it.isSelected = false
+		}
+		v.isSelected = true
+		if (fire) {
+			onSelect(v)
 		}
 	}
 
-	fun setLineVer(verLine: Boolean): TabBar {
-		this.verLine = verLine
-		return this
+	fun tab(text: String, resId: Int): TabBarItemView {
+		val v = TabBarItemView(context)
+		v.autoTintDrawable = this.autoTintDrawable
+		v.setText(text)
+		v.setIcon(resId)
+		itemList += v
+		return v
 	}
 
+	fun tab(text: String, drawable: Drawable): TabBarItemView {
+		val v = TabBarItemView(context)
+		v.autoTintDrawable = this.autoTintDrawable
+		v.setText(text)
+		v.setIcon(drawable)
+		itemList += v
+		return v
+	}
+
+	companion object {
+		const val HEIGHT = 50// dp
+	}
 }

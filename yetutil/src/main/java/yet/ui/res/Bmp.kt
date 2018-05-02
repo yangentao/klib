@@ -9,7 +9,7 @@ import android.net.Uri
 import android.support.annotation.DrawableRes
 import android.util.DisplayMetrics
 import yet.ext.closeSafe
-import yet.file.SdAppFile
+import yet.file.AppSD
 import yet.theme.Colors
 import yet.util.MySize
 import yet.util.app.App
@@ -154,7 +154,7 @@ object Bmp {
 	fun compressJpg(from: Uri, maxEdge: Int): File? {
 		val bmp = uri(from, maxEdge, Config.ARGB_8888)
 		if (bmp != null) {
-			val tofile = SdAppFile.tempFile(".jpg")
+			val tofile = AppSD.tempFile(".jpg")
 			val b = bmp.saveJpg(tofile)
 			if (b && tofile.exists()) {
 				return tofile
@@ -168,7 +168,7 @@ object Bmp {
 	fun compressPng(from: Uri, maxEdge: Int): File? {
 		val bmp = uri(from, maxEdge, Config.ARGB_8888)
 		if (bmp != null) {
-			val tofile = SdAppFile.tempFile(".png")
+			val tofile = AppSD.tempFile(".png")
 			val b = bmp.savePng(tofile)
 			if (b && tofile.exists()) {
 				return tofile

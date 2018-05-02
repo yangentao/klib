@@ -5,9 +5,10 @@ import yet.ext.defaultValue
 import yet.ext.defaultValueOfProperty
 import yet.ext.strToV
 import yet.util.database.LiteBase
-import yet.util.database.MapLike
 import yet.util.log.logd
 import yet.util.runOnce
+import yet.yson.YsonArray
+import yet.yson.YsonObject
 import java.util.*
 import kotlin.reflect.KProperty
 
@@ -15,10 +16,10 @@ import kotlin.reflect.KProperty
  * Created by entaoyang@163.com on 2017-03-24.
  */
 
-class MapTable(val table: String) : MapLike<String> {
+class MapTable(val table: String) {
 
 	init {
-		runOnce("maptable." + table) {
+		runOnce("maptable.$table") {
 			liteBase.createTable(table, "key text PRIMARY KEY", "value text")
 			liteBase.createIndex(table, "value")
 		}
@@ -28,9 +29,10 @@ class MapTable(val table: String) : MapLike<String> {
 		this.put(property.customName, value)
 	}
 
-	@Suppress("UNCHECKED_CAST", "NON_PUBLIC_CALL_FROM_PUBLIC_INLINE")
+	@Suppress("UNCHECKED_CAST")
 	operator fun <V> getValue(thisRef: Any?, property: KProperty<*>): V {
-		val v = get(property.customName) ?: property.defaultValue ?: return if (property.returnType.isMarkedNullable) {
+		val v = get(property.customName) ?: property.defaultValue
+		?: return if (property.returnType.isMarkedNullable) {
 			null as V
 		} else {
 			defaultValueOfProperty(property)
@@ -67,6 +69,9 @@ class MapTable(val table: String) : MapLike<String> {
 
 	}
 
+	fun has(key: String): Boolean {
+		return liteBase.queryReqult("SELECT value from $table where key=?  limit 1", key).exist
+	}
 
 	operator fun get(key: String): String? {
 		return liteBase.queryReqult("SELECT value from $table where key=?  limit 1", key).strValue()
@@ -76,16 +81,42 @@ class MapTable(val table: String) : MapLike<String> {
 		liteBase.replace(table, "key" to key, "value" to value)
 	}
 
-	override fun getString(key: String): String? {
+	fun getString(key: String): String? {
 		return get(key)
 	}
 
-	override fun putString(key: String, value: String?) {
+	fun putString(key: String, value: String?) {
 		set(key, value)
 	}
 
 	fun put(key: String, value: Any?) {
 		return set(key, value?.toString())
+	}
+
+	fun getInt(key: String): Int? {
+		return getString(key)?.toIntOrNull()
+	}
+
+	fun getLong(key: String): Long? {
+		return getString(key)?.toLongOrNull()
+	}
+
+	fun getDouble(key: String): Double? {
+		return getString(key)?.toDoubleOrNull()
+	}
+
+	fun getBool(key: String): Boolean? {
+		return getString(key)?.toBoolean()
+	}
+
+	fun getYsonObject(key: String): YsonObject? {
+		val s = this.getString(key) ?: return null
+		return YsonObject(s)
+	}
+
+	fun getYsonArray(key: String): YsonArray? {
+		val s = this.getString(key) ?: return null
+		return YsonArray(s)
 	}
 
 	fun remove(key: String): Int {
@@ -105,5 +136,7 @@ class MapTable(val table: String) : MapLike<String> {
 
 	companion object {
 		private var liteBase: LiteBase = LiteBase("maptable.db")
+
+		val config = MapTable("global_config_map_table")
 	}
 }
